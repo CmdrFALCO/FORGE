@@ -1,0 +1,748 @@
+# ===========================================================================
+# PRISMATIC CELL MASTER TEMPLATE (Phase 1)
+# ===========================================================================
+#
+# Purpose: API contract for LLM-driven battery cell design
+# This template documents the complete set of parameters that CellCAD accepts,
+# with semantic documentation to help LLMs understand design intent and trade-offs.
+#
+# Documentation Format:
+#   WHAT: Definition, units, and meaning
+#   RANGE: [min - max] with typical automotive values in parentheses
+#   TRADE-OFF: (Optional) Design implications for key parameters
+#   COUPLED_WITH: (Optional) Related parameters that should change together
+#
+# ===========================================================================
+
+_meta:
+  template_version: "1.0"
+  cell_type: "prismatic"
+  base_reference: "v1_prismatic"
+  purpose: "API contract for LLM-driven prismatic cell design"
+  generated: "2025-12-12"
+  reference_cell: "V1 Prismatic"
+  description: |
+    Complete parameter schema for prismatic battery cell design.
+    LLM drivers use this template to understand:
+    - What each parameter means (semantic documentation)
+    - Valid bounds (min-max ranges with typical values)
+    - Design trade-offs (energy vs power vs cycle life)
+    - Parameter couplings (which should change together)
+
+# ===========================================================================
+# CORE PARAMETERS (Phase 1 - Fully Implemented)
+# ===========================================================================
+
+# ---------------------------------------------------------------------------
+# 1. ENVELOPE - Physical cell dimensions
+# ---------------------------------------------------------------------------
+
+envelope:
+  external:
+    cell_height_mm:
+      default: 88.8
+      # WHAT: External height of cell case (Z direction, "up" dimension) [mm]
+      # RANGE: [50 - 200] Typical automotive: 60-130 mm
+      # COUPLED_WITH: stack_config.electrode_pairs_per_stack (must fit internally)
+      type: float
+      min: 50.0
+      max: 200.0
+      unit: "mm"
+
+    cell_width_mm:
+      default: 264.6
+      # WHAT: External width of cell case (Y direction, "front-to-back") [mm]
+      # RANGE: [100 - 400] Typical automotive: 150-350 mm
+      # COUPLED_WITH: cathode.width_mm, anode offsets
+      type: float
+      min: 100.0
+      max: 400.0
+      unit: "mm"
+
+    cell_thickness_mm:
+      default: 29.6
+      # WHAT: External thickness of cell case (X direction, primary dimension) [mm]
+      # RANGE: [10 - 80] Typical automotive: 15-50 mm
+      # COUPLED_WITH: anode.offset_left_mm, anode.offset_right_mm
+      type: float
+      min: 10.0
+      max: 80.0
+      unit: "mm"
+
+  walls:
+    wall_top_mm:
+      default: 2.0
+      # WHAT: Top lid thickness [mm]
+      # RANGE: [0.5 - 5.0] Typical: 1.5-2.5 mm
+      # TRADE-OFF: Thicker = stronger, lighter cells need thicker lids
+      type: float
+      min: 0.5
+      max: 5.0
+      unit: "mm"
+
+    wall_bottom_mm:
+      default: 1.0
+      # WHAT: Bottom wall thickness [mm]
+      # RANGE: [0.5 - 3.0] Typical: 0.8-1.5 mm
+      type: float
+      min: 0.5
+      max: 3.0
+      unit: "mm"
+
+    wall_front_back_mm:
+      default: 0.5
+      # WHAT: Front and back wall thickness (YZ plane) [mm]
+      # RANGE: [0.3 - 2.0] Typical: 0.4-0.8 mm
+      type: float
+      min: 0.3
+      max: 2.0
+      unit: "mm"
+
+    wall_sides_mm:
+      default: 0.7
+      # WHAT: Left and right side wall thickness (XZ plane) [mm]
+      # RANGE: [0.3 - 2.0] Typical: 0.5-1.0 mm
+      type: float
+      min: 0.3
+      max: 2.0
+      unit: "mm"
+
+  internals:
+    insulation_coating_um:
+      default: 85.0
+      # WHAT: External insulation coating thickness [µm]
+      # RANGE: [0 - 200] Typical: 50-150 µm
+      # NOTE: Polypropylene (PP) external coating for electrical isolation
+      type: float
+      min: 0.0
+      max: 200.0
+      unit: "µm"
+
+    external_corner_radius_mm:
+      default: 3.0
+      # WHAT: Fillet radius on external vertical edges [mm]
+      # RANGE: [1.0 - 10.0] Typical: 2.0-4.0 mm
+      # NOTE: For CAD model generation and mechanical strength
+      type: float
+      min: 1.0
+      max: 10.0
+      unit: "mm"
+
+    internal_corner_radius_mm:
+      default: 1.5
+      # WHAT: Fillet radius on internal cavity corners [mm]
+      # RANGE: [0.5 - 5.0] Typical: 1.0-2.0 mm
+      type: float
+      min: 0.5
+      max: 5.0
+      unit: "mm"
+
+# ---------------------------------------------------------------------------
+# 2. STACK CONFIGURATION - Electrode arrangement
+# ---------------------------------------------------------------------------
+
+stack_config:
+  architecture:
+    num_stacks:
+      default: 2
+      # WHAT: Number of parallel electrode stacks in cell
+      # RANGE: [1 - 4] Typical: 2 stacks for prismatic
+      # TRADE-OFF: More stacks = lower current per stack, better heat distribution
+      # COUPLED_WITH: cathode.total_loading_mg_cm2 (scales proportionally)
+      type: int
+      min: 1
+      max: 4
+      unit: "-"
+
+    electrode_pairs_per_stack:
+      default: 44
+      # WHAT: Number of anode-cathode pairs per individual stack
+      # RANGE: [10 - 100] Typical automotive: 30-60 pairs per stack
+      # TRADE-OFF: More pairs = higher capacity, thicker stack, higher compression
+      # NOTE: Derived sheet counts: pairs→(pairs+1) anodes, (pairs) cathodes
+      type: int
+      min: 10
+      max: 100
+      unit: "-"
+
+    end_electrode_config:
+      default: "BothNegative"
+      # WHAT: Which electrodes appear at stack boundaries
+      # OPTIONS: ["BothNegative", "BothPositive", "PositiveNegative"]
+      # NOTES:
+      #   BothNegative: Anode at both ends (N-C-A-C-...-C-A-N)
+      #   BothPositive: Cathode at both ends (C-A-C-A-...-A-C-C)
+      #   PositiveNegative: Alternating ends (C-A-C-...-A-N)
+      type: string
+      unit: "-"
+
+  sheet_geometry:
+    cathode_height_mm:
+      default: 74.0
+      # WHAT: Cathode sheet height (active coating region) [mm]
+      # RANGE: [50 - 150] Typical: 60-100 mm
+      # NOTE: Usually < cell_height - wall_top - wall_bottom
+      type: float
+      min: 50.0
+      max: 150.0
+      unit: "mm"
+
+    cathode_width_mm:
+      default: 251.7
+      # WHAT: Cathode sheet width (active coating region) [mm]
+      # RANGE: [100 - 350] Typical: 150-300 mm
+      # NOTE: Usually < cell_width - 2*wall_sides
+      type: float
+      min: 100.0
+      max: 350.0
+      unit: "mm"
+
+    anode_offset_top_mm:
+      default: 2.0
+      # WHAT: Anode extends beyond cathode at top edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 2.0-4.0 mm
+      # PURPOSE: Ensures anode coverage under cathode for even current distribution
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    anode_offset_bottom_mm:
+      default: 2.0
+      # WHAT: Anode extends beyond cathode at bottom edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 2.0-4.0 mm
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    anode_offset_left_mm:
+      default: 2.0
+      # WHAT: Anode extends beyond cathode at left edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 2.0-4.0 mm
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    anode_offset_right_mm:
+      default: 2.0
+      # WHAT: Anode extends beyond cathode at right edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 2.0-4.0 mm
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    separator_offset_top_mm:
+      default: 2.0
+      # WHAT: Separator extends beyond anode at top edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 1.0-3.0 mm
+      # PURPOSE: Prevents anode-to-case contact at edges
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    separator_offset_bottom_mm:
+      default: 2.0
+      # WHAT: Separator extends beyond anode at bottom edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 1.0-3.0 mm
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    separator_offset_left_mm:
+      default: 2.0
+      # WHAT: Separator extends beyond anode at left edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 1.0-3.0 mm
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+    separator_offset_right_mm:
+      default: 2.0
+      # WHAT: Separator extends beyond anode at right edge [mm]
+      # RANGE: [0.0 - 5.0] Typical: 1.0-3.0 mm
+      type: float
+      min: 0.0
+      max: 5.0
+      unit: "mm"
+
+# ---------------------------------------------------------------------------
+# 3. ELECTROCHEMISTRY - Active materials & loading
+# ---------------------------------------------------------------------------
+
+electrochemistry:
+  cathode:
+    material_name:
+      default: "NCM (Ni-90.5)"
+      # WHAT: Cathode active material chemistry [name string]
+      # OPTIONS: ["NCM811", "NCM622", "NCA", "LFP", "LCO", "NMC (Ni-90.5)"]
+      # TRADE-OFF: NCM811→NCA = higher voltage/energy but lower cycle life
+      #            LFP = lower energy but superior safety and cycle life (>3000 cycles)
+      type: string
+      unit: "-"
+
+    loading_mg_cm2:
+      default: 19.674
+      # WHAT: Cathode active material coating loading (areal weight) [mg/cm²]
+      # RANGE: [5.0 - 30.0] Typical automotive: 15-25 mg/cm²
+      # TRADE-OFF: ↑ loading = ↑ energy density, ↓ power capability, ↓ cycle life
+      # COUPLED_WITH: anode.loading_mg_cm2 (must maintain N/P ratio 1.05-1.25)
+      type: float
+      min: 5.0
+      max: 30.0
+      unit: "mg/cm²"
+
+    rev_spec_capacity_mahg:
+      default: 193.814
+      # WHAT: Reversible specific capacity of cathode material [mAh/g]
+      # RANGE: [140 - 220] Typical: 160-210 mAh/g
+      # NOTE: Determined by material chemistry, user provides via material_name
+      type: float
+      min: 140.0
+      max: 220.0
+      unit: "mAh/g"
+
+    collector_thickness_um:
+      default: 12.0
+      # WHAT: Aluminum current collector foil thickness [µm]
+      # RANGE: [8 - 20] Typical: 10-15 µm
+      # TRADE-OFF: Thinner = lower weight/cost, higher resistance; thicker = heavier
+      type: float
+      min: 8.0
+      max: 20.0
+      unit: "µm"
+
+    coating_thickness_0pct_um:
+      default: 58.24
+      # WHAT: Cathode coating thickness at SoC 0% (fully discharged) [µm]
+      # RANGE: [40 - 100] Typical: 50-70 µm
+      # NOTE: Automatically calculated from loading × density if not provided
+      type: float
+      min: 40.0
+      max: 100.0
+      unit: "µm"
+
+    coating_thickness_100pct_um:
+      default: 57.08
+      # WHAT: Cathode coating thickness at SoC 100% (fully charged) [µm]
+      # RANGE: [40 - 100] Typical: 50-70 µm
+      # NOTE: Changes due to intercalation-driven swelling (~-2% for NMC)
+      type: float
+      min: 40.0
+      max: 100.0
+      unit: "µm"
+
+    porosity_pct:
+      default: 25.36
+      # WHAT: Coating porosity after calendering and formation [%]
+      # RANGE: [15 - 40] Typical: 20-35%
+      # TRADE-OFF: Higher porosity = better ion diffusion (faster kinetics) but
+      #            lower volumetric energy density and mechanical strength
+      type: float
+      min: 15.0
+      max: 40.0
+      unit: "%"
+
+  anode:
+    material_name:
+      default: "Graphite/SiOx (7.5% Si)"
+      # WHAT: Anode active material chemistry [name string]
+      # OPTIONS: ["Graphite", "Graphite/SiOx", "Li-metal", "LTO"]
+      # TRADE-OFF: Graphite = standard, proven; SiOx = higher energy (~10% more);
+      #            LTO = ultra-safe but lower energy (~50% of graphite)
+      type: string
+      unit: "-"
+
+    loading_mg_cm2:
+      default: 11.478
+      # WHAT: Anode active material coating loading (areal weight) [mg/cm²]
+      # RANGE: [5.0 - 20.0] Typical automotive: 8-15 mg/cm²
+      # TRADE-OFF: ↑ loading = ↑ capacity but ↑ plating risk, ↓ cycle life
+      # COUPLED_WITH: cathode.loading_mg_cm2 (maintain N/P ratio = 1.05-1.25)
+      # CONSTRAINT: N/P ratio = (anode_capacity / cathode_capacity) must be > 1.05
+      type: float
+      min: 5.0
+      max: 20.0
+      unit: "mg/cm²"
+
+    rev_spec_capacity_mahg:
+      default: 331.161
+      # WHAT: Reversible specific capacity of anode material [mAh/g]
+      # RANGE: [300 - 500] Typical: 320-370 mAh/g
+      # NOTE: Graphite ~350 mAh/g; SiOx higher; determined by material_name
+      type: float
+      min: 300.0
+      max: 500.0
+      unit: "mAh/g"
+
+    collector_thickness_um:
+      default: 6.0
+      # WHAT: Copper current collector foil thickness [µm]
+      # RANGE: [4 - 12] Typical: 5-10 µm
+      # TRADE-OFF: Thinner = lower weight, higher resistance
+      type: float
+      min: 4.0
+      max: 12.0
+      unit: "µm"
+
+    coating_thickness_0pct_um:
+      default: 85.47
+      # WHAT: Anode coating thickness at SoC 0% (fully discharged) [µm]
+      # RANGE: [40 - 150] Typical: 70-100 µm
+      type: float
+      min: 40.0
+      max: 150.0
+      unit: "µm"
+
+    coating_thickness_100pct_um:
+      default: 92.31
+      # WHAT: Anode coating thickness at SoC 100% (fully charged) [µm]
+      # RANGE: [40 - 150] Typical: 75-120 µm
+      # NOTE: Swelling for graphite-based anodes: +8% (dry → SoC100)
+      type: float
+      min: 40.0
+      max: 150.0
+      unit: "µm"
+
+    porosity_pct:
+      default: 38.01
+      # WHAT: Coating porosity after calendering and formation [%]
+      # RANGE: [20 - 45] Typical: 30-40%
+      # NOTE: Anodes generally more porous than cathodes (lithium kinetics)
+      type: float
+      min: 20.0
+      max: 45.0
+      unit: "%"
+
+    np_ratio:
+      default: 1.225
+      # WHAT: Anode-to-Cathode capacity ratio (N/P) [-]
+      # RANGE: [1.05 - 1.50] Typical: 1.10-1.30
+      # CONSTRAINT: Must be > 1.05 to avoid lithium plating at end-of-life
+      # CALCULATION: (anode_capacity_mah) / (cathode_capacity_mah)
+      # AUTOMATIC: CellCAD computes from loading and capacity values
+      type: float
+      min: 1.05
+      max: 1.50
+      unit: "-"
+
+  separator:
+    material_name:
+      default: "PP/Ceramic"
+      # WHAT: Separator material type [name string]
+      # OPTIONS: ["PE", "PP", "PP/Ceramic", "PET/Al/PP"]
+      # NOTES: PP/Ceramic common in high-voltage NMC; PE in LFP
+      type: string
+      unit: "-"
+
+    thickness_um:
+      default: 13.0
+      # WHAT: Separator film thickness [µm]
+      # RANGE: [9 - 25] Typical: 12-16 µm
+      # TRADE-OFF: Thinner = lower ionic resistance (faster), thicker = more robust
+      type: float
+      min: 9.0
+      max: 25.0
+      unit: "µm"
+
+    porosity_pct:
+      default: 42.646
+      # WHAT: Separator porosity [%]
+      # RANGE: [30 - 55] Typical: 40-50%
+      # TRADE-OFF: Higher = better ion transport, lower = stronger mechanical barrier
+      type: float
+      min: 30.0
+      max: 55.0
+      unit: "%"
+
+    areal_weight_mgcm2:
+      default: 1.250
+      # WHAT: Separator areal weight (mass per unit area) [mg/cm²]
+      # RANGE: [0.8 - 3.0] Typical: 1.0-2.0 mg/cm²
+      type: float
+      min: 0.8
+      max: 3.0
+      unit: "mg/cm²"
+
+  electrolyte:
+    material_name:
+      default: "LiPF6 in EC/DEC/EMC/FEC"
+      # WHAT: Electrolyte formulation [name string]
+      # NOTES: Standard 1.2M LiPF6, solvent blend: 20:45:25:10 EC:DEC:EMC:FEC
+      # ADDITIVES: VC (2%), LiDFOB (0.5%), PA800 (0.3%) typical
+      type: string
+      unit: "-"
+
+    salt_concentration_m:
+      default: 1.2
+      # WHAT: Lithium salt concentration (LiPF6) [molar, M]
+      # RANGE: [0.8 - 1.5] Typical: 1.0-1.2 M
+      type: float
+      min: 0.8
+      max: 1.5
+      unit: "M"
+
+    density_g_cm3:
+      default: 1.223
+      # WHAT: Electrolyte bulk density [g/cm³]
+      # RANGE: [1.10 - 1.40] Typical: 1.15-1.25 g/cm³
+      # NOTE: Determined by salt concentration and solvent composition
+      type: float
+      min: 1.10
+      max: 1.40
+      unit: "g/cm³"
+
+    excess_factor:
+      default: 1.0
+      # WHAT: Electrolyte volume excess factor relative to pore volume [-]
+      # RANGE: [1.0 - 1.2] Typical: 1.0-1.05
+      # TRADE-OFF: 1.0 = minimal excess (lighter); 1.1+ = safety margin for wetting
+      # COUPLED_WITH: electrolyte.total_mass_g (computed from this factor)
+      type: float
+      min: 1.0
+      max: 1.2
+      unit: "-"
+
+# ---------------------------------------------------------------------------
+# 4. CURRENT COLLECTION - Electron pathways
+# ---------------------------------------------------------------------------
+
+current_collection:
+  tabs:
+    cathode:
+      material:
+        default: "Aluminum"
+        # WHAT: Tab material for cathode collection [string]
+        # OPTIONS: ["Aluminum", "Nickel", "Copper-Nickel"]
+        # NOTES: Aluminum standard for cathode (Al collector); nickel for corrosion
+        type: string
+        unit: "-"
+
+      height_mm:
+        default: 40.0
+        # WHAT: Cathode tab height [mm]
+        # RANGE: [20 - 80] Typical: 30-50 mm
+        type: float
+        min: 20.0
+        max: 80.0
+        unit: "mm"
+
+      width_mm:
+        default: 50.0
+        # WHAT: Cathode tab width [mm]
+        # RANGE: [30 - 100] Typical: 40-70 mm
+        type: float
+        min: 30.0
+        max: 100.0
+        unit: "mm"
+
+      thickness_mm:
+        default: 0.3
+        # WHAT: Cathode tab thickness [mm]
+        # RANGE: [0.1 - 0.5] Typical: 0.2-0.4 mm
+        type: float
+        min: 0.1
+        max: 0.5
+        unit: "mm"
+
+    anode:
+      material:
+        default: "Copper"
+        # WHAT: Tab material for anode collection [string]
+        # OPTIONS: ["Copper", "Nickel", "Copper-Nickel"]
+        # NOTES: Copper standard for anode (Cu collector); nickel optional
+        type: string
+        unit: "-"
+
+      height_mm:
+        default: 40.0
+        # WHAT: Anode tab height [mm]
+        # RANGE: [20 - 80] Typical: 30-50 mm
+        type: float
+        min: 20.0
+        max: 80.0
+        unit: "mm"
+
+      width_mm:
+        default: 50.0
+        # WHAT: Anode tab width [mm]
+        # RANGE: [30 - 100] Typical: 40-70 mm
+        type: float
+        min: 30.0
+        max: 100.0
+        unit: "mm"
+
+      thickness_mm:
+        default: 0.2
+        # WHAT: Anode tab thickness [mm]
+        # RANGE: [0.1 - 0.4] Typical: 0.15-0.3 mm
+        # NOTE: Usually thinner than cathode tab
+        type: float
+        min: 0.1
+        max: 0.4
+        unit: "mm"
+
+# ---------------------------------------------------------------------------
+# 5. PACKAGING - Non-active components
+# ---------------------------------------------------------------------------
+
+packaging:
+  housing:
+    case_material:
+      default: "Aluminum 3003"
+      # WHAT: Case material [string]
+      # OPTIONS: ["Aluminum 3003", "Aluminum 1050", "Steel", "Composite"]
+      # NOTES: Aluminum 3003 standard (2.70 g/cm³), non-magnetic
+      type: string
+      unit: "-"
+
+    case_density_g_cm3:
+      default: 2.70
+      # WHAT: Case material bulk density [g/cm³]
+      # RANGE: [2.60 - 2.80] for aluminum
+      type: float
+      min: 2.60
+      max: 2.80
+      unit: "g/cm³"
+
+    lid_thickness_mm:
+      default: 2.0
+      # WHAT: Lid (top cover) thickness [mm]
+      # RANGE: [1.0 - 5.0] Typical: 1.5-2.5 mm
+      # NOTE: Usually same as wall_top_mm
+      type: float
+      min: 1.0
+      max: 5.0
+      unit: "mm"
+
+  insulation:
+    shell_thickness_um:
+      default: 120.0
+      # WHAT: Insulation shell around electrode stack thickness [µm]
+      # RANGE: [50 - 300] Typical: 100-150 µm
+      # MATERIAL: Polypropylene (PP) for electrical isolation
+      type: float
+      min: 50.0
+      max: 300.0
+      unit: "µm"
+
+    shell_count:
+      default: 2
+      # WHAT: Number of insulation shells (usually one per stack) [-]
+      # RANGE: [1 - 4] Equals num_stacks for standard designs
+      type: int
+      min: 1
+      max: 4
+      unit: "-"
+
+    fixing_tape_width_mm:
+      default: 30.0
+      # WHAT: Width of fixing tape that holds stack together [mm]
+      # RANGE: [10 - 50] Typical: 25-35 mm
+      # MATERIAL: Kapton or similar
+      type: float
+      min: 10.0
+      max: 50.0
+      unit: "mm"
+
+    fixing_tape_count:
+      default: 4
+      # WHAT: Number of fixing tape strips per cell [-]
+      # RANGE: [2 - 8] Typical: 3-5
+      type: int
+      min: 2
+      max: 8
+      unit: "-"
+
+# ===========================================================================
+# EXTENDED PARAMETERS (Phase 2 - Placeholders, not implemented yet)
+# ===========================================================================
+# These sections will be implemented in Phase 2 when CellCAD extends to FEM/CFD.
+# Currently, CellCAD passes these through without internal validation.
+
+cad_features:
+  # Already documented in cellcad/models/prismatic.py
+  # Includes: terminal_geometry, vent_geometry, corner_radii, weld_seam geometry
+  status: "PHASE 1 - IMPLEMENTED"
+  reference: "See cellcad/models/prismatic.py"
+
+thermal_properties:
+  status: "PHASE 2 - PLACEHOLDER"
+  description: "Anisotropic thermal conductivity for all materials"
+  parameters: [
+    "cathode_k_inplane_w_mk",
+    "cathode_k_throughplane_w_mk",
+    "anode_k_inplane_w_mk",
+    "anode_k_throughplane_w_mk",
+    "separator_k_inplane_w_mk",
+    "separator_k_throughplane_w_mk",
+    "electrolyte_k_isotropic_w_mk",
+    "case_k_w_mk",
+  ]
+
+mechanical_properties:
+  status: "PHASE 2 - PLACEHOLDER"
+  description: "Young's modulus, Poisson's ratio, CTE for all materials"
+  parameters: [
+    "cathode_youngs_modulus_gpa",
+    "anode_youngs_modulus_gpa",
+    "separator_youngs_modulus_gpa",
+    "case_youngs_modulus_gpa",
+  ]
+
+electrical_properties:
+  status: "PHASE 2 - PLACEHOLDER"
+  description: "Electronic & ionic conductivity, contact resistances"
+  parameters: [
+    "cathode_electronic_conductivity_s_m",
+    "anode_electronic_conductivity_s_m",
+    "separator_effective_conductivity_s_m",
+    "electrolyte_ionic_conductivity_s_m",
+  ]
+
+# ===========================================================================
+# VALIDATION RULES (Constraints)
+# ===========================================================================
+# CellCAD enforces these constraints during calculation
+
+_validation:
+  geometry_fit:
+    - "cathode_height_mm < cell_height_mm - wall_top_mm - wall_bottom_mm"
+    - "cathode_width_mm + 2*anode_offset < cell_width_mm - 2*wall_sides_mm"
+    - "stack_thickness_dry_mm < cell_thickness_mm - 2*wall_front_back_mm"
+
+  electrochemistry:
+    - "np_ratio >= 1.05  # Prevent lithium plating"
+    - "np_ratio <= 1.50  # Reasonable upper bound"
+    - "cathode_loading_mg_cm2 < 30.0  # Manufacturing limit"
+    - "anode_loading_mg_cm2 < 20.0  # Manufacturing limit"
+
+  stack_configuration:
+    - "num_stacks * electrode_pairs_per_stack > 0  # At least one electrode pair"
+    - "num_stacks <= 4  # Practical manufacturing limit"
+    - "electrode_pairs_per_stack <= 100  # Practical limit"
+
+# ===========================================================================
+# DEFAULTS REFERENCE
+# ===========================================================================
+# All default values are based on V1 Prismatic reference cell (validated design)
+
+_defaults_source:
+  cell_reference: "V1 Prismatic"
+  source_file: "V1_Prismatic_Reference_Data.md"
+  validation_status: "VALIDATED"
+  reference_outputs:
+    capacity_ah: 120.866
+    energy_wh: 440.467
+    gravimetric_energy_density_wh_kg: 261.151
+    volumetric_energy_density_wh_l: 629.292
+    cell_mass_g: 1686.64
+
+# ===========================================================================
+# END OF TEMPLATE
+# ===========================================================================

@@ -1,0 +1,732 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pouch Cell Definition Schema",
+  "description": "JSON Schema for validating pouch battery cell definitions. Mirrors pouch cell structure for LLM-generated parameter sets.",
+  "type": "object",
+  "required": [
+    "geometry",
+    "stack_config",
+    "electrochemistry",
+    "tabs",
+    "packaging"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "_meta": {
+      "type": "object",
+      "description": "Metadata about the cell definition",
+      "properties": {
+        "cell_type": {
+          "type": "string",
+          "const": "pouch"
+        },
+        "design_intent": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "geometry": {
+      "type": "object",
+      "description": "Sheet geometry with symmetric offsets",
+      "required": [
+        "cathode_height_mm",
+        "cathode_width_mm",
+        "anode_offset_mm",
+        "separator_offset_mm"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cathode_height_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 30.0,
+              "maximum": 500.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "cathode_width_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 30.0,
+              "maximum": 400.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "anode_offset_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 5.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "separator_offset_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 5.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        }
+      }
+    },
+    "stack_config": {
+      "type": "object",
+      "description": "Stack architecture configuration",
+      "required": [
+        "num_stacks",
+        "electrode_pairs_per_stack",
+        "end_electrode_config"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "num_stacks": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "electrode_pairs_per_stack": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 100
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "end_electrode_config": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": [
+                "BothNegative",
+                "BothPositive",
+                "PositiveNegative"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "separator_overwraps": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 4
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        }
+      }
+    },
+    "electrochemistry": {
+      "type": "object",
+      "required": [
+        "cathode",
+        "anode",
+        "separator",
+        "electrolyte"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cathode": {
+          "type": "object",
+          "required": [
+            "material_name",
+            "loading_mg_cm2",
+            "rev_spec_capacity_mahg",
+            "collector_thickness_um",
+            "coating_thickness_0pct_um",
+            "coating_thickness_100pct_um",
+            "porosity_pct"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "material_name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "loading_mg_cm2": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 5.0,
+                  "maximum": 30.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "rev_spec_capacity_mahg": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 140.0,
+                  "maximum": 220.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "collector_thickness_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 8.0,
+                  "maximum": 20.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "coating_thickness_0pct_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 40.0,
+                  "maximum": 100.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "coating_thickness_100pct_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 40.0,
+                  "maximum": 100.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "porosity_pct": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 15.0,
+                  "maximum": 40.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "coating_density_gcm3": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 2.0,
+                  "maximum": 5.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            }
+          }
+        },
+        "anode": {
+          "type": "object",
+          "required": [
+            "material_name",
+            "loading_mg_cm2",
+            "rev_spec_capacity_mahg",
+            "collector_thickness_um",
+            "coating_thickness_0pct_um",
+            "coating_thickness_100pct_um",
+            "porosity_pct",
+            "np_ratio"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "material_name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "loading_mg_cm2": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 5.0,
+                  "maximum": 20.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "rev_spec_capacity_mahg": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 300.0,
+                  "maximum": 500.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "collector_thickness_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 4.0,
+                  "maximum": 12.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "coating_thickness_0pct_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 40.0,
+                  "maximum": 150.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "coating_thickness_100pct_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 40.0,
+                  "maximum": 150.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "porosity_pct": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 20.0,
+                  "maximum": 45.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "np_ratio": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 1.05,
+                  "maximum": 1.5
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "coating_density_gcm3": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 1.5,
+                  "maximum": 3.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            }
+          }
+        },
+        "separator": {
+          "type": "object",
+          "required": [
+            "material_name",
+            "thickness_um",
+            "porosity_pct",
+            "areal_weight_mgcm2"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "material_name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "thickness_um": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 9.0,
+                  "maximum": 25.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "porosity_pct": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 30.0,
+                  "maximum": 55.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "areal_weight_mgcm2": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 0.8,
+                  "maximum": 3.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            }
+          }
+        },
+        "electrolyte": {
+          "type": "object",
+          "required": [
+            "material_name",
+            "density_g_cm3",
+            "excess_factor"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "material_name": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "density_g_cm3": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 1.1,
+                  "maximum": 1.4
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "excess_factor": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 1.0,
+                  "maximum": 1.3
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "tabs": {
+      "type": "object",
+      "description": "Tab (terminal) configurations",
+      "required": [
+        "cathode",
+        "anode"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "cathode": {
+          "type": "object",
+          "required": [
+            "material",
+            "height_mm",
+            "width_mm",
+            "thickness_mm"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "material": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "height_mm": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 10.0,
+                  "maximum": 60.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "width_mm": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 10.0,
+                  "maximum": 80.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "thickness_mm": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 0.1,
+                  "maximum": 0.5
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            }
+          }
+        },
+        "anode": {
+          "type": "object",
+          "required": [
+            "material",
+            "height_mm",
+            "width_mm",
+            "thickness_mm"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "material": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "height_mm": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 10.0,
+                  "maximum": 60.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "width_mm": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 10.0,
+                  "maximum": 80.0
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            },
+            "thickness_mm": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "minimum": 0.1,
+                  "maximum": 0.4
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": true
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "packaging": {
+      "type": "object",
+      "description": "Pouch packaging configuration",
+      "required": [
+        "pouch_thickness_mm",
+        "offset_top_mm",
+        "offset_bottom_mm",
+        "offset_sides_mm"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pouch_thickness_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 0.05,
+              "maximum": 0.3
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "offset_top_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 2.0,
+              "maximum": 20.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "offset_bottom_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 2.0,
+              "maximum": 20.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        },
+        "offset_sides_mm": {
+          "oneOf": [
+            {
+              "type": "number",
+              "minimum": 2.0,
+              "maximum": 20.0
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
+        }
+      }
+    }
+  }
+}
