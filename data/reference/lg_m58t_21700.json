@@ -1,0 +1,118 @@
+{
+  "metadata": {
+    "id": "lg_m58t_21700",
+    "name": "LG INR21700-M58T",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMCA/Graphite+SiO",
+    "source": "LG Energy Solution Datasheet INR21700M58T Rev 1.4 (2022), Batemo, About:Energy",
+    "confidence": "high",
+    "notes": "Highest capacity 21700 commercially available. Quaternary NMCA cathode (Mn,Ni,Co,Al) with silicon-oxide anode. ~15% higher capacity than M50."
+  },
+  "cell_specs": {
+    "chemistry": "NMCA/Graphite+SiO",
+    "capacity_ah": 5.8,
+    "nominal_voltage_v": 3.59,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 20.82,
+    "mass_g": 73.2,
+    "dimensions_mm": {
+      "diameter": 21.55,
+      "length": 70.8
+    },
+    "gravimetric_ed_whkg": 285.0,
+    "volumetric_ed_whl": 754.0
+  },
+  "geometry": {
+    "diameter_mm": 21.55,
+    "length_mm": 70.8,
+    "can_wall_thickness_mm": 0.22,
+    "can_bottom_thickness_mm": 0.38,
+    "header_height_mm": 3.2,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.5,
+    "winding_clearance_mm": 0.10,
+    "winding_tension_factor": 0.97,
+    "tab_type": "traditional",
+    "anode_tab_width_mm": 6.0,
+    "anode_tab_thickness_mm": 0.1,
+    "cathode_tab_width_mm": 5.0,
+    "cathode_tab_thickness_mm": 0.1
+  },
+  "header": {
+    "total_mass_g": 2.3,
+    "bottom_insulator_mass_g": 0.1,
+    "top_insulator_mass_g": 0.1,
+    "notes": "Standard 21700 high-energy header"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMCA (LG M58T)",
+      "chemistry": "NMCA",
+      "loading_mgcm2": 26.0,
+      "rev_spec_capacity_mahg": 205.0,
+      "max_spec_capacity_mahg": 220.0,
+      "collector_thickness_um": 14.0,
+      "coating_thickness_0pct_um": 82.0,
+      "coating_thickness_100pct_um": 83.0,
+      "coating_density_gcm3": 3.2,
+      "porosity_pct": 32.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity and NMCA parameters"
+    },
+    "anode": {
+      "name": "Graphite + SiO (LG M58T)",
+      "chemistry": "Graphite_SiO",
+      "loading_mgcm2": 14.0,
+      "rev_spec_capacity_mahg": 385.0,
+      "max_spec_capacity_mahg": 410.0,
+      "collector_thickness_um": 10.0,
+      "coating_thickness_0pct_um": 95.0,
+      "coating_thickness_100pct_um": 100.0,
+      "coating_density_gcm3": 1.45,
+      "porosity_pct": 25.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity and SiO-graphite parameters"
+    },
+    "separator": {
+      "name": "PE Ceramic Coated",
+      "thickness_um": 11.0,
+      "porosity_pct": 45.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.55,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.0
+    }
+  },
+  "performance": {
+    "standard_charge_a": 1.12,
+    "max_charge_a": 2.7,
+    "max_continuous_discharge_a": 12.5,
+    "pulse_discharge_a": 15.0,
+    "pulse_duration_s": 15,
+    "ac_impedance_mohm": 15.0,
+    "dc_impedance_mohm": 20.0,
+    "cycle_life_80pct": 500
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 5.8,
+      "total_mass_g": 73.2,
+      "gravimetric_ed_whkg": 285.0,
+      "volumetric_ed_whl": 754.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 3.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  }
+}

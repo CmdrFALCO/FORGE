@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "id": "panasonic_2170_nca",
+    "name": "Panasonic 2170 NCA (Tesla)",
+    "cell_type": "Cylindrical",
+    "chemistry": "NCA/Graphite+SiO",
+    "source": "Panasonic NCR21700A datasheet, Tesla Model 3 teardown data, Batemo characterization",
+    "confidence": "high",
+    "notes": "Panasonic NCR21700A / Tesla 2170 cell - Iconic high energy cell used in Tesla Model 3 and Model Y. Produced at Gigafactory 1 Nevada. NCA chemistry with silicon-doped graphite anode."
+  },
+  "cell_specs": {
+    "chemistry": "NCA/Graphite+SiO",
+    "capacity_ah": 4.8,
+    "nominal_voltage_v": 3.6,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 17.3,
+    "mass_g": 69.0,
+    "dimensions_mm": {
+      "diameter": 21.0,
+      "length": 70.0
+    },
+    "gravimetric_ed_whkg": 251.0,
+    "volumetric_ed_whl": 708.0
+  },
+  "geometry": {
+    "diameter_mm": 21.0,
+    "length_mm": 70.0,
+    "can_wall_thickness_mm": 0.23,
+    "can_bottom_thickness_mm": 0.40,
+    "header_height_mm": 3.2,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.5,
+    "winding_clearance_mm": 0.1,
+    "winding_tension_factor": 0.97,
+    "tab_type": "traditional",
+    "anode_tab_width_mm": 6.0,
+    "anode_tab_thickness_mm": 0.1,
+    "cathode_tab_width_mm": 5.0,
+    "cathode_tab_thickness_mm": 0.1
+  },
+  "header": {
+    "total_mass_g": 2.3,
+    "bottom_insulator_mass_g": 0.1,
+    "top_insulator_mass_g": 0.1,
+    "notes": "Tesla/Panasonic standard 2170 header"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NCA (Panasonic)",
+      "chemistry": "NCA",
+      "loading_mgcm2": 20.5,
+      "rev_spec_capacity_mahg": 200.0,
+      "max_spec_capacity_mahg": 220.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 68.0,
+      "coating_thickness_100pct_um": 69.0,
+      "coating_density_gcm3": 3.0,
+      "porosity_pct": 32.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity and typical NCA parameters"
+    },
+    "anode": {
+      "name": "Graphite + SiO (Panasonic)",
+      "chemistry": "Graphite_SiO",
+      "loading_mgcm2": 11.5,
+      "rev_spec_capacity_mahg": 380.0,
+      "max_spec_capacity_mahg": 400.0,
+      "collector_thickness_um": 9.0,
+      "coating_thickness_0pct_um": 80.0,
+      "coating_thickness_100pct_um": 84.0,
+      "coating_density_gcm3": 1.4,
+      "porosity_pct": 26.0,
+      "confidence": "medium",
+      "source": "Silicon-doped graphite anode typical of Tesla cells"
+    },
+    "separator": {
+      "name": "PE Ceramic Coated",
+      "thickness_um": 11.0,
+      "porosity_pct": 45.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.55,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.0
+    }
+  },
+  "validation": {
+    "tolerance_pct": 10.0,
+    "targets": {
+      "capacity_ah": 5.0,
+      "total_mass_g": 67.0,
+      "gravimetric_ed_whkg": 270.0
+    },
+    "tolerances": {
+      "capacity_ah": 5.0,
+      "total_mass_g": 5.0,
+      "gravimetric_ed_whkg": 8.0,
+      "volumetric_ed_whl": 8.0
+    }
+  }
+}

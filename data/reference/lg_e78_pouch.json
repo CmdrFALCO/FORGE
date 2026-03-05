@@ -1,0 +1,145 @@
+{
+  "metadata": {
+    "id": "lg_e78_pouch",
+    "name": "LG E78 (VW ID.3)",
+    "cell_type": "Pouch",
+    "chemistry": "NCM652015/Graphite",
+    "source": "LG Energy Solution Spec Sheet 2022, Günter & Wassiliadis JES 2022 teardown",
+    "confidence": "high",
+    "doi": "10.1149/1945-7111/ac4e11",
+    "notes": "MOST COMPLETE POUCH CELL DATASET. Extracted from production VW ID.3. Open-access paper with SEM, EDX, ICP-AES, mercury porosimetry. Gold standard for pouch validation."
+  },
+  "cell_specs": {
+    "chemistry": "NCM652015/Graphite",
+    "capacity_ah": 78.0,
+    "nominal_voltage_v": 3.68,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 287.0,
+    "mass_g": 1080.0,
+    "dimensions_mm": {
+      "height": 590.0,
+      "width": 108.0,
+      "thickness": 11.5
+    },
+    "gravimetric_ed_whkg": 268.0,
+    "volumetric_ed_whl": 629.0
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 570.0,
+    "cathode_width_mm": 95.0,
+    "anode_offset_y_mm": 2.0,
+    "anode_offset_x_mm": 2.0,
+    "separator_offset_y_mm": 1.5,
+    "separator_offset_x_mm": 1.5,
+    "pouch_offset_top_mm": 10.0,
+    "pouch_offset_bottom_mm": 10.0,
+    "pouch_offset_left_mm": 6.5,
+    "pouch_offset_right_mm": 6.5,
+    "confidence": "high"
+  },
+  "stack_config": {
+    "electrode_pairs": 14,
+    "end_electrodes": "BothNegative",
+    "number_of_stacks": 1,
+    "separator_overwraps": 1,
+    "additional_overwraps": 0,
+    "insulation_shell_count": 1,
+    "fixing_tapes_per_stack": 4,
+    "stacking_method": "lamination",
+    "confidence": "high",
+    "notes": "14 pairs calculated from 78Ah / (541.5 cm² × 27.9 mg/cm² × 180 mAh/g × 2) = 14.3 pairs"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NCM652015 (Ni65 Co20 Mn15)",
+      "chemistry": "NCM652015",
+      "loading_mgcm2": 27.9,
+      "rev_spec_capacity_mahg": 180.0,
+      "max_spec_capacity_mahg": 195.0,
+      "collector_thickness_um": 14.0,
+      "coating_thickness_0pct_um": 87.3,
+      "coating_thickness_100pct_um": 88.0,
+      "coating_density_gcm3": 3.2,
+      "areal_capacity_mahcm2": 5.02,
+      "particle_distribution": "bimodal_3um_9.5um",
+      "confidence": "high",
+      "source": "Günter 2022 JES teardown"
+    },
+    "anode": {
+      "name": "Graphite (LG E78)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 18.1,
+      "rev_spec_capacity_mahg": 350.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 115.3,
+      "coating_thickness_100pct_um": 118.0,
+      "coating_density_gcm3": 1.55,
+      "areal_capacity_mahcm2": 5.23,
+      "np_ratio": 1.04,
+      "confidence": "high",
+      "source": "Günter 2022 JES teardown"
+    },
+    "separator": {
+      "name": "Polyolefin",
+      "thickness_um": 17.6,
+      "porosity_pct": 42.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 1.0,
+      "confidence": "high",
+      "source": "Günter 2022 JES teardown"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC:DMC",
+      "density_gcm3": 1.22,
+      "excess_factor": 1.15
+    },
+    "case_composition": [
+      {"name": "PET", "thickness_um": 12.0, "density_gcm3": 1.38, "porosity_pct": 0.0},
+      {"name": "Aluminum", "thickness_um": 45.0, "density_gcm3": 2.70, "porosity_pct": 0.0},
+      {"name": "PP", "thickness_um": 60.0, "density_gcm3": 0.95, "porosity_pct": 0.0}
+    ],
+    "cathode_tab": {
+      "material": "Aluminum",
+      "height_mm": 50.0,
+      "width_mm": 70.0,
+      "thickness_mm": 0.4,
+      "density_gcm3": 2.70
+    },
+    "anode_tab": {
+      "material": "Nickel-plated Copper",
+      "height_mm": 50.0,
+      "width_mm": 70.0,
+      "thickness_mm": 0.3,
+      "density_gcm3": 8.90
+    }
+  },
+  "internal_parameters": {
+    "active_material_mass_fraction": 0.757,
+    "active_material_volume_fraction": 0.816,
+    "dead_volume_fraction": 0.014,
+    "cathode_particle_d50_um": 9.5,
+    "cathode_particle_d10_um": 3.0
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 78.0,
+      "total_mass_g": 1080.0,
+      "gravimetric_ed_whkg": 268.0,
+      "volumetric_ed_whl": 629.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 5.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  },
+  "pybamm_reference": {
+    "parameter_set": null,
+    "extracted_date": null,
+    "academic_source": "Günter & Wassiliadis JES 2022"
+  }
+}

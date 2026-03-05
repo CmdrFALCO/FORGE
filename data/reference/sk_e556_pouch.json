@@ -1,0 +1,127 @@
+{
+  "metadata": {
+    "id": "sk_e556_pouch",
+    "name": "SK On E556 (E-GMP)",
+    "cell_type": "Pouch",
+    "source": "SK Innovation specifications, Hyundai E-GMP teardown, Batemo E556 data",
+    "confidence": "medium",
+    "notes": "SK On E556 55.6Ah pouch cell used in Hyundai-Kia E-GMP platform (Ioniq 5, Ioniq 6, EV6, EV9). NCM chemistry with high energy density. Pack voltage 697V with 192s2p configuration."
+  },
+  "cell_specs": {
+    "chemistry": "NMC/Graphite",
+    "capacity_ah": 55.6,
+    "nominal_voltage_v": 3.65,
+    "umin_v": 2.75,
+    "umax_v": 4.2,
+    "energy_wh": 203.0,
+    "mass_g": 740.0,
+    "dimensions_mm": {
+      "height": 355.0,
+      "width": 100.0,
+      "thickness": 9.9
+    },
+    "gravimetric_ed_whkg": 274.3,
+    "volumetric_ed_whl": 577.0
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 340.0,
+    "cathode_width_mm": 88.0,
+    "anode_offset_y_mm": 2.0,
+    "anode_offset_x_mm": 2.0,
+    "separator_offset_y_mm": 1.5,
+    "separator_offset_x_mm": 1.5,
+    "pouch_offset_top_mm": 7.5,
+    "pouch_offset_bottom_mm": 7.5,
+    "pouch_offset_left_mm": 6.0,
+    "pouch_offset_right_mm": 6.0,
+    "confidence": "medium"
+  },
+  "stack_config": {
+    "electrode_pairs": 31,
+    "end_electrodes": "BothNegative",
+    "number_of_stacks": 1,
+    "separator_overwraps": 1,
+    "additional_overwraps": 0,
+    "insulation_shell_count": 1,
+    "fixing_tapes_per_stack": 3,
+    "confidence": "medium",
+    "notes": "Reduced from 50 to 31 pairs to match 55.6 Ah target capacity"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC (SK On)",
+      "chemistry": "NMC",
+      "loading_mgcm2": 16.0,
+      "rev_spec_capacity_mahg": 185.0,
+      "max_spec_capacity_mahg": 205.0,
+      "collector_thickness_um": 11.0,
+      "coating_thickness_0pct_um": 52.0,
+      "coating_thickness_100pct_um": 53.0,
+      "coating_density_gcm3": 3.1,
+      "confidence": "medium"
+    },
+    "anode": {
+      "name": "Graphite + SiO (SK On)",
+      "chemistry": "Graphite_SiO",
+      "loading_mgcm2": 8.8,
+      "rev_spec_capacity_mahg": 380.0,
+      "max_spec_capacity_mahg": 400.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 60.0,
+      "coating_thickness_100pct_um": 64.0,
+      "coating_density_gcm3": 1.45,
+      "confidence": "medium"
+    },
+    "separator": {
+      "name": "Ceramic Coated PE",
+      "thickness_um": 10.0,
+      "porosity_pct": 44.0,
+      "density_gcm3": 1.1,
+      "areal_weight_mgcm2": 0.65,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC:DMC",
+      "density_gcm3": 1.22,
+      "excess_factor": 1.25
+    },
+    "case_composition": [
+      {"name": "PET", "thickness_um": 12.0, "density_gcm3": 1.38, "porosity_pct": 0.0},
+      {"name": "Aluminum", "thickness_um": 40.0, "density_gcm3": 2.70, "porosity_pct": 0.0},
+      {"name": "PP", "thickness_um": 50.0, "density_gcm3": 0.95, "porosity_pct": 0.0}
+    ],
+    "cathode_tab": {
+      "material": "Aluminum",
+      "height_mm": 45.0,
+      "width_mm": 55.0,
+      "thickness_mm": 0.4,
+      "density_gcm3": 2.70
+    },
+    "anode_tab": {
+      "material": "Nickel-plated Copper",
+      "height_mm": 45.0,
+      "width_mm": 55.0,
+      "thickness_mm": 0.3,
+      "density_gcm3": 8.90
+    }
+  },
+  "validation": {
+    "tolerance_pct": 12.0,
+    "targets": {
+      "capacity_ah": 55.6,
+      "total_mass_g": 740.0,
+      "gravimetric_ed_whkg": 274.3,
+      "volumetric_ed_whl": 577.0
+    },
+    "tolerances": {
+      "capacity_ah": 8.0,
+      "total_mass_g": 10.0,
+      "gravimetric_ed_whkg": 12.0,
+      "volumetric_ed_whl": 12.0
+    }
+  },
+  "pybamm_reference": {
+    "parameter_set": null,
+    "extracted_date": null
+  }
+}

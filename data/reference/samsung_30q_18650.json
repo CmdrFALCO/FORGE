@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "id": "samsung_30q_18650",
+    "name": "Samsung INR18650-30Q",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC/Graphite",
+    "source": "Samsung SDI Datasheet INR18650-30Q V1.0 (2015), Thunderheart Reviews, Lygte-info.dk",
+    "confidence": "high",
+    "notes": "Industry-standard high-power 18650. Excellent documentation from hobbyist and professional communities. 15A continuous discharge."
+  },
+  "cell_specs": {
+    "chemistry": "NMC/Graphite",
+    "capacity_ah": 3.0,
+    "nominal_voltage_v": 3.6,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 10.8,
+    "mass_g": 46.0,
+    "dimensions_mm": {
+      "diameter": 18.4,
+      "length": 65.0
+    },
+    "gravimetric_ed_whkg": 225.0,
+    "volumetric_ed_whl": 630.0
+  },
+  "geometry": {
+    "diameter_mm": 18.4,
+    "length_mm": 65.0,
+    "can_wall_thickness_mm": 0.18,
+    "can_bottom_thickness_mm": 0.32,
+    "header_height_mm": 2.5,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.2,
+    "winding_clearance_mm": 0.10,
+    "winding_tension_factor": 0.97,
+    "tab_type": "traditional",
+    "anode_tab_width_mm": 4.5,
+    "anode_tab_thickness_mm": 0.08,
+    "cathode_tab_width_mm": 4.0,
+    "cathode_tab_thickness_mm": 0.08
+  },
+  "header": {
+    "total_mass_g": 1.8,
+    "bottom_insulator_mass_g": 0.08,
+    "top_insulator_mass_g": 0.08,
+    "notes": "Standard 18650 header design"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC (Samsung 30Q)",
+      "chemistry": "NMC",
+      "loading_mgcm2": 15.5,
+      "rev_spec_capacity_mahg": 175.0,
+      "max_spec_capacity_mahg": 190.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 55.0,
+      "coating_thickness_100pct_um": 56.0,
+      "coating_density_gcm3": 3.1,
+      "porosity_pct": 30.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity"
+    },
+    "anode": {
+      "name": "Graphite (Samsung 30Q)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 9.0,
+      "rev_spec_capacity_mahg": 350.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 60.0,
+      "coating_thickness_100pct_um": 63.0,
+      "coating_density_gcm3": 1.5,
+      "porosity_pct": 28.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity"
+    },
+    "separator": {
+      "name": "PE/PP Trilayer",
+      "thickness_um": 12.0,
+      "porosity_pct": 42.0,
+      "density_gcm3": 0.94,
+      "areal_weight_mgcm2": 0.55,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.05
+    }
+  },
+  "performance": {
+    "max_continuous_discharge_a": 15.0,
+    "max_continuous_discharge_c_rate": 5.0,
+    "max_charge_a": 4.0,
+    "ac_impedance_1khz_mohm": 26.0
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 46.0,
+      "gravimetric_ed_whkg": 225.0,
+      "volumetric_ed_whl": 630.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 4.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  }
+}

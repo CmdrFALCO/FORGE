@@ -1,0 +1,154 @@
+{
+  "metadata": {
+    "id": "byd_blade_138ah",
+    "name": "BYD Blade 138Ah",
+    "cell_type": "Prismatic",
+    "chemistry": "LFP",
+    "source": "BYD Blade specifications, batterydesign.net teardown analysis",
+    "confidence": "high",
+    "notes": "BYD Blade LFP cell - Innovative long thin prismatic design for CTP architecture. 138Ah variant used in BYD electric vehicles. Z-stacked electrode configuration."
+  },
+  "cell_specs": {
+    "chemistry": "LiFePO4/Graphite",
+    "capacity_ah": 138.0,
+    "nominal_voltage_v": 3.2,
+    "umin_v": 2.5,
+    "umax_v": 3.65,
+    "energy_wh": 441.6,
+    "mass_g": 2630.0,
+    "dimensions_mm": {
+      "height": 90.0,
+      "width": 960.0,
+      "thickness": 12.0
+    },
+    "gravimetric_ed_whkg": 168.0,
+    "volumetric_ed_whl": 424.0
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 83.0,
+    "cathode_width_mm": 944.0,
+    "anode_offset_top_mm": 1.0,
+    "anode_offset_bottom_mm": 1.0,
+    "anode_offset_left_mm": 1.0,
+    "anode_offset_right_mm": 1.0,
+    "separator_offset_top_mm": 1.5,
+    "separator_offset_bottom_mm": 1.5,
+    "separator_offset_left_mm": 1.5,
+    "separator_offset_right_mm": 1.5,
+    "confidence": "high"
+  },
+  "case_geometry": {
+    "cell_height_mm": 90.0,
+    "cell_width_mm": 960.0,
+    "cell_thickness_mm": 12.0,
+    "wall_top_mm": 1.5,
+    "wall_bottom_mm": 0.8,
+    "wall_front_back_mm": 0.5,
+    "wall_sides_mm": 0.8,
+    "insulation_coating_um": 50.0
+  },
+  "stack_config": {
+    "number_of_stacks": 1,
+    "electrode_pairs_per_stack": 21,
+    "end_electrodes": "BothNegative",
+    "insulation_shell_count": 1,
+    "insulation_shell_thickness_um": 80.0,
+    "insulation_shell_density_gcm3": 0.91,
+    "fixing_tape_count": 2,
+    "fixing_tape_thickness_um": 25.0,
+    "fixing_tape_width_mm": 20.0,
+    "fixing_tape_length_mm": 150.0,
+    "fixing_tape_density_gcm3": 1.42,
+    "stacking_method": "z_fold",
+    "confidence": "high"
+  },
+  "housing": {
+    "case_material": "Aluminum",
+    "case_material_density_gcm3": 2.70,
+    "header_mass_g": 50.0,
+    "insulation_coating_density_gcm3": 0.91
+  },
+  "materials": {
+    "cathode": {
+      "name": "LiFePO4 (BYD)",
+      "chemistry": "LFP",
+      "loading_mgcm2": 28.0,
+      "rev_spec_capacity_mahg": 150.0,
+      "max_spec_capacity_mahg": 165.0,
+      "collector_thickness_um": 14.0,
+      "coating_thickness_0pct_um": 92.0,
+      "coating_thickness_100pct_um": 93.0,
+      "coating_density_gcm3": 3.0,
+      "collector_material": "Aluminum",
+      "collector_density_gcm3": 2.70,
+      "areal_capacity_mahcm2": 3.39,
+      "confidence": "high",
+      "source": "BYD Blade teardown data"
+    },
+    "anode": {
+      "name": "Graphite (BYD)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 14.5,
+      "rev_spec_capacity_mahg": 330.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 10.0,
+      "coating_thickness_0pct_um": 100.0,
+      "coating_thickness_100pct_um": 105.0,
+      "coating_density_gcm3": 1.45,
+      "collector_material": "Copper",
+      "collector_density_gcm3": 8.96,
+      "np_ratio": 1.10,
+      "confidence": "medium"
+    },
+    "separator": {
+      "name": "PE Ceramic Coated",
+      "thickness_um": 16.0,
+      "porosity_pct": 45.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.9,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DMC",
+      "density_gcm3": 1.25,
+      "excess_factor": 2.0
+    }
+  },
+  "validation": {
+    "tolerance_pct": 10.0,
+    "targets": {
+      "capacity_ah": 138.0,
+      "total_mass_g": 2630.0,
+      "gravimetric_ed_whkg": 168.0,
+      "volumetric_ed_whl": 424.0
+    },
+    "tolerances": {
+      "capacity_ah": 5.0,
+      "total_mass_g": 8.0,
+      "gravimetric_ed_whkg": 10.0,
+      "volumetric_ed_whl": 10.0
+    }
+  },
+  "cad_features": {
+    "external_corner_radius_mm": 2.0,
+    "internal_corner_radius_mm": 1.0,
+    "lid_corner_radius_mm": 1.5,
+    "lid_thickness_mm": 1.5,
+    "weld_seam_width_mm": 1.0,
+    "terminals": {
+      "positive_diameter_mm": 12.0,
+      "positive_height_mm": 8.0,
+      "positive_x_mm": null,
+      "positive_y_mm": null,
+      "negative_diameter_mm": 12.0,
+      "negative_height_mm": 8.0,
+      "negative_x_mm": null,
+      "negative_y_mm": null
+    },
+    "vent": {
+      "diameter_mm": 4.0,
+      "x_mm": null,
+      "y_mm": null
+    }
+  }
+}

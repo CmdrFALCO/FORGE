@@ -1,0 +1,105 @@
+{
+  "metadata": {
+    "id": "generic_21700",
+    "name": "Generic 21700",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC622/Graphite",
+    "source": "Industry typical values, literature averages",
+    "confidence": "medium",
+    "notes": "Generic 21700 cell with traditional tab design. Representative of typical high-energy 21700 cells in the 4.5-5.0 Ah range."
+  },
+  "cell_specs": {
+    "chemistry": "NMC622/Graphite",
+    "capacity_ah": 4.5,
+    "nominal_voltage_v": 3.65,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 16.43,
+    "mass_g": 67.0,
+    "dimensions_mm": {
+      "diameter": 21.0,
+      "length": 70.0
+    },
+    "gravimetric_ed_whkg": 245.0,
+    "volumetric_ed_whl": 673.0
+  },
+  "geometry": {
+    "diameter_mm": 21.0,
+    "length_mm": 70.0,
+    "can_wall_thickness_mm": 0.25,
+    "can_bottom_thickness_mm": 0.4,
+    "header_height_mm": 3.5,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.5,
+    "winding_clearance_mm": 0.15,
+    "winding_tension_factor": 0.97,
+    "tab_type": "traditional",
+    "anode_tab_width_mm": 6.0,
+    "anode_tab_thickness_mm": 0.1,
+    "cathode_tab_width_mm": 5.0,
+    "cathode_tab_thickness_mm": 0.1
+  },
+  "header": {
+    "total_mass_g": 2.0,
+    "bottom_insulator_mass_g": 0.1,
+    "top_insulator_mass_g": 0.1
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC622 Generic",
+      "chemistry": "NMC622",
+      "loading_mgcm2": 20.0,
+      "rev_spec_capacity_mahg": 175.0,
+      "max_spec_capacity_mahg": 185.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 68.0,
+      "coating_thickness_100pct_um": 69.5,
+      "coating_density_gcm3": 2.95,
+      "porosity_pct": 30.0,
+      "confidence": "medium"
+    },
+    "anode": {
+      "name": "Graphite Generic",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 10.0,
+      "rev_spec_capacity_mahg": 350.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 75.0,
+      "coating_thickness_100pct_um": 78.8,
+      "coating_density_gcm3": 1.35,
+      "porosity_pct": 30.0,
+      "confidence": "medium"
+    },
+    "separator": {
+      "name": "PE Microporous",
+      "thickness_um": 14.0,
+      "porosity_pct": 45.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.75,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DEC",
+      "density_gcm3": 1.22,
+      "excess_factor": 1.0
+    }
+  },
+  "validation": {
+    "tolerance_pct": 10.0,
+    "targets": {
+      "capacity_ah": 4.5,
+      "total_mass_g": 67.0,
+      "gravimetric_ed_whkg": 245.0,
+      "volumetric_ed_whl": 673.0
+    },
+    "tolerances": {
+      "capacity_ah": 5.0,
+      "total_mass_g": 5.0,
+      "gravimetric_ed_whkg": 10.0,
+      "volumetric_ed_whl": 10.0
+    }
+  }
+}

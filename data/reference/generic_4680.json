@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "id": "generic_4680",
+    "name": "Generic 4680 Tabless",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC/Graphite",
+    "source": "Industry estimates, scaled from 21700 data",
+    "confidence": "medium",
+    "notes": "Generic 4680 cell with tabless design. Representative of large-format tabless cylindrical cells. Based on scaling from 21700 with tabless architecture."
+  },
+  "cell_specs": {
+    "chemistry": "NMC/Graphite",
+    "capacity_ah": 22.0,
+    "nominal_voltage_v": 3.65,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 80.3,
+    "mass_g": 340.0,
+    "dimensions_mm": {
+      "diameter": 46.0,
+      "length": 80.0
+    },
+    "gravimetric_ed_whkg": 236.0,
+    "volumetric_ed_whl": 597.0
+  },
+  "geometry": {
+    "diameter_mm": 46.0,
+    "length_mm": 80.0,
+    "can_wall_thickness_mm": 0.35,
+    "can_bottom_thickness_mm": 0.5,
+    "header_height_mm": 4.0,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 4.5,
+    "winding_clearance_mm": 0.15,
+    "winding_tension_factor": 0.96,
+    "tab_type": "tabless",
+    "anode_foil_extension_mm": 3.0,
+    "cathode_foil_extension_mm": 3.0
+  },
+  "header": {
+    "total_mass_g": 9.0,
+    "bottom_insulator_mass_g": 0.5,
+    "top_insulator_mass_g": 0.5
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC Generic 4680",
+      "chemistry": "NMC",
+      "loading_mgcm2": 20.5,
+      "rev_spec_capacity_mahg": 185.0,
+      "max_spec_capacity_mahg": 200.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 70.0,
+      "coating_thickness_100pct_um": 71.5,
+      "coating_density_gcm3": 2.95,
+      "porosity_pct": 32.0,
+      "confidence": "medium"
+    },
+    "anode": {
+      "name": "Graphite Generic 4680",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 10.5,
+      "rev_spec_capacity_mahg": 355.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 78.0,
+      "coating_thickness_100pct_um": 82.0,
+      "coating_density_gcm3": 1.35,
+      "porosity_pct": 30.0,
+      "confidence": "medium"
+    },
+    "separator": {
+      "name": "PE/Ceramic Coated",
+      "thickness_um": 13.0,
+      "porosity_pct": 45.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.70,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DEC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.0
+    }
+  },
+  "validation": {
+    "tolerance_pct": 20.0,
+    "targets": {
+      "capacity_ah": 25.5,
+      "total_mass_g": 340.0,
+      "gravimetric_ed_whkg": 275.0
+    },
+    "tolerances": {
+      "capacity_ah": 10.0,
+      "total_mass_g": 10.0,
+      "gravimetric_ed_whkg": 15.0,
+      "volumetric_ed_whl": 15.0
+    }
+  }
+}

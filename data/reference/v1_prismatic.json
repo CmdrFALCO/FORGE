@@ -1,0 +1,170 @@
+{
+  "metadata": {
+    "id": "v1_prismatic",
+    "name": "V1 Prismatic",
+    "cell_type": "Prismatic",
+    "chemistry": "NMC (Ni-90.5)",
+    "source": "Internal reference - ECU_BOM_V1Prismatic.xlsx + CellCAD_GeoRefDB_v1.xlsx",
+    "confidence": "high",
+    "notes": "Full internal data available, primary validation reference for prismatic cells"
+  },
+  "cell_specs": {
+    "chemistry": "NMC (Ni-90.5)/Graphite-SiOx",
+    "capacity_ah": 120.866,
+    "nominal_voltage_v": 3.644,
+    "umin_v": 2.7,
+    "umax_v": 4.2,
+    "energy_wh": 440.467,
+    "mass_g": 1686.64,
+    "dimensions_mm": {
+      "height": 88.8,
+      "width": 264.6,
+      "thickness": 29.6
+    },
+    "gravimetric_ed_whkg": 261.151,
+    "volumetric_ed_whl": 629.292
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 74.0,
+    "cathode_width_mm": 251.7,
+    "anode_offset_top_mm": 2.0,
+    "anode_offset_bottom_mm": 2.0,
+    "anode_offset_left_mm": 2.0,
+    "anode_offset_right_mm": 2.0,
+    "separator_offset_top_mm": 2.0,
+    "separator_offset_bottom_mm": 2.0,
+    "separator_offset_left_mm": 2.0,
+    "separator_offset_right_mm": 2.0,
+    "confidence": "high"
+  },
+  "case_geometry": {
+    "cell_height_mm": 88.8,
+    "cell_width_mm": 264.6,
+    "cell_thickness_mm": 29.6,
+    "wall_top_mm": 2.0,
+    "wall_bottom_mm": 1.0,
+    "wall_front_back_mm": 0.5,
+    "wall_sides_mm": 0.7,
+    "insulation_coating_um": 85.0
+  },
+  "stack_config": {
+    "number_of_stacks": 2,
+    "electrode_pairs_per_stack": 44,
+    "end_electrodes": "BothNegative",
+    "insulation_shell_count": 2,
+    "insulation_shell_thickness_um": 120.0,
+    "insulation_shell_density_gcm3": 0.91,
+    "fixing_tape_count": 4,
+    "fixing_tape_thickness_um": 30.0,
+    "fixing_tape_width_mm": 30.0,
+    "fixing_tape_length_mm": 200.0,
+    "fixing_tape_density_gcm3": 1.42,
+    "cathode_porosity_pct": 25.36,
+    "anode_porosity_pct": 38.01,
+    "confidence": "high"
+  },
+  "housing": {
+    "case_material": "Aluminum",
+    "case_material_density_gcm3": 2.70,
+    "header_mass_g": 88.76,
+    "header_breakdown": {
+      "lid_g": 33.16,
+      "cathode_terminal_g": 15.00,
+      "anode_terminal_g": 35.00,
+      "insulations_g": 5.60
+    },
+    "insulation_coating_density_gcm3": 0.91
+  },
+  "materials": {
+    "cathode": {
+      "name": "NCM (Ni-90.5) - XTC - M901A",
+      "chemistry": "NCM",
+      "loading_mgcm2": 19.674,
+      "rev_spec_capacity_mahg": 193.814,
+      "max_spec_capacity_mahg": 200.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 58.24,
+      "coating_thickness_100pct_um": 57.08,
+      "coating_density_gcm3": 3.378,
+      "collector_material": "Aluminum",
+      "collector_density_gcm3": 2.70,
+      "confidence": "high"
+    },
+    "anode": {
+      "name": "Graphite/SiOx Blend - EB586_ACC_B_V3.2",
+      "chemistry": "Graphite-SiOx",
+      "loading_mgcm2": 11.478,
+      "rev_spec_capacity_mahg": 331.161,
+      "max_spec_capacity_mahg": 350.0,
+      "collector_thickness_um": 6.0,
+      "coating_thickness_0pct_um": 85.47,
+      "coating_thickness_100pct_um": 92.31,
+      "coating_density_gcm3": 1.343,
+      "collector_material": "Copper",
+      "collector_density_gcm3": 8.96,
+      "np_ratio": 1.225,
+      "confidence": "high"
+    },
+    "separator": {
+      "name": "PP/Al2O3 Ceramic Coated - ACC_EB586_B_V3.2",
+      "thickness_um": 13.0,
+      "porosity_pct": 42.646,
+      "density_gcm3": 0.962,
+      "areal_weight_mgcm2": 1.250,
+      "confidence": "high"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DEC:EMC:FEC",
+      "density_gcm3": 1.223,
+      "excess_factor": 1.0,
+      "volume_ml": 186.298
+    }
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 120.866,
+      "total_mass_g": 1686.64,
+      "cathode_mass_g": 701.16,
+      "anode_mass_g": 514.14,
+      "separator_mass_g": 47.39,
+      "electrolyte_mass_g": 227.84,
+      "housing_mass_g": 196.12,
+      "gravimetric_ed_whkg": 261.15,
+      "volumetric_ed_whl": 629.29
+    },
+    "tolerances": {
+      "capacity_ah": 1.0,
+      "total_mass_g": 1.0,
+      "cathode_mass_g": 2.0,
+      "anode_mass_g": 2.0,
+      "separator_mass_g": 2.0,
+      "electrolyte_mass_g": 2.0,
+      "housing_mass_g": 2.0,
+      "gravimetric_ed_whkg": 1.0,
+      "volumetric_ed_whl": 1.0
+    }
+  },
+  "cad_features": {
+    "external_corner_radius_mm": 3.0,
+    "internal_corner_radius_mm": 1.5,
+    "lid_corner_radius_mm": 2.0,
+    "lid_thickness_mm": 2.0,
+    "weld_seam_width_mm": 1.5,
+    "terminals": {
+      "positive_diameter_mm": 16.0,
+      "positive_height_mm": 10.0,
+      "positive_x_mm": null,
+      "positive_y_mm": null,
+      "negative_diameter_mm": 16.0,
+      "negative_height_mm": 10.0,
+      "negative_x_mm": null,
+      "negative_y_mm": null
+    },
+    "vent": {
+      "diameter_mm": 5.0,
+      "x_mm": null,
+      "y_mm": null
+    }
+  }
+}

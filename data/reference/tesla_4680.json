@@ -1,0 +1,119 @@
+{
+  "metadata": {
+    "id": "tesla_4680",
+    "name": "Tesla 4680 (Estimated)",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC811/Graphite+Si",
+    "source": "Tesla Battery Day 2020, Munro teardown analysis, public estimates",
+    "confidence": "medium",
+    "notes": "Tesla 4680 tabless cell. Values estimated from public teardowns and Battery Day presentation. Tabless design with foil extensions welded directly to can/cap. Actual specifications may vary."
+  },
+  "cell_specs": {
+    "chemistry": "NMC811/Graphite+Si",
+    "capacity_ah": 24.0,
+    "nominal_voltage_v": 3.7,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 88.8,
+    "mass_g": 355.0,
+    "dimensions_mm": {
+      "diameter": 46.0,
+      "length": 80.0
+    },
+    "gravimetric_ed_whkg": 250.0,
+    "volumetric_ed_whl": 660.0
+  },
+  "geometry": {
+    "diameter_mm": 46.0,
+    "length_mm": 80.0,
+    "can_wall_thickness_mm": 0.35,
+    "can_bottom_thickness_mm": 0.5,
+    "header_height_mm": 4.0,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 4.5,
+    "winding_clearance_mm": 0.15,
+    "winding_tension_factor": 0.96,
+    "tab_type": "tabless",
+    "anode_foil_extension_mm": 3.5,
+    "cathode_foil_extension_mm": 3.5,
+    "notes": "Tabless design - copper anode foil extends at bottom for can weld, aluminum cathode foil extends at top for cap weld"
+  },
+  "header": {
+    "total_mass_g": 9.5,
+    "bottom_insulator_mass_g": 0.5,
+    "top_insulator_mass_g": 0.5,
+    "notes": "Estimated header mass for tabless 4680 design"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC811 (Tesla 4680)",
+      "chemistry": "NMC811",
+      "loading_mgcm2": 22.0,
+      "rev_spec_capacity_mahg": 200.0,
+      "max_spec_capacity_mahg": 220.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 76.0,
+      "coating_thickness_100pct_um": 77.0,
+      "coating_density_gcm3": 2.9,
+      "porosity_pct": 30.0,
+      "confidence": "medium",
+      "notes": "Estimated from typical high-nickel NMC values"
+    },
+    "anode": {
+      "name": "Graphite + Si (Tesla 4680)",
+      "chemistry": "Graphite_Si",
+      "loading_mgcm2": 12.0,
+      "rev_spec_capacity_mahg": 380.0,
+      "max_spec_capacity_mahg": 400.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 87.0,
+      "coating_thickness_100pct_um": 93.0,
+      "coating_density_gcm3": 1.38,
+      "porosity_pct": 28.0,
+      "confidence": "medium",
+      "notes": "Silicon-enhanced graphite anode, ~5% Si content estimated"
+    },
+    "separator": {
+      "name": "PE/Ceramic Coated",
+      "thickness_um": 12.0,
+      "porosity_pct": 45.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.65,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC:DMC + additives",
+      "density_gcm3": 1.18,
+      "excess_factor": 1.0
+    }
+  },
+  "validation": {
+    "tolerance_pct": 25.0,
+    "targets": {
+      "capacity_ah": 27.0,
+      "total_mass_g": 340.0,
+      "gravimetric_ed_whkg": 300.0
+    },
+    "tolerances": {
+      "capacity_ah": 10.0,
+      "total_mass_g": 10.0,
+      "gravimetric_ed_whkg": 15.0,
+      "volumetric_ed_whl": 15.0
+    },
+    "notes": "Higher tolerances due to estimated values"
+  },
+  "tabless_design": {
+    "description": "Tesla tabless design eliminates traditional tabs by extending current collector foils beyond coating edges",
+    "anode_connection": "Copper foil extends at cell bottom, laser-welded to can bottom",
+    "cathode_connection": "Aluminum foil extends at cell top, laser-welded to positive cap",
+    "benefits": [
+      "Reduced internal resistance",
+      "Better thermal management",
+      "Simplified manufacturing",
+      "Higher power capability"
+    ],
+    "estimated_resistance_reduction_pct": 50.0
+  }
+}

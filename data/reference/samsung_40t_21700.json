@@ -1,0 +1,115 @@
+{
+  "metadata": {
+    "id": "samsung_40t_21700",
+    "name": "Samsung INR21700-40T",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC/Graphite",
+    "source": "Samsung SDI Datasheet, Batemo Cell Explorer",
+    "confidence": "high",
+    "notes": "Direct P42A competitor. Multi-tab structure for optimized current path. Higher voltage sag than P42A at >30A due to capacity difference."
+  },
+  "cell_specs": {
+    "chemistry": "NMC/Graphite",
+    "capacity_ah": 4.0,
+    "nominal_voltage_v": 3.6,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 14.4,
+    "mass_g": 67.0,
+    "dimensions_mm": {
+      "diameter": 21.0,
+      "length": 70.0
+    },
+    "gravimetric_ed_whkg": 214.0,
+    "volumetric_ed_whl": 590.0
+  },
+  "geometry": {
+    "diameter_mm": 21.0,
+    "length_mm": 70.0,
+    "can_wall_thickness_mm": 0.20,
+    "can_bottom_thickness_mm": 0.35,
+    "header_height_mm": 2.5,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.8,
+    "winding_clearance_mm": 0.12,
+    "winding_tension_factor": 0.96,
+    "tab_type": "multi_tab",
+    "anode_tab_width_mm": 5.0,
+    "anode_tab_thickness_mm": 0.08,
+    "cathode_tab_width_mm": 4.5,
+    "cathode_tab_thickness_mm": 0.08
+  },
+  "header": {
+    "total_mass_g": 2.4,
+    "bottom_insulator_mass_g": 0.1,
+    "top_insulator_mass_g": 0.1,
+    "notes": "Multi-tab design for high power capability"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC (Samsung 40T)",
+      "chemistry": "NMC",
+      "loading_mgcm2": 14.3,
+      "rev_spec_capacity_mahg": 180.0,
+      "max_spec_capacity_mahg": 195.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 55.0,
+      "coating_thickness_100pct_um": 56.0,
+      "coating_density_gcm3": 3.2,
+      "porosity_pct": 30.0,
+      "confidence": "medium",
+      "source": "Estimated from power cell parameters"
+    },
+    "anode": {
+      "name": "Graphite (Samsung 40T)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 9.5,
+      "rev_spec_capacity_mahg": 350.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 62.0,
+      "coating_thickness_100pct_um": 65.0,
+      "coating_density_gcm3": 1.52,
+      "porosity_pct": 30.0,
+      "confidence": "medium",
+      "source": "Estimated from power cell parameters"
+    },
+    "separator": {
+      "name": "PE Ceramic Coated",
+      "thickness_um": 10.0,
+      "porosity_pct": 42.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.5,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.05
+    }
+  },
+  "performance": {
+    "max_discharge_uncontrolled_a": 35.0,
+    "max_discharge_with_thermal_cutoff_a": 45.0,
+    "thermal_cutoff_c": 80,
+    "peak_power_w": 119.0,
+    "temperature_accuracy_k": 1.0
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 4.0,
+      "total_mass_g": 67.0,
+      "gravimetric_ed_whkg": 214.0,
+      "volumetric_ed_whl": 590.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 3.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  }
+}

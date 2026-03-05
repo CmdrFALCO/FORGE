@@ -1,0 +1,141 @@
+{
+  "metadata": {
+    "id": "v1_pouch",
+    "name": "V1 Pouch Cell",
+    "cell_type": "Pouch",
+    "source": "ECU_BOM_V1Pouch.xlsx + CellCAD_GeoRefDB_v1.xlsx",
+    "confidence": "high",
+    "notes": "Reference design for CellCAD validation. NCM Ni-65/Graphite chemistry, ~81 Ah capacity. Updated to match V1_Pouch_Reference_Data.md."
+  },
+  "cell_specs": {
+    "chemistry": "NCM65/Graphite",
+    "capacity_ah": 81.41,
+    "nominal_voltage_v": 3.663,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 298.19,
+    "mass_g": 1136.82,
+    "dimensions_mm": {
+      "height": 420.0,
+      "width": 85.0,
+      "thickness": 14.018
+    },
+    "gravimetric_ed_whkg": 262.3,
+    "volumetric_ed_whl": 560.4
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 376.5,
+    "cathode_width_mm": 79.0,
+    "anode_offset_y_mm": 1.0,
+    "anode_offset_x_mm": 1.0,
+    "separator_offset_y_mm": 1.75,
+    "separator_offset_x_mm": 1.0,
+    "pouch_offset_top_mm": 18.0,
+    "pouch_offset_bottom_mm": 18.0,
+    "pouch_offset_left_mm": 5.0,
+    "pouch_offset_right_mm": 5.0,
+    "confidence": "high"
+  },
+  "stack_config": {
+    "electrode_pairs": 45,
+    "end_electrodes": "BothNegative",
+    "number_of_stacks": 1,
+    "separator_overwraps": 1,
+    "additional_overwraps": 0,
+    "insulation_shell_count": 0,
+    "fixing_tapes_per_stack": 2,
+    "confidence": "high",
+    "notes": "45 cathode sheets, 46 anode sheets per reference data"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NCM (Ni-65) - Umicore - T5490 REC",
+      "chemistry": "NCM65",
+      "loading_mgcm2": 17.72,
+      "rev_spec_capacity_mahg": 177.845,
+      "max_spec_capacity_mahg": 186.74,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 59.28,
+      "coating_thickness_100pct_um": 58.69,
+      "coating_density_gcm3": 2.989,
+      "confidence": "high"
+    },
+    "anode": {
+      "name": "Graphite Nat. - Mitsubishi - SDO-H (HE)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 10.24,
+      "rev_spec_capacity_mahg": 314.269,
+      "max_spec_capacity_mahg": 330.0,
+      "collector_thickness_um": 6.0,
+      "coating_thickness_0pct_um": 73.03,
+      "coating_thickness_100pct_um": 76.39,
+      "coating_density_gcm3": 1.402,
+      "np_ratio": 1.103,
+      "confidence": "high"
+    },
+    "separator": {
+      "name": "HIPORE 16 um (12-2-2) XA22WAJ",
+      "thickness_um": 16.0,
+      "porosity_pct": 55.725,
+      "density_gcm3": 0.70,
+      "areal_weight_mgcm2": 1.120,
+      "confidence": "high"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DMC:EMC",
+      "density_gcm3": 1.244,
+      "excess_factor": 1.20,
+      "volume_ml": 159.7,
+      "notes": "Increased excess_factor from 1.05 to 1.20 to match target electrolyte mass of 198.66g"
+    },
+    "case_composition": [
+      {"name": "PET", "thickness_um": 12.0, "density_gcm3": 1.38, "porosity_pct": 0.0},
+      {"name": "Adhesive", "thickness_um": 5.0, "density_gcm3": 1.10, "porosity_pct": 0.0},
+      {"name": "Aluminum", "thickness_um": 40.0, "density_gcm3": 2.70, "porosity_pct": 0.0},
+      {"name": "Adhesive", "thickness_um": 6.0, "density_gcm3": 1.10, "porosity_pct": 0.0},
+      {"name": "CPP", "thickness_um": 90.0, "density_gcm3": 0.90, "porosity_pct": 0.0}
+    ],
+    "cathode_tab": {
+      "material": "Aluminum",
+      "height_mm": 38.0,
+      "width_mm": 65.0,
+      "thickness_mm": 0.5,
+      "density_gcm3": 2.70
+    },
+    "anode_tab": {
+      "material": "Copper",
+      "height_mm": 38.0,
+      "width_mm": 65.0,
+      "thickness_mm": 0.3,
+      "density_gcm3": 8.96
+    }
+  },
+  "validation": {
+    "tolerance_pct": 6.0,
+    "targets": {
+      "capacity_ah": 81.41,
+      "total_mass_g": 1136.82,
+      "cathode_mass_g": 518.93,
+      "anode_mass_g": 366.54,
+      "separator_mass_g": 33.64,
+      "electrolyte_mass_g": 198.66,
+      "gravimetric_ed_whkg": 262.3,
+      "volumetric_ed_whl": 560.4
+    },
+    "tolerances": {
+      "capacity_ah": 2.0,
+      "total_mass_g": 2.0,
+      "cathode_mass_g": 3.0,
+      "anode_mass_g": 3.0,
+      "separator_mass_g": 3.0,
+      "electrolyte_mass_g": 5.0,
+      "housing_mass_g": 15.0,
+      "gravimetric_ed_whkg": 3.0,
+      "volumetric_ed_whl": 3.0
+    }
+  },
+  "pybamm_reference": {
+    "parameter_set": null,
+    "extracted_date": null
+  }
+}

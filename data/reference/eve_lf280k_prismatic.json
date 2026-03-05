@@ -1,0 +1,151 @@
+{
+  "metadata": {
+    "id": "eve_lf280k_prismatic",
+    "name": "EVE LF280K",
+    "cell_type": "Prismatic",
+    "chemistry": "LFP",
+    "source": "EVE LF280K V3 datasheet, battery-germany.de specifications",
+    "confidence": "high",
+    "notes": "EVE LF280K - Very popular ESS prismatic LFP cell. 280Ah capacity with 6000+ cycle life. Widely used in DIY solar and home battery storage systems."
+  },
+  "cell_specs": {
+    "chemistry": "LiFePO4/Graphite",
+    "capacity_ah": 280.0,
+    "nominal_voltage_v": 3.2,
+    "umin_v": 2.5,
+    "umax_v": 3.65,
+    "energy_wh": 896.0,
+    "mass_g": 5490.0,
+    "dimensions_mm": {
+      "height": 207.0,
+      "width": 173.7,
+      "thickness": 72.0
+    },
+    "gravimetric_ed_whkg": 163.2,
+    "volumetric_ed_whl": 346.0
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 190.0,
+    "cathode_width_mm": 155.0,
+    "anode_offset_top_mm": 2.0,
+    "anode_offset_bottom_mm": 2.0,
+    "anode_offset_left_mm": 2.0,
+    "anode_offset_right_mm": 2.0,
+    "separator_offset_top_mm": 2.5,
+    "separator_offset_bottom_mm": 2.5,
+    "separator_offset_left_mm": 2.5,
+    "separator_offset_right_mm": 2.5,
+    "confidence": "medium"
+  },
+  "case_geometry": {
+    "cell_height_mm": 207.0,
+    "cell_width_mm": 173.7,
+    "cell_thickness_mm": 72.0,
+    "wall_top_mm": 3.0,
+    "wall_bottom_mm": 1.5,
+    "wall_front_back_mm": 1.0,
+    "wall_sides_mm": 1.2,
+    "insulation_coating_um": 100.0
+  },
+  "stack_config": {
+    "number_of_stacks": 1,
+    "electrode_pairs_per_stack": 100,
+    "end_electrodes": "BothNegative",
+    "insulation_shell_count": 1,
+    "insulation_shell_thickness_um": 150.0,
+    "insulation_shell_density_gcm3": 0.91,
+    "fixing_tape_count": 4,
+    "fixing_tape_thickness_um": 35.0,
+    "fixing_tape_width_mm": 35.0,
+    "fixing_tape_length_mm": 250.0,
+    "fixing_tape_density_gcm3": 1.42,
+    "confidence": "medium"
+  },
+  "housing": {
+    "case_material": "Aluminum",
+    "case_material_density_gcm3": 2.70,
+    "header_mass_g": 180.0,
+    "insulation_coating_density_gcm3": 0.91
+  },
+  "materials": {
+    "cathode": {
+      "name": "LiFePO4",
+      "chemistry": "LFP",
+      "loading_mgcm2": 35.0,
+      "rev_spec_capacity_mahg": 145.0,
+      "max_spec_capacity_mahg": 160.0,
+      "collector_thickness_um": 16.0,
+      "coating_thickness_0pct_um": 115.0,
+      "coating_thickness_100pct_um": 116.0,
+      "coating_density_gcm3": 3.0,
+      "collector_material": "Aluminum",
+      "collector_density_gcm3": 2.70,
+      "confidence": "medium"
+    },
+    "anode": {
+      "name": "Graphite",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 18.0,
+      "rev_spec_capacity_mahg": 320.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 125.0,
+      "coating_thickness_100pct_um": 130.0,
+      "coating_density_gcm3": 1.45,
+      "collector_material": "Copper",
+      "collector_density_gcm3": 8.96,
+      "np_ratio": 1.08,
+      "confidence": "medium"
+    },
+    "separator": {
+      "name": "PE/PP",
+      "thickness_um": 20.0,
+      "porosity_pct": 42.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 1.2,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DMC",
+      "density_gcm3": 1.25,
+      "excess_factor": 2.2
+    }
+  },
+  "validation": {
+    "tolerance_pct": 10.0,
+    "targets": {
+      "capacity_ah": 280.0,
+      "total_mass_g": 5490.0,
+      "gravimetric_ed_whkg": 163.2,
+      "volumetric_ed_whl": 346.0
+    },
+    "tolerances": {
+      "capacity_ah": 5.0,
+      "total_mass_g": 6.0,
+      "gravimetric_ed_whkg": 10.0,
+      "volumetric_ed_whl": 10.0
+    }
+  },
+  "cad_features": {
+    "external_corner_radius_mm": 5.0,
+    "internal_corner_radius_mm": 2.5,
+    "lid_corner_radius_mm": 3.0,
+    "lid_thickness_mm": 3.0,
+    "weld_seam_width_mm": 2.0,
+    "terminals": {
+      "positive_diameter_mm": 20.0,
+      "positive_height_mm": 12.0,
+      "positive_x_mm": null,
+      "positive_y_mm": null,
+      "negative_diameter_mm": 20.0,
+      "negative_height_mm": 12.0,
+      "negative_x_mm": null,
+      "negative_y_mm": null
+    },
+    "vent": {
+      "diameter_mm": 8.0,
+      "x_mm": null,
+      "y_mm": null
+    }
+  }
+}

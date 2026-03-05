@@ -1,0 +1,126 @@
+{
+  "metadata": {
+    "id": "lg_e66a",
+    "name": "LG E66A Automotive Cell",
+    "cell_type": "Pouch",
+    "source": "batterydesign.net, PushEVs",
+    "confidence": "low",
+    "notes": "Large format automotive pouch cell used in Porsche Taycan and Audi e-tron GT. Cell-level specs from public sources, most internals back-calculated."
+  },
+  "cell_specs": {
+    "chemistry": "NMC712/Graphite",
+    "capacity_ah": 64.6,
+    "nominal_voltage_v": 3.657,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 237.7,
+    "mass_g": 918.0,
+    "dimensions_mm": {
+      "height": 300.0,
+      "width": 105.0,
+      "thickness": 11.7
+    },
+    "gravimetric_ed_whkg": 259.0,
+    "volumetric_ed_whl": 648.0
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 288.0,
+    "cathode_width_mm": 93.0,
+    "anode_offset_y_mm": 2.0,
+    "anode_offset_x_mm": 2.0,
+    "separator_offset_y_mm": 1.0,
+    "separator_offset_x_mm": 1.0,
+    "pouch_offset_top_mm": 6.0,
+    "pouch_offset_bottom_mm": 6.0,
+    "pouch_offset_left_mm": 6.0,
+    "pouch_offset_right_mm": 6.0,
+    "confidence": "low"
+  },
+  "stack_config": {
+    "electrode_pairs": 46,
+    "end_electrodes": "BothNegative",
+    "number_of_stacks": 1,
+    "separator_overwraps": 1,
+    "additional_overwraps": 0,
+    "insulation_shell_count": 1,
+    "fixing_tapes_per_stack": 3,
+    "confidence": "low"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC712",
+      "chemistry": "NMC712",
+      "loading_mgcm2": 14.2,
+      "rev_spec_capacity_mahg": 195.0,
+      "max_spec_capacity_mahg": 210.0,
+      "collector_thickness_um": 10.0,
+      "coating_thickness_0pct_um": 46.0,
+      "coating_thickness_100pct_um": 46.9,
+      "coating_density_gcm3": 3.1,
+      "confidence": "low"
+    },
+    "anode": {
+      "name": "Graphite + SiOx",
+      "chemistry": "Graphite_SiOx",
+      "loading_mgcm2": 7.9,
+      "rev_spec_capacity_mahg": 400.0,
+      "max_spec_capacity_mahg": 420.0,
+      "collector_thickness_um": 7.0,
+      "coating_thickness_0pct_um": 54.0,
+      "coating_thickness_100pct_um": 59.4,
+      "coating_density_gcm3": 1.45,
+      "confidence": "low"
+    },
+    "separator": {
+      "name": "Thin Ceramic Coated",
+      "thickness_um": 11.0,
+      "porosity_pct": 42.0,
+      "density_gcm3": 1.2,
+      "areal_weight_mgcm2": 0.77,
+      "confidence": "low"
+    },
+    "electrolyte": {
+      "name": "Advanced LiPF6 blend",
+      "density_gcm3": 1.22,
+      "excess_factor": 1.35
+    },
+    "case_composition": [
+      {"name": "PET", "thickness_um": 10.0, "density_gcm3": 1.38, "porosity_pct": 0.0},
+      {"name": "Aluminum", "thickness_um": 35.0, "density_gcm3": 2.70, "porosity_pct": 0.0},
+      {"name": "PP", "thickness_um": 55.0, "density_gcm3": 0.95, "porosity_pct": 0.0}
+    ],
+    "cathode_tab": {
+      "material": "Aluminum",
+      "height_mm": 40.0,
+      "width_mm": 60.0,
+      "thickness_mm": 0.4,
+      "density_gcm3": 2.70
+    },
+    "anode_tab": {
+      "material": "Nickel-plated Copper",
+      "height_mm": 40.0,
+      "width_mm": 60.0,
+      "thickness_mm": 0.3,
+      "density_gcm3": 8.90
+    }
+  },
+  "validation": {
+    "tolerance_pct": 15.0,
+    "targets": {
+      "capacity_ah": 64.6,
+      "total_mass_g": 918.0,
+      "gravimetric_ed_whkg": 259.0,
+      "volumetric_ed_whl": 648.0
+    },
+    "tolerances": {
+      "capacity_ah": 10.0,
+      "total_mass_g": 15.0,
+      "gravimetric_ed_whkg": 15.0,
+      "volumetric_ed_whl": 15.0
+    }
+  },
+  "pybamm_reference": {
+    "parameter_set": null,
+    "extracted_date": null
+  }
+}

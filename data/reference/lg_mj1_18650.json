@@ -1,0 +1,122 @@
+{
+  "metadata": {
+    "id": "lg_mj1_18650",
+    "name": "LG INR18650-MJ1",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC811/Graphite+Si",
+    "source": "LG Chem Datasheet 2014, Heenan et al. JES 2020 X-ray tomography",
+    "confidence": "high",
+    "doi": "10.1149/1945-7111/ab728d",
+    "notes": "BEST OPEN-SOURCE CYLINDRICAL CELL DATASET. X-ray tomography data publicly available at rdr.ucl.ac.uk. Full microstructural characterization."
+  },
+  "cell_specs": {
+    "chemistry": "NMC811/Graphite+Si",
+    "capacity_ah": 3.5,
+    "nominal_voltage_v": 3.635,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 12.72,
+    "mass_g": 47.0,
+    "dimensions_mm": {
+      "diameter": 18.4,
+      "length": 65.2
+    },
+    "gravimetric_ed_whkg": 271.0,
+    "volumetric_ed_whl": 730.0
+  },
+  "geometry": {
+    "diameter_mm": 18.4,
+    "length_mm": 65.2,
+    "can_wall_thickness_mm": 0.20,
+    "can_bottom_thickness_mm": 0.35,
+    "header_height_mm": 2.8,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.2,
+    "winding_clearance_mm": 0.12,
+    "winding_tension_factor": 0.97,
+    "tab_type": "traditional",
+    "anode_tab_width_mm": 5.0,
+    "anode_tab_thickness_mm": 0.08,
+    "cathode_tab_width_mm": 4.5,
+    "cathode_tab_thickness_mm": 0.08
+  },
+  "header": {
+    "total_mass_g": 2.0,
+    "bottom_insulator_mass_g": 0.08,
+    "top_insulator_mass_g": 0.08,
+    "notes": "Standard 18650 header design"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC811 (LG MJ1)",
+      "chemistry": "NMC811",
+      "loading_mgcm2": 21.5,
+      "rev_spec_capacity_mahg": 195.0,
+      "max_spec_capacity_mahg": 210.0,
+      "collector_thickness_um": 14.0,
+      "coating_thickness_0pct_um": 66.0,
+      "coating_thickness_100pct_um": 67.0,
+      "coating_density_gcm3": 3.0,
+      "areal_capacity_mahcm2": 4.2,
+      "porosity_pct": 30.0,
+      "confidence": "high",
+      "source": "Heenan 2020 JES X-ray tomography",
+      "notes": "Loading adjusted from 20.0 to 21.5, spec_cap from 190 to 195 to match 3.5Ah target"
+    },
+    "anode": {
+      "name": "Graphite + Si (LG MJ1)",
+      "chemistry": "Graphite_Si",
+      "loading_mgcm2": 11.0,
+      "rev_spec_capacity_mahg": 370.0,
+      "max_spec_capacity_mahg": 400.0,
+      "collector_thickness_um": 10.0,
+      "coating_thickness_0pct_um": 87.0,
+      "coating_thickness_100pct_um": 90.0,
+      "coating_density_gcm3": 1.5,
+      "porosity_pct": 26.0,
+      "confidence": "high",
+      "source": "Heenan 2020 JES X-ray tomography"
+    },
+    "separator": {
+      "name": "Polyolefin",
+      "thickness_um": 12.0,
+      "porosity_pct": 44.0,
+      "density_gcm3": 0.94,
+      "areal_weight_mgcm2": 0.55,
+      "confidence": "high"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.05
+    }
+  },
+  "performance": {
+    "max_continuous_discharge_a": 10.0,
+    "power_density_wkg": 965.0,
+    "power_density_wl": 2736.0,
+    "cycle_life_80pct": 400
+  },
+  "open_data": {
+    "repository": "rdr.ucl.ac.uk",
+    "data_type": "X-ray_tomography",
+    "availability": "public"
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 3.5,
+      "total_mass_g": 47.0,
+      "gravimetric_ed_whkg": 271.0,
+      "volumetric_ed_whl": 730.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 5.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  }
+}

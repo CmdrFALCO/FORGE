@@ -1,0 +1,165 @@
+{
+  "metadata": {
+    "id": "catl_161ah_lfp",
+    "name": "CATL 161.5Ah LFP (Tesla Model 3 SR)",
+    "cell_type": "Prismatic",
+    "chemistry": "LFP",
+    "source": "Stock et al. Electrochimica Acta 2023 TUM teardown",
+    "confidence": "high",
+    "doi": "10.1016/j.electacta.2023.143341",
+    "notes": "MOST COMPREHENSIVELY CHARACTERIZED COMMERCIAL PRISMATIC CELL. Butterfly jelly-roll design. Thick LFP cathode (~200 um) enabled by thermal stability. 5 um Cu is aggressive lightweighting."
+  },
+  "cell_specs": {
+    "chemistry": "LiFePO4/Graphite",
+    "capacity_ah": 161.5,
+    "nominal_voltage_v": 3.2,
+    "umin_v": 2.5,
+    "umax_v": 3.65,
+    "energy_wh": 516.8,
+    "mass_g": 3170.0,
+    "dimensions_mm": {
+      "height": 174.0,
+      "width": 207.0,
+      "thickness": 72.0
+    },
+    "gravimetric_ed_whkg": 163.0,
+    "volumetric_ed_whl": 366.0
+  },
+  "geometry_inputs": {
+    "cathode_height_mm": 160.0,
+    "cathode_width_mm": 190.0,
+    "anode_offset_top_mm": 2.0,
+    "anode_offset_bottom_mm": 2.0,
+    "anode_offset_left_mm": 2.0,
+    "anode_offset_right_mm": 2.0,
+    "separator_offset_top_mm": 2.5,
+    "separator_offset_bottom_mm": 2.5,
+    "separator_offset_left_mm": 2.5,
+    "separator_offset_right_mm": 2.5,
+    "confidence": "high"
+  },
+  "case_geometry": {
+    "cell_height_mm": 174.0,
+    "cell_width_mm": 207.0,
+    "cell_thickness_mm": 72.0,
+    "wall_top_mm": 3.0,
+    "wall_bottom_mm": 1.5,
+    "wall_front_back_mm": 1.0,
+    "wall_sides_mm": 1.2,
+    "insulation_coating_um": 100.0
+  },
+  "stack_config": {
+    "number_of_stacks": 2,
+    "electrode_pairs_per_stack": 39,
+    "end_electrodes": "BothNegative",
+    "design_type": "butterfly_jellyroll",
+    "electrode_length_m": 22.0,
+    "void_volume_pct": 6.4,
+    "insulation_shell_count": 1,
+    "insulation_shell_thickness_um": 150.0,
+    "insulation_shell_density_gcm3": 0.91,
+    "fixing_tape_count": 4,
+    "fixing_tape_thickness_um": 35.0,
+    "fixing_tape_width_mm": 35.0,
+    "fixing_tape_length_mm": 250.0,
+    "fixing_tape_density_gcm3": 1.42,
+    "confidence": "high",
+    "notes": "39 pairs/stack = 78 total, calculated from 161.5Ah / (304 cm² × 22.6 × 2 × 150 / 1e6) = 78.4"
+  },
+  "housing": {
+    "case_material": "Aluminum",
+    "case_material_density_gcm3": 2.70,
+    "header_mass_g": 200.0,
+    "insulation_coating_density_gcm3": 0.91
+  },
+  "materials": {
+    "cathode": {
+      "name": "LiFePO4 (CATL)",
+      "chemistry": "LFP",
+      "loading_mgcm2": 22.6,
+      "rev_spec_capacity_mahg": 150.0,
+      "max_spec_capacity_mahg": 165.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 200.0,
+      "coating_thickness_100pct_um": 202.0,
+      "coating_density_gcm3": 2.9,
+      "collector_material": "Aluminum",
+      "collector_density_gcm3": 2.70,
+      "edge_insulation_um": 27.0,
+      "edge_insulation_material": "Al2O3",
+      "coating_thickness_fluctuation_um": 2.0,
+      "particle_distribution": "bimodal",
+      "confidence": "high",
+      "source": "Stock 2023 TUM teardown"
+    },
+    "anode": {
+      "name": "Graphite (CATL LFP)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 10.7,
+      "rev_spec_capacity_mahg": 340.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 5.0,
+      "coating_thickness_0pct_um": 148.0,
+      "coating_thickness_100pct_um": 152.0,
+      "coating_density_gcm3": 1.45,
+      "collector_material": "Copper",
+      "collector_density_gcm3": 8.96,
+      "np_ratio": 1.1,
+      "tortuosity": 3.3,
+      "tortuosity_std": 0.4,
+      "confidence": "high",
+      "source": "Stock 2023 TUM teardown - Note: 5um Cu is aggressive lightweighting"
+    },
+    "separator": {
+      "name": "Polyolefin",
+      "thickness_um": 20.0,
+      "porosity_pct": 42.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 1.2,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:DMC",
+      "density_gcm3": 1.25,
+      "excess_factor": 1.0,
+      "notes": "Reduced from 2.2 to 1.0 - pore-filling only, as LFP cells have lower electrolyte requirements"
+    }
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 161.5,
+      "total_mass_g": 3170.0,
+      "gravimetric_ed_whkg": 163.0,
+      "volumetric_ed_whl": 366.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 5.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  },
+  "cad_features": {
+    "external_corner_radius_mm": 5.0,
+    "internal_corner_radius_mm": 2.5,
+    "lid_corner_radius_mm": 3.0,
+    "lid_thickness_mm": 3.0,
+    "weld_seam_width_mm": 2.0,
+    "terminals": {
+      "positive_diameter_mm": 20.0,
+      "positive_height_mm": 12.0,
+      "positive_x_mm": null,
+      "positive_y_mm": null,
+      "negative_diameter_mm": 20.0,
+      "negative_height_mm": 12.0,
+      "negative_x_mm": null,
+      "negative_y_mm": null
+    },
+    "vent": {
+      "diameter_mm": 8.0,
+      "x_mm": null,
+      "y_mm": null
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "id": "molicel_p42a_21700",
+    "name": "Molicel P42A 21700",
+    "cell_type": "Cylindrical",
+    "chemistry": "NMC/Si-Graphite",
+    "source": "Molicel Datasheet INR21700P42A-V4-80092, Scientific Data 2025, Batemo Cell Explorer",
+    "confidence": "high",
+    "notes": "GOLD STANDARD FOR HIGH-POWER CYLINDRICAL CELLS. 45A (10.7C) continuous discharge. Wide thermal operating window. Lower areal loading than 50E enables high current. Multi-tab design."
+  },
+  "cell_specs": {
+    "chemistry": "NMC/Si-Graphite",
+    "capacity_ah": 4.2,
+    "nominal_voltage_v": 3.6,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 15.12,
+    "mass_g": 70.0,
+    "dimensions_mm": {
+      "diameter": 21.7,
+      "length": 70.2
+    },
+    "gravimetric_ed_whkg": 216.0,
+    "volumetric_ed_whl": 615.0
+  },
+  "geometry": {
+    "diameter_mm": 21.7,
+    "length_mm": 70.2,
+    "can_wall_thickness_mm": 0.20,
+    "can_bottom_thickness_mm": 0.35,
+    "header_height_mm": 2.5,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.8,
+    "winding_clearance_mm": 0.15,
+    "winding_tension_factor": 0.96,
+    "tab_type": "multi_tab",
+    "anode_tab_width_mm": 5.0,
+    "anode_tab_thickness_mm": 0.08,
+    "cathode_tab_width_mm": 4.5,
+    "cathode_tab_thickness_mm": 0.08
+  },
+  "header": {
+    "total_mass_g": 2.5,
+    "bottom_insulator_mass_g": 0.12,
+    "top_insulator_mass_g": 0.12,
+    "notes": "Multi-tab design for high power capability"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NMC (Molicel P42A)",
+      "chemistry": "NMC",
+      "loading_mgcm2": 14.5,
+      "rev_spec_capacity_mahg": 180.0,
+      "max_spec_capacity_mahg": 200.0,
+      "collector_thickness_um": 12.0,
+      "coating_thickness_0pct_um": 58.0,
+      "coating_thickness_100pct_um": 59.0,
+      "coating_density_gcm3": 3.2,
+      "porosity_pct": 28.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity and typical NMC parameters"
+    },
+    "anode": {
+      "name": "Graphite (Molicel P42A)",
+      "chemistry": "Graphite",
+      "loading_mgcm2": 10.0,
+      "rev_spec_capacity_mahg": 350.0,
+      "max_spec_capacity_mahg": 372.0,
+      "collector_thickness_um": 8.0,
+      "coating_thickness_0pct_um": 65.0,
+      "coating_thickness_100pct_um": 68.0,
+      "coating_density_gcm3": 1.55,
+      "porosity_pct": 28.0,
+      "confidence": "medium",
+      "source": "Estimated from capacity and typical graphite parameters"
+    },
+    "separator": {
+      "name": "PE Ceramic Coated",
+      "thickness_um": 10.0,
+      "porosity_pct": 42.0,
+      "density_gcm3": 0.95,
+      "areal_weight_mgcm2": 0.5,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC",
+      "density_gcm3": 1.20,
+      "excess_factor": 1.05
+    }
+  },
+  "performance": {
+    "max_continuous_discharge_a": 45.0,
+    "max_continuous_discharge_c_rate": 10.7,
+    "ac_impedance_1khz_mohm": 10.0,
+    "dc_impedance_10a_1s_mohm": 16.0,
+    "power_density_wkg": 2314.0,
+    "thermal_continuous_w": 71.1,
+    "operating_temp_discharge_c": [-40, 60]
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 4.2,
+      "total_mass_g": 70.0,
+      "gravimetric_ed_whkg": 216.0,
+      "volumetric_ed_whl": 615.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 3.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  }
+}

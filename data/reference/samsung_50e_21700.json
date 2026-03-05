@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "id": "samsung_50e_21700",
+    "name": "Samsung 50E 21700",
+    "cell_type": "Cylindrical",
+    "chemistry": "NCA/Graphite+Si",
+    "source": "Samsung SDI INR21700-50E datasheet V1.0, About:Energy, teardown analysis",
+    "confidence": "high",
+    "notes": "Samsung INR21700-50E - Reference standard for 5Ah class cells. NCA chemistry with ~1% Si in anode. Sensitive to >1C charging (SEI degradation on Si particles). Silicon content requires strict 2.5V cutoff."
+  },
+  "cell_specs": {
+    "chemistry": "NCA/Graphite+Si",
+    "capacity_ah": 5.0,
+    "nominal_voltage_v": 3.63,
+    "umin_v": 2.5,
+    "umax_v": 4.2,
+    "energy_wh": 18.15,
+    "mass_g": 68.7,
+    "dimensions_mm": {
+      "diameter": 21.0,
+      "length": 70.8
+    },
+    "gravimetric_ed_whkg": 264.0,
+    "volumetric_ed_whl": 510.0
+  },
+  "geometry": {
+    "diameter_mm": 21.0,
+    "length_mm": 70.8,
+    "can_wall_thickness_mm": 0.22,
+    "can_bottom_thickness_mm": 0.38,
+    "header_height_mm": 3.0,
+    "can_material": "nickel_plated_steel"
+  },
+  "winding": {
+    "mandrel_diameter_mm": 2.5,
+    "winding_clearance_mm": 0.12,
+    "winding_tension_factor": 0.97,
+    "tab_type": "traditional",
+    "anode_tab_width_mm": 6.0,
+    "anode_tab_thickness_mm": 0.1,
+    "cathode_tab_width_mm": 5.0,
+    "cathode_tab_thickness_mm": 0.1
+  },
+  "header": {
+    "total_mass_g": 2.2,
+    "bottom_insulator_mass_g": 0.1,
+    "top_insulator_mass_g": 0.1,
+    "notes": "Standard 21700 header design for energy cells"
+  },
+  "materials": {
+    "cathode": {
+      "name": "NCA (Samsung 50E)",
+      "chemistry": "NCA",
+      "loading_mgcm2": 19.0,
+      "rev_spec_capacity_mahg": 195.0,
+      "max_spec_capacity_mahg": 210.0,
+      "collector_thickness_um": 14.0,
+      "coating_thickness_0pct_um": 64.0,
+      "coating_thickness_100pct_um": 65.0,
+      "coating_density_gcm3": 3.3,
+      "porosity_pct": 28.0,
+      "tab_design": "single_tab",
+      "confidence": "high",
+      "source": "Samsung SDI datasheet, teardown analysis"
+    },
+    "anode": {
+      "name": "Graphite + Si (Samsung 50E)",
+      "chemistry": "Graphite_Si",
+      "loading_mgcm2": 12.5,
+      "rev_spec_capacity_mahg": 370.0,
+      "max_spec_capacity_mahg": 390.0,
+      "collector_thickness_um": 10.0,
+      "coating_thickness_0pct_um": 72.0,
+      "coating_thickness_100pct_um": 75.0,
+      "coating_density_gcm3": 1.5,
+      "porosity_pct": 26.0,
+      "silicon_content_pct": 1.0,
+      "confidence": "high",
+      "source": "Samsung SDI datasheet, teardown analysis"
+    },
+    "separator": {
+      "name": "PE/PP Trilayer",
+      "thickness_um": 11.0,
+      "porosity_pct": 44.0,
+      "density_gcm3": 0.94,
+      "areal_weight_mgcm2": 0.55,
+      "confidence": "medium"
+    },
+    "electrolyte": {
+      "name": "LiPF6 in EC:EMC:DMC",
+      "density_gcm3": 1.22,
+      "excess_factor": 1.0
+    }
+  },
+  "performance": {
+    "max_continuous_discharge_a": 9.8,
+    "cycle_life_80pct": 500
+  },
+  "validation": {
+    "tolerance_pct": 5.0,
+    "targets": {
+      "capacity_ah": 5.0,
+      "total_mass_g": 68.7,
+      "gravimetric_ed_whkg": 264.0,
+      "volumetric_ed_whl": 510.0
+    },
+    "tolerances": {
+      "capacity_ah": 3.0,
+      "total_mass_g": 3.0,
+      "gravimetric_ed_whkg": 5.0,
+      "volumetric_ed_whl": 5.0
+    }
+  }
+}
