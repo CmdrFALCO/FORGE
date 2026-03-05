@@ -1,0 +1,298 @@
+{% extends "base.py.jinja2" %}
+
+{% block geometry_creation %}
+def create_cell(doc):
+    """
+    Create cylindrical cell geometry (18650, 21700, 4680, etc.).
+
+    Coordinate system (center origin):
+    - X, Y: Radial plane
+    - Z: Cell axis (height direction)
+
+    Jellyroll winding structure (inside to outside):
+    Anode -> Separator -> Cathode -> Separator -> (repeat)
+    """
+
+    # -------------------------------------------------------------------------
+    # Calculate derived dimensions
+    # -------------------------------------------------------------------------
+
+    # Convert thicknesses from um to mm
+    cathode_coating_mm = CATHODE_COATING_THICKNESS / 1000.0
+    cathode_collector_mm = CATHODE_COLLECTOR_THICKNESS / 1000.0
+    anode_coating_mm = ANODE_COATING_THICKNESS / 1000.0
+    anode_collector_mm = ANODE_COLLECTOR_THICKNESS / 1000.0
+    separator_mm = SEPARATOR_THICKNESS / 1000.0
+
+    # Single wind thickness (from inside to outside):
+    # anode_coll + anode_coat(both sides) + sep + cath_coat(both sides) + cath_coll + sep
+    wind_thickness = (
+        anode_collector_mm + 2 * anode_coating_mm +
+        separator_mm +
+        cathode_collector_mm + 2 * cathode_coating_mm +
+        separator_mm
+    )
+
+    # Available radial space for winding
+    can_inner_radius = (CELL_DIAMETER / 2) - CAN_WALL_THICKNESS
+    winding_space = can_inner_radius - MANDREL_RADIUS
+
+    # Estimate number of winds if not specified
+    if NUM_WINDS > 0:
+        actual_winds = NUM_WINDS
+    else:
+        actual_winds = int(winding_space / wind_thickness)
+
+    print(f"Wind thickness: {wind_thickness:.4f} mm")
+    print(f"Available winding space: {winding_space:.2f} mm")
+    print(f"Number of winds: {actual_winds}")
+
+    # Jellyroll height (accounting for header and bottom)
+    jellyroll_height = CELL_HEIGHT - HEADER_HEIGHT - CAN_BOTTOM_THICKNESS
+
+    # -------------------------------------------------------------------------
+    # Create organization groups
+    # -------------------------------------------------------------------------
+
+    cell_group = create_part_group(doc, "Cell_Assembly")
+    jellyroll_group = create_part_group(doc, "Jellyroll")
+    cell_group.addObject(jellyroll_group)
+
+    # Z center for jellyroll (offset from cell center due to header)
+    z_jelly_center = (CAN_BOTTOM_THICKNESS - HEADER_HEIGHT) / 2
+
+{% if grouped_by_material %}
+    # -------------------------------------------------------------------------
+    # GROUPED MODE: Combine layers by material type
+    # -------------------------------------------------------------------------
+
+    # Collect all solids by material for combining
+    anode_collector_solids = []
+    anode_coating_solids = []
+    separator_solids = []
+    cathode_coating_solids = []
+    cathode_collector_solids = []
+
+    r = MANDREL_RADIUS
+
+    for wind_idx in range(actual_winds):
+        # Check if we've exceeded available space
+        if r >= can_inner_radius - 0.5:
+            print(f"Stopping at wind {wind_idx}: reached can inner wall")
+            break
+
+        # Anode collector
+        r_outer = min(r + anode_collector_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            anode_collector_solids.append(solid)
+        r = r_outer
+
+        # Anode coating (double-sided)
+        r_outer = min(r + 2 * anode_coating_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            anode_coating_solids.append(solid)
+        r = r_outer
+
+        # Inner separator
+        r_outer = min(r + separator_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            separator_solids.append(solid)
+        r = r_outer
+
+        # Cathode coating (double-sided)
+        r_outer = min(r + 2 * cathode_coating_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            cathode_coating_solids.append(solid)
+        r = r_outer
+
+        # Cathode collector
+        r_outer = min(r + cathode_collector_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            cathode_collector_solids.append(solid)
+        r = r_outer
+
+        # Outer separator
+        r_outer = min(r + separator_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            separator_solids.append(solid)
+        r = r_outer
+
+    # Combine solids and add to document
+    print(f"Combining {len(anode_collector_solids)} anode collector shells...")
+    if anode_collector_solids:
+        combined = anode_collector_solids[0]
+        for solid in anode_collector_solids[1:]:
+            combined = combined.fuse(solid)
+        feature = add_solid_to_document(doc, combined, "Anode_Collector",
+                                        COLORS["Anode_Collector"], TRANSPARENCY["Anode_Collector"])
+        jellyroll_group.addObject(feature)
+
+    print(f"Combining {len(anode_coating_solids)} anode coating shells...")
+    if anode_coating_solids:
+        combined = anode_coating_solids[0]
+        for solid in anode_coating_solids[1:]:
+            combined = combined.fuse(solid)
+        feature = add_solid_to_document(doc, combined, "Anode_Coating",
+                                        COLORS["Anode_Coating"], TRANSPARENCY["Anode_Coating"])
+        jellyroll_group.addObject(feature)
+
+    print(f"Combining {len(separator_solids)} separator shells...")
+    if separator_solids:
+        combined = separator_solids[0]
+        for solid in separator_solids[1:]:
+            combined = combined.fuse(solid)
+        feature = add_solid_to_document(doc, combined, "Separator",
+                                        COLORS["Separator"], TRANSPARENCY["Separator"])
+        jellyroll_group.addObject(feature)
+
+    print(f"Combining {len(cathode_coating_solids)} cathode coating shells...")
+    if cathode_coating_solids:
+        combined = cathode_coating_solids[0]
+        for solid in cathode_coating_solids[1:]:
+            combined = combined.fuse(solid)
+        feature = add_solid_to_document(doc, combined, "Cathode_Coating",
+                                        COLORS["Cathode_Coating"], TRANSPARENCY["Cathode_Coating"])
+        jellyroll_group.addObject(feature)
+
+    print(f"Combining {len(cathode_collector_solids)} cathode collector shells...")
+    if cathode_collector_solids:
+        combined = cathode_collector_solids[0]
+        for solid in cathode_collector_solids[1:]:
+            combined = combined.fuse(solid)
+        feature = add_solid_to_document(doc, combined, "Cathode_Collector",
+                                        COLORS["Cathode_Collector"], TRANSPARENCY["Cathode_Collector"])
+        jellyroll_group.addObject(feature)
+
+{% else %}
+    # -------------------------------------------------------------------------
+    # INDIVIDUAL MODE: One body per wind sublayer
+    # -------------------------------------------------------------------------
+
+    r = MANDREL_RADIUS
+    layer_idx = 0
+
+    for wind_idx in range(actual_winds):
+        # Check if we've exceeded available space
+        if r >= can_inner_radius - 0.5:
+            print(f"Stopping at wind {wind_idx}: reached can inner wall")
+            break
+
+        print(f"Creating wind {wind_idx + 1}/{actual_winds}...")
+
+        # Anode collector
+        r_outer = min(r + anode_collector_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            feature = add_solid_to_document(doc, solid, f"Anode_Collector_{layer_idx:03d}",
+                                            COLORS["Anode_Collector"], TRANSPARENCY["Anode_Collector"])
+            jellyroll_group.addObject(feature)
+            layer_idx += 1
+        r = r_outer
+
+        # Anode coating (double-sided)
+        r_outer = min(r + 2 * anode_coating_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            feature = add_solid_to_document(doc, solid, f"Anode_Coating_{layer_idx:03d}",
+                                            COLORS["Anode_Coating"], TRANSPARENCY["Anode_Coating"])
+            jellyroll_group.addObject(feature)
+            layer_idx += 1
+        r = r_outer
+
+        # Inner separator
+        r_outer = min(r + separator_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            feature = add_solid_to_document(doc, solid, f"Separator_{layer_idx:03d}",
+                                            COLORS["Separator"], TRANSPARENCY["Separator"])
+            jellyroll_group.addObject(feature)
+            layer_idx += 1
+        r = r_outer
+
+        # Cathode coating (double-sided)
+        r_outer = min(r + 2 * cathode_coating_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            feature = add_solid_to_document(doc, solid, f"Cathode_Coating_{layer_idx:03d}",
+                                            COLORS["Cathode_Coating"], TRANSPARENCY["Cathode_Coating"])
+            jellyroll_group.addObject(feature)
+            layer_idx += 1
+        r = r_outer
+
+        # Cathode collector
+        r_outer = min(r + cathode_collector_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            feature = add_solid_to_document(doc, solid, f"Cathode_Collector_{layer_idx:03d}",
+                                            COLORS["Cathode_Collector"], TRANSPARENCY["Cathode_Collector"])
+            jellyroll_group.addObject(feature)
+            layer_idx += 1
+        r = r_outer
+
+        # Outer separator
+        r_outer = min(r + separator_mm, can_inner_radius)
+        if r_outer > r:
+            solid = create_cylinder(r_outer, jellyroll_height, (0, 0, z_jelly_center), inner_radius=r)
+            feature = add_solid_to_document(doc, solid, f"Separator_{layer_idx:03d}",
+                                            COLORS["Separator"], TRANSPARENCY["Separator"])
+            jellyroll_group.addObject(feature)
+            layer_idx += 1
+        r = r_outer
+
+    print(f"Created {layer_idx} individual layer bodies")
+
+{% endif %}
+
+    # -------------------------------------------------------------------------
+    # Create can (casing)
+    # -------------------------------------------------------------------------
+
+    print("Creating can...")
+
+    # Can wall (hollow cylinder)
+    can_solid = create_cylinder(
+        CELL_DIAMETER / 2,
+        CELL_HEIGHT,
+        (0, 0, 0),
+        inner_radius=(CELL_DIAMETER / 2) - CAN_WALL_THICKNESS
+    )
+
+    # Add bottom cap
+    bottom_cap = create_cylinder(
+        (CELL_DIAMETER / 2) - CAN_WALL_THICKNESS,
+        CAN_BOTTOM_THICKNESS,
+        (0, 0, -CELL_HEIGHT / 2 + CAN_BOTTOM_THICKNESS / 2)
+    )
+    can_solid = can_solid.fuse(bottom_cap)
+
+    feature = add_solid_to_document(doc, can_solid, "Can",
+                                    COLORS["Casing"], TRANSPARENCY["Casing"])
+    cell_group.addObject(feature)
+
+    # -------------------------------------------------------------------------
+    # Create header assembly (simplified)
+    # -------------------------------------------------------------------------
+
+    if HEADER_HEIGHT > 0:
+        print("Creating header...")
+        header_z = CELL_HEIGHT / 2 - HEADER_HEIGHT / 2
+
+        # Simple disc for header
+        header_solid = create_cylinder(
+            CELL_DIAMETER / 2 - CAN_WALL_THICKNESS,
+            HEADER_HEIGHT,
+            (0, 0, header_z)
+        )
+
+        feature = add_solid_to_document(doc, header_solid, "Header",
+                                        COLORS["Casing"], 30)
+        cell_group.addObject(feature)
+
+    print("Cylindrical cell geometry complete!")
+{% endblock %}

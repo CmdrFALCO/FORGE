@@ -1,0 +1,286 @@
+{% extends "base.py.jinja2" %}
+
+{% block geometry_creation %}
+def create_cell(doc):
+    """
+    Create stacked cell geometry (Pouch/Prismatic).
+
+    Coordinate system (center origin):
+    - X: Cell length direction
+    - Y: Cell width direction
+    - Z: Stack direction (thickness)
+
+    Layer stacking order (bottom to top):
+    Separator -> Anode -> Separator -> Cathode -> (repeat)
+    """
+
+    # -------------------------------------------------------------------------
+    # Calculate derived dimensions
+    # -------------------------------------------------------------------------
+
+    # Internal cavity dimensions
+    internal_length = CELL_LENGTH - 2 * WALL_THICKNESS
+    internal_width = CELL_WIDTH - 2 * WALL_THICKNESS
+    internal_height = CELL_THICKNESS - 2 * WALL_THICKNESS
+
+    # Convert layer thicknesses from um to mm
+    cathode_coating_mm = CATHODE_COATING_THICKNESS / 1000.0
+    cathode_collector_mm = CATHODE_COLLECTOR_THICKNESS / 1000.0
+    anode_coating_mm = ANODE_COATING_THICKNESS / 1000.0
+    anode_collector_mm = ANODE_COLLECTOR_THICKNESS / 1000.0
+    separator_mm = SEPARATOR_THICKNESS / 1000.0
+
+    # Single electrode pair thickness
+    # Structure: sep + anode_coat + anode_coll + anode_coat + sep + cath_coat + cath_coll + cath_coat
+    pair_thickness = (
+        separator_mm +
+        2 * anode_coating_mm + anode_collector_mm +
+        separator_mm +
+        2 * cathode_coating_mm + cathode_collector_mm
+    )
+
+    # Total stack height
+    stack_height = NUM_ELECTRODE_PAIRS * pair_thickness + separator_mm  # Final separator
+
+    print(f"Electrode pair thickness: {pair_thickness:.4f} mm")
+    print(f"Total stack height: {stack_height:.4f} mm")
+    print(f"Number of electrode pairs: {NUM_ELECTRODE_PAIRS}")
+
+    # -------------------------------------------------------------------------
+    # Create organization groups
+    # -------------------------------------------------------------------------
+
+    cell_group = create_part_group(doc, "Cell_Assembly")
+    stack_group = create_part_group(doc, "Electrode_Stack")
+    cell_group.addObject(stack_group)
+
+    # -------------------------------------------------------------------------
+    # Layer dimensions with overhangs
+    # -------------------------------------------------------------------------
+
+    # Cathode is smallest (fits within casing)
+    cathode_length = internal_length - 4  # Leave 2mm margin each side
+    cathode_width = internal_width - 4
+
+    # Anode extends beyond cathode
+    anode_length = cathode_length + ANODE_OVERHANG * 2
+    anode_width = cathode_width + ANODE_OVERHANG * 2
+
+    # Separator covers everything
+    separator_length = anode_length + SEPARATOR_OVERHANG * 2
+    separator_width = anode_width + SEPARATOR_OVERHANG * 2
+
+{% if grouped_by_material %}
+    # -------------------------------------------------------------------------
+    # GROUPED MODE: Combine layers by material type
+    # -------------------------------------------------------------------------
+
+    # Collect all solids by material for combining
+    cathode_collector_solids = []
+    cathode_coating_solids = []
+    anode_collector_solids = []
+    anode_coating_solids = []
+    separator_solids = []
+
+    # Z position tracking (centered at 0)
+    z = -stack_height / 2
+
+    # Build electrode pairs
+    for pair_idx in range(NUM_ELECTRODE_PAIRS):
+        # Bottom separator
+        sep_solid = create_box(separator_length, separator_width, separator_mm, (0, 0, z + separator_mm / 2))
+        separator_solids.append(sep_solid)
+        z += separator_mm
+
+        # Anode coating (bottom)
+        solid = create_box(anode_length, anode_width, anode_coating_mm, (0, 0, z + anode_coating_mm / 2))
+        anode_coating_solids.append(solid)
+        z += anode_coating_mm
+
+        # Anode collector
+        solid = create_box(anode_length, anode_width, anode_collector_mm, (0, 0, z + anode_collector_mm / 2))
+        anode_collector_solids.append(solid)
+        z += anode_collector_mm
+
+        # Anode coating (top)
+        solid = create_box(anode_length, anode_width, anode_coating_mm, (0, 0, z + anode_coating_mm / 2))
+        anode_coating_solids.append(solid)
+        z += anode_coating_mm
+
+        # Middle separator
+        sep_solid = create_box(separator_length, separator_width, separator_mm, (0, 0, z + separator_mm / 2))
+        separator_solids.append(sep_solid)
+        z += separator_mm
+
+        # Cathode coating (bottom)
+        solid = create_box(cathode_length, cathode_width, cathode_coating_mm, (0, 0, z + cathode_coating_mm / 2))
+        cathode_coating_solids.append(solid)
+        z += cathode_coating_mm
+
+        # Cathode collector
+        solid = create_box(cathode_length, cathode_width, cathode_collector_mm, (0, 0, z + cathode_collector_mm / 2))
+        cathode_collector_solids.append(solid)
+        z += cathode_collector_mm
+
+        # Cathode coating (top)
+        solid = create_box(cathode_length, cathode_width, cathode_coating_mm, (0, 0, z + cathode_coating_mm / 2))
+        cathode_coating_solids.append(solid)
+        z += cathode_coating_mm
+
+    # Final separator
+    sep_solid = create_box(separator_length, separator_width, separator_mm, (0, 0, z + separator_mm / 2))
+    separator_solids.append(sep_solid)
+
+    # Combine solids and add to document
+    print(f"Combining {len(cathode_collector_solids)} cathode collector layers...")
+    if cathode_collector_solids:
+        combined = cathode_collector_solids[0]
+        for solid in cathode_collector_solids[1:]:
+            combined = combined.fuse(solid)
+        add_solid_to_document(doc, combined, "Cathode_Collector",
+                              COLORS["Cathode_Collector"], TRANSPARENCY["Cathode_Collector"])
+
+    print(f"Combining {len(cathode_coating_solids)} cathode coating layers...")
+    if cathode_coating_solids:
+        combined = cathode_coating_solids[0]
+        for solid in cathode_coating_solids[1:]:
+            combined = combined.fuse(solid)
+        add_solid_to_document(doc, combined, "Cathode_Coating",
+                              COLORS["Cathode_Coating"], TRANSPARENCY["Cathode_Coating"])
+
+    print(f"Combining {len(anode_collector_solids)} anode collector layers...")
+    if anode_collector_solids:
+        combined = anode_collector_solids[0]
+        for solid in anode_collector_solids[1:]:
+            combined = combined.fuse(solid)
+        add_solid_to_document(doc, combined, "Anode_Collector",
+                              COLORS["Anode_Collector"], TRANSPARENCY["Anode_Collector"])
+
+    print(f"Combining {len(anode_coating_solids)} anode coating layers...")
+    if anode_coating_solids:
+        combined = anode_coating_solids[0]
+        for solid in anode_coating_solids[1:]:
+            combined = combined.fuse(solid)
+        add_solid_to_document(doc, combined, "Anode_Coating",
+                              COLORS["Anode_Coating"], TRANSPARENCY["Anode_Coating"])
+
+    print(f"Combining {len(separator_solids)} separator layers...")
+    if separator_solids:
+        combined = separator_solids[0]
+        for solid in separator_solids[1:]:
+            combined = combined.fuse(solid)
+        add_solid_to_document(doc, combined, "Separator",
+                              COLORS["Separator"], TRANSPARENCY["Separator"])
+
+{% else %}
+    # -------------------------------------------------------------------------
+    # INDIVIDUAL MODE: One body per layer
+    # -------------------------------------------------------------------------
+
+    # Z position tracking (centered at 0)
+    z = -stack_height / 2
+    layer_idx = 0
+
+    for pair_idx in range(NUM_ELECTRODE_PAIRS):
+        print(f"Creating electrode pair {pair_idx + 1}/{NUM_ELECTRODE_PAIRS}...")
+
+        # Bottom separator
+        solid = create_box(separator_length, separator_width, separator_mm, (0, 0, z + separator_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Separator_{layer_idx:03d}",
+                                        COLORS["Separator"], TRANSPARENCY["Separator"])
+        stack_group.addObject(feature)
+        z += separator_mm
+        layer_idx += 1
+
+        # Anode coating (bottom)
+        solid = create_box(anode_length, anode_width, anode_coating_mm, (0, 0, z + anode_coating_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Anode_Coating_{layer_idx:03d}",
+                                        COLORS["Anode_Coating"], TRANSPARENCY["Anode_Coating"])
+        stack_group.addObject(feature)
+        z += anode_coating_mm
+        layer_idx += 1
+
+        # Anode collector
+        solid = create_box(anode_length, anode_width, anode_collector_mm, (0, 0, z + anode_collector_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Anode_Collector_{layer_idx:03d}",
+                                        COLORS["Anode_Collector"], TRANSPARENCY["Anode_Collector"])
+        stack_group.addObject(feature)
+        z += anode_collector_mm
+        layer_idx += 1
+
+        # Anode coating (top)
+        solid = create_box(anode_length, anode_width, anode_coating_mm, (0, 0, z + anode_coating_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Anode_Coating_{layer_idx:03d}",
+                                        COLORS["Anode_Coating"], TRANSPARENCY["Anode_Coating"])
+        stack_group.addObject(feature)
+        z += anode_coating_mm
+        layer_idx += 1
+
+        # Middle separator
+        solid = create_box(separator_length, separator_width, separator_mm, (0, 0, z + separator_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Separator_{layer_idx:03d}",
+                                        COLORS["Separator"], TRANSPARENCY["Separator"])
+        stack_group.addObject(feature)
+        z += separator_mm
+        layer_idx += 1
+
+        # Cathode coating (bottom)
+        solid = create_box(cathode_length, cathode_width, cathode_coating_mm, (0, 0, z + cathode_coating_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Cathode_Coating_{layer_idx:03d}",
+                                        COLORS["Cathode_Coating"], TRANSPARENCY["Cathode_Coating"])
+        stack_group.addObject(feature)
+        z += cathode_coating_mm
+        layer_idx += 1
+
+        # Cathode collector
+        solid = create_box(cathode_length, cathode_width, cathode_collector_mm, (0, 0, z + cathode_collector_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Cathode_Collector_{layer_idx:03d}",
+                                        COLORS["Cathode_Collector"], TRANSPARENCY["Cathode_Collector"])
+        stack_group.addObject(feature)
+        z += cathode_collector_mm
+        layer_idx += 1
+
+        # Cathode coating (top)
+        solid = create_box(cathode_length, cathode_width, cathode_coating_mm, (0, 0, z + cathode_coating_mm / 2))
+        feature = add_solid_to_document(doc, solid, f"Cathode_Coating_{layer_idx:03d}",
+                                        COLORS["Cathode_Coating"], TRANSPARENCY["Cathode_Coating"])
+        stack_group.addObject(feature)
+        z += cathode_coating_mm
+        layer_idx += 1
+
+    # Final separator
+    solid = create_box(separator_length, separator_width, separator_mm, (0, 0, z + separator_mm / 2))
+    feature = add_solid_to_document(doc, solid, f"Separator_{layer_idx:03d}",
+                                    COLORS["Separator"], TRANSPARENCY["Separator"])
+    stack_group.addObject(feature)
+
+    print(f"Created {layer_idx + 1} individual layer bodies")
+
+{% endif %}
+
+    # -------------------------------------------------------------------------
+    # Create casing
+    # -------------------------------------------------------------------------
+
+    print("Creating casing...")
+
+    # Outer shell
+    outer_box = create_box(CELL_LENGTH, CELL_WIDTH, CELL_THICKNESS, (0, 0, 0))
+
+    # Inner cutout
+    inner_box = create_box(
+        CELL_LENGTH - 2 * WALL_THICKNESS,
+        CELL_WIDTH - 2 * WALL_THICKNESS,
+        CELL_THICKNESS - 2 * WALL_THICKNESS,
+        (0, 0, 0)
+    )
+
+    # Subtract to create shell
+    casing = outer_box.cut(inner_box)
+
+    feature = add_solid_to_document(doc, casing, "Casing",
+                                    COLORS["Casing"], TRANSPARENCY["Casing"])
+    cell_group.addObject(feature)
+
+    print("Stacked cell geometry complete!")
+{% endblock %}
