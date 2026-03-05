@@ -16,6 +16,9 @@ from forge.engine.models.materials import (
     DENSITY_PP,
     NMC_NOMINAL_VOLTAGE,
 )
+# Legacy default from CellCAD constants.py
+TYPICAL_SEPARATOR_UM = 16.0
+
 from forge.export import export_json, export_report_csv
 from forge.engine.models.geometry import PouchPackaging, SheetGeometry
 from forge.engine.models.materials import (
@@ -860,5 +863,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
