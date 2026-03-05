@@ -1,0 +1,189 @@
+{
+  "metadata": {
+    "name": "Samsung INR21700-50G Cylindrical",
+    "archetype_version": "1.0.0",
+    "created": "2025-12-28",
+    "cell_type": "Cylindrical",
+    "manufacturer": "Samsung SDI",
+    "model": "INR21700-50G",
+    "application": "Micromobility, power tools, non-structural EV packs",
+    "chemistry": {
+      "cathode": "NCA or Ni-rich NMC",
+      "cathode_note": "Samsung 50 series typically uses NCA for capacity",
+      "anode": "Graphite + SiOx",
+      "silicon_content_pct": 2.5,
+      "silicon_content_range_pct": [1, 5]
+    },
+    "data_sources": [
+      "Samsung SDI Datasheet (V0.1 and Ver.B)",
+      "Batemo GmbH Cell Explorer",
+      "Bulla et al. MDPI Energies 2023 (Samsung 30T teardown)",
+      "Lain et al. MDPI Processes 2021"
+    ],
+    "research_notes": "High-capacity benchmark 21700 cell. Internal geometry inferred from comparable Samsung 21700 cells (30T teardown)."
+  },
+
+  "geometry": {
+    "external": {
+      "diameter_mm": 21.1,
+      "diameter_max_mm": 21.25,
+      "height_mm": 70.15,
+      "height_max_mm": 70.80,
+      "confidence": "HIGH"
+    },
+    "can": {
+      "material": "Nickel-plated steel",
+      "wall_thickness_mm": 0.22,
+      "wall_thickness_range_mm": [0.20, 0.25],
+      "base_thickness_mm": 0.30,
+      "confidence": "HIGH",
+      "source": "MDPI Samsung 30T teardown"
+    },
+    "core": {
+      "type": "Hollow (no physical mandrel)",
+      "mandrel_diameter_mm": 4.0,
+      "mandrel_note": "Small Cu connector plate only"
+    },
+    "header": {
+      "assembly_height_mm": 3.75,
+      "assembly_height_range_mm": [3.5, 4.0],
+      "crimp_height_mm": 2.5,
+      "crimp_height_range_mm": [2, 3]
+    }
+  },
+
+  "electrical": {
+    "nominal_voltage_V": 3.63,
+    "capacity_typical_mAh": 5000,
+    "capacity_min_mAh": 4900,
+    "capacity_min_range_mAh": [4850, 4900],
+    "energy_Wh": 18.15,
+    "gravimetric_energy_density_Wh_kg": 259,
+    "volumetric_energy_density_Wh_L": 722,
+    "ac_impedance_1kHz_mOhm": 14.0,
+    "ac_impedance_tolerance_mOhm": 5.0,
+    "cycle_life_80pct": 1000,
+    "confidence": "HIGH"
+  },
+
+  "mass": {
+    "total_mass_g": 69.5,
+    "mass_range_g": [69, 72.5],
+    "confidence": "HIGH"
+  },
+
+  "electrode_stack": {
+    "assembly_method": "Wound jellyroll",
+    "winding_turns": 22,
+    "winding_turns_range": [20, 25],
+
+    "cathode": {
+      "active_material": "NCA or Ni-rich NMC",
+      "total_thickness_um": 128,
+      "coating_thickness_um": 59,
+      "coating_thickness_range_um": [55, 65],
+      "width_mm": 62,
+      "width_range_mm": [61, 63],
+      "strip_length_mm": 1300,
+      "strip_length_range_mm": [1200, 1350],
+      "loading_mg_cm2": 15,
+      "loading_range_mg_cm2": [13, 17],
+      "current_collector": {
+        "material": "Aluminum",
+        "thickness_um": 17,
+        "thickness_range_um": [15, 20]
+      },
+      "confidence": "MEDIUM"
+    },
+
+    "anode": {
+      "active_material": "Graphite + SiOx",
+      "silicon_content_pct": 2.5,
+      "silicon_content_range_pct": [1, 5],
+      "total_thickness_um": 144,
+      "coating_thickness_um": 67,
+      "coating_thickness_range_um": [60, 70],
+      "width_mm": 64,
+      "width_range_mm": [63, 65],
+      "loading_mg_cm2": 9,
+      "loading_range_mg_cm2": [7.8, 10],
+      "current_collector": {
+        "material": "Copper",
+        "thickness_um": 9,
+        "thickness_range_um": [8, 10]
+      },
+      "confidence": "MEDIUM"
+    },
+
+    "separator": {
+      "type": "PE or PP/PE/PP trilayer",
+      "thickness_um": 20,
+      "width_mm": 65,
+      "confidence": "HIGH",
+      "source": "MDPI Samsung 30T teardown"
+    }
+  },
+
+  "safety_geometry": {
+    "anode_overhang_mm": 1.0,
+    "anode_overhang_per_side_mm": 1.0,
+    "separator_overhang_mm": 0.75,
+    "separator_overhang_note": "Separator 65mm, anode 63.5mm in 30T",
+    "np_ratio": 1.1,
+    "np_ratio_range": [1.05, 1.15],
+    "confidence": "MEDIUM"
+  },
+
+  "terminals": {
+    "type": "Standard discrete tabs",
+    "tabs_per_polarity": 1,
+    "positive": {
+      "material": "Aluminum",
+      "width_mm": 4,
+      "thickness_mm": 0.1
+    },
+    "negative": {
+      "material": "Nickel",
+      "width_mm": 4,
+      "thickness_mm": 0.1
+    },
+    "positive_terminal": "Cap with CID, vent, insulation ring",
+    "negative_terminal": "Can base (nickel-plated steel)",
+    "confidence": "MEDIUM"
+  },
+
+  "header_assembly": {
+    "cid_present": true,
+    "cid_activation_pressure_MPa": 1.25,
+    "cid_activation_range_MPa": [1.0, 1.5],
+    "vent_present": true,
+    "insulation_ring": true
+  },
+
+  "validation": {
+    "mass_target_g": 69.5,
+    "mass_tolerance_pct": 5,
+    "capacity_target_mAh": 5000,
+    "capacity_tolerance_pct": 3,
+    "gravimetric_ed_target_Wh_kg": 259,
+    "gravimetric_ed_tolerance_pct": 5
+  },
+
+  "data_gaps": [
+    "Exact chemistry (NCA vs NMC)",
+    "Electrode coating thicknesses (cell-specific)",
+    "Tab exact dimensions",
+    "Electrolyte amount (g/Ah)",
+    "Vent burst pressure",
+    "Jellyroll-to-can gap"
+  ],
+
+  "confidence_summary": {
+    "external_geometry": "HIGH",
+    "mass": "HIGH",
+    "electrical": "HIGH",
+    "electrode_stack": "MEDIUM",
+    "safety_geometry": "MEDIUM",
+    "header_assembly": "MEDIUM"
+  }
+}

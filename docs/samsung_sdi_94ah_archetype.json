@@ -1,0 +1,193 @@
+{
+  "metadata": {
+    "name": "Samsung SDI 94Ah Prismatic",
+    "archetype_version": "1.0.0",
+    "created": "2025-12-28",
+    "cell_type": "Prismatic",
+    "manufacturer": "Samsung SDI",
+    "model": "94Ah",
+    "application": "BMW i3/i8 (2016-2018)",
+    "chemistry": {
+      "cathode": "NMC111",
+      "anode": "Graphite",
+      "cathode_formula": "LiNi0.33Mn0.33Co0.33O2"
+    },
+    "vda_standard": "BEV2 (10mm taller than PHEV2)",
+    "data_sources": [
+      "PushEVs specification images",
+      "BatteryDesign.net",
+      "lifepo4-battery.com",
+      "Gailani et al. arXiv:2007.01937",
+      "Samsung SDI official specs"
+    ],
+    "research_notes": "NMC111 chemistry (not NMC622). The 120Ah successor used NMC622."
+  },
+
+  "geometry": {
+    "external": {
+      "length_mm": 173.0,
+      "width_mm": 125.0,
+      "height_mm": 45.0,
+      "length_tolerance_mm": 0.3,
+      "width_tolerance_mm": 0.3,
+      "height_tolerance_mm": 0.2,
+      "confidence": "HIGH"
+    },
+    "walls": {
+      "wall_thickness_mm": 0.8,
+      "lid_thickness_mm": 1.5,
+      "confidence": "MEDIUM",
+      "source": "Gemini (BatteryDesign.net VDA standard)"
+    },
+    "internal_clearances": {
+      "stack_to_sidewall_mm": 0.75,
+      "stack_to_top_mm": 6.5,
+      "confidence": "MEDIUM",
+      "source": "Gemini estimate"
+    },
+    "corner_radii": {
+      "external_mm": 3.0,
+      "internal_mm": 1.5,
+      "confidence": "MEDIUM"
+    }
+  },
+
+  "electrical": {
+    "nominal_voltage_V": 3.68,
+    "capacity_Ah": 94.0,
+    "energy_Wh": 346.0,
+    "gravimetric_energy_density_Wh_kg": 174,
+    "volumetric_energy_density_Wh_L": 352,
+    "confidence": "HIGH"
+  },
+
+  "mass": {
+    "total_mass_g": 2030,
+    "tolerance_pct": 3.0,
+    "confidence": "HIGH",
+    "sources": ["Claude: 2000g", "Gemini: 2060g"]
+  },
+
+  "electrode_stack": {
+    "assembly_method": "Wound (flattened jellyroll)",
+    "winding_count": 2,
+    "winding_notes": "2 jellyrolls connected in parallel internally",
+    "confidence": "MEDIUM",
+
+    "cathode": {
+      "active_material": "NMC111",
+      "coating_thickness_um": 60,
+      "coating_thickness_range_um": [50, 65],
+      "total_electrode_thickness_um": 145,
+      "loading_mg_cm2": 25,
+      "loading_range_mg_cm2": [20, 30],
+      "porosity_pct": 32,
+      "porosity_range_pct": [30, 35],
+      "current_collector": {
+        "material": "Aluminum",
+        "thickness_um": 15
+      },
+      "confidence": "MEDIUM"
+    },
+
+    "anode": {
+      "active_material": "Graphite (Artificial)",
+      "silicon_content_pct": 0,
+      "coating_thickness_um": 65,
+      "coating_thickness_range_um": [50, 70],
+      "total_electrode_thickness_um": 150,
+      "loading_mg_cm2": 12.5,
+      "loading_range_mg_cm2": [10, 15],
+      "current_collector": {
+        "material": "Copper",
+        "thickness_um": 10
+      },
+      "confidence": "MEDIUM"
+    },
+
+    "separator": {
+      "type": "Ceramic-coated PE",
+      "base_thickness_um": 16,
+      "coating_thickness_um": 4,
+      "total_thickness_um": 20,
+      "porosity_pct": 40,
+      "confidence": "MEDIUM"
+    },
+
+    "active_area_m2": 2.8,
+    "active_area_notes": "Estimated from capacity and ~3.5 mAh/cm² areal loading",
+    "confidence": "LOW"
+  },
+
+  "safety_geometry": {
+    "anode_overhang_mm": 1.75,
+    "anode_overhang_range_mm": [1.5, 2.0],
+    "separator_overhang_mm": 1.5,
+    "separator_overhang_range_mm": [1.0, 2.0],
+    "np_ratio": 1.12,
+    "np_ratio_range": [1.10, 1.15],
+    "alignment_tolerance_mm": 0.5,
+    "confidence": "MEDIUM"
+  },
+
+  "casing": {
+    "material": "Aluminum alloy (3003-H14 or similar)",
+    "construction": "Deep-drawn",
+    "vent": {
+      "location": "Center of top lid",
+      "burst_pressure_MPa": 1.1,
+      "burst_pressure_range_MPa": [1.0, 1.2],
+      "confidence": "MEDIUM"
+    },
+    "confidence": "HIGH"
+  },
+
+  "terminals": {
+    "configuration": "Same side (top)",
+    "positive": {
+      "material": "Aluminum",
+      "thread": "M6",
+      "torque_Nm": 9,
+      "torque_range_Nm": [8, 10]
+    },
+    "negative": {
+      "material": "Copper or Ni-plated Cu",
+      "thread": "M6",
+      "torque_Nm": 9,
+      "torque_range_Nm": [8, 10]
+    },
+    "tab_welding": "Ultrasonic welding",
+    "confidence": "MEDIUM"
+  },
+
+  "operating_conditions": {
+    "recommended_compression_kN": [2, 5],
+    "notes": "Cell designed to operate under external compression to prevent delamination"
+  },
+
+  "validation": {
+    "mass_target_g": 2030,
+    "mass_tolerance_pct": 10,
+    "gravimetric_ed_target_Wh_kg": 174,
+    "gravimetric_ed_tolerance_pct": 10,
+    "volumetric_ed_target_Wh_L": 352,
+    "volumetric_ed_tolerance_pct": 10
+  },
+
+  "data_gaps": [
+    "Layer count (exact number of windings)",
+    "Electrode active area per layer",
+    "Electrolyte amount (g/Ah)",
+    "Tab dimensions",
+    "Internal resistance"
+  ],
+
+  "confidence_summary": {
+    "external_geometry": "HIGH",
+    "mass": "HIGH",
+    "electrical": "HIGH",
+    "electrode_stack": "MEDIUM",
+    "safety_geometry": "MEDIUM",
+    "casing_details": "MEDIUM"
+  }
+}

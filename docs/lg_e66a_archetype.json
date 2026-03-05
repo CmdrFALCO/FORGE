@@ -1,0 +1,169 @@
+{
+  "metadata": {
+    "name": "LG Chem E66A Pouch",
+    "archetype_version": "1.0.0",
+    "created": "2025-12-28",
+    "cell_type": "Pouch",
+    "manufacturer": "LG Energy Solution (formerly LG Chem)",
+    "model": "E66A",
+    "application": "Porsche Taycan, Audi e-tron GT (800V architecture)",
+    "chemistry": {
+      "cathode": "NCM712",
+      "cathode_composition": "70% Ni, 10% Co, 20% Mn",
+      "anode": "Graphite (possibly minor Si doping)"
+    },
+    "data_sources": [
+      "BatteryDesign.net",
+      "Batemo GmbH Cell Explorer",
+      "PushEVs specifications"
+    ],
+    "research_notes": "NCM712 offers balance of cost (less Co than 622) and safety (more stable than 811)"
+  },
+
+  "geometry": {
+    "external": {
+      "length_mm": 350.0,
+      "width_mm": 104.0,
+      "thickness_mm": 11.7,
+      "confidence": "HIGH"
+    },
+    "pouch_film": {
+      "total_thickness_um": 150,
+      "structure": {
+        "outer_nylon_um": 25,
+        "middle_aluminum_um": 40,
+        "inner_cpp_um": 60,
+        "inner_cpp_range_um": [40, 80]
+      },
+      "draw_depth_mm": 5.8,
+      "confidence": "MEDIUM"
+    },
+    "seal": {
+      "perimeter_width_mm": 4,
+      "perimeter_width_range_mm": [3, 5],
+      "tab_seal_width_mm": 6.5,
+      "tab_seal_width_range_mm": [5, 8]
+    }
+  },
+
+  "electrical": {
+    "nominal_voltage_V": 3.657,
+    "capacity_Ah": 64.6,
+    "capacity_min_Ah": 63.5,
+    "energy_Wh": 237.7,
+    "energy_min_Wh": 232.2,
+    "gravimetric_energy_density_Wh_kg": 259,
+    "volumetric_energy_density_Wh_L": 648,
+    "power_density_W_kg": 1160,
+    "power_density_W_L": 2900,
+    "dcir_mOhm": 1.37,
+    "dcir_note": "50% SOC, 25°C",
+    "confidence": "HIGH"
+  },
+
+  "mass": {
+    "total_mass_g": 897,
+    "confidence": "HIGH"
+  },
+
+  "electrode_stack": {
+    "assembly_method": "Lamination & Stacking (L&S) or Advanced Z-Stacking (AZS)",
+    "layer_count_estimate": 35,
+    "layer_count_range": [30, 40],
+    "confidence": "LOW",
+
+    "cathode": {
+      "active_material": "NCM712",
+      "coating_thickness_um": 70,
+      "loading_mg_cm2": 21.5,
+      "loading_range_mg_cm2": [16, 27],
+      "current_collector": {
+        "material": "Aluminum",
+        "thickness_um": 15
+      },
+      "confidence": "MEDIUM"
+    },
+
+    "anode": {
+      "active_material": "Graphite (possibly with minor Si for 259 Wh/kg)",
+      "coating_thickness_um": 80,
+      "current_collector": {
+        "material": "Copper",
+        "thickness_um": 10
+      },
+      "confidence": "MEDIUM"
+    },
+
+    "separator": {
+      "type": "SRS (Safety Reinforced Separator) - Ceramic coated polyolefin",
+      "thickness_um": 20,
+      "heat_resistance_C": 200,
+      "confidence": "HIGH",
+      "source": "LG Chem Blog"
+    },
+
+    "total_electrode_area_m2_estimate": 6.5,
+    "total_electrode_area_range_m2": [5, 8]
+  },
+
+  "safety_geometry": {
+    "anode_overhang_mm": 1.5,
+    "anode_overhang_range_mm": [1, 2],
+    "anode_cathode_area_ratio": 1.1,
+    "anode_cathode_ratio_range": [1.05, 1.16],
+    "np_ratio": 1.1,
+    "np_ratio_range": [1.05, 1.2],
+    "confidence": "MEDIUM"
+  },
+
+  "terminals": {
+    "configuration": "Bi-directional (opposite short ends)",
+    "configuration_note": "Critical for 350mm length to reduce resistance and heat",
+    "positive": {
+      "material": "Aluminum",
+      "width_mm": 45,
+      "thickness_mm": 0.2
+    },
+    "negative": {
+      "material": "Copper with Nickel plating",
+      "width_mm": 45,
+      "thickness_mm": 0.2
+    },
+    "confidence": "MEDIUM",
+    "source": "Gemini"
+  },
+
+  "operating_conditions": {
+    "swelling_pct_over_life": 10,
+    "breathing_foam_allowance_mm": 1.0,
+    "compression_pressure_MPa": 0.9,
+    "compression_pressure_range_MPa": [0.075, 1.75],
+    "cooling": "Bottom cooling via thermal gap filler"
+  },
+
+  "validation": {
+    "mass_target_g": 897,
+    "mass_tolerance_pct": 5,
+    "gravimetric_ed_target_Wh_kg": 259,
+    "gravimetric_ed_tolerance_pct": 5,
+    "volumetric_ed_target_Wh_L": 648,
+    "volumetric_ed_tolerance_pct": 5
+  },
+
+  "data_gaps": [
+    "Exact layer count",
+    "Electrode loading (exact)",
+    "Electrolyte amount (g/Ah)",
+    "Anode overhang (exact)",
+    "N/P ratio (measured)"
+  ],
+
+  "confidence_summary": {
+    "external_geometry": "HIGH",
+    "mass": "HIGH",
+    "electrical": "HIGH",
+    "electrode_stack": "MEDIUM",
+    "safety_geometry": "MEDIUM",
+    "terminal_details": "MEDIUM"
+  }
+}

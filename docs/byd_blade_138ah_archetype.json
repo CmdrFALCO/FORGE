@@ -1,0 +1,185 @@
+{
+  "metadata": {
+    "name": "BYD Blade LFP Prismatic",
+    "archetype_version": "1.0.0",
+    "created": "2025-12-28",
+    "cell_type": "Prismatic (Blade)",
+    "manufacturer": "BYD",
+    "model": "Blade 138Ah",
+    "application": "BYD Han, Seal, Dolphin (Cell-to-Body structural)",
+    "chemistry": {
+      "cathode": "LFP",
+      "anode": "Graphite",
+      "cathode_formula": "LiFePO4"
+    },
+    "data_sources": [
+      "Gorsch et al. Cell Reports Physical Science 2025",
+      "BatteryDesign.net",
+      "vehiclethermal.com analysis"
+    ],
+    "research_notes": "High-quality academic teardown data available. Extreme aspect ratio allows structural use."
+  },
+
+  "geometry": {
+    "external": {
+      "length_mm": 960.0,
+      "width_mm": 90.0,
+      "height_mm": 13.5,
+      "length_tolerance_mm": 10.0,
+      "width_tolerance_mm": 1.0,
+      "height_tolerance_plus_mm": 2.5,
+      "height_tolerance_minus_mm": 1.5,
+      "confidence": "HIGH"
+    },
+    "walls": {
+      "wall_thickness_mm": 0.4,
+      "confidence": "HIGH",
+      "source": "Gorsch et al. 2025"
+    },
+    "internal_clearances": {
+      "notes": "Loose thickness tolerance suggests reliance on pack assembly for final stack tolerance"
+    }
+  },
+
+  "electrical": {
+    "nominal_voltage_V": 3.2,
+    "capacity_Ah": 138.0,
+    "energy_Wh": 441.6,
+    "gravimetric_energy_density_Wh_kg": 168,
+    "volumetric_energy_density_Wh_L": 424,
+    "dc_resistance_mOhm": 1.1,
+    "dc_resistance_tolerance_mOhm": 0.2,
+    "confidence": "HIGH"
+  },
+
+  "mass": {
+    "total_mass_g": 2630,
+    "confidence": "HIGH",
+    "source": "BatteryDesign.net, vehiclethermal.com"
+  },
+
+  "electrode_stack": {
+    "assembly_method": "Z-fold stacking (laminated)",
+    "layer_count": {
+      "cathode_layers": 38,
+      "anode_layers": 39,
+      "separator_layers": 79,
+      "confidence": "HIGH",
+      "source": "Gorsch et al. 2025"
+    },
+
+    "cathode": {
+      "active_material": "LiFePO4",
+      "sheet_dimensions": {
+        "length_mm": 899.5,
+        "width_mm": 82.5,
+        "confidence": "HIGH"
+      },
+      "coating_thickness_um": 65,
+      "coating_thickness_note": "Claude: 70μm, ChatGPT: 60μm, averaged to 65μm",
+      "confidence": "MEDIUM",
+      "current_collector": {
+        "material": "Aluminum",
+        "thickness_um": 14,
+        "thickness_note": "Claude: 16μm, ChatGPT: 13μm, averaged"
+      }
+    },
+
+    "anode": {
+      "active_material": "Graphite",
+      "silicon_content_pct": 0,
+      "sheet_dimensions": {
+        "length_mm": 904.0,
+        "width_mm": 85.0,
+        "confidence": "HIGH"
+      },
+      "coating_thickness_um": 65,
+      "confidence": "HIGH",
+      "current_collector": {
+        "material": "Copper",
+        "thickness_um": 8,
+        "confidence": "HIGH"
+      }
+    },
+
+    "separator": {
+      "type": "Dry process PP",
+      "dimensions": {
+        "length_mm": 915.0,
+        "width_mm": 87.0,
+        "confidence": "HIGH"
+      },
+      "thickness_um": 12,
+      "configuration": "Single continuously Z-folded separator",
+      "confidence": "HIGH"
+    },
+
+    "total_cathode_area_m2": 5.64,
+    "total_cathode_area_note": "38 layers × 742 cm² per layer"
+  },
+
+  "safety_geometry": {
+    "anode_overhang": {
+      "length_direction_mm": 2.25,
+      "width_direction_mm": 1.25,
+      "calculation": "(904-899.5)/2 and (85-82.5)/2",
+      "confidence": "HIGH"
+    },
+    "separator_overhang_mm": 2.0,
+    "separator_overhang_note": "Beyond electrodes on all edges",
+    "confidence": "HIGH"
+  },
+
+  "casing": {
+    "material": "Aluminum with PET external insulation",
+    "construction": "Laser welded multi-step process",
+    "internal_insulation": "Transparent insulating pouch",
+    "vent": {
+      "location": "Side venting (negative end)",
+      "type": "Explosive-proof valve"
+    },
+    "confidence": "HIGH",
+    "source": "Gorsch et al. 2025"
+  },
+
+  "terminals": {
+    "configuration": "At ends of cell (along 960mm axis)",
+    "positive": {
+      "material": "Aluminum",
+      "thread": "M6 or welding platform"
+    },
+    "negative": {
+      "material": "Copper/Nickel"
+    },
+    "tab_connection": "Hybrid: ultrasonic + laser welding",
+    "confidence": "HIGH"
+  },
+
+  "operating_conditions": {
+    "temperature_range_C": [-20, 55]
+  },
+
+  "validation": {
+    "mass_target_g": 2630,
+    "mass_tolerance_pct": 5,
+    "gravimetric_ed_target_Wh_kg": 168,
+    "gravimetric_ed_tolerance_pct": 5,
+    "volumetric_ed_target_Wh_L": 424,
+    "volumetric_ed_tolerance_pct": 5
+  },
+
+  "data_gaps": [
+    "N/P ratio (exact)",
+    "Electrolyte amount (g/Ah)",
+    "Lid thickness"
+  ],
+
+  "confidence_summary": {
+    "external_geometry": "HIGH",
+    "mass": "HIGH",
+    "electrical": "HIGH",
+    "electrode_stack": "HIGH",
+    "safety_geometry": "HIGH",
+    "casing_details": "HIGH"
+  }
+}

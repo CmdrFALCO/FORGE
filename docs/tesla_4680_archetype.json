@@ -1,0 +1,200 @@
+{
+  "metadata": {
+    "name": "Tesla 4680 Cylindrical",
+    "archetype_version": "1.0.0",
+    "created": "2025-12-28",
+    "cell_type": "Cylindrical",
+    "manufacturer": "Tesla",
+    "model": "4680 (Gen 1)",
+    "application": "Tesla Model Y (Structural Battery Pack)",
+    "chemistry": {
+      "cathode": "NMC811",
+      "cathode_composition": "81.6% Ni, 12% Co, 6.3% Mn",
+      "anode": "Pure Graphite (Natural Flake)",
+      "anode_note": "NO SILICON in Gen 1 (surprising finding)"
+    },
+    "data_sources": [
+      "Ank et al. Journal of The Electrochemical Society 2023",
+      "Neware teardown and characterization",
+      "Gorsch et al. Cell Reports Physical Science 2025",
+      "UCSD/The Limiting Factor analysis",
+      "Baazouzi, Batteries MDPI 2023"
+    ],
+    "research_notes": "Best documented cell. Tabless design with dry electrode anode. Multiple high-quality academic teardowns available."
+  },
+
+  "geometry": {
+    "external": {
+      "diameter_mm": 46.0,
+      "height_mm": 80.0,
+      "height_with_terminal_mm": 81.0,
+      "confidence": "HIGH"
+    },
+    "can": {
+      "material": "Nickel-plated steel (stamped/drawn)",
+      "wall_thickness_mm": 0.5,
+      "wall_thickness_range_mm": [0.4, 0.6],
+      "wall_thickness_note": "2-3x thicker than 21700 for structural use",
+      "confidence": "HIGH"
+    },
+    "jellyroll": {
+      "outer_diameter_mm": 44.5,
+      "height_mm": 71.0,
+      "jellyroll_to_can_gap_um": 750,
+      "confidence": "HIGH"
+    },
+    "core": {
+      "type": "Hollow (no mandrel)",
+      "void_diameter_mm": 5.0,
+      "confidence": "HIGH"
+    },
+    "positive_terminal": {
+      "diameter_mm": 16.0,
+      "protrusion_mm": 1.0
+    }
+  },
+
+  "electrical": {
+    "nominal_voltage_V": 3.7,
+    "capacity_Ah": 22.4,
+    "capacity_measured_C20_Ah": 22.36,
+    "capacity_std_dev_mAh": 199.7,
+    "capacity_C3_Ah": 22.08,
+    "energy_Wh": 86.5,
+    "gravimetric_energy_density_Wh_kg": 244,
+    "gravimetric_ed_range_Wh_kg": [232.5, 244],
+    "volumetric_energy_density_Wh_L": 643,
+    "volumetric_ed_range_Wh_L": [622, 650],
+    "dcir_mOhm": 6.2,
+    "dcir_range_mOhm": [5.4, 7.0],
+    "dcir_note": "Low resistance due to tabless design",
+    "confidence": "HIGH"
+  },
+
+  "mass": {
+    "total_mass_g": 355,
+    "confidence": "HIGH"
+  },
+
+  "electrode_stack": {
+    "assembly_method": "Wound jellyroll",
+    "winding_turns_estimate": 38,
+    "winding_turns_range": [35, 40],
+
+    "cathode": {
+      "active_material": "NMC811",
+      "total_length_mm": 3267,
+      "width_mm": 70,
+      "width_range_mm": [68, 72],
+      "coating_thickness_um": 87,
+      "coating_thickness_range_um": [85, 89],
+      "areal_capacity_mAh_cm2": 5.25,
+      "coating_process": "Wet slurry (solvent-based)",
+      "current_collector": {
+        "material": "Aluminum",
+        "thickness_um": 12,
+        "thickness_range_um": [9, 15],
+        "end_disc_thickness_um": 400
+      },
+      "confidence": "HIGH"
+    },
+
+    "anode": {
+      "active_material": "Pure Natural Flake Graphite",
+      "silicon_content_pct": 0,
+      "silicon_note": "No silicon detected in EDX analysis (Gen 1)",
+      "total_length_mm": 3403,
+      "overhang_total_mm": 136,
+      "width_mm": 72,
+      "coating_thickness_um": 117,
+      "coating_thickness_range_um": [112, 121],
+      "areal_capacity_mAh_cm2": 5.5,
+      "graphite_particle_size_um": 35,
+      "binder": "PTFE",
+      "coating_process": "Dry electrode (solvent-free)",
+      "current_collector": {
+        "material": "Copper",
+        "thickness_um": 7,
+        "thickness_range_um": [4.5, 9],
+        "end_disc_thickness_um": 260
+      },
+      "confidence": "HIGH"
+    },
+
+    "separator": {
+      "count": 2,
+      "count_note": "Inner and outer separator",
+      "thickness_um": null,
+      "thickness_note": "DATA NOT FOUND"
+    }
+  },
+
+  "tabless_design": {
+    "type": "Flower tab / Hexagonal symmetry disc",
+    "notching": {
+      "cathode_not_notched_pct": 25,
+      "anode_not_notched_pct": 30,
+      "design": "Quasi-tabless"
+    },
+    "tab_disc": {
+      "material_positive": "Aluminum with laser-cut notches",
+      "material_negative": "Copper with laser-cut notches",
+      "thickness_mm": 0.2
+    },
+    "connection": "Laser welded foil edges to disc",
+    "current_path_length_mm": 80,
+    "current_path_traditional_mm": 3800,
+    "resistance_reduction": "5-20x lower than tabbed design",
+    "confidence": "HIGH"
+  },
+
+  "safety_geometry": {
+    "anode_overhang_total_mm": 136,
+    "anode_overhang_note": "Distributed along winding length",
+    "np_ratio": 1.08,
+    "np_ratio_confidence": "MEDIUM",
+    "confidence": "HIGH"
+  },
+
+  "header_assembly": {
+    "vent_location": "Bottom (negative end)",
+    "electrolyte_fill": "Through center hole in closing disc",
+    "fill_closure": "Copper blind rivet",
+    "jellyroll_fixation": "Two strips of adhesive tape (top/bottom)",
+    "can_closure": "Grooving + crimping (negative end)",
+    "confidence": "HIGH"
+  },
+
+  "dry_electrode": {
+    "status": "Anode only (Gen 1)",
+    "cathode_process": "Wet slurry",
+    "anode_process": "Dry electrode with PTFE binder",
+    "confidence": "HIGH"
+  },
+
+  "validation": {
+    "mass_target_g": 355,
+    "mass_tolerance_pct": 3,
+    "capacity_target_Ah": 22.4,
+    "capacity_tolerance_pct": 5,
+    "gravimetric_ed_target_Wh_kg": 244,
+    "gravimetric_ed_tolerance_pct": 5
+  },
+
+  "data_gaps": [
+    "Separator thickness",
+    "Electrolyte amount (g/Ah)",
+    "CID specifications",
+    "Vent activation pressure",
+    "Notch pitch/depth dimensions"
+  ],
+
+  "confidence_summary": {
+    "external_geometry": "HIGH",
+    "mass": "HIGH",
+    "electrical": "HIGH",
+    "electrode_stack": "HIGH",
+    "tabless_design": "HIGH",
+    "safety_geometry": "HIGH"
+  }
+}

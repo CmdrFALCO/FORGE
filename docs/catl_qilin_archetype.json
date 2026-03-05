@@ -1,0 +1,166 @@
+{
+  "metadata": {
+    "name": "CATL Qilin CTP 3.0 Prismatic",
+    "archetype_version": "1.0.0",
+    "created": "2025-12-28",
+    "cell_type": "Prismatic",
+    "manufacturer": "CATL",
+    "model": "Qilin (CTP 3.0)",
+    "capacity_class_Ah": "150-200",
+    "application": "Zeekr 009, 001 ME (140kWh pack)",
+    "chemistry": {
+      "cathode": "NMC811",
+      "anode": "Graphite + Silicon",
+      "silicon_content_pct_estimate": [5, 10]
+    },
+    "data_sources": [
+      "BatteryDesign.net (Zeekr 140kWh analysis)",
+      "CATL official specifications",
+      "Stock et al. Electrochimica Acta 2023 (LFP variant extrapolation)",
+      "vehiclethermal.com teardown"
+    ],
+    "research_notes": "WARNING: No direct NMC Qilin teardown available. Most data extrapolated from CATL LFP BTF0 161Ah teardown or estimated. Requires direct teardown for production use."
+  },
+
+  "geometry": {
+    "external": {
+      "length_mm": 200,
+      "width_mm": 160,
+      "width_range_mm": [120, 207],
+      "height_mm": 36,
+      "height_range_mm": [33, 39],
+      "confidence": "LOW",
+      "notes": "Dimensions vary by pack configuration"
+    },
+    "walls": {
+      "wall_thickness_mm": 0.6,
+      "confidence": "MEDIUM"
+    }
+  },
+
+  "electrical": {
+    "nominal_voltage_V": 3.65,
+    "capacity_Ah": 175,
+    "capacity_range_Ah": [150, 200],
+    "energy_Wh": 648,
+    "gravimetric_energy_density_Wh_kg": 255,
+    "volumetric_energy_density_Wh_L": 290,
+    "volumetric_ed_note": "Cell level; system level higher due to CTP",
+    "fast_charge_capability": "4C (10-80% in 10 min)",
+    "confidence": "MEDIUM"
+  },
+
+  "mass": {
+    "total_mass_g": 2600,
+    "mass_range_g": [2270, 2950],
+    "confidence": "LOW",
+    "notes": "Significant variation in sources"
+  },
+
+  "electrode_stack": {
+    "assembly_method": "Wound (flattened jellyroll)",
+    "internal_rolls": "3-4 parallel-connected",
+    "confidence": "MEDIUM",
+
+    "cathode": {
+      "active_material": "NMC811 (high-nickel)",
+      "coating_thickness_um": 55,
+      "coating_thickness_range_um": [50, 70],
+      "coating_thickness_note": "Thin for 4C charging capability",
+      "confidence": "LOW"
+    },
+
+    "anode": {
+      "active_material": "Graphite + Silicon blend",
+      "silicon_content_pct": 7.5,
+      "silicon_content_range_pct": [5, 10],
+      "anode_note": "Low Lithium Consumption Anode - advanced binders or pre-lithiation",
+      "confidence": "LOW"
+    },
+
+    "separator": {
+      "type": "PE/PP trilayer or ceramic-coated PE",
+      "thickness_um": 13,
+      "thickness_range_um": [12, 15],
+      "confidence": "MEDIUM",
+      "source": "CATL BTF0 teardown: 13μm"
+    },
+
+    "current_collectors": {
+      "aluminum_um": 12,
+      "copper_um": 5.5,
+      "copper_range_um": [5, 6],
+      "confidence": "HIGH",
+      "source": "CATL BTF0 teardown (Stock et al. 2023)"
+    },
+
+    "layer_count_estimate": 40,
+    "layer_count_note": "Estimated from CATL BTF0 teardown"
+  },
+
+  "safety_geometry": {
+    "anode_overhang_mm": 1.5,
+    "separator_overhang_mm": 2.5,
+    "np_ratio": 1.06,
+    "confidence": "HIGH",
+    "source": "CATL BTF0 teardown: anode 70mm vs cathode 67mm, separator 75mm"
+  },
+
+  "casing": {
+    "material": "Aluminum alloy",
+    "features": "May have indented grooves for structural adhesive",
+    "vent": {
+      "location": "Bottom-mounted (cells inverted in pack)"
+    },
+    "confidence": "MEDIUM"
+  },
+
+  "terminals": {
+    "type": "Flat laser-weldable pads",
+    "configuration": "Top (terminals face down in pack)",
+    "thread": "M6 (typical for 200+ Ah)",
+    "tab_design": "Multi-tab or Full-tab (required for 4C)",
+    "confidence": "MEDIUM"
+  },
+
+  "thermal_management": {
+    "cooling_interface": "Side walls",
+    "cooling_plate": {
+      "location": "Between cells",
+      "thickness_mm": 3,
+      "thickness_range_mm": [2, 4],
+      "material": "Aluminum AL3003, brazed"
+    },
+    "micron_bridge": "Decouples thermal runaway between cells",
+    "confidence": "MEDIUM"
+  },
+
+  "validation": {
+    "mass_target_g": 2600,
+    "mass_tolerance_pct": 15,
+    "gravimetric_ed_target_Wh_kg": 255,
+    "gravimetric_ed_tolerance_pct": 15,
+    "note": "Wide tolerance due to data uncertainty"
+  },
+
+  "data_gaps": [
+    "Exact external dimensions",
+    "Layer count",
+    "Electrode coating thicknesses",
+    "Tab dimensions",
+    "Electrolyte amount",
+    "Internal clearances",
+    "Vent burst pressure"
+  ],
+
+  "confidence_summary": {
+    "external_geometry": "LOW",
+    "mass": "LOW",
+    "electrical": "MEDIUM",
+    "electrode_stack": "LOW",
+    "safety_geometry": "HIGH (from LFP variant)",
+    "casing_details": "MEDIUM"
+  },
+
+  "action_required": "Direct teardown required before production use"
+}
