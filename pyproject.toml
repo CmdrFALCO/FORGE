@@ -5,7 +5,7 @@ build-backend = "setuptools.backends._legacy:_Backend"
 [project]
 name = "forge"
 version = "0.1.0"
-description = "FORGE — Formal Output Regulation for Generative Engineering"
+description = "FORGE - Formal Output Regulation for Generative Engineering"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
@@ -43,7 +43,11 @@ dev = [
     "ruff>=0.3",
     "mypy>=1.8",
 ]
-all = ["forge[gui,cad,ml,dev]"]
+llm = [
+    "anthropic",
+    "requests",
+]
+all = ["forge[gui,cad,ml,dev,llm]"]
 
 [tool.setuptools.packages.find]
 include = ["forge*"]
