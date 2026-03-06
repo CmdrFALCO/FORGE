@@ -16,6 +16,7 @@ authors = [
 dependencies = [
     "pybamm>=24.1",
     "numpy>=1.24",
+    "jsonschema>=4.0",
     "pydantic>=2.0",
     "pyyaml>=6.0",
     "jinja2>=3.1",
