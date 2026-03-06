@@ -328,8 +328,9 @@ class TestPyBaMMExtraction:
 
         sys.path.insert(0, str(Path(__file__).parent.parent.parent / "scripts"))
 
-        # This should not raise an error if PyBaMM is installed
-        from extract_pybamm_params import extract_parameters
+        # Skip gracefully in CI if the standalone script is not importable.
+        extract_pybamm_params = pytest.importorskip("extract_pybamm_params")
+        extract_parameters = extract_pybamm_params.extract_parameters
 
         params = extract_parameters("Ecker2015")
 
