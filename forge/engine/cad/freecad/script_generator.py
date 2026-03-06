@@ -10,7 +10,6 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from ..body_builders import GroupingMode
 from .colors import MATERIAL_TRANSPARENCY, FreeCADColorScheme
 
-
 if TYPE_CHECKING:
     from ...geometry.detailed_geometry import DetailedGeometry
 

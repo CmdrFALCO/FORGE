@@ -6,7 +6,6 @@ This page wraps/imports the existing calculator functionality.
 
 import streamlit as st
 
-
 st.set_page_config(
     page_title="Cell Calculator - FORGE",
     page_icon="battery",

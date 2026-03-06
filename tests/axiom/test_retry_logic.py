@@ -4,7 +4,6 @@ import pytest
 
 from forge.axiom import MockBackend
 
-
 # Valid YAML response
 VALID_RESPONSE = """
 Here's the design:

@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from .assembly import AssemblyNamer, CADAssembly
-from .availability import BUILD123D_AVAILABLE, require_build123d
+from .availability import require_build123d
 from .body_builders import BodyBuilder, GroupingMode
 
 if TYPE_CHECKING:

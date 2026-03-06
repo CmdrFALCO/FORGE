@@ -15,7 +15,6 @@ from typing import Any
 
 from .schema_validator import ValidationError, ValidationResult
 
-
 # Type for constraint validation functions
 ConstraintFunc = Callable[[dict], ValidationError | None]
 

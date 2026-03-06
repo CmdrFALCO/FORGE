@@ -10,20 +10,17 @@ Test Coverage Target: ~85 tests
 """
 
 import json
-import os
 from pathlib import Path
 
 import pytest
 
-from forge.export.csv_export import export_bom_csv, export_report_csv
-from forge.export.json_export import export_json, export_report_json, load_report_json
 from forge.engine.models.results import BillOfMaterials, CellReport
 from forge.engine.validation.result_validation import (
-    ReferenceCell,
     list_reference_cells,
     load_reference_cell,
 )
-
+from forge.export.csv_export import export_bom_csv, export_report_csv
+from forge.export.json_export import export_json, export_report_json, load_report_json
 
 # =============================================================================
 # Test Fixtures

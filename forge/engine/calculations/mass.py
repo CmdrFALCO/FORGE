@@ -14,7 +14,6 @@ from dataclasses import dataclass
 
 from forge.engine.models.materials import PackagingLayer
 
-
 # Default material densities [g/cm³]
 DENSITY_ALUMINUM = 2.70
 DENSITY_COPPER = 8.96

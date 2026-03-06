@@ -1,5 +1,7 @@
 """Tests for Build123d generator module."""
 
+# ruff: noqa: E402
+
 from pathlib import Path
 
 import pytest
@@ -7,7 +9,7 @@ import pytest
 # Skip all tests if build123d not available
 build123d = pytest.importorskip("build123d")
 
-from forge.engine.cad import BUILD123D_AVAILABLE, Build123dGenerator, GroupingMode
+from forge.engine.cad import Build123dGenerator, GroupingMode
 from forge.engine.cad.assembly import MaterialGroup
 from forge.engine.geometry.loader import ArchetypeLoader
 

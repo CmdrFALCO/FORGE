@@ -10,6 +10,8 @@ Tier 1 Academic-Validated Cells:
 - Heenan2020: LG MJ1 18650 (NMC811/Graphite+Si) - DOI: 10.1149/1945-7111/ab728d
 """
 
+# ruff: noqa: E402
+
 import json
 from pathlib import Path
 
@@ -23,7 +25,6 @@ from forge.materials.repositories.pybamm_repo import (
     CUSTOM_PARAMETER_SETS,
     PyBaMMRepository,
 )
-
 
 # =============================================================================
 # Test Fixtures
@@ -435,7 +436,7 @@ class TestMaterialPropertyConsistency:
 
     def test_gunter2022_loading_from_thickness_and_density(self, gunter2022_repo):
         """Verify loading can be derived from thickness and density."""
-        cathode = gunter2022_repo.get_cathode()
+        gunter2022_repo.get_cathode()
 
         # Loading = thickness(cm) x density(g/cm3) for pure coating
         # Paper: 87.3 um, 27.9 mg/cm2, density ~3.2 g/cm3

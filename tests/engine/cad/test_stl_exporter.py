@@ -1,5 +1,7 @@
 """Tests for STL exporter utilities."""
 
+# ruff: noqa: E402
+
 from pathlib import Path
 
 import pytest
@@ -188,7 +190,7 @@ class TestSTLExportCombined:
 
         # Check file doesn't start with "solid" ASCII header
         with open(result.filepath, "rb") as f:
-            header = f.read(80)
+            f.read(80)
             # Binary STL has 80-byte header that may or may not start with "solid"
             # but the structure is different from ASCII
 

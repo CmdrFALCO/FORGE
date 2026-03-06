@@ -53,7 +53,6 @@ from .terminals import (
     calculate_terminal_assembly,
 )
 
-
 if TYPE_CHECKING:
     from ..detailed_geometry import DetailedGeometry
 

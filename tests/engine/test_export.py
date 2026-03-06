@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from forge.engine.models.results import BillOfMaterials, CellReport
 from forge.export import (
     export_bom_csv,
     export_bom_json,
@@ -13,7 +14,6 @@ from forge.export import (
     export_report_csv,
     load_report_json,
 )
-from forge.engine.models.results import BillOfMaterials, CellReport
 
 
 @pytest.fixture

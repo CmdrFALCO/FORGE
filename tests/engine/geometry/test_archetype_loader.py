@@ -12,8 +12,7 @@ from pathlib import Path
 import pytest
 
 from forge.engine.geometry.loader import ArchetypeLoader, load_archetype
-from forge.engine.geometry.schemas import ArchetypeSchema, ConfidenceLevel
-
+from forge.engine.geometry.schemas import ArchetypeSchema
 
 ARCHETYPE_DIR = Path(__file__).parent.parent.parent.parent / "docs"
 ARCHETYPE_FILES = [

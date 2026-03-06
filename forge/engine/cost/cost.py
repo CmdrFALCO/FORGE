@@ -12,6 +12,8 @@ Works with all cell types: pouch, prismatic, and cylindrical.
 
 from dataclasses import dataclass, field
 
+from forge.engine.models.results import CellReport
+
 from .material_costs import (
     COLLECTOR_COSTS,
     get_anode_cost,
@@ -21,7 +23,6 @@ from .material_costs import (
     get_separator_cost,
     get_tab_cost,
 )
-from forge.engine.models.results import CellReport
 
 
 @dataclass

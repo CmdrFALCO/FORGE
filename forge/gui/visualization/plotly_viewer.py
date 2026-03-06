@@ -9,7 +9,6 @@ import plotly.graph_objects as go
 from .colors import DEFAULT_COLORS, ColorScheme
 from .geometry_builders import GeometryBuilder
 
-
 if TYPE_CHECKING:
     from forge.engine.geometry.detailed_geometry import DetailedGeometry
 
@@ -337,7 +336,6 @@ class PlotlyViewer:
         XY plane: Top-down view showing concentric rings
         XZ/YZ plane: Side view showing rectangular profile with radial layers
         """
-        import numpy as np
 
         from forge.engine.geometry.layer_stack import WindingGeometry
 
@@ -347,7 +345,7 @@ class PlotlyViewer:
 
         # Limit displayed winds for performance
         shown_winds = min(15, winding.num_winds)
-        step = max(1, winding.num_winds // shown_winds)
+        max(1, winding.num_winds // shown_winds)
 
         # Track which layers we've added to legend
         shown_legend: set[str] = set()

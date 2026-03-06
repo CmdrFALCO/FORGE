@@ -11,7 +11,6 @@ from typing import Any
 
 from forge.engine.models.results import CellReport
 
-
 # =============================================================================
 # Reference Data Directory
 # =============================================================================

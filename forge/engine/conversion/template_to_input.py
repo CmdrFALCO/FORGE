@@ -14,11 +14,6 @@ from typing import Any
 
 import yaml
 
-
-# Sentinel value to detect when no default was provided
-_NO_DEFAULT = object()
-
-from forge.engine.models.pouch import PouchCellInput
 from forge.engine.models.cylindrical import (
     CanMaterial,
     CylindricalCellInput,
@@ -36,6 +31,7 @@ from forge.engine.models.materials import (
     SeparatorMaterial,
     TabConfig,
 )
+from forge.engine.models.pouch import PouchCellInput
 from forge.engine.models.prismatic import (
     PrismaticCellInput,
     PrismaticGeometry,
@@ -45,6 +41,9 @@ from forge.engine.models.stack import EndElectrodesMode, StackConfiguration
 
 from . import material_defaults
 from .exceptions import MappingError, MissingFieldError
+
+# Sentinel value to detect when no default was provided
+_NO_DEFAULT = object()
 
 
 def _extract_value(value: Any) -> Any:

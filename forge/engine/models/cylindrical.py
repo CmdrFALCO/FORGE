@@ -21,7 +21,6 @@ from .materials import (
     SeparatorMaterial,
 )
 
-
 # Material densities [g/cm³]
 DENSITY_STEEL = 7.85
 DENSITY_ALUMINUM = 2.70

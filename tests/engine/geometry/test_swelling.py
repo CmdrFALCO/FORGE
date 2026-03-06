@@ -9,11 +9,11 @@ This module tests the SwellingProfile class including:
 import pytest
 
 from forge.engine.geometry.swelling import (
-    SwellingProfile,
     SWELLING_LFP,
-    SWELLING_NMC811,
     SWELLING_NCA,
+    SWELLING_NMC811,
     SWELLING_NONE,
+    SwellingProfile,
 )
 
 

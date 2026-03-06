@@ -62,11 +62,10 @@ class PouchTerminalCalculator:
         ext = geometry.external_geometry
 
         length = ext.length_mm or 200.0
-        width = ext.width_mm or 150.0
         thickness = ext.thickness_mm or ext.height_mm or 10.0
 
         half_length = length / 2
-        half_thickness = thickness / 2
+        thickness / 2
 
         assembly = TerminalAssembly(cell_type="pouch")
 

@@ -9,7 +9,6 @@ import plotly.graph_objects as go
 
 from .colors import DEFAULT_COLORS, ColorScheme
 
-
 if TYPE_CHECKING:
     from forge.engine.geometry.detailed_geometry import DetailedGeometry
     from forge.engine.geometry.layer_stack import Layer, LayerStackGeometry, WindingGeometry

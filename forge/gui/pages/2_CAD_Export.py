@@ -9,18 +9,10 @@ from pathlib import Path
 
 import streamlit as st
 
-
-st.set_page_config(
-    page_title="CAD Export - FORGE",
-    page_icon="battery",
-    layout="wide",
-)
-
-# Imports
 from forge.engine.cad import BUILD123D_AVAILABLE
 from forge.engine.cad.freecad import FreeCADScriptGenerator
 from forge.engine.geometry.loader import ArchetypeLoader
-from forge.gui.visualization import PlotlyViewer
+from forge.engine.geometry.validation import GeometryValidator
 from forge.gui.utils import (
     check_cad_available,
     format_file_size,
@@ -29,13 +21,17 @@ from forge.gui.utils import (
     render_validation_panel,
     render_validation_summary,
 )
-from forge.engine.geometry.validation import GeometryValidator
-
+from forge.gui.visualization import PlotlyViewer
 
 if BUILD123D_AVAILABLE:
     from forge.engine.cad import Build123dGenerator
     from forge.engine.cad.exporters.stl_exporter import STLExporter, STLQuality
 
+st.set_page_config(
+    page_title="CAD Export - FORGE",
+    page_icon="battery",
+    layout="wide",
+)
 
 # =============================================================================
 # Constants

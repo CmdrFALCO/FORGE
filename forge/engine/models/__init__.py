@@ -4,6 +4,29 @@ All dataclass definitions for cell inputs, outputs, geometry, and materials.
 """
 
 # Materials + constants
+# Cylindrical
+from .cylindrical import (
+    CanMaterial,
+    CylindricalCellInput,
+    CylindricalGeometry,
+    HeaderComponents,
+    JellyRollResult,
+    SimplifiedHeader,
+    TabType,
+    WindingConfig,
+    create_4680_geometry,
+    create_18650_geometry,
+    create_21700_geometry,
+    get_can_material_density,
+)
+
+# Geometry
+from .geometry import (
+    PouchPackaging,
+    PrismaticGeometry,
+    PrismaticSheetGeometry,
+    SheetGeometry,
+)
 from .materials import (
     DENSITY_ALUMINUM,
     DENSITY_COPPER,
@@ -21,31 +44,6 @@ from .materials import (
     TabConfig,
 )
 
-# Geometry
-from .geometry import (
-    PouchPackaging,
-    PrismaticGeometry,
-    PrismaticSheetGeometry,
-    SheetGeometry,
-)
-
-# Stack
-from .stack import (
-    EndElectrodesMode,
-    SheetCounts,
-    StackConfiguration,
-    StackThicknessResult,
-    SwellingParameters,
-    ThicknessParameters,
-)
-
-# Results
-from .results import (
-    BillOfMaterials,
-    BomItem,
-    CellReport,
-)
-
 # Pouch
 from .pouch import (
     DEFAULT_EXCESS_FACTOR,
@@ -57,26 +55,31 @@ from .prismatic import (
     PrismaticCADExport,
     PrismaticCADFeatures,
     PrismaticCellInput,
-    PrismaticGeometry as PrismaticCaseGeometry,
-    PrismaticSheetGeometry as PrismaticDirectionalSheetGeometry,
     TerminalGeometry,
     VentGeometry,
 )
+from .prismatic import (
+    PrismaticGeometry as PrismaticCaseGeometry,
+)
+from .prismatic import (
+    PrismaticSheetGeometry as PrismaticDirectionalSheetGeometry,
+)
 
-# Cylindrical
-from .cylindrical import (
-    CanMaterial,
-    CylindricalCellInput,
-    CylindricalGeometry,
-    HeaderComponents,
-    JellyRollResult,
-    SimplifiedHeader,
-    TabType,
-    WindingConfig,
-    create_18650_geometry,
-    create_21700_geometry,
-    create_4680_geometry,
-    get_can_material_density,
+# Results
+from .results import (
+    BillOfMaterials,
+    BomItem,
+    CellReport,
+)
+
+# Stack
+from .stack import (
+    EndElectrodesMode,
+    SheetCounts,
+    StackConfiguration,
+    StackThicknessResult,
+    SwellingParameters,
+    ThicknessParameters,
 )
 
 __all__ = [

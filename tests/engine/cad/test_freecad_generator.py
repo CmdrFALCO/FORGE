@@ -15,7 +15,6 @@ from forge.engine.cad.freecad import (
 )
 from forge.engine.geometry.loader import ArchetypeLoader
 
-
 ARCHETYPE_DIR = Path("docs")
 
 

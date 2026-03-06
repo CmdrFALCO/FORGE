@@ -6,21 +6,6 @@ handling the specific geometry and housing calculations for hard-case cells.
 
 from dataclasses import dataclass
 
-from forge.engine.models.prismatic import (
-    DENSITY_ALUMINUM,
-    DENSITY_PP,
-    PrismaticCADExport,
-    PrismaticCellInput,
-    PrismaticGeometry,
-    PrismaticSheetGeometry,
-)
-from forge.engine.models.results import CellReport
-from forge.engine.models.stack import (
-    EndElectrodesMode,
-    StackConfiguration,
-    SwellingParameters,
-    ThicknessParameters,
-)
 from forge.engine.calculations.energy import (
     calculate_areal_characteristics,
     calculate_cell_capacity,
@@ -36,6 +21,21 @@ from forge.engine.calculations.mass import (
 from forge.engine.calculations.stack import (
     calculate_pore_volumes,
     calculate_stack_thickness,
+)
+from forge.engine.models.prismatic import (
+    DENSITY_ALUMINUM,
+    DENSITY_PP,
+    PrismaticCADExport,
+    PrismaticCellInput,
+    PrismaticGeometry,
+    PrismaticSheetGeometry,
+)
+from forge.engine.models.results import CellReport
+from forge.engine.models.stack import (
+    EndElectrodesMode,
+    StackConfiguration,
+    SwellingParameters,
+    ThicknessParameters,
 )
 
 

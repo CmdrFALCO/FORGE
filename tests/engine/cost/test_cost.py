@@ -34,9 +34,8 @@ from forge.engine.cost.material_costs import (
     get_separator_cost,
     get_tab_cost,
 )
-from forge.export.csv_export import generate_bom_with_real_costs
 from forge.engine.models.results import CellReport
-
+from forge.export.csv_export import generate_bom_with_real_costs
 
 # =============================================================================
 # FIXTURES

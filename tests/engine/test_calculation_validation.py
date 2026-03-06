@@ -42,13 +42,11 @@ Results: 119 passed, 12 failed validation, 1 expected failure
 """
 
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Any
 
 import pytest
 
-from forge.engine.calculators.pouch_calculator import CellCalculator, PouchCellInput
 from forge.engine.calculators.cylindrical_calculator import CylindricalCalculator
+from forge.engine.calculators.pouch_calculator import CellCalculator, PouchCellInput
 from forge.engine.calculators.prismatic_calculator import PrismaticCalculator
 from forge.engine.models.cylindrical import (
     CanMaterial,
@@ -72,14 +70,11 @@ from forge.engine.models.prismatic import (
     PrismaticGeometry,
     PrismaticSheetGeometry,
 )
-from forge.engine.models.results import CellReport
 from forge.engine.models.stack import EndElectrodesMode, StackConfiguration
 from forge.engine.validation.result_validation import (
     ReferenceCell,
-    list_reference_cells,
     load_reference_cell,
 )
-
 
 # =============================================================================
 # Test Data - All 25 Reference Cells Grouped by Type
@@ -685,7 +680,7 @@ def run_calculation(cell_id: str, ref: ReferenceCell) -> dict[str, float] | None
             "housing_mass_g": result.housing_mass_g,
         }
 
-    except Exception as e:
+    except Exception:
         # Return None for any calculation error
         return None
 
@@ -1019,7 +1014,7 @@ class TestValidationSummary:
                 else:
                     results["fail"].append((cell_id, failures))
 
-            except Exception as e:
+            except Exception:
                 results["skip"].append(f"{cell_id} (error)")
 
         print(f"\nPASSED ({len(results['pass'])}):")

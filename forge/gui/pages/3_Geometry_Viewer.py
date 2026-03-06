@@ -8,21 +8,18 @@ from pathlib import Path
 
 import streamlit as st
 
+from forge.engine.geometry.loader import ArchetypeLoader
+from forge.gui.utils import (
+    get_output_dir,
+    init_session_state,
+)
+from forge.gui.visualization import PlotlyViewer
 
 st.set_page_config(
     page_title="Geometry Viewer - FORGE",
     page_icon="battery",
     layout="wide",
 )
-
-# Imports
-from forge.engine.geometry.loader import ArchetypeLoader
-from forge.gui.visualization import PlotlyViewer
-from forge.gui.utils import (
-    get_output_dir,
-    init_session_state,
-)
-
 
 # =============================================================================
 # Constants

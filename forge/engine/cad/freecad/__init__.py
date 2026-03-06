@@ -38,7 +38,6 @@ from .script_generator import (
     generate_freecad_script_from_archetype,
 )
 
-
 __all__ = [
     "FreeCADScriptGenerator",
     "ScriptGenerationResult",

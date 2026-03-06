@@ -16,7 +16,6 @@ from .models import (
     TerminalPost,
 )
 
-
 if TYPE_CHECKING:
     from ..detailed_geometry import DetailedGeometry
 
@@ -78,7 +77,7 @@ class PouchTabCalculator:
 
         # Half dimensions for centering
         half_length = length / 2
-        half_width = width / 2
+        width / 2
 
         # Create tab geometry
         tab_geom = TabGeometry(

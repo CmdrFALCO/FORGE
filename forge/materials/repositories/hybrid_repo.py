@@ -6,18 +6,20 @@ using PyBaMM as base and Excel for overrides and packaging data.
 
 from pathlib import Path
 
-from forge.engine.models.materials import DENSITY_ALUMINUM, DENSITY_PET, DENSITY_PP
 from forge.engine.models.materials import (
+    DENSITY_ALUMINUM,
+    DENSITY_PET,
+    DENSITY_PP,
     AnodeMaterial,
     CathodeMaterial,
     ElectrolyteModel,
     PackagingLayer,
     SeparatorMaterial,
 )
+
 from .base import MaterialRepository
 from .excel_repo import ExcelRepository, check_pandas_available
 from .pybamm_repo import PyBaMMRepository, check_pybamm_available
-
 
 # Default packaging presets (when no Excel file provided)
 DEFAULT_PACKAGING_PRESETS = {

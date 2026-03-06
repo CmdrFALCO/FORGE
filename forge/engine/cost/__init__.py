@@ -33,7 +33,6 @@ from .material_costs import (
     get_tab_cost,
 )
 
-
 __all__ = [
     # cost.py
     "ComponentCost",

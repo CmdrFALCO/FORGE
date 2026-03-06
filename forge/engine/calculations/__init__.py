@@ -16,11 +16,11 @@ from .cylindrical_housing import (
     calculate_tab_or_foil_mass,
     calculate_tabless_foil_extension_mass,
     calculate_traditional_tab_mass,
-    create_typical_21700_header,
     create_typical_4680_header,
+    create_typical_21700_header,
+    estimate_4680_header_mass,
     estimate_18650_header_mass,
     estimate_21700_header_mass,
-    estimate_4680_header_mass,
 )
 from .energy import (
     ArealCharacteristicsResult,

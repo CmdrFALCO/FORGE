@@ -9,11 +9,11 @@ This module tests the pouch cell extensions:
 
 import pytest
 
-from forge.engine.conversion import from_pouch_template_format
 from forge.axiom.generator.prompt_builder import (
     build_retry_prompt,
     build_system_prompt,
 )
+from forge.engine.conversion import from_pouch_template_format
 from forge.engine.validation.constraint_validator import (
     COMMON_CONSTRAINTS,
     POUCH_CONSTRAINTS,
@@ -25,7 +25,6 @@ from forge.engine.validation.constraint_validator import (
 )
 from forge.engine.validation.pipeline import validate_cell_definition
 from forge.engine.validation.schema_validator import load_schema, validate_structure
-
 
 # Valid pouch cell definition for testing
 VALID_POUCH_CELL = {

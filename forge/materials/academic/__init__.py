@@ -10,8 +10,8 @@ Available Parameter Sets:
 """
 
 from .gunter2022_lge78 import get_parameter_values as get_gunter2022
-from .stock2023_catl161 import get_parameter_values as get_stock2023
 from .heenan2020_lgmj1 import get_parameter_values as get_heenan2020
+from .stock2023_catl161 import get_parameter_values as get_stock2023
 
 # Registry of custom parameter sets
 CUSTOM_PARAMETER_SETS = {

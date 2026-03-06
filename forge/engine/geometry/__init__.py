@@ -59,7 +59,6 @@ from forge.engine.geometry.validation import (
     validate_geometry,
 )
 
-
 __all__ = [
     # Schemas
     "ArchetypeSchema",

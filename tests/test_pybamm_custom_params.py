@@ -9,6 +9,8 @@ Tier 1 Academic-Validated Cells:
 - Heenan2020: LG MJ1 18650 (NMC811/Graphite+Si) - DOI: 10.1149/1945-7111/ab728d
 """
 
+# ruff: noqa: E402
+
 import pytest
 
 pybamm = pytest.importorskip("pybamm")
@@ -22,6 +24,8 @@ from forge.materials.academic import (
 from forge.materials.academic.gunter2022_lge78 import (
     PARAMETER_CONFIDENCE,
     VALIDATION_TARGETS,
+)
+from forge.materials.academic.gunter2022_lge78 import (
     get_parameter_values as get_gunter2022,
 )
 from forge.materials.academic.heenan2020_lgmj1 import OPEN_DATA
@@ -35,8 +39,10 @@ from forge.materials.academic.stock2023_catl161 import (
 from forge.materials.repositories.pybamm_repo import (
     ALL_PARAMETER_SETS,
     CHEMISTRY_MAP,
-    CUSTOM_PARAMETER_SETS as REPO_CUSTOM_SETS,
     PyBaMMRepository,
+)
+from forge.materials.repositories.pybamm_repo import (
+    CUSTOM_PARAMETER_SETS as REPO_CUSTOM_SETS,
 )
 
 

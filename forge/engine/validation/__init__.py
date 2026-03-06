@@ -19,10 +19,10 @@ from .pipeline import (
 )
 from .result_validation import (
     REFERENCE_DIR,
-    ReferenceCell,
     V1_POUCH_REFERENCE,
     V1_POUCH_TOLERANCES,
     V1_PRISMATIC_REFERENCE,
+    ReferenceCell,
     ValidationReport,
     format_reference_list,
     format_validation_report,
@@ -40,7 +40,6 @@ from .schema_validator import (
     validate_required_fields,
     validate_structure,
 )
-
 
 __all__ = [
     # Main validation functions

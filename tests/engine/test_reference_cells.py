@@ -25,7 +25,6 @@ from forge.engine.validation.result_validation import (
     load_reference_cell,
 )
 
-
 # =============================================================================
 # Test Reference Cell Loading
 # =============================================================================

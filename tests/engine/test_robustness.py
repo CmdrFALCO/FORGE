@@ -10,14 +10,16 @@ Target: ~80-100 tests for comprehensive robustness validation
 
 from __future__ import annotations
 
-import json
 import math
-import sys
-from pathlib import Path
-from unittest.mock import MagicMock, patch
 
 import pytest
 
+from forge.engine.models.cylindrical import (
+    CanMaterial,
+    CylindricalGeometry,
+    TabType,
+    WindingConfig,
+)
 from forge.engine.models.materials import (
     AnodeMaterial,
     CathodeMaterial,
@@ -28,13 +30,6 @@ from forge.engine.models.prismatic import (
     PrismaticGeometry,
     PrismaticSheetGeometry,
 )
-from forge.engine.models.cylindrical import (
-    CanMaterial,
-    CylindricalGeometry,
-    TabType,
-    WindingConfig,
-)
-
 
 # =============================================================================
 # FIXTURES - Common Materials and Configurations

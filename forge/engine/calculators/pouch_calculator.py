@@ -4,7 +4,6 @@ This module provides the main calculation engine that combines all models
 and calculation modules to produce a complete pouch cell design analysis.
 """
 
-from dataclasses import dataclass
 
 from forge.engine.calculations.energy import (
     calculate_areal_characteristics,
@@ -26,8 +25,6 @@ from forge.engine.calculations.stack import (
     calculate_stack_thickness,
 )
 from forge.engine.models.materials import (
-    AnodeMaterial,
-    CathodeMaterial,
     COST_ANODE_COATING,
     COST_ANODE_COLLECTOR,
     COST_CATHODE_COATING,
@@ -37,16 +34,15 @@ from forge.engine.models.materials import (
     COST_SEPARATOR,
     COST_TAB_ALUMINUM,
     COST_TAB_COPPER,
+    AnodeMaterial,
+    CathodeMaterial,
     ElectrolyteModel,
-    PackagingLayer,
     SeparatorMaterial,
     TabConfig,
 )
-from forge.engine.models.geometry import PouchPackaging, SheetGeometry
 from forge.engine.models.pouch import PouchCellInput
 from forge.engine.models.results import BillOfMaterials, CellReport
 from forge.engine.models.stack import (
-    StackConfiguration,
     SwellingParameters,
     ThicknessParameters,
 )
@@ -72,7 +68,7 @@ class CellCalculator:
             CellReport with all calculated KPIs
         """
         # 1. Get sheet counts
-        sheet_counts = input.stack_config.calculate_sheet_counts()
+        input.stack_config.calculate_sheet_counts()
         total_cathode_sheets = input.stack_config.total_cathode_sheets
         total_anode_sheets = input.stack_config.total_anode_sheets
         total_separator_sheets = input.stack_config.total_separator_sheets

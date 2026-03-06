@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 from ..availability import require_build123d
 
 if TYPE_CHECKING:
-    from ..assembly import CADAssembly
+    pass
 
 
 @dataclass

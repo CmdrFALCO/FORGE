@@ -2,7 +2,7 @@
 
 import pytest
 
-from forge.gui.visualization.colors import ColorScheme, DEFAULT_COLORS
+from forge.gui.visualization.colors import DEFAULT_COLORS, ColorScheme
 
 
 class TestColorScheme:
@@ -41,7 +41,7 @@ class TestColorScheme:
         assert "rgba" in lfp_color
         # Extract RGB values
         parts = lfp_color.replace("rgba(", "").replace(")", "").split(",")
-        r, g, b = int(parts[0]), int(parts[1]), int(parts[2])
+        r, g, _b = int(parts[0]), int(parts[1]), int(parts[2])
 
         # Green should be higher than red
         assert g > r

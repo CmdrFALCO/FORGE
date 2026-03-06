@@ -4,7 +4,6 @@ from typing import TYPE_CHECKING
 
 import streamlit as st
 
-
 if TYPE_CHECKING:
     from forge.engine.geometry.validation import ValidationReport
 

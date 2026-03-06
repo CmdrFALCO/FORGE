@@ -9,16 +9,16 @@ This module tests:
 
 import pytest
 
-from forge.engine.geometry.layer_stack import (
-    Layer,
-    LayerType,
-    LayerStackGeometry,
-    WindLayer,
-    WindingGeometry,
-)
-from forge.engine.geometry.swelling import SwellingProfile
 from forge.engine.geometry.calculators.stacked import StackedGeometryCalculator
 from forge.engine.geometry.calculators.wound import WoundGeometryCalculator
+from forge.engine.geometry.layer_stack import (
+    Layer,
+    LayerStackGeometry,
+    LayerType,
+    WindingGeometry,
+    WindLayer,
+)
+from forge.engine.geometry.swelling import SwellingProfile
 
 
 class TestLayer:
@@ -236,13 +236,13 @@ class TestStackedGeometryCalculator:
         )
 
         cathode_layers = stack.get_cathode_layers()
-        assert all(l.material == "LFP" for l in cathode_layers)
+        assert all(layer.material == "LFP" for layer in cathode_layers)
 
         anode_layers = stack.get_anode_layers()
-        assert all(l.material == "Graphite" for l in anode_layers)
+        assert all(layer.material == "Graphite" for layer in anode_layers)
 
         separator_layers = stack.get_separator_layers()
-        assert all(l.material == "Celgard" for l in separator_layers)
+        assert all(layer.material == "Celgard" for layer in separator_layers)
 
     def test_unit_cell_thickness(self):
         """Unit cell thickness calculation should be correct."""

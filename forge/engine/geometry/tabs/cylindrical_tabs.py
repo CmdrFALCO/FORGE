@@ -18,7 +18,6 @@ from .models import (
     TerminalPost,
 )
 
-
 if TYPE_CHECKING:
     from ..detailed_geometry import DetailedGeometry
 
@@ -118,7 +117,6 @@ class CylindricalTabCalculator:
             Updated TabGeometry
         """
         # Estimate jellyroll dimensions from geometry
-        mandrel_radius = 2.5  # Typical mandrel
         jellyroll_radius = inner_radius - 1.0  # Gap to can wall
 
         # Positive contact (top) - annular ring

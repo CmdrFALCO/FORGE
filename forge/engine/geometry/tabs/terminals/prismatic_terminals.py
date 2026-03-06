@@ -72,7 +72,6 @@ class PrismaticTerminalCalculator:
         ext = geometry.external_geometry
 
         length = ext.length_mm or 150.0
-        width = ext.width_mm or 100.0
         height = ext.thickness_mm or ext.height_mm or 25.0
 
         half_height = height / 2

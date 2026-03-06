@@ -6,12 +6,12 @@ electrode assemblies (cylindrical form factor jellyroll).
 
 import math
 
-from .base import InternalGeometryCalculator
 from ..layer_stack import (
-    WindLayer,
     WindingGeometry,
+    WindLayer,
 )
 from ..swelling import SwellingProfile
+from .base import InternalGeometryCalculator
 
 
 class WoundGeometryCalculator(InternalGeometryCalculator):
@@ -250,7 +250,7 @@ class WoundGeometryCalculator(InternalGeometryCalculator):
 
         # Archimedean spiral: r = r0 + b*theta
         # where b = wind_thickness / (2*pi) for one thickness per revolution
-        b = wind_thickness_mm / (2 * math.pi)
+        wind_thickness_mm / (2 * math.pi)
 
         # Arc length of spiral from 0 to n*2*pi
         # L = integral of sqrt(r^2 + (dr/dtheta)^2) d_theta

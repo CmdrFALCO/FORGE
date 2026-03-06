@@ -6,7 +6,6 @@ from . import rules
 from .models import ValidationReport
 from .thresholds import DEFAULT_THRESHOLDS, ValidationThresholds
 
-
 if TYPE_CHECKING:
     from ..detailed_geometry import DetailedGeometry
 

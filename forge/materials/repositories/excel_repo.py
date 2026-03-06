@@ -6,7 +6,7 @@ This module provides material data from Excel files (fallback/override for PyBaM
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING
 
 from forge.engine.models.materials import (
     AnodeMaterial,
@@ -15,6 +15,7 @@ from forge.engine.models.materials import (
     PackagingLayer,
     SeparatorMaterial,
 )
+
 from .base import MaterialRepository
 
 if TYPE_CHECKING:

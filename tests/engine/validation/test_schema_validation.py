@@ -180,7 +180,7 @@ class TestSchemaValidation:
     def test_invalid_end_electrode_config(self, minimal_valid_cell):
         """Invalid enum value should fail."""
         minimal_valid_cell["stack_config"]["architecture"]["end_electrode_config"] = "Invalid"
-        result = validate_structure(minimal_valid_cell)
+        validate_structure(minimal_valid_cell)
         # This should fail because it's not in the enum
         # (Currently schema is permissive, but could be stricter)
 

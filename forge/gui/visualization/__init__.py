@@ -35,7 +35,7 @@ Streamlit Example:
     >>> render_geometry_viewer(geometry)
 """
 
-from .colors import ColorScheme, DEFAULT_COLORS
+from .colors import DEFAULT_COLORS, ColorScheme
 
 # Plotly-backed modules are optional. Keep colors importable even when plotly
 # is not installed so lightweight tests (e.g., color scheme tests) can run.
@@ -62,12 +62,12 @@ except ImportError:
 # Streamlit helpers (only available if streamlit is installed)
 if _PLOTLY_AVAILABLE:
     try:
-        from .streamlit_widget import (
-            render_archetype_selector,
-            render_cross_section_viewer,
-            render_geometry_comparison,
-            render_geometry_viewer,
-        )
+        from . import streamlit_widget as _streamlit_widget
+
+        render_geometry_viewer = _streamlit_widget.render_geometry_viewer
+        render_geometry_comparison = _streamlit_widget.render_geometry_comparison
+        render_cross_section_viewer = _streamlit_widget.render_cross_section_viewer
+        render_archetype_selector = _streamlit_widget.render_archetype_selector
 
         _STREAMLIT_EXPORTS = [
             "render_geometry_viewer",

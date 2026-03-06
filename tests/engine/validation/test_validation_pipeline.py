@@ -39,7 +39,7 @@ class TestValidationPipeline:
 
     def test_template_passes_full_pipeline(self, template):
         """Template should pass the complete pipeline."""
-        result = validate_cell_definition(template)
+        validate_cell_definition(template)
         # Template passes schema but may not pass physics due to metadata structure
         # So we mainly test that function works without error
 
@@ -272,7 +272,7 @@ class TestValidationPipeline:
     def test_yaml_file_validation(self, template_path):
         """Should be able to validate YAML file directly."""
         # Template validates at schema level
-        result = validate_yaml_file(str(template_path))
+        validate_yaml_file(str(template_path))
         # Don't assert valid because template has metadata, just check no crash
 
     def test_validation_report_structure(self):

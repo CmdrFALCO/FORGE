@@ -7,7 +7,6 @@ computed geometry into a single structure suitable for CAD export.
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
-
 if TYPE_CHECKING:
     from .coating_zones import CoatingZoneGeometry
     from .layer_stack import (

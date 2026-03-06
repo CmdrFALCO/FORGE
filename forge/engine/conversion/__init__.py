@@ -19,7 +19,6 @@ from .template_to_input import (
     from_yaml_file,
 )
 
-
 __all__ = [
     # Prismatic conversion
     "from_template_format",

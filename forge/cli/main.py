@@ -9,19 +9,13 @@ import sys
 from pathlib import Path
 
 from forge.engine.calculators.pouch_calculator import CellCalculator, PouchCellInput, generate_report_text
+from forge.engine.models.geometry import PouchPackaging, SheetGeometry
 from forge.engine.models.materials import (
     DENSITY_ALUMINUM,
     DENSITY_COPPER,
     DENSITY_PET,
     DENSITY_PP,
     NMC_NOMINAL_VOLTAGE,
-)
-# Legacy default from CellCAD constants.py
-TYPICAL_SEPARATOR_UM = 16.0
-
-from forge.export import export_json, export_report_csv
-from forge.engine.models.geometry import PouchPackaging, SheetGeometry
-from forge.engine.models.materials import (
     AnodeMaterial,
     CathodeMaterial,
     ElectrolyteModel,
@@ -41,6 +35,10 @@ from forge.engine.validation.result_validation import (
     validate_against_reference,
     validate_cell,
 )
+from forge.export import export_json, export_report_csv
+
+# Legacy default from CellCAD constants.py
+TYPICAL_SEPARATOR_UM = 16.0
 
 
 def create_parser() -> argparse.ArgumentParser:

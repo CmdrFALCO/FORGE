@@ -9,12 +9,12 @@ This module tests the cylindrical cell extensions:
 
 import pytest
 
-from forge.engine.conversion import from_cylindrical_template_format
 from forge.axiom.generator.prompt_builder import (
     CYLINDRICAL_PARAMETER_SCHEMA,
     build_retry_prompt,
     build_system_prompt,
 )
+from forge.engine.conversion import from_cylindrical_template_format
 from forge.engine.validation.constraint_validator import (
     COMMON_CONSTRAINTS,
     CYLINDRICAL_CONSTRAINTS,
@@ -30,7 +30,6 @@ from forge.engine.validation.constraint_validator import (
 )
 from forge.engine.validation.pipeline import validate_cell_definition
 from forge.engine.validation.schema_validator import load_schema, validate_structure
-
 
 # Valid 21700 cylindrical cell definition for testing
 VALID_CYLINDRICAL_CELL = {

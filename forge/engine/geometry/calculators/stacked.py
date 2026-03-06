@@ -4,13 +4,13 @@ This module calculates layer-by-layer Z positions for cells with
 stacked electrode assemblies (pouch and prismatic form factors).
 """
 
-from .base import InternalGeometryCalculator
 from ..layer_stack import (
     Layer,
-    LayerType,
     LayerStackGeometry,
+    LayerType,
 )
 from ..swelling import SwellingProfile
+from .base import InternalGeometryCalculator
 
 
 class StackedGeometryCalculator(InternalGeometryCalculator):

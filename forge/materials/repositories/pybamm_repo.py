@@ -9,8 +9,8 @@ from forge.engine.models.materials import (
     ElectrolyteModel,
     SeparatorMaterial,
 )
-from .base import MaterialRepository
 
+from .base import MaterialRepository
 
 # PyBaMM is optional - only import if available
 try:

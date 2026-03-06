@@ -15,7 +15,6 @@ from .validator import (
     validate_geometry,
 )
 
-
 __all__ = [
     # Models
     "Severity",

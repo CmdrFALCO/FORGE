@@ -6,6 +6,24 @@ handling jelly roll geometry, housing calculations, and energy density metrics.
 
 from dataclasses import dataclass
 
+from forge.engine.calculations.cylindrical_housing import (
+    CylindricalHousingResult,
+    calculate_cylindrical_housing_mass,
+    calculate_tab_or_foil_mass,
+)
+from forge.engine.calculations.energy import (
+    calculate_areal_characteristics,
+    calculate_cell_capacity,
+    calculate_energy_density,
+)
+from forge.engine.calculations.mass import (
+    calculate_electrolyte_mass,
+)
+from forge.engine.calculations.winding import (
+    calculate_jelly_roll,
+    calculate_jelly_roll_pore_volume,
+    estimate_jelly_roll_volume,
+)
 from forge.engine.models.cylindrical import (
     DENSITY_ALUMINUM,
     DENSITY_COPPER,
@@ -25,24 +43,6 @@ from forge.engine.models.materials import (
     SeparatorMaterial,
 )
 from forge.engine.models.results import CellReport
-from forge.engine.calculations.cylindrical_housing import (
-    CylindricalHousingResult,
-    calculate_cylindrical_housing_mass,
-    calculate_tab_or_foil_mass,
-)
-from forge.engine.calculations.energy import (
-    calculate_areal_characteristics,
-    calculate_cell_capacity,
-    calculate_energy_density,
-)
-from forge.engine.calculations.mass import (
-    calculate_electrolyte_mass,
-)
-from forge.engine.calculations.winding import (
-    calculate_jelly_roll,
-    calculate_jelly_roll_pore_volume,
-    estimate_jelly_roll_volume,
-)
 
 
 @dataclass
@@ -378,7 +378,7 @@ def create_cylindrical_from_reference(ref_id: str) -> CylindricalCellInput:
     ref = load_reference_cell(ref_id)
     data = ref.raw_data
 
-    metadata = data.get("metadata", {})
+    data.get("metadata", {})
     geo = data.get("geometry", {})
     winding_cfg = data.get("winding", {})
     header_cfg = data.get("header", {})

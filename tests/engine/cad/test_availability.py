@@ -48,13 +48,9 @@ class TestOptionalImport:
         # These should always work
         from forge.engine.cad import (
             BUILD123D_AVAILABLE,
-            BUILD123D_VERSION,
-            AssemblyNamer,
             CADAssembly,
             CADBody,
-            GroupingMode,
             MaterialGroup,
-            get_cad_status,
         )
 
         assert BUILD123D_AVAILABLE is not None

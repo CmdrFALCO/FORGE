@@ -4,59 +4,45 @@ A web-based graphical user interface for FORGE battery cell design calculations.
 Run with: streamlit run streamlit_app.py
 """
 
-import streamlit as st
+from typing import List
+
 import pandas as pd
-from typing import List, Optional
+import streamlit as st
 
-# FORGE imports
-from forge.engine.models.materials import (
-    CathodeMaterial,
-    AnodeMaterial,
-    SeparatorMaterial,
-    ElectrolyteModel,
-    PackagingLayer,
-    TabConfig,
+from forge.engine.calculators.cylindrical_calculator import (
+    CylindricalCalculator,
+    create_cylindrical_from_reference,
 )
-from forge.engine.models.geometry import SheetGeometry, PouchPackaging
-from forge.engine.models.stack import StackConfiguration, EndElectrodesMode
-from forge.engine.calculators.pouch_calculator import PouchCellInput, CellCalculator
-from forge.engine.models.materials import (
-    DENSITY_ALUMINUM,
-    DENSITY_COPPER,
-    NMC_NOMINAL_VOLTAGE,
-    LFP_NOMINAL_VOLTAGE,
-)
-
-# Prismatic cell imports
-from forge.engine.models.prismatic import (
-    PrismaticGeometry,
-    PrismaticSheetGeometry,
-    PrismaticCellInput,
-)
+from forge.engine.calculators.pouch_calculator import CellCalculator, PouchCellInput
 from forge.engine.calculators.prismatic_calculator import (
     PrismaticCalculator,
     create_prismatic_from_reference,
 )
 
 # Cylindrical cell imports
-from forge.engine.models.cylindrical import (
-    CylindricalGeometry,
-    WindingConfig,
-    SimplifiedHeader,
-    CylindricalCellInput,
-    CanMaterial,
-    TabType,
+from forge.engine.models.geometry import PouchPackaging, SheetGeometry
+
+# FORGE imports
+from forge.engine.models.materials import (
+    DENSITY_ALUMINUM,
+    DENSITY_COPPER,
+    NMC_NOMINAL_VOLTAGE,
+    AnodeMaterial,
+    CathodeMaterial,
+    ElectrolyteModel,
+    PackagingLayer,
+    SeparatorMaterial,
+    TabConfig,
 )
-from forge.engine.calculators.cylindrical_calculator import (
-    CylindricalCalculator,
-    create_cylindrical_from_reference,
-)
+
+# Prismatic cell imports
+from forge.engine.models.stack import EndElectrodesMode, StackConfiguration
 
 # Reference cell imports
 from forge.engine.validation.result_validation import (
+    get_reference_info,
     list_reference_cells,
     load_reference_cell,
-    get_reference_info,
 )
 
 # Tier 1 academic-validated cells with DOI references
@@ -84,8 +70,8 @@ TIER1_CELLS = {
 # Check if PyBaMM is available
 try:
     from forge.materials.repositories.pybamm_repo import (
-        PyBaMMRepository,
         AVAILABLE_PARAMETER_SETS,
+        PyBaMMRepository,
         check_pybamm_available,
     )
     PYBAMM_AVAILABLE = check_pybamm_available()
@@ -543,7 +529,7 @@ def create_layer_editor(key_prefix: str, default_layers: List[dict], label: str)
             "porosity_pct": porosity,
         })
 
-    if st.button(f"+ Add Layer", key=f"{key_prefix}_add"):
+    if st.button("+ Add Layer", key=f"{key_prefix}_add"):
         layers.append({"name": "New Layer", "thickness_um": 10.0, "density_gcm3": 1.0, "porosity_pct": 0.0})
         st.session_state[state_key] = layers
         st.rerun()
@@ -1039,7 +1025,7 @@ if st.button("Calculate", type="primary", use_container_width=True):
             st.session_state["is_cylindrical"] = True
             st.session_state["jelly_roll"] = jelly_roll
 
-            st.success(f"Cylindrical cell calculation completed!")
+            st.success("Cylindrical cell calculation completed!")
 
         elif cell_type == "prismatic" and loaded_ref_id:
             # =====================================================================
@@ -1062,7 +1048,7 @@ if st.button("Calculate", type="primary", use_container_width=True):
             st.session_state["is_prismatic"] = True
             st.session_state["is_cylindrical"] = False
 
-            st.success(f"Prismatic cell calculation completed!")
+            st.success("Prismatic cell calculation completed!")
 
         else:
             # =====================================================================

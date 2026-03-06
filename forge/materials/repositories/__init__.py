@@ -37,7 +37,6 @@ from .pybamm_repo import (
     check_pybamm_available,
 )
 
-
 __all__ = [
     # Base class
     "MaterialRepository",

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from .models import Severity, ValidationCategory, ValidationResult
 from .thresholds import DEFAULT_THRESHOLDS, ValidationThresholds
 
-
 if TYPE_CHECKING:
     from ..detailed_geometry import DetailedGeometry
 

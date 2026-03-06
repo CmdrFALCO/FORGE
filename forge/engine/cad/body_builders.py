@@ -10,7 +10,7 @@ from enum import Enum
 from typing import TYPE_CHECKING
 
 from .assembly import AssemblyNamer, CADBody, MaterialGroup
-from .availability import BUILD123D_AVAILABLE, require_build123d
+from .availability import require_build123d
 
 if TYPE_CHECKING:
     from ..geometry.detailed_geometry import DetailedGeometry

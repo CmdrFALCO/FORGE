@@ -17,7 +17,6 @@ from .models import (
     TerminalPost,
 )
 
-
 if TYPE_CHECKING:
     from ..detailed_geometry import DetailedGeometry
 
@@ -81,7 +80,7 @@ class PrismaticTabCalculator:
         stack_thickness = geometry.total_stack_thickness_mm()
 
         # Half dimensions
-        half_length = length / 2
+        length / 2
         half_height = height / 2
 
         tab_geom = TabGeometry(
