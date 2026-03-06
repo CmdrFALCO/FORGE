@@ -44,7 +44,7 @@ def _to_jsonable(value: Any) -> Any:
 
 def _calculate_pouch(spec: dict[str, Any]) -> dict[str, Any]:
     cell_input = from_pouch_template_format(spec)
-    report = CellCalculator().calculate_pouch_cell(cell_input)
+    report = CellCalculator(cell_input).calculate()
     return _to_jsonable(report)
 
 

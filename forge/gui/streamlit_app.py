@@ -11,12 +11,14 @@ import streamlit as st
 
 from forge.engine.calculators.cylindrical_calculator import (
     CylindricalCalculator,
-    create_cylindrical_from_reference,
 )
 from forge.engine.calculators.pouch_calculator import CellCalculator, PouchCellInput
 from forge.engine.calculators.prismatic_calculator import (
     PrismaticCalculator,
-    create_prismatic_from_reference,
+)
+from forge.engine.conversion.reference_to_input import (
+    from_reference_cylindrical,
+    from_reference_prismatic,
 )
 
 # Cylindrical cell imports
@@ -39,7 +41,7 @@ from forge.engine.models.materials import (
 from forge.engine.models.stack import EndElectrodesMode, StackConfiguration
 
 # Reference cell imports
-from forge.engine.validation.result_validation import (
+from forge.engine.reference.loader import (
     get_reference_info,
     list_reference_cells,
     load_reference_cell,
@@ -1005,7 +1007,7 @@ if st.button("Calculate", type="primary", use_container_width=True):
             # =====================================================================
             # CYLINDRICAL CELL CALCULATION
             # =====================================================================
-            cell_input = create_cylindrical_from_reference(loaded_ref_id)
+            cell_input = from_reference_cylindrical(loaded_ref_id)
             calculator = CylindricalCalculator(cell_input)
             report = calculator.calculate()
 
@@ -1032,7 +1034,7 @@ if st.button("Calculate", type="primary", use_container_width=True):
             # PRISMATIC CELL CALCULATION
             # =====================================================================
             # Use the reference loader which properly handles all prismatic parameters
-            cell_input = create_prismatic_from_reference(loaded_ref_id)
+            cell_input = from_reference_prismatic(loaded_ref_id)
             calculator = PrismaticCalculator(cell_input)
             report = calculator.calculate()
 

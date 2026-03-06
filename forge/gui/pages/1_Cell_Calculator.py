@@ -65,7 +65,7 @@ st.markdown("---")
 st.subheader("Available Reference Cells")
 
 try:
-    from forge.engine.validation.result_validation import get_reference_info, list_reference_cells
+    from forge.engine.reference.loader import get_reference_info, list_reference_cells
 
     pouch_cells = list_reference_cells(cell_type="pouch")
     prismatic_cells = list_reference_cells(cell_type="prismatic")

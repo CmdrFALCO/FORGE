@@ -24,6 +24,7 @@ from forge.engine.calculations.stack import (
     calculate_pore_volumes,
     calculate_stack_thickness,
 )
+from forge.engine.calculators.base import BaseCalculator
 from forge.engine.models.materials import (
     COST_ANODE_COATING,
     COST_ANODE_COLLECTOR,
@@ -51,22 +52,25 @@ from forge.engine.models.stack import (
 DEFAULT_EXCESS_FACTOR = 1.10
 
 
-class CellCalculator:
+class CellCalculator(BaseCalculator):
     """Main calculator for battery cells.
 
     This class orchestrates all calculations to produce a CellReport
     from input specifications.
     """
 
-    def calculate_pouch_cell(self, input: PouchCellInput) -> CellReport:
-        """Calculate all properties for a pouch cell.
+    form_factor = "pouch"
 
-        Args:
-            input: Complete input specification
+    def __init__(self, cell_input: PouchCellInput | None = None):
+        """Initialize calculator with optional input for backward compatibility."""
+        self.cell_input = cell_input
 
-        Returns:
-            CellReport with all calculated KPIs
-        """
+    def calculate(self) -> CellReport:
+        """Calculate all properties for a pouch cell."""
+        if self.cell_input is None:
+            raise ValueError("cell_input must be provided before calling calculate()")
+        input = self.cell_input
+
         # 1. Get sheet counts
         input.stack_config.calculate_sheet_counts()
         total_cathode_sheets = input.stack_config.total_cathode_sheets
@@ -269,6 +273,11 @@ class CellCalculator:
             ecu_energy_density_wh_l=ecu_result.ecu_energy_density_wh_l,
         )
 
+    def calculate_pouch_cell(self, cell_input: PouchCellInput) -> CellReport:
+        """Backward-compatible wrapper. Prefer ``CellCalculator(...).calculate()``."""
+        self.cell_input = cell_input
+        return self.calculate()
+
     def generate_bom(
         self,
         report: CellReport,
@@ -393,6 +402,21 @@ class CellCalculator:
         bom.calculate_percentages()
 
         return bom
+
+
+def create_pouch_from_reference(ref_id: str) -> PouchCellInput:
+    """Deprecated: use ``forge.engine.conversion.from_reference_pouch``."""
+    import warnings
+
+    warnings.warn(
+        "create_pouch_from_reference moved to "
+        "forge.engine.conversion.reference_to_input.from_reference_pouch",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    from forge.engine.conversion.reference_to_input import from_reference_pouch
+
+    return from_reference_pouch(ref_id)
 
 
 def generate_report_text(report: CellReport) -> str:

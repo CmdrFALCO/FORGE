@@ -10,6 +10,11 @@ Supports all cell types:
 """
 
 from .exceptions import MappingError, MissingFieldError
+from .reference_to_input import (
+    from_reference_cylindrical,
+    from_reference_pouch,
+    from_reference_prismatic,
+)
 from .template_to_input import (
     from_cylindrical_template_format,
     from_cylindrical_yaml_file,
@@ -29,6 +34,10 @@ __all__ = [
     # Cylindrical conversion
     "from_cylindrical_template_format",
     "from_cylindrical_yaml_file",
+    # Reference conversion
+    "from_reference_pouch",
+    "from_reference_prismatic",
+    "from_reference_cylindrical",
     # Exceptions
     "MappingError",
     "MissingFieldError",

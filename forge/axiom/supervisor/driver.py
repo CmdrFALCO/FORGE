@@ -183,14 +183,14 @@ def generate_cell_design(
                 try:
                     # Use appropriate calculator based on cell type
                     if cell_type_lower == "pouch":
-                        calculator = CellCalculator()
-                        calculation_result = calculator.calculate_pouch_cell(cell_input)
+                        calculator = CellCalculator(cell_input)
+                        calculation_result = calculator.calculate()
                     elif cell_type_lower == "cylindrical":
                         calculator = CylindricalCalculator(cell_input)
                         calculation_result = calculator.calculate()
                     else:
-                        calculator = PrismaticCalculator()
-                        calculation_result = calculator.calculate(cell_input)
+                        calculator = PrismaticCalculator(cell_input)
+                        calculation_result = calculator.calculate()
                     logger.info(f"Calculation complete: {calculation_result.capacity_ah:.1f} Ah")
                 except Exception as e:
                     last_error = f"Calculation error: {e}"

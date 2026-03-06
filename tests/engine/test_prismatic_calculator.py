@@ -13,9 +13,9 @@ import pytest
 
 from forge.engine.calculators.prismatic_calculator import (
     PrismaticCalculator,
-    create_prismatic_from_reference,
     create_v1_prismatic_input,
 )
+from forge.engine.conversion.reference_to_input import from_reference_prismatic
 from forge.engine.models.prismatic import (
     PrismaticCellInput,
     PrismaticGeometry,
@@ -396,7 +396,7 @@ class TestSamsungSDI94AhValidation:
     @pytest.fixture
     def samsung_report(self):
         """Create Samsung SDI 94Ah report."""
-        cell_input = create_prismatic_from_reference("samsung_sdi_94ah")
+        cell_input = from_reference_prismatic("samsung_sdi_94ah")
         calculator = PrismaticCalculator(cell_input)
         return calculator.calculate()
 
@@ -461,7 +461,7 @@ class TestCATL100AhLFPValidation:
     @pytest.fixture
     def catl100_report(self):
         """Create CATL 100Ah LFP report."""
-        cell_input = create_prismatic_from_reference("catl_100ah_lfp")
+        cell_input = from_reference_prismatic("catl_100ah_lfp")
         calculator = PrismaticCalculator(cell_input)
         return calculator.calculate()
 
@@ -526,7 +526,7 @@ class TestCATL150AhLFPValidation:
     @pytest.fixture
     def catl150_report(self):
         """Create CATL 150Ah LFP report."""
-        cell_input = create_prismatic_from_reference("catl_150ah_lfp")
+        cell_input = from_reference_prismatic("catl_150ah_lfp")
         calculator = PrismaticCalculator(cell_input)
         return calculator.calculate()
 
@@ -601,7 +601,7 @@ class TestAllPrismaticReferenceCells:
         if ref_id == "v1_prismatic":
             cell_input = create_v1_prismatic_input()
         else:
-            cell_input = create_prismatic_from_reference(ref_id)
+            cell_input = from_reference_prismatic(ref_id)
 
         calculator = PrismaticCalculator(cell_input)
         report = calculator.calculate()

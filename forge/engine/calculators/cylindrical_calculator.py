@@ -24,22 +24,16 @@ from forge.engine.calculations.winding import (
     calculate_jelly_roll_pore_volume,
     estimate_jelly_roll_volume,
 )
+from forge.engine.calculators.base import BaseCalculator
 from forge.engine.models.cylindrical import (
     DENSITY_ALUMINUM,
     DENSITY_COPPER,
-    CanMaterial,
     CylindricalCellInput,
-    CylindricalGeometry,
-    HeaderComponents,
     JellyRollResult,
-    SimplifiedHeader,
-    TabType,
-    WindingConfig,
 )
 from forge.engine.models.materials import (
     AnodeMaterial,
     CathodeMaterial,
-    ElectrolyteModel,
     SeparatorMaterial,
 )
 from forge.engine.models.results import CellReport
@@ -132,12 +126,14 @@ def calculate_cylindrical_separator_mass(
     return separator_area_cm2 * separator.areal_weight_mgcm2 / 1000
 
 
-class CylindricalCalculator:
+class CylindricalCalculator(BaseCalculator):
     """Calculator for cylindrical battery cells.
 
     This class handles all calculations specific to cylindrical cells with
     wound jelly roll electrode assemblies.
     """
+
+    form_factor = "cylindrical"
 
     def __init__(self, cell_input: CylindricalCellInput):
         """Initialize calculator with cell input.
@@ -360,165 +356,15 @@ class CylindricalCalculator:
 
 
 def create_cylindrical_from_reference(ref_id: str) -> CylindricalCellInput:
-    """Create CylindricalCellInput from a reference cell JSON file.
+    """Deprecated: use ``forge.engine.conversion.from_reference_cylindrical``."""
+    import warnings
 
-    Args:
-        ref_id: Reference cell identifier (e.g., 'lg_m50_21700')
-
-    Returns:
-        CylindricalCellInput configured from reference data
-    """
-    from forge.engine.models.materials import (
-        AnodeMaterial,
-        CathodeMaterial,
-        SeparatorMaterial,
+    warnings.warn(
+        "create_cylindrical_from_reference moved to "
+        "forge.engine.conversion.reference_to_input.from_reference_cylindrical",
+        DeprecationWarning,
+        stacklevel=2,
     )
-    from forge.engine.validation.result_validation import load_reference_cell
+    from forge.engine.conversion.reference_to_input import from_reference_cylindrical
 
-    ref = load_reference_cell(ref_id)
-    data = ref.raw_data
-
-    data.get("metadata", {})
-    geo = data.get("geometry", {})
-    winding_cfg = data.get("winding", {})
-    header_cfg = data.get("header", {})
-    materials = data.get("materials", {})
-    cell_specs = data.get("cell_specs", {})
-
-    # Geometry
-    geometry = CylindricalGeometry(
-        diameter_mm=geo["diameter_mm"],
-        length_mm=geo["length_mm"],
-        can_wall_thickness_mm=geo["can_wall_thickness_mm"],
-        can_bottom_thickness_mm=geo["can_bottom_thickness_mm"],
-        header_height_mm=geo["header_height_mm"],
-    )
-
-    # Can material
-    can_material_str = geo.get("can_material", "steel").lower()
-    if can_material_str == "aluminum":
-        can_material = CanMaterial.ALUMINUM
-    elif can_material_str == "nickel_plated_steel":
-        can_material = CanMaterial.NICKEL_PLATED_STEEL
-    else:
-        can_material = CanMaterial.STEEL
-
-    # Tab type
-    tab_type_str = winding_cfg.get("tab_type", "traditional").lower()
-    tab_type = TabType.TABLESS if tab_type_str == "tabless" else TabType.TRADITIONAL
-
-    # Winding configuration
-    winding = WindingConfig(
-        mandrel_diameter_mm=winding_cfg["mandrel_diameter_mm"],
-        winding_clearance_mm=winding_cfg.get("winding_clearance_mm", 0.1),
-        winding_tension_factor=winding_cfg.get("winding_tension_factor", 0.97),
-        tab_type=tab_type,
-        anode_tab_width_mm=winding_cfg.get("anode_tab_width_mm"),
-        anode_tab_thickness_mm=winding_cfg.get("anode_tab_thickness_mm"),
-        cathode_tab_width_mm=winding_cfg.get("cathode_tab_width_mm"),
-        cathode_tab_thickness_mm=winding_cfg.get("cathode_tab_thickness_mm"),
-        anode_foil_extension_mm=winding_cfg.get("anode_foil_extension_mm"),
-        cathode_foil_extension_mm=winding_cfg.get("cathode_foil_extension_mm"),
-    )
-
-    # Header - simplified or detailed
-    header_simplified = None
-    header = None
-    if "total_mass_g" in header_cfg:
-        header_simplified = SimplifiedHeader(
-            total_mass_g=header_cfg["total_mass_g"], cap_material=can_material
-        )
-    elif "ptc_mass_g" in header_cfg:
-        header = HeaderComponents(
-            ptc_diameter_mm=header_cfg.get("ptc_diameter_mm", 8.0),
-            ptc_thickness_mm=header_cfg.get("ptc_thickness_mm", 0.8),
-            ptc_mass_g=header_cfg["ptc_mass_g"],
-            cid_diameter_mm=header_cfg.get("cid_diameter_mm", 10.0),
-            cid_thickness_mm=header_cfg.get("cid_thickness_mm", 0.5),
-            cid_mass_g=header_cfg.get("cid_mass_g", 0.2),
-            vent_diameter_mm=header_cfg.get("vent_diameter_mm", 6.0),
-            vent_thickness_mm=header_cfg.get("vent_thickness_mm", 0.3),
-            vent_mass_g=header_cfg.get("vent_mass_g", 0.2),
-            cap_diameter_mm=header_cfg.get("cap_diameter_mm", geometry.diameter_mm),
-            cap_thickness_mm=header_cfg.get("cap_thickness_mm", 0.5),
-            cap_material=can_material,
-            gasket_mass_g=header_cfg.get("gasket_mass_g", 0.15),
-            insulator_ring_mass_g=header_cfg.get("insulator_ring_mass_g", 0.1),
-        )
-    else:
-        # Default simplified header
-        header_simplified = SimplifiedHeader(total_mass_g=2.0, cap_material=can_material)
-
-    # Cathode material
-    cat_mat = materials.get("cathode", {})
-    cathode = CathodeMaterial(
-        id=f"CAT_{ref_id.upper()}",
-        name=cat_mat.get("name", "Cathode"),
-        chemistry=cat_mat.get("chemistry", "NMC"),
-        rev_spec_capacity_mahg=cat_mat["rev_spec_capacity_mahg"],
-        max_spec_capacity_mahg=cat_mat.get("max_spec_capacity_mahg", 220.0),
-        areal_weight_mgcm2=cat_mat["loading_mgcm2"],
-        collector_thickness_um=cat_mat["collector_thickness_um"],
-        coating_density_gcm3=cat_mat["coating_density_gcm3"],
-        coating_thickness_0pct_um=cat_mat["coating_thickness_0pct_um"],
-        coating_thickness_100pct_um=cat_mat.get(
-            "coating_thickness_100pct_um", cat_mat["coating_thickness_0pct_um"]
-        ),
-    )
-
-    # Anode material
-    ano_mat = materials.get("anode", {})
-    anode = AnodeMaterial(
-        id=f"ANO_{ref_id.upper()}",
-        name=ano_mat.get("name", "Anode"),
-        chemistry=ano_mat.get("chemistry", "Graphite"),
-        rev_spec_capacity_mahg=ano_mat["rev_spec_capacity_mahg"],
-        max_spec_capacity_mahg=ano_mat.get("max_spec_capacity_mahg", 372.0),
-        areal_weight_mgcm2=ano_mat["loading_mgcm2"],
-        collector_thickness_um=ano_mat["collector_thickness_um"],
-        coating_density_gcm3=ano_mat["coating_density_gcm3"],
-        coating_thickness_0pct_um=ano_mat["coating_thickness_0pct_um"],
-        coating_thickness_100pct_um=ano_mat.get(
-            "coating_thickness_100pct_um", ano_mat["coating_thickness_0pct_um"]
-        ),
-    )
-
-    # Separator material
-    sep_mat = materials.get("separator", {})
-    separator = SeparatorMaterial(
-        id=f"SEP_{ref_id.upper()}",
-        name=sep_mat.get("name", "Separator"),
-        thickness_um=sep_mat["thickness_um"],
-        porosity_pct=sep_mat["porosity_pct"],
-        density_gcm3=sep_mat["density_gcm3"],
-        areal_weight_mgcm2=sep_mat.get("areal_weight_mgcm2", 1.0),
-    )
-
-    # Electrolyte
-    ele_mat = materials.get("electrolyte", {})
-    electrolyte = ElectrolyteModel(
-        id=f"ELE_{ref_id.upper()}",
-        name=ele_mat.get("name", "Electrolyte"),
-        density_gcm3=ele_mat["density_gcm3"],
-    )
-
-    # Build input
-    return CylindricalCellInput(
-        cell_name=ref.name,
-        geometry=geometry,
-        winding=winding,
-        can_material=can_material,
-        cathode=cathode,
-        anode=anode,
-        separator=separator,
-        electrolyte=electrolyte,
-        header=header,
-        header_simplified=header_simplified,
-        capacity_ah=cell_specs.get("capacity_ah"),
-        nominal_voltage_v=cell_specs.get("nominal_voltage_v", 3.6),
-        electrolyte_excess_factor=ele_mat.get("excess_factor", 1.0),
-        cathode_porosity_pct=materials.get("cathode", {}).get("porosity_pct", 25.0),
-        anode_porosity_pct=materials.get("anode", {}).get("porosity_pct", 35.0),
-        bottom_insulator_mass_g=header_cfg.get("bottom_insulator_mass_g", 0.1),
-        top_insulator_mass_g=header_cfg.get("top_insulator_mass_g", 0.1),
-    )
+    return from_reference_cylindrical(ref_id)

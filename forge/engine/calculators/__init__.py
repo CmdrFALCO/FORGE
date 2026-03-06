@@ -4,13 +4,13 @@ Top-level orchestrators that coordinate models, geometry, and calculations
 to produce complete cell reports for each cell type.
 """
 
+from .base import BaseCalculator
 from .cylindrical_calculator import (
     CylindricalCalculator,
     CylindricalElectrodeMass,
     calculate_cylindrical_anode_mass,
     calculate_cylindrical_cathode_mass,
     calculate_cylindrical_separator_mass,
-    create_cylindrical_from_reference,
 )
 from .pouch_calculator import (
     CellCalculator,
@@ -21,12 +21,12 @@ from .prismatic_calculator import (
     PrismaticCalculator,
     PrismaticHousingResult,
     SeparatorCompressionResult,
-    create_prismatic_from_reference,
     create_v1_prismatic_input,
 )
 
 __all__ = [
     # Pouch
+    "BaseCalculator",
     "CellCalculator",
     "generate_report_text",
     # Prismatic
@@ -34,7 +34,6 @@ __all__ = [
     "PrismaticHousingResult",
     "GapToWallResult",
     "SeparatorCompressionResult",
-    "create_prismatic_from_reference",
     "create_v1_prismatic_input",
     # Cylindrical
     "CylindricalCalculator",
@@ -42,5 +41,4 @@ __all__ = [
     "calculate_cylindrical_cathode_mass",
     "calculate_cylindrical_anode_mass",
     "calculate_cylindrical_separator_mass",
-    "create_cylindrical_from_reference",
 ]

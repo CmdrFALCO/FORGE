@@ -22,6 +22,7 @@ from forge.engine.calculations.stack import (
     calculate_pore_volumes,
     calculate_stack_thickness,
 )
+from forge.engine.calculators.base import BaseCalculator
 from forge.engine.models.prismatic import (
     DENSITY_ALUMINUM,
     DENSITY_PP,
@@ -119,13 +120,15 @@ class SeparatorCompressionResult:
     compression_soc100_pct: float
 
 
-class PrismaticCalculator:
+class PrismaticCalculator(BaseCalculator):
     """Calculator for prismatic battery cells.
 
     This class handles all calculations specific to prismatic cells with
     aluminum hard-case housings, including wall-based housing mass and
     gap-to-wall calculations.
     """
+
+    form_factor = "prismatic"
 
     def __init__(self, cell_input: PrismaticCellInput):
         """Initialize calculator with cell input.
@@ -692,143 +695,18 @@ class PrismaticCalculator:
 
 
 def create_prismatic_from_reference(ref_id: str) -> PrismaticCellInput:
-    """Create PrismaticCellInput from a reference cell JSON file.
+    """Deprecated: use ``forge.engine.conversion.from_reference_prismatic``."""
+    import warnings
 
-    Args:
-        ref_id: Reference cell identifier (e.g., 'samsung_sdi_94ah')
-
-    Returns:
-        PrismaticCellInput configured from reference data
-    """
-    from forge.engine.models.materials import (
-        AnodeMaterial,
-        CathodeMaterial,
-        ElectrolyteModel,
-        SeparatorMaterial,
+    warnings.warn(
+        "create_prismatic_from_reference moved to "
+        "forge.engine.conversion.reference_to_input.from_reference_prismatic",
+        DeprecationWarning,
+        stacklevel=2,
     )
-    from forge.engine.validation.result_validation import load_reference_cell
+    from forge.engine.conversion.reference_to_input import from_reference_prismatic
 
-    ref = load_reference_cell(ref_id)
-    data = ref.raw_data
-
-    geo = data.get("geometry_inputs", {})
-    case_geo = data.get("case_geometry", {})
-    stack_cfg = data.get("stack_config", {})
-    housing = data.get("housing", {})
-    materials = data.get("materials", {})
-    cell_specs = data.get("cell_specs", {})
-
-    # Case geometry
-    case_geometry = PrismaticGeometry(
-        cell_height_mm=case_geo["cell_height_mm"],
-        cell_width_mm=case_geo["cell_width_mm"],
-        cell_thickness_mm=case_geo["cell_thickness_mm"],
-        wall_top_mm=case_geo["wall_top_mm"],
-        wall_bottom_mm=case_geo["wall_bottom_mm"],
-        wall_front_back_mm=case_geo["wall_front_back_mm"],
-        wall_sides_mm=case_geo["wall_sides_mm"],
-        insulation_coating_um=case_geo.get("insulation_coating_um", 85.0),
-    )
-
-    # Sheet geometry
-    sheet_geometry = PrismaticSheetGeometry(
-        cathode_height_mm=geo["cathode_height_mm"],
-        cathode_width_mm=geo["cathode_width_mm"],
-        anode_offset_top_mm=geo.get("anode_offset_top_mm", 2.0),
-        anode_offset_bottom_mm=geo.get("anode_offset_bottom_mm", 2.0),
-        anode_offset_left_mm=geo.get("anode_offset_left_mm", 2.0),
-        anode_offset_right_mm=geo.get("anode_offset_right_mm", 2.0),
-        separator_offset_top_mm=geo.get("separator_offset_top_mm", 2.0),
-        separator_offset_bottom_mm=geo.get("separator_offset_bottom_mm", 2.0),
-        separator_offset_left_mm=geo.get("separator_offset_left_mm", 2.0),
-        separator_offset_right_mm=geo.get("separator_offset_right_mm", 2.0),
-    )
-
-    # Cathode material
-    cat_mat = materials.get("cathode", {})
-    cathode = CathodeMaterial(
-        id=f"CAT_{ref_id.upper()}",
-        name=cat_mat.get("name", "Cathode"),
-        chemistry=cat_mat.get("chemistry", "NCM"),
-        rev_spec_capacity_mahg=cat_mat["rev_spec_capacity_mahg"],
-        max_spec_capacity_mahg=cat_mat.get("max_spec_capacity_mahg", 200.0),
-        areal_weight_mgcm2=cat_mat["loading_mgcm2"],
-        collector_thickness_um=cat_mat["collector_thickness_um"],
-        coating_density_gcm3=cat_mat["coating_density_gcm3"],
-        coating_thickness_0pct_um=cat_mat["coating_thickness_0pct_um"],
-        coating_thickness_100pct_um=cat_mat.get(
-            "coating_thickness_100pct_um", cat_mat["coating_thickness_0pct_um"]
-        ),
-    )
-
-    # Anode material
-    ano_mat = materials.get("anode", {})
-    anode = AnodeMaterial(
-        id=f"ANO_{ref_id.upper()}",
-        name=ano_mat.get("name", "Anode"),
-        chemistry=ano_mat.get("chemistry", "Graphite"),
-        rev_spec_capacity_mahg=ano_mat["rev_spec_capacity_mahg"],
-        max_spec_capacity_mahg=ano_mat.get("max_spec_capacity_mahg", 372.0),
-        areal_weight_mgcm2=ano_mat["loading_mgcm2"],
-        collector_thickness_um=ano_mat["collector_thickness_um"],
-        coating_density_gcm3=ano_mat["coating_density_gcm3"],
-        coating_thickness_0pct_um=ano_mat["coating_thickness_0pct_um"],
-        coating_thickness_100pct_um=ano_mat.get(
-            "coating_thickness_100pct_um", ano_mat["coating_thickness_0pct_um"]
-        ),
-    )
-
-    # Separator material
-    sep_mat = materials.get("separator", {})
-    separator = SeparatorMaterial(
-        id=f"SEP_{ref_id.upper()}",
-        name=sep_mat.get("name", "Separator"),
-        thickness_um=sep_mat["thickness_um"],
-        porosity_pct=sep_mat["porosity_pct"],
-        density_gcm3=sep_mat["density_gcm3"],
-        areal_weight_mgcm2=sep_mat.get("areal_weight_mgcm2", 1.0),
-    )
-
-    # Electrolyte
-    ele_mat = materials.get("electrolyte", {})
-    electrolyte = ElectrolyteModel(
-        id=f"ELE_{ref_id.upper()}",
-        name=ele_mat.get("name", "Electrolyte"),
-        density_gcm3=ele_mat["density_gcm3"],
-    )
-
-    # Read porosities from reference file or use defaults
-    cathode_porosity = stack_cfg.get("cathode_porosity_pct", 25.0)
-    anode_porosity = stack_cfg.get("anode_porosity_pct", 35.0)
-
-    return PrismaticCellInput(
-        cell_name=ref.name,
-        case_geometry=case_geometry,
-        sheet_geometry=sheet_geometry,
-        number_of_stacks=stack_cfg["number_of_stacks"],
-        electrode_pairs_per_stack=stack_cfg["electrode_pairs_per_stack"],
-        end_electrodes=stack_cfg.get("end_electrodes", "BothNegative"),
-        cathode=cathode,
-        anode=anode,
-        separator=separator,
-        electrolyte=electrolyte,
-        case_material_density_gcm3=housing.get("case_material_density_gcm3", DENSITY_ALUMINUM),
-        header_mass_g=housing["header_mass_g"],
-        insulation_shell_thickness_um=stack_cfg.get("insulation_shell_thickness_um", 120.0),
-        insulation_shell_count=stack_cfg.get("insulation_shell_count", 1),
-        insulation_shell_density_gcm3=stack_cfg.get("insulation_shell_density_gcm3", DENSITY_PP),
-        insulation_coating_density_gcm3=housing.get("insulation_coating_density_gcm3", DENSITY_PP),
-        electrolyte_excess_factor=ele_mat.get("excess_factor", 1.0),
-        cathode_porosity_pct=cathode_porosity,
-        anode_porosity_pct=anode_porosity,
-        nominal_voltage_v=cell_specs["nominal_voltage_v"],
-        capacity_ah=cell_specs.get("capacity_ah"),
-        fixing_tape_count=stack_cfg.get("fixing_tape_count", 4),
-        fixing_tape_thickness_um=stack_cfg.get("fixing_tape_thickness_um", 30.0),
-        fixing_tape_width_mm=stack_cfg.get("fixing_tape_width_mm", 30.0),
-        fixing_tape_length_mm=stack_cfg.get("fixing_tape_length_mm", 200.0),
-        fixing_tape_density_gcm3=stack_cfg.get("fixing_tape_density_gcm3", 1.42),
-    )
+    return from_reference_prismatic(ref_id)
 
 
 def create_v1_prismatic_input() -> PrismaticCellInput:
