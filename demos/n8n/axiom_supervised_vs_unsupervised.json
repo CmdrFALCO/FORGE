@@ -1,0 +1,9 @@
+{
+  "name": "AXIOM Supervised vs Unsupervised",
+  "nodes": [],
+  "connections": {},
+  "settings": {},
+  "meta": {
+    "description": "Placeholder - built in Phase J1. Side-by-side comparison of supervised (AXIOM) vs unsupervised (raw LLM) cell spec generation."
+  }
+}

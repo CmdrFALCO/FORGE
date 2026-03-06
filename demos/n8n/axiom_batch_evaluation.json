@@ -1,0 +1,9 @@
+{
+  "name": "AXIOM Batch Evaluation",
+  "nodes": [],
+  "connections": {},
+  "settings": {},
+  "meta": {
+    "description": "Placeholder - built in Phase J2. Batch AXIOM pipeline execution with statistics collection."
+  }
+}
