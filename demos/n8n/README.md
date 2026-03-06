@@ -2,41 +2,47 @@
 
 ## Overview
 
-These n8n workflow files demonstrate the AXIOM neuro-symbolic supervision
-pipeline as visible, inspectable workflow nodes. The AXIOM pipeline maps 1:1
-onto n8n's visual workflow paradigm.
+These workflows are importable n8n demos for the FORGE AXIOM thesis narrative:
+supervised generation (AXIOM loop) versus unsupervised generation (raw LLM flow).
 
-## Workflows
+## Environment Variables
 
-### `axiom_supervised_vs_unsupervised.json`
-Side-by-side comparison of supervised (AXIOM loop) vs. unsupervised (raw LLM)
-battery cell specification generation. Shows how formal validation and
-corrective feedback improve output quality.
+- `FORGE_API_URL` (default: `http://localhost:8000`)
+- `FORGE_LLM_BACKEND` (default: `ollama`)
 
-### `axiom_batch_evaluation.json`
-Batch execution of the AXIOM pipeline across multiple design requests.
-Collects statistics on success rates, retry counts, and error categories.
+All HTTP Request nodes in both workflows use these variables via n8n expressions.
 
 ## Prerequisites
 
-1. n8n instance running (local or cloud)
-2. FORGE API server running: `uvicorn forge.api.app:app --host 0.0.0.0 --port 8000`
-3. LLM backend configured (Claude API key or Ollama running locally)
+1. Start FORGE API:
+   `uvicorn forge.api.app:app --host 0.0.0.0 --port 8000`
+2. Make sure your LLM backend is available:
+   - `ollama` locally, or
+   - Anthropic backend credentials/dependencies if you switch backend.
+3. Run n8n.
 
-## Setup
+## Import Instructions
 
-1. Import the workflow JSON into n8n
-2. Configure the HTTP Request nodes to point to your FORGE API URL
-3. Set environment variables for LLM backend credentials
-4. Trigger the workflow manually or via webhook
+1. In n8n, open **Workflows**.
+2. Click **Import from File**.
+3. Select one of the JSON files in `demos/n8n/`.
+4. Run with **Execute workflow** (manual trigger).
 
-## API Endpoints Used
+## Workflows
 
-| Endpoint | Purpose |
-|----------|---------|
-| `GET /api/v1/health` | Verify FORGE API is running |
-| `GET /api/v1/reference-cells` | Load reference cell specifications |
-| `POST /api/v1/generate` | Raw LLM generation (unsupervised path) |
-| `POST /api/v1/pipeline` | Full AXIOM loop (supervised path) |
-| `POST /api/v1/validate` | Standalone validation check |
-| `POST /api/v1/calculate` | Run calculations on validated spec |
+### `axiom_supervised_vs_unsupervised.json` (J1)
+
+Single-run side-by-side comparison.
+
+- Supervised branch: `POST /api/v1/pipeline`
+- Unsupervised branch: `POST /api/v1/generate` -> `POST /api/v1/parse` ->
+  `POST /api/v1/validate` -> conditional `POST /api/v1/calculate`
+- End: merge + comparison summary node
+
+### `axiom_batch_evaluation.json` (J2)
+
+Batch evaluation with statistical summary (default 10 iterations).
+
+- Generates N iteration items (configurable via `total_iterations`)
+- Runs supervised and unsupervised branches each iteration
+- Aggregates pass/fail rates and emits a `thesis_argument` summary

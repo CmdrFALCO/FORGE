@@ -1,9 +1,479 @@
 {
   "name": "AXIOM Supervised vs Unsupervised",
-  "nodes": [],
-  "connections": {},
-  "settings": {},
+  "nodes": [
+    {
+      "id": "a842570e-6338-4916-b1d9-cc4256f60940",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "1014a542-8dc9-4e84-bd56-0723bfe65c25",
+      "name": "Set Input Prompt",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf6f3e32-eeba-4f3b-83d3-7d6b38c3c654",
+              "name": "prompt",
+              "value": "Design a 50Ah prismatic NMC811 cell for automotive fast-charging applications",
+              "type": "string"
+            },
+            {
+              "id": "e89abacc-df89-4520-80f7-0f1fcecd94c7",
+              "name": "backend",
+              "value": "={{ $env.FORGE_LLM_BACKEND || \"ollama\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "5d862d13-7743-4978-9245-84f3cff19116",
+      "name": "Supervised - Pipeline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        160
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/pipeline",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { prompt: $json.prompt, backend: $json.backend, max_retries: 3 } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "d3e624d6-e1c7-44c6-a898-8099f032e482",
+      "name": "Supervised - Normalize",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        160
+      ],
+      "parameters": {
+        "jsCode": "const r = $json;\nreturn [{\n  json: {\n    supervised_result: {\n      status: r?.data?.final_valid ? 'PASSED' : 'FAILED',\n      final_valid: Boolean(r?.data?.final_valid),\n      total_attempts: r?.data?.total_attempts ?? 0,\n      attempts: r?.data?.attempts ?? [],\n      pipeline_response: r,\n    },\n  },\n}];"
+      }
+    },
+    {
+      "id": "dadf4deb-8ff4-410d-a899-489eedcc452c",
+      "name": "Unsupervised - Generate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        460
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { prompt: $json.prompt, backend: $json.backend } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "b6e89a85-1577-4a68-b135-84df2499ec4e",
+      "name": "Unsupervised - Parse",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        900,
+        460
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/parse",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { raw_yaml: $json.data?.raw_yaml || '' } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "7ca4d066-e81b-4a8e-9d82-d21350a4e719",
+      "name": "Unsupervised - Build Validate Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        460
+      ],
+      "parameters": {
+        "jsCode": "const parsed = $json.data?.parsed_spec ?? {};\nconst rawType = parsed?._meta?.cell_type ?? parsed?.cell_type ?? 'prismatic';\nconst cellType = String(rawType).toLowerCase();\nreturn [{ json: { parsed_spec: parsed, cell_type: cellType } }];"
+      }
+    },
+    {
+      "id": "729cd6ee-e6f9-46ea-94da-ac7e83c12fdb",
+      "name": "Unsupervised - Validate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        460
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/validate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { cell_type: $('Unsupervised - Build Validate Payload').first().json.cell_type, spec: $('Unsupervised - Build Validate Payload').first().json.parsed_spec } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "36c01f75-3c6f-4788-bbe6-cfd128d08025",
+      "name": "Unsupervised - IF Valid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1500,
+        460
+      ],
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.data?.valid }}",
+              "operation": "isTrue"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "228f63d2-019b-42e2-8de4-596821b379e4",
+      "name": "Unsupervised - Calculate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1720,
+        340
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/calculate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { cell_type: $('Unsupervised - Build Validate Payload').first().json.cell_type, spec: $('Unsupervised - Build Validate Payload').first().json.parsed_spec } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "d4097fd4-ff4f-49d1-9074-74acc7cadd12",
+      "name": "Unsupervised - Success Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1940,
+        340
+      ],
+      "parameters": {
+        "jsCode": "const validate = $('Unsupervised - Validate').first().json;\nconst parse = $('Unsupervised - Parse').first().json;\nreturn [{\n  json: {\n    unsupervised_result: {\n      status: 'PASSED',\n      valid: true,\n      validation_errors: validate?.data?.errors ?? [],\n      parse_errors: parse?.data?.parse_errors ?? [],\n      calculate_response: $json,\n    },\n  },\n}];"
+      }
+    },
+    {
+      "id": "c9073ee1-add6-44f4-92e8-56ba75df827f",
+      "name": "Unsupervised - Failed Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1720,
+        580
+      ],
+      "parameters": {
+        "jsCode": "const parse = $('Unsupervised - Parse').first().json;\nconst validate = $json;\nreturn [{\n  json: {\n    unsupervised_result: {\n      status: 'FAILED_VALIDATION',\n      valid: false,\n      validation_errors: validate?.data?.errors ?? [],\n      parse_errors: parse?.data?.parse_errors ?? [],\n      calculate_response: null,\n    },\n  },\n}];"
+      }
+    },
+    {
+      "id": "62c429d0-783d-46ea-93eb-7b4bdcc0bb6a",
+      "name": "Unsupervised - End",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2140,
+        460
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "2021d050-fc3b-41b5-99be-236a8ec22362",
+      "name": "Merge Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2360,
+        300
+      ],
+      "parameters": {
+        "mode": "multiplex"
+      }
+    },
+    {
+      "id": "e91b11df-865a-458c-97e0-d96b3588c769",
+      "name": "Compare Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2580,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const supervised = $json.supervised_result ?? {};\nconst unsupervised = $json.unsupervised_result ?? {};\nconst supervisedPassed = Boolean(supervised.final_valid);\nconst unsupervisedPassed = Boolean(unsupervised.valid);\n\nconst summary = {\n  prompt: 'Design a 50Ah prismatic NMC811 cell for automotive fast-charging applications',\n  supervised: {\n    status: supervised.status ?? (supervisedPassed ? 'PASSED' : 'FAILED'),\n    final_valid: supervisedPassed,\n    total_attempts: supervised.total_attempts ?? 0,\n    attempts: supervised.attempts ?? [],\n  },\n  unsupervised: {\n    status: unsupervised.status ?? (unsupervisedPassed ? 'PASSED' : 'FAILED'),\n    valid: unsupervisedPassed,\n    validation_errors: unsupervised.validation_errors ?? [],\n    parse_errors: unsupervised.parse_errors ?? [],\n  },\n};\n\nsummary.conclusion = supervisedPassed && !unsupervisedPassed\n  ? 'AXIOM supervision caught errors that raw generation missed.'\n  : (!supervisedPassed && unsupervisedPassed\n      ? 'Unsupervised succeeded while supervised failed in this run; inspect backend/runtime conditions.'\n      : 'Both branches produced similar outcomes in this run.');\n\nreturn [{ json: summary }];"
+      }
+    },
+    {
+      "id": "649a69cc-700c-4a05-aef7-7c99a65c098d",
+      "name": "Set Summary Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2800,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c2c4d9d5-5fa0-4480-a2a1-0a9a9aa54790",
+              "name": "workflow",
+              "value": "J1_supervised_vs_unsupervised",
+              "type": "string"
+            },
+            {
+              "id": "0bd16cf8-e170-4e52-a41b-d63b8011067c",
+              "name": "prompt",
+              "value": "={{ $json.prompt }}",
+              "type": "string"
+            },
+            {
+              "id": "a2661f89-c30f-4f5a-ae6a-bbd43e584416",
+              "name": "supervised_status",
+              "value": "={{ $json.supervised.status }}",
+              "type": "string"
+            },
+            {
+              "id": "be720d38-7931-4c5b-afbb-fba4fa934dee",
+              "name": "unsupervised_status",
+              "value": "={{ $json.unsupervised.status }}",
+              "type": "string"
+            },
+            {
+              "id": "cf5f4472-3c66-4a2e-97a3-3a8feb28f824",
+              "name": "conclusion",
+              "value": "={{ $json.conclusion }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Input Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Input Prompt": {
+      "main": [
+        [
+          {
+            "node": "Supervised - Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unsupervised - Generate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supervised - Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Supervised - Normalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Generate": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Parse": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Build Validate Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Build Validate Payload": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Validate": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - IF Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - IF Valid": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Calculate",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unsupervised - Failed Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Calculate": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Success Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Success Summary": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Failed Summary": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - End",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supervised - Normalize": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - End": {
+      "main": [
+        [
+          {
+            "node": "Merge Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Results": {
+      "main": [
+        [
+          {
+            "node": "Compare Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compare Results": {
+      "main": [
+        [
+          {
+            "node": "Set Summary Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
   "meta": {
-    "description": "Placeholder - built in Phase J1. Side-by-side comparison of supervised (AXIOM) vs unsupervised (raw LLM) cell spec generation."
-  }
+    "instanceId": ""
+  },
+  "tags": []
 }

@@ -1,9 +1,440 @@
 {
   "name": "AXIOM Batch Evaluation",
-  "nodes": [],
-  "connections": {},
-  "settings": {},
+  "nodes": [
+    {
+      "id": "9703f180-1d7d-43a9-8684-8380f42b2746",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "5e20f320-c54b-454a-bfe1-a8c215e1e96f",
+      "name": "Set Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ace6ec3d-d223-4028-a4b6-56a4c6d083f0",
+              "name": "prompt",
+              "value": "Design a 50Ah prismatic NMC811 cell for automotive fast-charging applications",
+              "type": "string"
+            },
+            {
+              "id": "b2926d65-2f15-49dd-a520-623450b22702",
+              "name": "backend",
+              "value": "={{ $env.FORGE_LLM_BACKEND || \"ollama\" }}",
+              "type": "string"
+            },
+            {
+              "id": "0f266eb2-de82-4648-b841-74f1ee7c93ae",
+              "name": "total_iterations",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "4cc173fc-c2df-400a-b3ca-83b3890d3473",
+      "name": "Build Iteration Items",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const cfg = $input.first().json;\nconst total = Number(cfg.total_iterations ?? 10);\nconst items = [];\nfor (let i = 0; i < total; i += 1) {\n  items.push({\n    json: {\n      iteration: i + 1,\n      prompt: cfg.prompt,\n      backend: cfg.backend,\n    },\n  });\n}\nreturn items;"
+      }
+    },
+    {
+      "id": "c5dd4018-a018-4eac-89d6-ab3af2d5a870",
+      "name": "Supervised - Pipeline",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        920,
+        140
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/pipeline",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { prompt: $json.prompt, backend: $json.backend, max_retries: 3 } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "727ab083-f46d-42cb-bac3-a3723143d6ef",
+      "name": "Supervised - Record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1140,
+        140
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5fbeb5ed-2ce3-412c-854d-c68419861b91",
+              "name": "iteration",
+              "value": "={{ $('Build Iteration Items').item.json.iteration }}",
+              "type": "number"
+            },
+            {
+              "id": "c8f05125-c31a-4ba0-9ba3-2e8efa948856",
+              "name": "supervised_valid",
+              "value": "={{ Boolean($json.data?.final_valid) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "6e86c0ba-c8d3-428b-a02c-313f6ebcce3c",
+              "name": "supervised_attempts",
+              "value": "={{ Number($json.data?.total_attempts || 0) }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "ffc99013-b6b2-4fe9-b5d6-0c8ab288bc41",
+      "name": "Unsupervised - Generate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        920,
+        460
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { prompt: $json.prompt, backend: $json.backend } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "c4a367ed-51df-41a4-9789-5820e3d51134",
+      "name": "Unsupervised - Parse",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        460
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/parse",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { raw_yaml: $json.data?.raw_yaml || '' } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "d10d1dde-6309-4171-a495-392cae75159e",
+      "name": "Unsupervised - Build Validate Payload",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        460
+      ],
+      "parameters": {
+        "jsCode": "const parsed = $json.data?.parsed_spec ?? {};\nconst rawType = parsed?._meta?.cell_type ?? parsed?.cell_type ?? 'prismatic';\nreturn [{\n  json: {\n    cell_type: String(rawType).toLowerCase(),\n    spec: parsed,\n  },\n}];"
+      }
+    },
+    {
+      "id": "309d8b50-fd45-4569-b397-524c2bb4528c",
+      "name": "Unsupervised - Validate",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1580,
+        460
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.FORGE_API_URL || \"http://localhost:8000\" }}/api/v1/validate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { cell_type: $json.cell_type, spec: $json.spec } }}",
+        "options": {}
+      }
+    },
+    {
+      "id": "c5662652-6443-4bc3-a035-20888e453b39",
+      "name": "Unsupervised - Record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1800,
+        460
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb37a079-aeef-4dcc-818d-e216303372b2",
+              "name": "iteration",
+              "value": "={{ $('Build Iteration Items').item.json.iteration }}",
+              "type": "number"
+            },
+            {
+              "id": "53822483-7346-40c8-b7dd-2cfec67b2bfc",
+              "name": "unsupervised_valid",
+              "value": "={{ Boolean($json.data?.valid) }}",
+              "type": "boolean"
+            },
+            {
+              "id": "75fce639-8d57-4efe-9f5d-a6c2cfdcadea",
+              "name": "unsupervised_error_count",
+              "value": "={{ Array.isArray($json.data?.errors) ? $json.data.errors.length : 0 }}",
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "id": "5532839d-4d00-41de-81e5-27bc37bb43a6",
+      "name": "Merge Iteration Results",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        2020,
+        300
+      ],
+      "parameters": {
+        "mode": "mergeByIndex"
+      }
+    },
+    {
+      "id": "cd69ce05-66cc-4747-aad2-2fcb8184a9bd",
+      "name": "Final Statistics",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2240,
+        300
+      ],
+      "parameters": {
+        "jsCode": "const rows = $input.all().map((item) => item.json);\nconst total = rows.length;\nconst supervisedPass = rows.filter((r) => r.supervised_valid === true).length;\nconst unsupervisedPass = rows.filter((r) => r.unsupervised_valid === true).length;\nconst supervisedFail = total - supervisedPass;\nconst unsupervisedFail = total - unsupervisedPass;\n\nconst supervisedFailRate = total > 0 ? (supervisedFail / total) * 100 : 0;\nconst unsupervisedFailRate = total > 0 ? (unsupervisedFail / total) * 100 : 0;\n\nconst report = {\n  total_iterations: total,\n  supervised: {\n    passed: supervisedPass,\n    failed: supervisedFail,\n    pass_rate: total > 0 ? `${((supervisedPass / total) * 100).toFixed(1)}%` : '0.0%',\n    failure_rate: `${supervisedFailRate.toFixed(1)}%`,\n  },\n  unsupervised: {\n    passed: unsupervisedPass,\n    failed: unsupervisedFail,\n    pass_rate: total > 0 ? `${((unsupervisedPass / total) * 100).toFixed(1)}%` : '0.0%',\n    failure_rate: `${unsupervisedFailRate.toFixed(1)}%`,\n  },\n  improvement: {\n    failure_rate_reduction: `${(unsupervisedFailRate - supervisedFailRate).toFixed(1)} percentage points`,\n  },\n  thesis_argument:\n    supervisedPass > unsupervisedPass\n      ? 'AXIOM supervision reduced constraint failures versus unsupervised generation in this batch.'\n      : 'Results inconclusive; increase iteration count or vary prompts for stronger evidence.',\n  per_iteration: rows,\n};\n\nreturn [{ json: report }];"
+      }
+    },
+    {
+      "id": "7ad45bb0-a3b0-4263-a3f1-c83cdd039eae",
+      "name": "Set Report Output",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2460,
+        300
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8032f365-db2a-4021-b764-37ca0b241227",
+              "name": "workflow",
+              "value": "J2_batch_evaluation",
+              "type": "string"
+            },
+            {
+              "id": "8bda4ab0-0c5a-49ee-8cd2-0a8c6c341700",
+              "name": "total_iterations",
+              "value": "={{ $json.total_iterations }}",
+              "type": "number"
+            },
+            {
+              "id": "7db767a4-eff0-4f7e-867e-39fc19b45717",
+              "name": "supervised_pass_rate",
+              "value": "={{ $json.supervised.pass_rate }}",
+              "type": "string"
+            },
+            {
+              "id": "5855b9d6-1745-4f53-8d60-b0f5d4504654",
+              "name": "unsupervised_pass_rate",
+              "value": "={{ $json.unsupervised.pass_rate }}",
+              "type": "string"
+            },
+            {
+              "id": "95a721ba-2639-4ddf-b3d7-20a8208cf2ce",
+              "name": "thesis_argument",
+              "value": "={{ $json.thesis_argument }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Set Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Config": {
+      "main": [
+        [
+          {
+            "node": "Build Iteration Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Iteration Items": {
+      "main": [
+        [
+          {
+            "node": "Supervised - Pipeline",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Unsupervised - Generate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supervised - Pipeline": {
+      "main": [
+        [
+          {
+            "node": "Supervised - Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Generate": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Parse",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Parse": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Build Validate Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Build Validate Payload": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Validate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Validate": {
+      "main": [
+        [
+          {
+            "node": "Unsupervised - Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supervised - Record": {
+      "main": [
+        [
+          {
+            "node": "Merge Iteration Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Unsupervised - Record": {
+      "main": [
+        [
+          {
+            "node": "Merge Iteration Results",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge Iteration Results": {
+      "main": [
+        [
+          {
+            "node": "Final Statistics",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Final Statistics": {
+      "main": [
+        [
+          {
+            "node": "Set Report Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
   "meta": {
-    "description": "Placeholder - built in Phase J2. Batch AXIOM pipeline execution with statistics collection."
-  }
+    "instanceId": ""
+  },
+  "tags": []
 }
