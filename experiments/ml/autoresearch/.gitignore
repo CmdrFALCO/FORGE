@@ -1,0 +1,11 @@
+# Generated dataset files (regenerate via: python prepare.py)
+dataset/*.npz
+dataset/metadata.json
+
+# Autoresearch results
+results.tsv
+results_plot.png
+
+# Logs
+*.log
+

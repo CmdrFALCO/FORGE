@@ -1,0 +1,54 @@
+﻿# Repository ignore rules
+
+# CellCAD migration source â€” read-only reference, not part of FORGE
+_source/
+
+# Claude Code
+.claude/
+
+# Temp docs
+docs/_temp/
+.tmp.driveupload/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# MkDocs build output
+site/
+
