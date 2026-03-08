@@ -36,6 +36,8 @@ cad = [
 ]
 ml = [
     "torch>=2.0",
+    "scipy>=1.11",
+    "matplotlib>=3.7",
     "pybop>=24.3",
 ]
 dev = [
