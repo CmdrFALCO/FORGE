@@ -1,0 +1,2 @@
+"""Autoresearch test package."""
+
