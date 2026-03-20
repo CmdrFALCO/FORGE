@@ -1,11 +1,12 @@
-"""
-FORGE - Battery Cell Design Tool
+﻿"""
+FORGE landing page.
 
-Main Streamlit application entry point.
-Run with: streamlit run app.py
+Run with: streamlit run forge/gui/app.py
 """
 
 import streamlit as st
+
+from forge.gui.utils.cad_availability import show_cad_status
 
 st.set_page_config(
     page_title="FORGE",
@@ -14,48 +15,60 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Landing page content
 st.title("FORGE")
-st.markdown("""
-**Battery Cell Design and Analysis Tool**
+st.markdown(
+    """
+**Parametric battery cell design and simulation platform**
 
-FORGE provides comprehensive tools for battery cell geometry calculation,
-visualization, and CAD export.
+FORGE combines validated reference cells, engineering calculators, CAD export,
+and interactive geometry inspection in one Streamlit workspace.
+"""
+)
 
-### Available Tools
+col1, col2, col3 = st.columns(3)
+with col1:
+    st.subheader("Cell Calculator")
+    st.write(
+        "Parametric cell design with reference loading, material inputs, "
+        "and optional PyBaMM-backed parameter sets."
+    )
+with col2:
+    st.subheader("CAD Export")
+    st.write(
+        "Generate STEP, STL, and FreeCAD outputs from validated cell "
+        "archetypes for downstream engineering work."
+    )
+with col3:
+    st.subheader("Geometry Viewer")
+    st.write(
+        "Inspect internal layer geometry in an interactive 3D view before "
+        "export or simulation."
+    )
 
-| Page | Description |
-|------|-------------|
-| **Cell Calculator** | Design pouch, prismatic, and cylindrical cells with full parameter control |
-| **CAD Export** | Generate STEP, STL, and FreeCAD scripts from reference cell archetypes |
-| **Geometry Viewer** | Interactive 3D visualization of cell internal geometry |
+st.markdown("---")
+st.subheader("Recommended Workflow")
+st.markdown(
+    """
+1. Load a validated reference cell or enter custom inputs.
+2. Calculate electrical, mass, and energy-density results.
+3. Export CAD or inspect geometry in the 3D viewer.
+"""
+)
 
----
+st.info(
+    "Use the sidebar to open Cell Calculator, CAD Export, or Geometry Viewer. "
+    "PyBaMM-backed material loading is available when PyBaMM is installed."
+)
 
-### Quick Start
-
-1. **Design a Cell**: Use the Cell Calculator to define geometry and materials
-2. **Load Reference**: Select from validated commercial cell archetypes
-3. **Export CAD**: Generate industry-standard CAD files for simulation
-
----
-
-*Select a tool from the sidebar to begin.*
-""")
-
-# Sidebar info
 with st.sidebar:
     st.markdown("### FORGE v1.0")
     st.markdown("---")
-
-    # Show CAD availability status
-    from forge.gui.utils.cad_availability import show_cad_status
-
     show_cad_status()
-
     st.markdown("---")
     st.markdown("#### Resources")
-    st.markdown("""
-    - [GitHub Repository](https://github.com/CmdrFALCO/FORGE)
-    - [Documentation](docs/)
-    """)
+    st.markdown(
+        """
+- [GitHub Repository](https://github.com/CmdrFALCO/FORGE)
+- [Documentation](docs/)
+"""
+    )

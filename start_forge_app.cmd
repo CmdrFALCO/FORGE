@@ -3,7 +3,7 @@ setlocal
 
 set "ROOT_DIR=%~dp0"
 set "VENV_PYTHON=%ROOT_DIR%\.venv311\Scripts\python.exe"
-set "APP_PATH=%ROOT_DIR%forge\gui\streamlit_app.py"
+set "APP_PATH=%ROOT_DIR%forge\gui\app.py"
 
 if not exist "%VENV_PYTHON%" (
     echo ERROR: Python virtual environment not found at "%VENV_PYTHON%".
@@ -17,3 +17,4 @@ if not exist "%APP_PATH%" (
 )
 
 "%VENV_PYTHON%" -m streamlit run "%APP_PATH%"
+
