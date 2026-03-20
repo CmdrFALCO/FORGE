@@ -65,7 +65,7 @@ testpaths = ["tests"]
 markers = [
     "live: marks tests requiring live API access (deselected by default)",
 ]
-addopts = "-m 'not live'"
+addopts = "--basetemp=.pytest_tmp -m 'not live'"
 
 [tool.ruff]
 target-version = "py311"

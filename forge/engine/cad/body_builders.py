@@ -564,21 +564,36 @@ class BodyBuilder:
         if tab_geom is None:
             return bodies
 
-        # Build positive tabs
-        for i, tab in enumerate(tab_geom.positive_tabs):
-            body = self._build_tab_strip(
-                tab, f"Tab_Pos_{i:03d}", MaterialGroup.TAB_POSITIVE
+        if self.grouping_mode == GroupingMode.BY_MATERIAL:
+            positive_body = self._build_grouped_tab_strips(
+                tab_geom.positive_tabs,
+                MaterialGroup.TAB_POSITIVE,
             )
-            if body:
-                bodies.append(body)
+            if positive_body:
+                bodies.append(positive_body)
 
-        # Build negative tabs
-        for i, tab in enumerate(tab_geom.negative_tabs):
-            body = self._build_tab_strip(
-                tab, f"Tab_Neg_{i:03d}", MaterialGroup.TAB_NEGATIVE
+            negative_body = self._build_grouped_tab_strips(
+                tab_geom.negative_tabs,
+                MaterialGroup.TAB_NEGATIVE,
             )
-            if body:
-                bodies.append(body)
+            if negative_body:
+                bodies.append(negative_body)
+        else:
+            # Build positive tabs
+            for i, tab in enumerate(tab_geom.positive_tabs):
+                body = self._build_tab_strip(
+                    tab, f"Tab_Pos_{i:03d}", MaterialGroup.TAB_POSITIVE
+                )
+                if body:
+                    bodies.append(body)
+
+            # Build negative tabs
+            for i, tab in enumerate(tab_geom.negative_tabs):
+                body = self._build_tab_strip(
+                    tab, f"Tab_Neg_{i:03d}", MaterialGroup.TAB_NEGATIVE
+                )
+                if body:
+                    bodies.append(body)
 
         # Build busbars
         if tab_geom.positive_busbar:
@@ -595,24 +610,27 @@ class BodyBuilder:
             if body:
                 bodies.append(body)
 
-        # Build terminals from tab geometry
-        if tab_geom.positive_terminal:
-            body = self._build_terminal_post(
-                tab_geom.positive_terminal,
-                "Terminal_Pos",
-                MaterialGroup.TERMINAL_POSITIVE,
-            )
-            if body:
-                bodies.append(body)
+        # Stacked cells already expose their connectivity through tab strips and busbars.
+        # Exporting coarse terminal posts from tab geometry duplicates those bodies and
+        # breaks grouped-material expectations for pouch/prismatic assemblies.
+        if geometry.cell_type == "cylindrical":
+            if tab_geom.positive_terminal:
+                body = self._build_terminal_post(
+                    tab_geom.positive_terminal,
+                    "Terminal_Pos",
+                    MaterialGroup.TERMINAL_POSITIVE,
+                )
+                if body:
+                    bodies.append(body)
 
-        if tab_geom.negative_terminal:
-            body = self._build_terminal_post(
-                tab_geom.negative_terminal,
-                "Terminal_Neg",
-                MaterialGroup.TERMINAL_NEGATIVE,
-            )
-            if body:
-                bodies.append(body)
+            if tab_geom.negative_terminal:
+                body = self._build_terminal_post(
+                    tab_geom.negative_terminal,
+                    "Terminal_Neg",
+                    MaterialGroup.TERMINAL_NEGATIVE,
+                )
+                if body:
+                    bodies.append(body)
 
         # Build terminal assembly components (insulators, gaskets, header)
         terminal_assembly = getattr(geometry, "terminal_assembly", None)
@@ -620,6 +638,31 @@ class BodyBuilder:
             bodies.extend(self._build_terminal_assembly_components(terminal_assembly))
 
         return bodies
+
+    def _build_grouped_tab_strips(
+        self,
+        tabs: list["TabStrip"],
+        material_group: MaterialGroup,
+    ) -> CADBody | None:
+        """Build one grouped body per tab polarity."""
+        import build123d as bd
+
+        solids = []
+        for tab in tabs:
+            body = self._build_tab_strip(tab, "unused", material_group)
+            if body and body.solid is not None:
+                solids.append(body.solid)
+
+        if not solids:
+            return None
+
+        combined = solids[0] if len(solids) == 1 else bd.Compound(solids)
+        body = CADBody(
+            name=AssemblyNamer.body_name(material_group),
+            material_group=material_group,
+        )
+        body.solid = combined
+        return body
 
     def _build_tab_strip(
         self,
