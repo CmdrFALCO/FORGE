@@ -35,11 +35,25 @@ Streamlit Example:
     >>> render_geometry_viewer(geometry)
 """
 
+from importlib.util import find_spec
+
 from .colors import DEFAULT_COLORS, ColorScheme
+
+
+def _plotly_unavailable(*_args, **_kwargs):
+    raise ImportError("plotly is required for geometry visualization")
+
+
+class _MissingPlotlyViewer:
+    """Placeholder viewer that fails with a clear optional-dependency error."""
+
+    def __init__(self, *_args, **_kwargs) -> None:
+        _plotly_unavailable()
+
 
 # Plotly-backed modules are optional. Keep colors importable even when plotly
 # is not installed so lightweight tests (e.g., color scheme tests) can run.
-try:
+if find_spec("plotly") is not None:
     from .geometry_builders import (
         GeometryBuilder,
         create_box_mesh,
@@ -48,14 +62,10 @@ try:
     from .plotly_viewer import PlotlyViewer
 
     _PLOTLY_AVAILABLE = True
-except ImportError:
+else:
     _PLOTLY_AVAILABLE = False
-    PlotlyViewer = None
+    PlotlyViewer = _MissingPlotlyViewer
     GeometryBuilder = None
-
-    def _plotly_unavailable(*_args, **_kwargs):
-        raise ImportError("plotly is required for geometry mesh generation")
-
     create_box_mesh = _plotly_unavailable
     create_cylinder_mesh = _plotly_unavailable
 
