@@ -4,6 +4,8 @@ FORGE landing page.
 Run with: streamlit run forge/gui/app.py
 """
 
+from pathlib import Path
+
 import streamlit as st
 
 from forge.gui.utils.cad_availability import show_cad_status
@@ -24,6 +26,12 @@ FORGE combines validated reference cells, engineering calculators, CAD export,
 and interactive geometry inspection in one Streamlit workspace.
 """
 )
+
+hero_image = Path(__file__).resolve().parents[2] / "docs" / "FORGE_v1.jpg"
+if hero_image.exists():
+    _, image_col, _ = st.columns([1, 3, 1])
+    with image_col:
+        st.image(str(hero_image), width="stretch")
 
 col1, col2, col3 = st.columns(3)
 with col1:
