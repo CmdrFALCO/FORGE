@@ -1,4 +1,4 @@
-﻿"""Tests for the AXIOM Designer pipeline wrapper and flow renderer."""
+"""Tests for the AXIOM Designer pipeline wrapper and renderers."""
 
 from forge.axiom import MockBackend
 from forge.gui.axiom_pipeline import (
@@ -10,6 +10,7 @@ from forge.gui.axiom_pipeline import (
     load_pipeline_run,
     run_pipeline_with_tracking,
 )
+from forge.gui.components.axiom_cpn import compute_cpn_sequence, render_cpn_graph
 from forge.gui.components.axiom_flow import render_pipeline_flow
 
 VALID_POUCH_RESPONSE = """
@@ -270,3 +271,47 @@ def test_run_pipeline_with_tracking_retry_success() -> None:
     assert any(
         step.name == "Physics Validate" and step.status == StepStatus.FAILED for step in run.steps
     )
+
+
+def test_render_cpn_graph_returns_svg() -> None:
+    run = load_pipeline_run(DEMO_DIR / "successful_first_try.json")
+
+    svg = render_cpn_graph(run)
+
+    assert svg.lstrip().startswith("<svg")
+    assert 'id="P_prompt"' in svg
+    assert 'id="T_calculate"' in svg
+    assert "AXIOM Colored Petri Net" in svg
+
+
+def test_compute_cpn_sequence_success_run_ends_at_result() -> None:
+    run = load_pipeline_run(DEMO_DIR / "successful_first_try.json")
+
+    sequence = compute_cpn_sequence(run)
+
+    assert sequence[0]["token_place"] == "P_prompt"
+    assert sequence[-1]["token_place"] == "P_result"
+    assert sequence[-1]["transition_id"] == "T_calculate"
+    assert "T_accept" in sequence[-1]["fired_transitions"]
+
+
+def test_compute_cpn_sequence_retry_run_includes_loop() -> None:
+    run = load_pipeline_run(DEMO_DIR / "retry_success.json")
+
+    sequence = compute_cpn_sequence(run)
+    transition_ids = [snapshot["transition_id"] for snapshot in sequence]
+
+    assert "T_retry" in transition_ids
+    assert "T_regenerate" in transition_ids
+    assert sequence[-1]["token_place"] == "P_result"
+    assert sequence[-1]["attempt"] == 2
+
+
+def test_compute_cpn_sequence_handles_empty_run() -> None:
+    run = PipelineRun(prompt="", backend_name="AXIOM")
+
+    sequence = compute_cpn_sequence(run)
+
+    assert len(sequence) == 1
+    assert sequence[0]["token_place"] == "P_prompt"
+    assert sequence[0]["transition_id"] is None

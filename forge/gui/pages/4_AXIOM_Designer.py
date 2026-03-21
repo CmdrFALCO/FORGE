@@ -18,7 +18,7 @@ from forge.gui.axiom_pipeline import (
     load_demo_run,
     run_pipeline_with_tracking,
 )
-from forge.gui.components import render_pipeline_flow
+from forge.gui.components import compute_cpn_sequence, render_cpn_graph, render_pipeline_flow
 from forge.gui.utils.common import init_session_state
 
 PAGE_TITLE = "AXIOM Designer"
@@ -46,6 +46,8 @@ init_session_state(
         "axiom_ollama_host": "http://localhost:11434",
         "axiom_ollama_model": "qwen2.5-coder:14b",
         "axiom_claude_key": "",
+        "axiom_cpn_step_index": -1,
+        "axiom_cpn_auto_playing": False,
     }
 )
 
@@ -64,6 +66,18 @@ def _render_flow(container, run: PipelineRun | None) -> None:
             st.html(flow_html)
         else:
             components_html(flow_html, height=900, scrolling=False)
+
+
+def _render_cpn(container, run: PipelineRun, step_index: int) -> None:
+    svg = render_cpn_graph(run, current_step_index=step_index)
+    with container:
+        components_html(svg, height=620, scrolling=False)
+
+
+def _cpn_step_count(run: PipelineRun | None) -> int:
+    if run is None:
+        return 0
+    return len(compute_cpn_sequence(run))
 
 
 def _result_metrics(run: PipelineRun) -> dict[str, float] | None:
@@ -213,16 +227,76 @@ st.caption("AI-Assisted Cell Design with Formal Supervision")
 left_col, right_col = st.columns([2, 3], gap="large")
 
 with right_col:
-    st.subheader("Pipeline Flow")
-    flow_placeholder = st.empty()
-    stats_placeholder = st.empty()
-    _render_flow(flow_placeholder, st.session_state["axiom_pipeline_run"])
-    if st.session_state["axiom_pipeline_run"] is not None:
-        current_run = st.session_state["axiom_pipeline_run"]
-        stats_placeholder.caption(
-            f"Attempt {current_run.attempt}/{current_run.max_attempts} | "
-            f"{current_run.total_duration_ms:.0f} ms total"
-        )
+    st.subheader("Pipeline Views")
+    tab_flow, tab_cpn = st.tabs(["Pipeline Flow", "CPN Graph"])
+
+    with tab_flow:
+        flow_placeholder = st.empty()
+        stats_placeholder = st.empty()
+        _render_flow(flow_placeholder, st.session_state["axiom_pipeline_run"])
+        if st.session_state["axiom_pipeline_run"] is not None:
+            current_run = st.session_state["axiom_pipeline_run"]
+            stats_placeholder.caption(
+                f"Attempt {current_run.attempt}/{current_run.max_attempts} | "
+                f"{current_run.total_duration_ms:.0f} ms total"
+            )
+
+    with tab_cpn:
+        run = st.session_state["axiom_pipeline_run"]
+        if run is None:
+            st.info("Run a pipeline to see the CPN graph.")
+        else:
+            total_steps = _cpn_step_count(run)
+            step_idx = st.session_state.get("axiom_cpn_step_index", 0)
+            if step_idx < 0:
+                step_idx = total_steps - 1 if total_steps else -1
+            step_idx = min(step_idx, max(total_steps - 1, 0))
+
+            col1, col2, col3, col4 = st.columns([1, 1, 1, 2])
+            with col1:
+                resume_clicked = st.button(
+                    "Resume",
+                    key="axiom_cpn_resume",
+                    disabled=total_steps <= 1 or step_idx >= total_steps - 1,
+                )
+            with col2:
+                step_clicked = st.button(
+                    "Step",
+                    key="axiom_cpn_step",
+                    disabled=total_steps <= 1 or step_idx >= total_steps - 1,
+                )
+            with col3:
+                reset_clicked = st.button(
+                    "Reset",
+                    key="axiom_cpn_reset",
+                    disabled=total_steps <= 1 or step_idx == 0,
+                )
+            with col4:
+                st.caption(
+                    f"Attempt {run.attempt}/{run.max_attempts} | {run.total_duration_ms:.0f} ms total"
+                )
+
+            st.caption(f"Steps: {step_idx + 1 if total_steps else 0} / {total_steps}")
+            cpn_placeholder = st.empty()
+            _render_cpn(cpn_placeholder, run, step_idx)
+
+            if step_clicked:
+                st.session_state["axiom_cpn_step_index"] = min(step_idx + 1, total_steps - 1)
+                st.rerun()
+
+            if reset_clicked:
+                st.session_state["axiom_cpn_step_index"] = 0
+                st.session_state["axiom_cpn_auto_playing"] = False
+                st.rerun()
+
+            if resume_clicked:
+                st.session_state["axiom_cpn_auto_playing"] = True
+                for next_index in range(step_idx + 1, total_steps):
+                    st.session_state["axiom_cpn_step_index"] = next_index
+                    _render_cpn(cpn_placeholder, run, next_index)
+                    time.sleep(0.6)
+                st.session_state["axiom_cpn_auto_playing"] = False
+                st.rerun()
 
 with left_col:
     st.subheader("Design Request")
@@ -240,6 +314,8 @@ with left_col:
     )
 
     if generate_clicked:
+        st.session_state["axiom_cpn_step_index"] = 0
+        st.session_state["axiom_cpn_auto_playing"] = False
         st.session_state["axiom_is_running"] = True
         try:
             if st.session_state["axiom_mode"] == MODE_RECORDED:
@@ -278,6 +354,7 @@ with left_col:
                 )
         finally:
             st.session_state["axiom_is_running"] = False
+        st.rerun()
 
     run = st.session_state["axiom_pipeline_run"]
     if run is None:
