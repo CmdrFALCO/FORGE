@@ -7,6 +7,7 @@ from copy import deepcopy
 from pathlib import Path
 
 import streamlit as st
+from streamlit.components.v1 import html as components_html
 
 from forge.gui.axiom_pipeline import (
     DEMO_DIR,
@@ -57,7 +58,12 @@ def _render_flow(container, run: PipelineRun | None) -> None:
             cell_type=st.session_state["axiom_cell_type"],
             steps=[PipelineStep(name=name) for name in FLOW_STEPS],
         )
-    container.markdown(render_pipeline_flow(run), unsafe_allow_html=True)
+    flow_html = render_pipeline_flow(run)
+    with container:
+        if hasattr(st, "html"):
+            st.html(flow_html)
+        else:
+            components_html(flow_html, height=900, scrolling=False)
 
 
 def _result_metrics(run: PipelineRun) -> dict[str, float] | None:
