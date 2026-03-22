@@ -130,12 +130,13 @@ def main() -> int:
 
     def _add_features(X: np.ndarray) -> np.ndarray:
         # Indices: 0=electrode_thickness, 1=porosity, 3=n_tabs, 7=cell_height,
-        #          9=tab_conductance_proxy, 10=diffusion_path_proxy
+        #          8=surface_to_volume, 9=tab_conductance_proxy, 10=diffusion_path_proxy
         et_x_por = (X[:, 0] * X[:, 1]).reshape(-1, 1)          # interaction
         ntabs_x_h = (X[:, 3] * X[:, 7]).reshape(-1, 1)          # interaction
         log_diff = np.log(np.maximum(X[:, 10], 1e-6)).reshape(-1, 1)   # compress range
         log_cond = np.log(np.maximum(X[:, 9], 1e-6)).reshape(-1, 1)    # compress conductance
-        return np.concatenate([X, et_x_por, ntabs_x_h, log_diff, log_cond], axis=1)
+        log_stv = np.log(np.maximum(X[:, 8], 1e-6)).reshape(-1, 1)     # thermal dissipation
+        return np.concatenate([X, et_x_por, ntabs_x_h, log_diff, log_cond, log_stv], axis=1)
 
     X_train = _add_features(X_train)
     X_val = _add_features(X_val)
