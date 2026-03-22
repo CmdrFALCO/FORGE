@@ -136,10 +136,9 @@ def main() -> int:
         #          7=cell_height, 10=diffusion_path_proxy
         et_x_por = (X[:, 0] * X[:, 1]).reshape(-1, 1)          # interaction
         ntabs_x_h = (X[:, 3] * X[:, 7]).reshape(-1, 1)          # interaction
-        wall_x_h = (X[:, 6] * X[:, 7]).reshape(-1, 1)           # interaction
         et_sq = (X[:, 0] ** 2).reshape(-1, 1)                   # threshold behavior
         log_diff = np.log(np.maximum(X[:, 10], 1e-6)).reshape(-1, 1)  # compress range
-        return np.concatenate([X, et_x_por, ntabs_x_h, wall_x_h, et_sq, log_diff], axis=1)
+        return np.concatenate([X, et_x_por, ntabs_x_h, et_sq, log_diff], axis=1)
 
     X_train = _add_features(X_train)
     X_val = _add_features(X_val)
