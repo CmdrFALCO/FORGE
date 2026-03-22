@@ -35,6 +35,7 @@ BATCH_SIZE = 64
 ACTIVATION = "gelu"
 LOSS_FN = "mse"
 WEIGHT_DECAY = 0.0
+ENSEMBLE_SIZE = 5
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -150,9 +151,6 @@ def main() -> int:
     X_val_n = (X_val - x_mean) / x_std
     X_test_n = (X_test - x_mean) / x_std
 
-    model = _build_model(input_dim=X_train_n.shape[1])
-    num_params = sum(param.numel() for param in model.parameters())
-    optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
     criterion = _loss_fn(LOSS_FN)
 
     X_train_t = torch.from_numpy(X_train_n)
@@ -161,56 +159,72 @@ def main() -> int:
     y_val_t = torch.from_numpy(y_val)
     X_test_t = torch.from_numpy(X_test_n)
 
-    rng = np.random.default_rng(args.seed)
-
-    best_val_loss = float("inf")
-    best_state: dict[str, torch.Tensor] | None = None
+    input_dim = X_train_n.shape[1]
+    per_model_budget = args.budget_seconds / ENSEMBLE_SIZE
+    all_test_preds: list[np.ndarray] = []
     num_epochs = 0
+    num_params = 0
 
     train_start = time.time()
-    while True:
-        if time.time() - train_start >= args.budget_seconds:
-            break
+    for member_idx in range(ENSEMBLE_SIZE):
+        member_seed = args.seed + member_idx
+        torch.manual_seed(member_seed)
+        rng = np.random.default_rng(member_seed)
 
-        model.train()
-        permutation = rng.permutation(X_train_t.shape[0])
-        train_loss_acc = 0.0
+        model = _build_model(input_dim=input_dim)
+        if member_idx == 0:
+            num_params = sum(param.numel() for param in model.parameters())
+        optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
 
-        for start_idx in range(0, X_train_t.shape[0], BATCH_SIZE):
-            batch_idx = permutation[start_idx : start_idx + BATCH_SIZE]
-            batch_x = X_train_t[batch_idx]
-            batch_y = y_train_t[batch_idx]
+        best_val_loss = float("inf")
+        best_state: dict[str, torch.Tensor] | None = None
+        member_start = time.time()
+        member_epochs = 0
 
-            optimizer.zero_grad()
-            pred = model(batch_x)
-            loss = criterion(pred, batch_y)
-            loss.backward()
-            optimizer.step()
+        while True:
+            if time.time() - member_start >= per_model_budget:
+                break
 
-            train_loss_acc += float(loss.item()) * batch_x.shape[0]
+            model.train()
+            permutation = rng.permutation(X_train_t.shape[0])
+            train_loss_acc = 0.0
 
-        num_epochs += 1
-        train_loss = train_loss_acc / X_train_t.shape[0]
+            for start_idx in range(0, X_train_t.shape[0], BATCH_SIZE):
+                batch_idx = permutation[start_idx : start_idx + BATCH_SIZE]
+                batch_x = X_train_t[batch_idx]
+                batch_y = y_train_t[batch_idx]
 
+                optimizer.zero_grad()
+                pred = model(batch_x)
+                loss = criterion(pred, batch_y)
+                loss.backward()
+                optimizer.step()
+
+                train_loss_acc += float(loss.item()) * batch_x.shape[0]
+
+            member_epochs += 1
+            train_loss = train_loss_acc / X_train_t.shape[0]
+
+            model.eval()
+            with torch.no_grad():
+                val_pred = model(X_val_t)
+                val_loss = float(criterion(val_pred, y_val_t).item())
+
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
+
+            print(f"member={member_idx} epoch={member_epochs} train_loss={train_loss:.6f} val_loss={val_loss:.6f}")
+
+        num_epochs += member_epochs
+        if best_state is not None:
+            model.load_state_dict(best_state)
         model.eval()
         with torch.no_grad():
-            val_pred = model(X_val_t)
-            val_loss = float(criterion(val_pred, y_val_t).item())
-
-        if val_loss < best_val_loss:
-            best_val_loss = val_loss
-            best_state = {key: value.detach().cpu().clone() for key, value in model.state_dict().items()}
-
-        print(f"epoch={num_epochs} train_loss={train_loss:.6f} val_loss={val_loss:.6f}")
+            all_test_preds.append(model(X_test_t).cpu().numpy())
 
     training_seconds = time.time() - train_start
-
-    if best_state is not None:
-        model.load_state_dict(best_state)
-
-    model.eval()
-    with torch.no_grad():
-        test_pred = model(X_test_t).cpu().numpy()
+    test_pred = np.mean(all_test_preds, axis=0)
 
     errors = test_pred - y_test
     rmse = np.sqrt(np.mean(np.square(errors), axis=0))
