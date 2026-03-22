@@ -1,0 +1,15 @@
+.git
+.gitignore
+.venv311
+__pycache__
+*.pyc
+_source/
+experiments/
+docs/
+tests/
+*.egg-info
+.pytest_cache
+.mypy_cache
+docker/
+*.md
+LICENSE

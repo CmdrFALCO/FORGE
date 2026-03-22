@@ -1,0 +1,59 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/landing:/usr/share/nginx/html:ro
+      - ./docker/nginx/.htpasswd:/etc/nginx/.htpasswd:ro
+      - certbot-webroot:/var/www/certbot:ro
+      - certbot-certs:/etc/letsencrypt:ro
+    depends_on:
+      - streamlit
+      - api
+    restart: unless-stopped
+    networks:
+      - forge-net
+
+  streamlit:
+    build: .
+    command: >
+      streamlit run forge/gui/app.py
+        --server.baseUrlPath=/app
+        --server.enableCORS=false
+        --server.enableXsrfProtection=false
+        --server.headless=true
+        --server.port=8501
+    volumes:
+      - ./data:/app/data:ro
+    restart: unless-stopped
+    networks:
+      - forge-net
+
+  api:
+    build: .
+    command: uvicorn forge.api.app:app --host 0.0.0.0 --port 8000
+    environment:
+      - FORGE_API_ROOT_PATH=/api
+    volumes:
+      - ./data:/app/data:ro
+    restart: unless-stopped
+    networks:
+      - forge-net
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - certbot-webroot:/var/www/certbot
+      - certbot-certs:/etc/letsencrypt
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do sleep 12h & wait $${!}; certbot renew; done'"
+    restart: unless-stopped
+
+volumes:
+  certbot-webroot:
+  certbot-certs:
+
+networks:
+  forge-net:

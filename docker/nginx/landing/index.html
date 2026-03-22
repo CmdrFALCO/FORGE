@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORGE — Formal Output Regulation for Generative Engineering</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-wordmark">FORGE</div>
+        <div class="hero-expansion">Formal Output Regulation for Generative Engineering</div>
+        <p class="hero-pitch">
+            A framework for building AI systems that engineers can trust. FORGE combines
+            physics-aware validation, trust-graded knowledge management, and corrective feedback
+            loops to catch hallucinations before they reach production — across any domain that
+            turns unstructured data into decisions.
+        </p>
+    </div>
+</section>
+
+<!-- ─── Architecture ─── -->
+<section class="arch-section">
+    <div class="container">
+        <div class="section-title">Architecture</div>
+        <div class="arch-diagram">
+            <div class="arch-layer">
+                <div class="arch-layer-name">Engine</div>
+                <div class="arch-layer-desc">Cell design &amp; simulation<br>(PyBaMM)</div>
+            </div>
+            <div class="arch-arrow">&rarr;</div>
+            <div class="arch-layer">
+                <div class="arch-layer-name">AXIOM</div>
+                <div class="arch-layer-desc">Validation engine<br>(constraint checking)</div>
+            </div>
+            <div class="arch-arrow">&rarr;</div>
+            <div class="arch-layer">
+                <div class="arch-layer-name">ML</div>
+                <div class="arch-layer-desc">Surrogate models<br>(PyTorch)</div>
+            </div>
+            <div class="arch-arrow">&rarr;</div>
+            <div class="arch-layer">
+                <div class="arch-layer-name">Integration</div>
+                <div class="arch-layer-desc">API &amp; GUI<br>(FastAPI, Streamlit)</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Navigation Cards ─── -->
+<section>
+    <div class="container">
+        <div class="section-title">Explore</div>
+        <div class="nav-cards">
+            <div class="card">
+                <h3>Design Tool</h3>
+                <p>Interactive battery cell designer. Configure chemistry, geometry, and operating conditions. View 3D cell geometry and validate designs against physics constraints.</p>
+                <a href="/app/" class="card-link">Launch &rarr;</a>
+            </div>
+            <div class="card">
+                <h3>API Explorer</h3>
+                <p>REST API with full Swagger documentation. Design cells programmatically, run validations, and retrieve reference data.</p>
+                <a href="/api/docs" class="card-link">Launch &rarr;</a>
+            </div>
+            <div class="card card-disabled">
+                <h3>ML Pipeline &amp; Research</h3>
+                <p>Autonomous surrogate optimization in progress. Results will appear here after the first autoresearch run.</p>
+                <span class="card-badge">In Progress</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─── DAEDALUS ─── -->
+<section id="daedalus">
+    <div class="container">
+        <div class="section-title">DAEDALUS — Trust Architecture</div>
+        <p class="daedalus-intro">
+            Retrieval efficiency and knowledge trustworthiness are orthogonal problems.
+            Every domain that uses AI to process unstructured data into decisions faces the same
+            trust gap. DAEDALUS solves it structurally — with pluggable constraint sets, a universal
+            trust model, and domain-independent corrective feedback. One architecture, three domains.
+        </p>
+
+        <!-- Domain Tabs -->
+        <div class="domain-tabs">
+            <button class="domain-tab active" data-domain="engineering">Engineering</button>
+            <button class="domain-tab" data-domain="customer-service">Customer Service</button>
+            <button class="domain-tab" data-domain="competitive-intel">Competitive Intelligence</button>
+        </div>
+
+        <!-- ─── Domain A: Engineering ─── -->
+        <div class="domain-panel active" id="panel-engineering">
+
+            <div class="domain-problem">
+                <h4>The Problem</h4>
+                <p>Engineers using AI assistants for battery cell design face three compounding failures:</p>
+                <ol>
+                    <li><strong>Amnesia</strong> — AI starts every session from zero. Context, constraints, and prior decisions must be re-explained each time.</li>
+                    <li><strong>Blind Trust</strong> — AI-generated specifications carry no provenance. A verified material property and a hallucinated value appear with identical confidence.</li>
+                    <li><strong>Silent Failure</strong> — LLMs generate designs with parameters outside manufacturable range, impossible ratios, or energy density claims violating thermodynamic limits — presented as valid.</li>
+                </ol>
+            </div>
+
+            <!-- Trust Model -->
+            <div class="trust-grid">
+                <div class="trust-row">
+                    <span class="trust-color blue">BLUE</span>
+                    <span class="trust-meaning">Verified engineering fact</span>
+                    <span class="trust-example">Material spec from datasheet, validated test result, confirmed constraint</span>
+                </div>
+                <div class="trust-row">
+                    <span class="trust-color green">GREEN</span>
+                    <span class="trust-meaning">AI-suggested, pending validation</span>
+                    <span class="trust-example">"Based on prior sessions, optimal cathode thickness is ~120&micro;m"</span>
+                </div>
+                <div class="trust-row">
+                    <span class="trust-color red">RED</span>
+                    <span class="trust-meaning">Conflict or constraint violation</span>
+                    <span class="trust-example">Design proposes N/P ratio of 0.95 — below minimum safe threshold of 1.05</span>
+                </div>
+            </div>
+
+            <!-- Workflow -->
+            <div class="workflow-box">
+                <h4>Generate &rarr; Validate &rarr; Accept / Retry</h4>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Generate</div>
+                        <div class="workflow-step-desc">LLM produces structured cell specification</div>
+                    </div>
+                    <div class="workflow-arrow">&rarr;</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Validate</div>
+                        <div class="workflow-step-desc">14 physics constraints checked</div>
+                    </div>
+                    <div class="workflow-arrow">&rarr;</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Decide</div>
+                        <div class="workflow-step-desc">Accept, retry, or reject</div>
+                    </div>
+                </div>
+                <div class="workflow-branch">
+                    <div class="workflow-outcome pass">
+                        <div class="workflow-outcome-label">PASS &rarr; Accept</div>
+                        <div class="workflow-outcome-desc">Stored as GREEN trust, pending engineer review</div>
+                    </div>
+                    <div class="workflow-outcome fail">
+                        <div class="workflow-outcome-label">FAIL &rarr; Corrective Feedback</div>
+                        <div class="workflow-outcome-desc">"Cathode 85&micro;m is below known delamination threshold. Consider &ge;100&micro;m."</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Constraint Table -->
+            <div class="workflow-box">
+                <h4>AXIOM Constraint Set</h4>
+                <table class="constraint-table">
+                    <thead>
+                        <tr><th>Constraint</th><th>Type</th><th>Rule</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cathode thickness</td>
+                            <td>Range</td>
+                            <td><code>50 &le; value &le; 250 &micro;m</code></td>
+                        </tr>
+                        <tr>
+                            <td>N/P ratio</td>
+                            <td>Cross-parameter</td>
+                            <td><code>1.05 &le; anode/cathode &le; 1.20</code></td>
+                        </tr>
+                        <tr>
+                            <td>Energy density</td>
+                            <td>Calculation</td>
+                            <td><code>|stated &minus; (V &times; C)| / stated &le; 0.05</code></td>
+                        </tr>
+                        <tr>
+                            <td>Thermal limit</td>
+                            <td>Simulation</td>
+                            <td><code>max(temp) &le; 45&deg;C</code> via PyBaMM</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ─── Domain B: Customer Service ─── -->
+        <div class="domain-panel" id="panel-customer-service">
+
+            <div class="domain-problem">
+                <h4>The Problem</h4>
+                <p>Customer service and after-sales operations teams process massive volumes of unstructured data — dealer reports, warranty claims, complaints, diagnostic logs, voice transcripts — using NLP/GenAI pipelines. Three trust failures emerge:</p>
+                <ol>
+                    <li><strong>Signal Confusion</strong> — AI extracts "trends" from unstructured data, but there's no distinction between a verified quality issue and an AI-inferred correlation from noisy reports.</li>
+                    <li><strong>Hallucination Cascade</strong> — LLM infers pattern A, stores as insight, retrieves as context for next analysis, compounds into confident but wrong recommendation.</li>
+                    <li><strong>Unvalidated Recommendations</strong> — GenAI suggests service procedure changes based on trend analysis. No automated check against engineering constraints, warranty policy, or parts compatibility.</li>
+                </ol>
+            </div>
+
+            <div class="trust-grid">
+                <div class="trust-row">
+                    <span class="trust-color blue">BLUE</span>
+                    <span class="trust-meaning">Confirmed by root-cause analysis</span>
+                    <span class="trust-example">Confirmed battery defect in production batch #4721, official service procedure SP-2024-089</span>
+                </div>
+                <div class="trust-row">
+                    <span class="trust-color green">GREEN</span>
+                    <span class="trust-meaning">AI-inferred trend, pending validation</span>
+                    <span class="trust-example">"Dealer reports suggest 23% increase in charging complaints in Nordic markets — possible correlation with firmware v3.2"</span>
+                </div>
+                <div class="trust-row">
+                    <span class="trust-color red">RED</span>
+                    <span class="trust-meaning">Contradicts confirmed data or policy</span>
+                    <span class="trust-example">AI suggests reducing service interval, but this conflicts with homologation requirements</span>
+                </div>
+            </div>
+
+            <div class="workflow-box">
+                <h4>Generate &rarr; Validate &rarr; Accept / Retry</h4>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Generate</div>
+                        <div class="workflow-step-desc">LLM synthesizes insight + action from extracted reports</div>
+                    </div>
+                    <div class="workflow-arrow">&rarr;</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Validate</div>
+                        <div class="workflow-step-desc">Policy, statistical, temporal constraints</div>
+                    </div>
+                    <div class="workflow-arrow">&rarr;</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Decide</div>
+                        <div class="workflow-step-desc">Accept, retry, or reject</div>
+                    </div>
+                </div>
+                <div class="workflow-branch">
+                    <div class="workflow-outcome pass">
+                        <div class="workflow-outcome-label">PASS &rarr; Accept</div>
+                        <div class="workflow-outcome-desc">GREEN trust, queued for analyst review</div>
+                    </div>
+                    <div class="workflow-outcome fail">
+                        <div class="workflow-outcome-label">FAIL &rarr; Corrective Feedback</div>
+                        <div class="workflow-outcome-desc">"Trend based on 3 reports — below significance threshold of 15. Expand query to all Nordic markets Q1."</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-box">
+                <h4>AXIOM Constraint Set</h4>
+                <table class="constraint-table">
+                    <thead>
+                        <tr><th>Constraint</th><th>Type</th><th>Rule</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Policy compliance</td>
+                            <td>Regulatory</td>
+                            <td>Recommendation must not violate warranty policy</td>
+                        </tr>
+                        <tr>
+                            <td>Parts compatibility</td>
+                            <td>Cross-reference</td>
+                            <td>Suggested part must match vehicle configuration</td>
+                        </tr>
+                        <tr>
+                            <td>Trend significance</td>
+                            <td>Statistical</td>
+                            <td><code>sample_size &ge; 15</code> and <code>confidence &ge; 0.90</code></td>
+                        </tr>
+                        <tr>
+                            <td>Temporal consistency</td>
+                            <td>Bi-temporal</td>
+                            <td>Insight based on superseded data must be flagged</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ─── Domain C: Competitive Intelligence ─── -->
+        <div class="domain-panel" id="panel-competitive-intel">
+
+            <div class="domain-problem">
+                <h4>The Problem</h4>
+                <p>Benchmarking teams analyze competitors to predict technology roadmaps, production capacity, and strategic direction. Intelligence is gathered from job postings, patent filings, earnings calls, supplier announcements, trade press. Three trust failures:</p>
+                <ol>
+                    <li><strong>Inference as Fact</strong> — An analyst or AI infers a strategic pivot from a cluster of job postings. Over time, this inference gets cited as established fact in reports, influencing strategy without anyone flagging the original evidence quality.</li>
+                    <li><strong>Source Conflicts Buried</strong> — One patent suggests Direction A, a supplier announcement implies Direction B. Without trust grading, the most recent or most confident source wins, not the most reliable.</li>
+                    <li><strong>Temporal Decay Ignored</strong> — A competitive insight from 2024 is treated as current in 2026. Without bi-temporal reasoning, outdated intelligence persists.</li>
+                </ol>
+            </div>
+
+            <div class="trust-grid">
+                <div class="trust-row">
+                    <span class="trust-color blue">BLUE</span>
+                    <span class="trust-meaning">Confirmed by multiple independent sources</span>
+                    <span class="trust-example">Annual report confirms 100 GWh capacity expansion, confirmed patent grant</span>
+                </div>
+                <div class="trust-row">
+                    <span class="trust-color green">GREEN</span>
+                    <span class="trust-meaning">AI-inferred from pattern matching</span>
+                    <span class="trust-example">"Job postings suggest competitor building sodium-ion team in Munich — possible European market entry"</span>
+                </div>
+                <div class="trust-row">
+                    <span class="trust-color red">RED</span>
+                    <span class="trust-meaning">Sources conflict or data is stale</span>
+                    <span class="trust-example">AI infers capacity reduction, but latest earnings call confirms expansion</span>
+                </div>
+            </div>
+
+            <div class="workflow-box">
+                <h4>Generate &rarr; Validate &rarr; Accept / Retry</h4>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Generate</div>
+                        <div class="workflow-step-desc">LLM synthesizes competitive insight from signals</div>
+                    </div>
+                    <div class="workflow-arrow">&rarr;</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Validate</div>
+                        <div class="workflow-step-desc">Corroboration, temporal, consistency checks</div>
+                    </div>
+                    <div class="workflow-arrow">&rarr;</div>
+                    <div class="workflow-step">
+                        <div class="workflow-step-name">Decide</div>
+                        <div class="workflow-step-desc">Accept, retry, or reject</div>
+                    </div>
+                </div>
+                <div class="workflow-branch">
+                    <div class="workflow-outcome pass">
+                        <div class="workflow-outcome-label">PASS &rarr; Accept</div>
+                        <div class="workflow-outcome-desc">GREEN trust, queued for analyst validation</div>
+                    </div>
+                    <div class="workflow-outcome fail">
+                        <div class="workflow-outcome-label">FAIL &rarr; Corrective Feedback</div>
+                        <div class="workflow-outcome-desc">"Single-source inference. Cross-reference with patent filings and supplier announcements."</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-box">
+                <h4>AXIOM Constraint Set</h4>
+                <table class="constraint-table">
+                    <thead>
+                        <tr><th>Constraint</th><th>Type</th><th>Rule</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Source corroboration</td>
+                            <td>Evidence</td>
+                            <td><code>&ge; 2 independent sources</code> for BLUE promotion</td>
+                        </tr>
+                        <tr>
+                            <td>Temporal validity</td>
+                            <td>Bi-temporal</td>
+                            <td>Intelligence older than threshold flagged for review</td>
+                        </tr>
+                        <tr>
+                            <td>Internal consistency</td>
+                            <td>Cross-reference</td>
+                            <td>New inference must not contradict verified facts</td>
+                        </tr>
+                        <tr>
+                            <td>Source reliability</td>
+                            <td>Provenance</td>
+                            <td><code>patent filing &gt; trade press &gt; social media</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Generalization argument -->
+        <div class="domain-problem" style="margin-top: 2rem; text-align: center;">
+            <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.8;">
+                Three domains. Zero shared subject matter. The same five failure modes.<br>
+                <strong style="color: var(--accent);">The trust problem is universal. The architecture is pluggable.</strong><br>
+                <span style="color: var(--text-muted);">Swap physics rules for policy rules for evidence rules. The corrective feedback loop is domain-independent.</span>
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+    <div class="container">
+        <p>FORGE &mdash; Cristian Leu, 2026</p>
+        <div class="footer-links">
+            <a href="https://cristian-leu.de">Portfolio</a>
+            <a href="https://github.com/CmdrFALCO">GitHub</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ─── Tab Switching ─── -->
+<script>
+    document.querySelectorAll('.domain-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Deactivate all tabs and panels
+            document.querySelectorAll('.domain-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.domain-panel').forEach(p => p.classList.remove('active'));
+            // Activate clicked tab and matching panel
+            tab.classList.add('active');
+            document.getElementById('panel-' + tab.dataset.domain).classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>

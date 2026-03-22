@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +34,7 @@ def create_app() -> FastAPI:
         title="FORGE API",
         description="REST API for FORGE engine and AXIOM supervision workflows.",
         version="0.1.0",
+        root_path=os.getenv("FORGE_API_ROOT_PATH", ""),
     )
 
     app.add_middleware(

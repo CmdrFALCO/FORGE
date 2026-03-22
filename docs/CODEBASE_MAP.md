@@ -21,9 +21,40 @@
 | `experiments/` | Research-oriented ML/autoresearch scripts and outputs |
 | `demos/` | n8n workflow demos |
 | `data/` | Runtime data inputs such as reference cells and recorded AXIOM demos |
+| `Dockerfile` | Multi-stage Python 3.11 image for Streamlit + API (no torch/scipy/pybamm) |
+| `docker-compose.yml` | Orchestrates nginx, streamlit, api, certbot services |
+| `.dockerignore` | Excludes .git, __pycache__, .venv311, experiments, tests from Docker context |
+| `docker/` | Deployment configs: nginx reverse proxy, landing page, SSL |
 | `start_forge_app.cmd` | Local Streamlit launcher |
 | `start_forge_api.cmd` | Local FastAPI launcher |
 | `setup_forge_env.cmd` | Python 3.11 local environment bootstrap |
+
+## Docker / Web Deployment
+
+### `docker/nginx/`
+
+Reverse proxy and static landing page for `forge.cristian-leu.de`.
+
+- `nginx-http-only.conf`: HTTP-only config for initial deploy and certbot cert acquisition
+- `nginx-ssl.conf`: Full SSL config, swapped in after certbot succeeds
+- `.htpasswd`: Basic auth credentials (generated on rig, not in git)
+- `landing/index.html`: Portfolio-grade landing page (dark theme, DAEDALUS tabs, nav cards)
+- `landing/style.css`: Landing page styles
+
+### `Dockerfile`
+
+Two-stage build: `base` (python:3.11-slim + `pip install -e ".[gui]"`) → `app` (Streamlit config, ports 8501/8000). Excludes torch, scipy, and pybamm — web services don't need them.
+
+### `docker-compose.yml`
+
+Four services on `forge-net` bridge network:
+
+| Service | Image | Port | Purpose |
+|---|---|---|---|
+| `nginx` | nginx:alpine | 80, 443 | Reverse proxy, basic auth, rate limiting, static landing |
+| `streamlit` | built from Dockerfile | 8501 | Streamlit GUI at `/app/` |
+| `api` | built from Dockerfile | 8000 | FastAPI at `/api/` (root_path via `FORGE_API_ROOT_PATH` env var) |
+| `certbot` | certbot/certbot | — | SSL cert acquisition and auto-renewal |
 
 ## Package Map
 
@@ -31,7 +62,7 @@
 
 FastAPI service layer for headless use and n8n integration.
 
-- `app.py`: FastAPI app construction and router registration
+- `app.py`: FastAPI app construction and router registration; reads `FORGE_API_ROOT_PATH` env var for reverse-proxy subpath
 - `deps.py`: backend dependency selection helpers
 - `routes/`
   - `system.py`: `/health`, `/reference-cells`
@@ -244,3 +275,5 @@ Latest verified suite result:
 - The local environment is designed around Python 3.11 because PyBaMM support on Python 3.14 is unreliable.
 - Pytest defaults to a repo-local base temp (`.pytest_tmp`) to avoid Windows temp-directory permission issues.
 - `docs/FORGE_v1.jpg` is the landing-page image asset in the current working tree.
+- `pybamm` is an **optional** dependency in the `[ml]` group, not a core dependency. The native venv installs `.[all]` which includes it; Docker web containers install `.[gui]` which excludes it. All code that uses pybamm handles its absence gracefully (`PYBAMM_AVAILABLE` flag, `pytest.importorskip`).
+- Web deployment target: `https://forge.cristian-leu.de` — tiered deploy (Tier 1: static landing + auth, Tier 2: + backends, Tier 3: + SSL).
