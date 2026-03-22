@@ -118,6 +118,20 @@ def main() -> int:
     X_val, y_val = _load_npz(val_path)
     X_test, y_test = _load_npz(test_path)
 
+    def _add_features(X: np.ndarray) -> np.ndarray:
+        # Indices: 0=electrode_thickness, 1=porosity, 3=n_tabs, 6=can_wall_thickness,
+        #          7=cell_height, 10=diffusion_path_proxy
+        et_x_por = (X[:, 0] * X[:, 1]).reshape(-1, 1)          # interaction
+        ntabs_x_h = (X[:, 3] * X[:, 7]).reshape(-1, 1)          # interaction
+        wall_x_h = (X[:, 6] * X[:, 7]).reshape(-1, 1)           # interaction
+        et_sq = (X[:, 0] ** 2).reshape(-1, 1)                   # threshold behavior
+        log_diff = np.log(np.maximum(X[:, 10], 1e-6)).reshape(-1, 1)  # compress range
+        return np.concatenate([X, et_x_por, ntabs_x_h, wall_x_h, et_sq, log_diff], axis=1)
+
+    X_train = _add_features(X_train)
+    X_val = _add_features(X_val)
+    X_test = _add_features(X_test)
+
     x_mean = X_train.mean(axis=0, keepdims=True)
     x_std = X_train.std(axis=0, keepdims=True)
     x_std[x_std == 0.0] = 1.0
