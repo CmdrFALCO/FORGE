@@ -80,3 +80,5 @@ with st.sidebar:
 - [Documentation](docs/)
 """
     )
+    st.markdown("---")
+    st.link_button("← Back to Landing Page", "/", use_container_width=True)
