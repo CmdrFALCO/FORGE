@@ -76,19 +76,21 @@ def _loss_fn(name: str) -> nn.Module:
 
 
 class _SkipNet(nn.Module):
-    """MLP with input skip connection to final hidden layer."""
+    """MLP with input skip connection and BatchNorm."""
 
     def __init__(self, input_dim: int) -> None:
         super().__init__()
         self.fc1 = nn.Linear(input_dim, HIDDEN_SIZE)
+        self.bn1 = nn.BatchNorm1d(HIDDEN_SIZE)
         self.act1 = _activation_layer(ACTIVATION)
         self.fc2 = nn.Linear(HIDDEN_SIZE, HIDDEN_SIZE)
+        self.bn2 = nn.BatchNorm1d(HIDDEN_SIZE)
         self.act2 = _activation_layer(ACTIVATION)
         self.fc_out = nn.Linear(HIDDEN_SIZE + input_dim, 2)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        h = self.act1(self.fc1(x))
-        h = self.act2(self.fc2(h))
+        h = self.act1(self.bn1(self.fc1(x)))
+        h = self.act2(self.bn2(self.fc2(h)))
         h = torch.cat([h, x], dim=1)
         return self.fc_out(h)
 
