@@ -28,6 +28,9 @@ services:
     volumes:
       - ./data:/app/data:ro
       - ./docs:/app/docs:ro
+      - ./forge/gui/app.py:/app/forge/gui/app.py:ro
+      - ./forge/gui/pages:/app/forge/gui/pages:ro
+      - ./experiments/ml/autoresearch:/app/experiments/ml/autoresearch:ro
     restart: unless-stopped
     networks:
       - forge-net
