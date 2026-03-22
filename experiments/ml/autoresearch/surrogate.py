@@ -28,7 +28,7 @@ from forge.ml.autoresearch.constants import (  # noqa: E402
 )
 
 # === HYPERPARAMETERS ===
-HIDDEN_SIZE = 64
+HIDDEN_SIZE = 96
 NUM_LAYERS = 2
 LEARNING_RATE = 1e-3
 BATCH_SIZE = 64
