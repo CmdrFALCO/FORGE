@@ -21,7 +21,6 @@ _repo_root = Path(__file__).resolve().parents[3]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-from forge.ml.autoresearch.constants import PRIMARY_SCORE, REQUIRED_KEYS  # noqa: E402
 from forge.ml.autoresearch.metrics import compute_score, parse_output  # noqa: E402
 from forge.ml.autoresearch.results import ResultsLog, RunResult  # noqa: E402
 
