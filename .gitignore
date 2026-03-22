@@ -37,6 +37,9 @@ env/
 .env
 .env.local
 
+# Deployment secrets
+docker/nginx/.htpasswd
+
 # OS
 .DS_Store
 Thumbs.db

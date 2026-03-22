@@ -12,4 +12,5 @@ tests/
 .mypy_cache
 docker/
 *.md
+!README.md
 LICENSE
