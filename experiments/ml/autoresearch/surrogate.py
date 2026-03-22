@@ -74,16 +74,26 @@ def _loss_fn(name: str) -> nn.Module:
     raise ValueError(f"Unsupported loss function: {name}")
 
 
+class _SkipNet(nn.Module):
+    """MLP with input skip connection to final hidden layer."""
+
+    def __init__(self, input_dim: int) -> None:
+        super().__init__()
+        self.fc1 = nn.Linear(input_dim, HIDDEN_SIZE)
+        self.act1 = _activation_layer(ACTIVATION)
+        self.fc2 = nn.Linear(HIDDEN_SIZE, HIDDEN_SIZE)
+        self.act2 = _activation_layer(ACTIVATION)
+        self.fc_out = nn.Linear(HIDDEN_SIZE + input_dim, 2)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        h = self.act1(self.fc1(x))
+        h = self.act2(self.fc2(h))
+        h = torch.cat([h, x], dim=1)
+        return self.fc_out(h)
+
+
 def _build_model(input_dim: int) -> nn.Module:
-    layers: list[nn.Module] = []
-    current_dim = input_dim
-    hidden_layers = max(NUM_LAYERS, 0)
-    for _ in range(hidden_layers):
-        layers.append(nn.Linear(current_dim, HIDDEN_SIZE))
-        layers.append(_activation_layer(ACTIVATION))
-        current_dim = HIDDEN_SIZE
-    layers.append(nn.Linear(current_dim, 2))
-    return nn.Sequential(*layers)
+    return _SkipNet(input_dim)
 
 
 def main() -> int:
