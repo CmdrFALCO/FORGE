@@ -138,6 +138,10 @@ def main() -> int:
         log_stv = np.log(np.maximum(X[:, 8], 1e-6)).reshape(-1, 1)     # thermal dissipation
         return np.concatenate([X, et_x_por, ntabs_x_h, log_diff, log_cond, log_stv], axis=1)
 
+    # Drop can_inner_diameter (idx 5) — narrow range (44-46mm), low-importance noise
+    for arr in [X_train, X_val, X_test]:
+        arr[:, 5] = 0.0
+
     X_train = _add_features(X_train)
     X_val = _add_features(X_val)
     X_test = _add_features(X_test)
