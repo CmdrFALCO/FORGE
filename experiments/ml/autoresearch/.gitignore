@@ -6,6 +6,11 @@ dataset/metadata.json
 results.tsv
 results_plot.png
 
+# PyBaMM pilot outputs
+dataset_pybamm/
+dataset_smoke_test/
+sobol_report.json
+
 # Logs
 *.log
 
