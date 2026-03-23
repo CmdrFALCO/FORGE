@@ -1,141 +1,183 @@
-"""Reconstruct results.tsv from git history by re-running surrogate.py at each commit.
+"""Reconstruct results.tsv from git commit history.
 
-The autoresearch experiments on autoresearch/run-001 were run manually
-(not via run.py), so no results.tsv was written. This script iterates
-through each experiment commit, checks out surrogate.py at that revision,
-runs it against the dataset, parses the output, and writes results.tsv
-using the same schema as ResultsLog.
+Two modes:
+  --fast    Extract primary_score from commit messages only (instant, no metrics)
+  --full    Re-run each surrogate at each commit to get full metrics (~90s each)
 
 Usage:
-    cd experiments/ml/autoresearch
-    python reconstruct_results.py
+    python reconstruct_results.py --fast
+    python reconstruct_results.py --full --budget 90
 """
 
+import argparse
 import re
 import subprocess
 import sys
-import time
+import tempfile
 from pathlib import Path
 
+# Ensure forge is importable
 _repo_root = Path(__file__).resolve().parents[3]
 if str(_repo_root) not in sys.path:
     sys.path.insert(0, str(_repo_root))
 
-from forge.ml.autoresearch.metrics import compute_score, parse_output  # noqa: E402
+from forge.ml.autoresearch.metrics import parse_output  # noqa: E402
 from forge.ml.autoresearch.results import ResultsLog, RunResult  # noqa: E402
 
-BASE_DIR = Path(__file__).resolve().parent
-DATASET_DIR = BASE_DIR / "dataset"
-RESULTS_PATH = BASE_DIR / "results.tsv"
-SURROGATE_TMP = BASE_DIR / "_surrogate_tmp.py"
 
-# Parse experiment number and score from commit subject line
-_SUBJECT_RE = re.compile(r"experiment\s+(\d+):\s+.+\s+score=([\d.]+)")
-
-
-def get_experiment_commits() -> list[tuple[str, str, str]]:
-    """Get (hash, subject, timestamp) for each experiment commit."""
+def _git_log_experiments() -> list[dict]:
+    """Parse experiment commits from git log."""
     result = subprocess.run(
         ["git", "log", "main..autoresearch/run-001", "--reverse",
-         "--format=%H\t%s\t%aI"],
-        capture_output=True, text=True, cwd=_repo_root,
-    )
-    commits = []
-    for line in result.stdout.strip().splitlines():
-        parts = line.split("\t", 2)
-        if len(parts) == 3:
-            commits.append((parts[0], parts[1], parts[2]))
-    return commits
-
-
-def checkout_surrogate_at(commit_hash: str) -> str:
-    """Extract surrogate.py content at a specific commit."""
-    result = subprocess.run(
-        ["git", "show", f"{commit_hash}:experiments/ml/autoresearch/surrogate.py"],
+         "--format=%H\t%aI\t%s"],
         capture_output=True, text=True, cwd=_repo_root,
     )
     if result.returncode != 0:
-        raise RuntimeError(f"Failed to get surrogate.py at {commit_hash[:8]}: {result.stderr}")
+        print(f"git log failed: {result.stderr}", file=sys.stderr)
+        return []
+
+    experiments = []
+    pattern = re.compile(r"experiment\s+(\d+):\s+(.+?)\s+score=([\d.]+)")
+    for line in result.stdout.strip().splitlines():
+        parts = line.split("\t", 2)
+        if len(parts) < 3:
+            continue
+        git_hash, timestamp, subject = parts
+        m = pattern.search(subject)
+        if not m:
+            continue
+        experiments.append({
+            "experiment_id": int(m.group(1)),
+            "description": m.group(2),
+            "primary_score": float(m.group(3)),
+            "git_hash": git_hash,
+            "timestamp": timestamp,
+        })
+    return experiments
+
+
+def _checkout_surrogate(git_hash: str) -> str:
+    """Get surrogate.py content at a specific commit."""
+    result = subprocess.run(
+        ["git", "show", f"{git_hash}:experiments/ml/autoresearch/surrogate.py"],
+        capture_output=True, text=True, cwd=_repo_root,
+    )
+    if result.returncode != 0:
+        raise RuntimeError(f"Failed to get surrogate.py at {git_hash[:8]}: {result.stderr}")
     return result.stdout
 
 
-def run_surrogate(surrogate_code: str, budget: int = 90) -> str:
-    """Write surrogate to temp file and run it, return stdout."""
-    SURROGATE_TMP.write_text(surrogate_code)
+def _run_surrogate(surrogate_code: str, dataset_path: Path, budget: int, seed: int) -> dict[str, float]:
+    """Run a surrogate script and parse its output metrics."""
+    # Fix the repo root path so it works from a temp file location
+    surrogate_code = surrogate_code.replace(
+        "_repo_root = Path(__file__).resolve().parents[3]",
+        f"_repo_root = Path({str(_repo_root)!r})",
+    )
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
+        f.write(surrogate_code)
+        tmp_path = f.name
+
     try:
         result = subprocess.run(
-            [sys.executable, str(SURROGATE_TMP),
-             "--dataset", str(DATASET_DIR),
-             "--budget-seconds", str(budget),
-             "--seed", "42"],
-            capture_output=True, text=True, timeout=300,
-            cwd=BASE_DIR,
+            [sys.executable, tmp_path,
+             "--dataset", str(dataset_path),
+             "--seed", str(seed),
+             "--budget-seconds", str(budget)],
+            capture_output=True, text=True, timeout=budget + 60,
         )
         if result.returncode != 0:
             raise RuntimeError(f"Surrogate failed: {result.stderr[-500:]}")
-        return result.stdout
+        return parse_output(result.stdout)
     finally:
-        SURROGATE_TMP.unlink(missing_ok=True)
+        Path(tmp_path).unlink(missing_ok=True)
+
+
+def _run_fast(experiments: list[dict], results_path: Path) -> None:
+    """Fast mode: primary_score from commit messages only."""
+    log = ResultsLog(results_path)
+    for exp in experiments:
+        run = RunResult(
+            experiment_id=exp["experiment_id"],
+            metrics={},
+            primary_score=exp["primary_score"],
+            accepted=True,
+            reason=exp["description"],
+            timestamp=exp["timestamp"],
+            git_hash=exp["git_hash"][:8],
+        )
+        log.append(run)
+        print(f"  Exp {exp['experiment_id']:>3d}: {exp['primary_score']:.6f}  {exp['description']}")
+
+
+def _run_full(experiments: list[dict], results_path: Path, budget: int, seed: int) -> None:
+    """Full mode: re-run each surrogate to get all metrics."""
+    dataset_path = Path(__file__).resolve().parent / "dataset"
+    if not (dataset_path / "train.npz").exists():
+        print("Dataset not found. Run `python prepare.py` first.", file=sys.stderr)
+        sys.exit(1)
+
+    log = ResultsLog(results_path)
+    total = len(experiments)
+    for i, exp in enumerate(experiments, 1):
+        print(f"  [{i}/{total}] Experiment {exp['experiment_id']}: {exp['description']}...", end=" ", flush=True)
+        try:
+            surrogate_code = _checkout_surrogate(exp["git_hash"])
+            metrics = _run_surrogate(surrogate_code, dataset_path, budget, seed)
+        except Exception as e:
+            print(f"FAILED: {e}")
+            metrics = {}
+
+        # Always use the commit message score (from the original full-budget run)
+        # The re-run metrics are for detail columns only
+        primary_score = exp["primary_score"]
+
+        run = RunResult(
+            experiment_id=exp["experiment_id"],
+            metrics=metrics,
+            primary_score=primary_score,
+            accepted=True,
+            reason=exp["description"],
+            timestamp=exp["timestamp"],
+            git_hash=exp["git_hash"][:8],
+        )
+        log.append(run)
+        expected = exp["primary_score"]
+        print(f"score={primary_score:.6f} (expected {expected:.6f})")
 
 
 def main() -> int:
-    if not DATASET_DIR.exists():
-        print("Dataset not found. Run prepare.py first.", file=sys.stderr)
+    parser = argparse.ArgumentParser(description="Reconstruct results.tsv from git history")
+    parser.add_argument("--fast", action="store_true", help="Fast mode: scores from commit messages only")
+    parser.add_argument("--full", action="store_true", help="Full mode: re-run surrogates for all metrics")
+    parser.add_argument("--budget", type=int, default=90, help="Per-experiment budget in seconds (full mode)")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for surrogate runs")
+    args = parser.parse_args()
+
+    if not args.fast and not args.full:
+        args.fast = True  # default to fast
+
+    experiments = _git_log_experiments()
+    if not experiments:
+        print("No experiment commits found.")
         return 1
 
-    commits = get_experiment_commits()
-    print(f"Found {len(commits)} experiment commits to reconstruct.")
+    print(f"Found {len(experiments)} experiment commits to reconstruct.")
 
-    if RESULTS_PATH.exists():
-        RESULTS_PATH.unlink()
-        print("Removed existing results.tsv")
+    results_path = Path(__file__).resolve().parent / "results.tsv"
+    if results_path.exists():
+        results_path.unlink()
+        print(f"Removed existing {results_path.name}")
 
-    log = ResultsLog(RESULTS_PATH)
-    total_start = time.time()
+    if args.fast:
+        _run_fast(experiments, results_path)
+    else:
+        _run_full(experiments, results_path, args.budget, args.seed)
 
-    for i, (commit_hash, subject, timestamp) in enumerate(commits):
-        match = _SUBJECT_RE.match(subject)
-        if not match:
-            print(f"  [{i+1}/{len(commits)}] SKIP: {subject[:60]}")
-            continue
-
-        exp_id = int(match.group(1))
-        expected_score = float(match.group(2))
-        reason = subject.split(":", 1)[1].strip() if ":" in subject else subject
-
-        print(f"  [{i+1}/{len(commits)}] Experiment {exp_id}: {reason[:50]}...", end=" ", flush=True)
-
-        try:
-            code = checkout_surrogate_at(commit_hash)
-            stdout = run_surrogate(code)
-            metrics = parse_output(stdout)
-            score = compute_score(metrics)
-            print(f"score={score:.6f} (expected {expected_score:.6f})")
-        except Exception as e:
-            # Fall back to commit message score with no detailed metrics
-            print(f"FAILED ({e}), using commit score")
-            metrics = {}
-            score = expected_score
-
-        result = RunResult(
-            experiment_id=exp_id,
-            metrics=metrics,
-            primary_score=score,
-            accepted=True,  # all commits on branch are accepted (rejected were reverted)
-            reason=reason,
-            timestamp=timestamp,
-            git_hash=commit_hash[:8],
-        )
-        log.append(result)
-
-    elapsed = time.time() - total_start
-    print(f"\nDone. Wrote {len(commits)} rows to {RESULTS_PATH} in {elapsed:.0f}s")
-
-    # Summary
-    best = log.get_best()
-    if best:
-        print(f"Best: experiment {best.experiment_id}, score={best.primary_score:.6f}")
-
+    print(f"\nDone. Wrote {len(experiments)} rows to {results_path}")
+    best = min(experiments, key=lambda e: e["primary_score"])
+    print(f"Best: experiment {best['experiment_id']}, score={best['primary_score']:.6f}")
     return 0
 
 

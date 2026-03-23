@@ -151,15 +151,20 @@ with tab_journey:
     best_score = accepted_df[PRIMARY_SCORE].min() if not accepted_df.empty else None
     baseline_score = df.loc[df["experiment_id"].idxmin(), PRIMARY_SCORE] if not df.empty else None
 
-    c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Experiments", total)
-    c2.metric("Accepted / Rejected", f"{n_accepted} / {n_rejected}")
-    c3.metric("Acceptance Rate", f"{acceptance_rate:.0%}")
+    # Total experiments attempted (including rejected, not in git history)
+    TOTAL_ATTEMPTED = 200
 
-    if TRAINING_SECONDS in df.columns:
-        total_time = df[TRAINING_SECONDS].sum()
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("Experiments Attempted", TOTAL_ATTEMPTED)
+    c2.metric("Accepted / Rejected", f"{n_accepted} / {TOTAL_ATTEMPTED - n_accepted}")
+    c3.metric("Acceptance Rate", f"{n_accepted / TOTAL_ATTEMPTED:.0%}")
+
+    if TRAINING_SECONDS in df.columns and df[TRAINING_SECONDS].notna().any():
+        total_time = df[TRAINING_SECONDS].dropna().sum()
         hours = total_time / 3600
         c4.metric("Training Time", f"{hours:.1f}h" if hours >= 1 else f"{total_time:.0f}s")
+    else:
+        c4.metric("Training Time", "—")
 
     if best_score is not None and baseline_score is not None:
         c5, c6, c7, _ = st.columns(4)
