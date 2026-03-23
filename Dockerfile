@@ -15,6 +15,9 @@ COPY forge/ forge/
 # Install FORGE in editable mode — core + gui deps (no torch, no scipy, no pybamm)
 RUN pip install --no-cache-dir -e ".[gui]"
 
+# CPU-only torch for surrogate inference (~170MB)
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
 # Stage 2: app — final image
 FROM base AS app
 

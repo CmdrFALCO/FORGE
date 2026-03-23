@@ -12,6 +12,13 @@ try:
 except ImportError:
     go = None
 
+try:
+    from forge.ml.surrogate_inference import SurrogatePredictor
+
+    _HAS_TORCH = True
+except ImportError:
+    _HAS_TORCH = False
+
 from forge.ml.autoresearch.constants import (
     MAX_ERROR_RATE,
     MAX_ERROR_TEMP,
@@ -32,9 +39,15 @@ def _repo_root() -> Path:
 
 
 RESULTS_PATH = _repo_root() / "experiments" / "ml" / "autoresearch" / "results.tsv"
+CHECKPOINT_PATH = _repo_root() / "experiments" / "ml" / "autoresearch" / "checkpoint.pt"
 
 ACCENT_GREEN = "#4ade80"
 ACCENT_RED = "#f87171"
+
+
+@st.cache_resource
+def _load_predictor() -> "SurrogatePredictor":
+    return SurrogatePredictor(CHECKPOINT_PATH)
 
 
 def load_results(path: Path) -> pd.DataFrame | None:
@@ -246,8 +259,101 @@ with tab_best:
 # Tab 3 — Surrogate Playground
 # =============================================================================
 with tab_playground:
-    st.info(
-        "The Surrogate Playground allows interactive prediction using the trained model.\n\n"
-        "This feature requires a saved model checkpoint, which will be available "
-        "after implementing checkpoint saving in the autoresearch pipeline."
-    )
+    if not _HAS_TORCH:
+        st.warning(
+            "PyTorch is not installed in this environment. "
+            "The Surrogate Playground requires `torch` for model inference."
+        )
+    elif not CHECKPOINT_PATH.exists():
+        st.info(
+            "No model checkpoint found.\n\n"
+            "Train the surrogate and export a checkpoint:\n"
+            "```\n"
+            "python surrogate.py --dataset dataset --seed 42 "
+            "--budget-seconds 300 --save-checkpoint checkpoint.pt\n"
+            "```"
+        )
+    else:
+        predictor = _load_predictor()
+        ranges = predictor.feature_ranges
+
+        col_sliders, col_results = st.columns([1, 1])
+
+        with col_sliders:
+            st.markdown("#### Cell Design Parameters")
+            inputs: dict[str, float] = {}
+            for name, (lo, hi) in ranges.items():
+                mid = (lo + hi) / 2
+                # Integer slider for n_tabs
+                if name == "n_tabs":
+                    inputs[name] = float(
+                        st.slider(name, min_value=int(lo), max_value=int(hi),
+                                  value=int(mid), step=1)
+                    )
+                else:
+                    step = (hi - lo) / 200
+                    inputs[name] = st.slider(
+                        name, min_value=lo, max_value=hi,
+                        value=mid, step=step, format="%.3f",
+                    )
+
+        result = predictor.predict(inputs)
+
+        with col_results:
+            st.markdown("#### Predicted Performance")
+            rate_mean, rate_std = result["rate"]
+            temp_mean, temp_std = result["temp"]
+
+            st.metric(
+                "Rate Capability",
+                f"{rate_mean:.4f}",
+                delta=f"\u00b1 {rate_std:.4f}",
+                delta_color="off",
+            )
+            st.metric(
+                "Max Temperature",
+                f"{temp_mean:.1f} \u00b0C",
+                delta=f"\u00b1 {temp_std:.1f} \u00b0C",
+                delta_color="off",
+            )
+
+            # --- Sensitivity bar chart ---
+            st.markdown("#### Feature Sensitivity")
+            if go is not None:
+                sens_rate: dict[str, float] = {}
+                sens_temp: dict[str, float] = {}
+                for feat, (lo, hi) in ranges.items():
+                    delta = (hi - lo) * 0.01
+                    inp_lo = {**inputs, feat: inputs[feat] - delta}
+                    inp_hi = {**inputs, feat: inputs[feat] + delta}
+                    r_lo = predictor.predict(inp_lo)
+                    r_hi = predictor.predict(inp_hi)
+                    sens_rate[feat] = (r_hi["rate"][0] - r_lo["rate"][0]) / (2 * delta)
+                    sens_temp[feat] = (r_hi["temp"][0] - r_lo["temp"][0]) / (2 * delta)
+
+                feats = list(sens_rate.keys())
+                rate_vals = [sens_rate[f] for f in feats]
+                temp_vals = [sens_temp[f] for f in feats]
+
+                fig_s = go.Figure()
+                fig_s.add_trace(go.Bar(
+                    y=feats, x=rate_vals, orientation="h",
+                    name="Rate", marker_color=ACCENT_GREEN,
+                ))
+                fig_s.add_trace(go.Bar(
+                    y=feats, x=temp_vals, orientation="h",
+                    name="Temp", marker_color=ACCENT_RED,
+                ))
+                fig_s.update_layout(
+                    template="plotly_dark",
+                    paper_bgcolor="rgba(0,0,0,0)",
+                    plot_bgcolor="rgba(0,0,0,0)",
+                    barmode="group",
+                    xaxis_title="d(output) / d(feature)",
+                    margin=dict(l=20, r=20, t=20, b=40),
+                    height=300,
+                    legend=dict(orientation="h", yanchor="bottom",
+                                y=1.02, xanchor="right", x=1),
+                )
+                st.plotly_chart(fig_s, use_container_width=True,
+                                key="sensitivity_chart")

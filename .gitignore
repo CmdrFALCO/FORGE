@@ -57,3 +57,6 @@ htmlcov/
 # MkDocs build output
 site/
 
+# ML artifacts (binary, served via Docker volume mount)
+experiments/ml/autoresearch/checkpoint.pt
+
