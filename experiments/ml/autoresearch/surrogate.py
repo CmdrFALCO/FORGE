@@ -35,7 +35,7 @@ BATCH_SIZE = 64
 ACTIVATION = "gelu"
 LOSS_FN = "mse"
 WEIGHT_DECAY = 1e-4
-ENSEMBLE_SIZE = 16
+ENSEMBLE_SIZE = 30
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -165,11 +165,13 @@ def main() -> int:
     y_train_n = (y_train - y_mean) / y_std
     y_val_n = (y_val - y_mean) / y_std
 
-    X_train_t = torch.from_numpy(X_train_n)
-    y_train_t = torch.from_numpy(y_train_n)
-    X_val_t = torch.from_numpy(X_val_n)
-    y_val_t = torch.from_numpy(y_val_n)
-    X_test_t = torch.from_numpy(X_test_n)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    X_train_t = torch.from_numpy(X_train_n).to(device)
+    y_train_t = torch.from_numpy(y_train_n).to(device)
+    X_val_t = torch.from_numpy(X_val_n).to(device)
+    y_val_t = torch.from_numpy(y_val_n).to(device)
+    X_test_t = torch.from_numpy(X_test_n).to(device)
 
     input_dim = X_train_n.shape[1]
     per_model_budget = args.budget_seconds / ENSEMBLE_SIZE
@@ -183,7 +185,7 @@ def main() -> int:
         torch.manual_seed(member_seed)
         rng = np.random.default_rng(member_seed)
 
-        model = _build_model(input_dim=input_dim)
+        model = _build_model(input_dim=input_dim).to(device)
         if member_idx == 0:
             num_params = sum(param.numel() for param in model.parameters())
         optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
