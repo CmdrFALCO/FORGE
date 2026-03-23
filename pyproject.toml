@@ -39,6 +39,7 @@ ml = [
     "scipy>=1.11",
     "matplotlib>=3.7",
     "pybop>=24.3",
+    "SALib>=1.4",
 ]
 dev = [
     "pytest>=8.0",
