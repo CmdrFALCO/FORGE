@@ -139,7 +139,8 @@ def main() -> int:
         log_por = np.log(np.maximum(X[:, 1], 1e-6)).reshape(-1, 1)      # Bruggeman proxy
         log_cond_diff = (log_cond - log_diff)                              # log-ratio: conductance / diffusion
         et_sq = (X[:, 0] ** 2).reshape(-1, 1)                            # threshold effect at ~100um
-        return np.concatenate([X, et_x_por, ntabs_x_h, log_diff, log_cond, log_stv, log_por, log_cond_diff, et_sq], axis=1)
+        bruggeman = (X[:, 1] ** 1.5).reshape(-1, 1)                       # Bruggeman tortuosity: eps^1.5
+        return np.concatenate([X, et_x_por, ntabs_x_h, log_diff, log_cond, log_stv, log_por, log_cond_diff, et_sq, bruggeman], axis=1)
 
     # Drop can_inner_diameter (idx 5) — narrow range (44-46mm), low-importance noise
     for arr in [X_train, X_val, X_test]:
