@@ -31,7 +31,7 @@ from forge.ml.autoresearch.constants import (  # noqa: E402
 HIDDEN_SIZE = 96
 NUM_LAYERS = 2
 LEARNING_RATE = 4e-3
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 ACTIVATION = "gelu"
 LOSS_FN = "mse"
 WEIGHT_DECAY = 1e-4
