@@ -185,6 +185,36 @@ class SurrogatePredictor:
             "temp": (float(mean[1]), float(std[1])),
         }
 
+    def predict_batch(
+        self, x_raw: np.ndarray
+    ) -> tuple[np.ndarray, np.ndarray]:
+        """Predict on a batch of raw feature vectors.
+
+        Args:
+            x_raw: shape ``(n_samples, 11)`` — raw features as stored in the
+                ``.npz`` dataset (derived features already present).
+
+        Returns:
+            ``(means, stds)`` each of shape ``(n_samples, 2)``.
+        """
+        x = x_raw.astype(np.float32).copy()
+        for col in self._feature_config["zeroed_columns"]:
+            x[:, col] = 0.0
+        x = _add_features(x)
+        x_n = (x - self._x_mean) / self._x_std
+        x_t = torch.from_numpy(x_n)
+
+        all_preds = []
+        with torch.no_grad():
+            for model in self._models:
+                all_preds.append(model(x_t).numpy())
+        # (n_models, n_samples, 2)
+        stack = np.array(all_preds)
+        stack = stack * self._y_std.flatten() + self._y_mean.flatten()
+        means = stack.mean(axis=0)
+        stds = stack.std(axis=0)
+        return means, stds
+
     def sensitivity(
         self,
         base_inputs: dict[str, float],
