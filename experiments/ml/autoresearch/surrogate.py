@@ -35,7 +35,7 @@ BATCH_SIZE = 64
 ACTIVATION = "gelu"
 LOSS_FN = "mse"
 WEIGHT_DECAY = 1e-4
-ENSEMBLE_SIZE = 14
+ENSEMBLE_SIZE = 16
 
 
 def _build_parser() -> argparse.ArgumentParser:
