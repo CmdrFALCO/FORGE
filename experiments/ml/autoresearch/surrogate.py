@@ -34,7 +34,7 @@ LEARNING_RATE = 5e-3
 BATCH_SIZE = 64
 ACTIVATION = "gelu"
 LOSS_FN = "mse"
-WEIGHT_DECAY = 0.0
+WEIGHT_DECAY = 1e-4
 ENSEMBLE_SIZE = 10
 
 
@@ -179,7 +179,7 @@ def main() -> int:
         model = _build_model(input_dim=input_dim)
         if member_idx == 0:
             num_params = sum(param.numel() for param in model.parameters())
-        optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
+        optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
 
         best_val_loss = float("inf")
         best_state: dict[str, torch.Tensor] | None = None
