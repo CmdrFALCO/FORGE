@@ -158,10 +158,17 @@ def main() -> int:
 
     criterion = _loss_fn(LOSS_FN)
 
+    # Normalize targets to zero mean/unit variance for better gradient balance
+    y_mean = y_train.mean(axis=0, keepdims=True)
+    y_std = y_train.std(axis=0, keepdims=True)
+    y_std[y_std == 0.0] = 1.0
+    y_train_n = (y_train - y_mean) / y_std
+    y_val_n = (y_val - y_mean) / y_std
+
     X_train_t = torch.from_numpy(X_train_n)
-    y_train_t = torch.from_numpy(y_train)
+    y_train_t = torch.from_numpy(y_train_n)
     X_val_t = torch.from_numpy(X_val_n)
-    y_val_t = torch.from_numpy(y_val)
+    y_val_t = torch.from_numpy(y_val_n)
     X_test_t = torch.from_numpy(X_test_n)
 
     input_dim = X_train_n.shape[1]
@@ -229,7 +236,8 @@ def main() -> int:
             all_test_preds.append(model(X_test_t).cpu().numpy())
 
     training_seconds = time.time() - train_start
-    test_pred = np.mean(all_test_preds, axis=0)
+    test_pred_n = np.mean(all_test_preds, axis=0)
+    test_pred = test_pred_n * y_std + y_mean  # denormalize
 
     errors = test_pred - y_test
     rmse = np.sqrt(np.mean(np.square(errors), axis=0))
