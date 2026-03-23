@@ -89,7 +89,7 @@ class PyBaMMRunner(SimulationRunner):
                     )
                 )
 
-        # ---- thermal simulation (2C CC-CV charge) ------------------------
+        # ---- thermal simulation (2C discharge, lumped thermal) ------------
         t0 = time.monotonic()
         try:
             thermal_model = pybamm.lithium_ion.DFN(
@@ -104,11 +104,10 @@ class PyBaMMRunner(SimulationRunner):
                     "Initial temperature [K]": 298.15,
                 }
             )
+            # Use fast discharge (starts at 100% SOC) instead of charge
+            # to avoid infeasible charge-from-full-SOC.
             experiment_thermal = pybamm.Experiment(
-                [
-                    "Charge at 2C until 4.2V",
-                    "Hold at 4.2V until C/20",
-                ]
+                ["Discharge at 2C until 2.5V"]
             )
             sim_thermal = pybamm.Simulation(
                 thermal_model,

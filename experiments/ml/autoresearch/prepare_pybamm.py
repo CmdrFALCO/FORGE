@@ -219,9 +219,11 @@ def main() -> int:
             "High failure rate: %.1f%%. Dataset quality may be compromised.",
             fail_rate * 100,
         )
-    if n_success < 50:
+    min_required = min(50, args.n_samples)
+    if n_success < min_required:
         logger.error(
-            "Only %d successful simulations. Need at least 50.", n_success,
+            "Only %d successful simulations. Need at least %d.",
+            n_success, min_required,
         )
         return 1
 

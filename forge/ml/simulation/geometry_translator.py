@@ -39,6 +39,12 @@ MANDREL_RADIUS_MM = 2.5  # standard for 4680-class cells
 # N/P ratio — anode 10% thicker than cathode for safety
 NP_RATIO = 1.1
 
+# Chen2020 baseline electrode geometry (for nominal capacity scaling)
+CHEN2020_ELECTRODE_AREA_M2 = 0.1027  # height(0.065) × width(1.58)
+CHEN2020_POS_THICKNESS_M = 7.56e-5
+CHEN2020_POS_POROSITY = 0.335
+CHEN2020_NOMINAL_CAPACITY_AH = 5.0
+
 # Thermal
 CAN_DENSITY_KG_M3 = 7900  # steel
 HEAT_TRANSFER_COEFF = 5.0  # W·m⁻²·K⁻¹, natural convection
@@ -131,11 +137,27 @@ class GeometryTranslator:
 
         electrode_height_mm = h_mm - HEADER_CLEARANCE_MM - BOTTOM_CLEARANCE_MM
 
-        overrides["Electrode height [m]"] = electrode_height_mm * 1e-3
-        overrides["Electrode width [m]"] = electrode_length_mm * 1e-3
+        electrode_height_m = electrode_height_mm * 1e-3
+        electrode_width_m = electrode_length_mm * 1e-3
+
+        overrides["Electrode height [m]"] = electrode_height_m
+        overrides["Electrode width [m]"] = electrode_width_m
         overrides[
             "Number of electrodes connected in parallel to make a cell"
         ] = 1
+
+        # ---- nominal capacity (scale from Chen2020 baseline) ------------
+        # Capacity scales with electrode area, active thickness, and solid
+        # fraction.  This keeps C-rate definitions physically correct.
+        our_area = electrode_height_m * electrode_width_m
+        our_solid = pos_thickness_m * (1 - por)
+        chen_solid = CHEN2020_POS_THICKNESS_M * (1 - CHEN2020_POS_POROSITY)
+        capacity_ratio = (our_area / CHEN2020_ELECTRODE_AREA_M2) * (
+            our_solid / chen_solid
+        )
+        overrides["Nominal cell capacity [A.h]"] = (
+            CHEN2020_NOMINAL_CAPACITY_AH * capacity_ratio
+        )
 
         # ---- thermal parameters ------------------------------------------
         r_outer_m = (can_id_mm / 2 + wall_mm) * 1e-3
