@@ -30,7 +30,7 @@ from forge.ml.autoresearch.constants import (  # noqa: E402
 # === HYPERPARAMETERS ===
 HIDDEN_SIZE = 80
 NUM_LAYERS = 2
-LEARNING_RATE = 4e-3
+LEARNING_RATE = 5e-3
 BATCH_SIZE = 32
 ACTIVATION = "gelu"
 LOSS_FN = "mse"
