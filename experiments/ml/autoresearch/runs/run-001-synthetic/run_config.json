@@ -1,0 +1,25 @@
+{
+  "run_id": "run-001-synthetic",
+  "display_name": "Run 001 — Synthetic (2000 samples)",
+  "dataset": "synthetic proxy formulas",
+  "dataset_samples": 2000,
+  "training_samples": 1400,
+  "model_type": "DFN proxy (analytical formulas)",
+  "parameter_set": "N/A (synthetic)",
+  "cell_format": "4680 cylindrical",
+  "experiments_attempted": 200,
+  "experiments_accepted": 36,
+  "baseline_score": 0.3351,
+  "best_score": 0.1517,
+  "improvement_pct": 57.5,
+  "best_experiment": 184,
+  "branch": "autoresearch/run-001",
+  "date": "2026-03-20",
+  "duration_hours": 18,
+  "key_findings": [
+    "Physics-informed features (Bruggeman tortuosity) discovered autonomously",
+    "BatchNorm + skip connections accepted",
+    "30-member ensemble as final architecture",
+    "57.5% improvement from baseline"
+  ]
+}

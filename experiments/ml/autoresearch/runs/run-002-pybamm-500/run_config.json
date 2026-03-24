@@ -1,0 +1,26 @@
+{
+  "run_id": "run-002-pybamm-500",
+  "display_name": "Run 002 — PyBaMM DFN (500 samples)",
+  "dataset": "PyBaMM DFN simulations (Chen2020)",
+  "dataset_samples": 496,
+  "training_samples": 347,
+  "model_type": "PyBaMM DFN with lumped thermal",
+  "parameter_set": "Chen2020 (NMC532/Graphite)",
+  "cell_format": "4680 cylindrical",
+  "experiments_attempted": 37,
+  "experiments_accepted": 6,
+  "baseline_score": 0.6528,
+  "best_score": 0.4676,
+  "improvement_pct": 28.4,
+  "best_experiment": 26,
+  "branch": "autoresearch/run-002-pybamm",
+  "date": "2026-03-24",
+  "duration_hours": 2.5,
+  "key_findings": [
+    "Bruggeman feature (et/por^1.5) transfers from synthetic to real data",
+    "n_tabs and tab_width independently confirmed as dead features (ST=0 in Sobol)",
+    "Rate-temp tradeoff severe — DFN physics harder than synthetic",
+    "Converged at exp 37 — data-limited, not architecture-limited",
+    "Huber loss + AdamW accepted, BatchNorm/skip/ensemble all rejected (overfitting on 347 samples)"
+  ]
+}

@@ -1,0 +1,8 @@
+experiment_id	primary_score	accepted	reason	git_hash
+0	0.652832	True	baseline	a81e0d9
+2	0.512151	True	target normalization	3ea2cc6
+8	0.511067	True	Bruggeman diffusion path et/por^1.5	c8b7128
+9	0.486952	True	add et*porosity interaction feature	94079ab
+14	0.482888	True	Huber loss	2e61f77
+19	0.473334	True	zero n_tabs and tab_width (dead features)	d8d7672
+26	0.467594	True	AdamW weight_decay=1e-4	3bcd228

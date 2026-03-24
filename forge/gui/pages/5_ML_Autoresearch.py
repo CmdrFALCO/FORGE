@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json as _json
 from pathlib import Path
 
 import numpy as np
@@ -53,43 +54,61 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parents[3]
 
 
-RESULTS_PATH = _repo_root() / "experiments" / "ml" / "autoresearch" / "results.tsv"
-CHECKPOINT_PATH = _repo_root() / "experiments" / "ml" / "autoresearch" / "checkpoint.pt"
-_DATASET_DIR = _repo_root() / "experiments" / "ml" / "autoresearch" / "dataset"
-TEST_PATH = _DATASET_DIR / "test.npz"
-TRAIN_PATH = _DATASET_DIR / "train.npz"
+RUNS_DIR = _repo_root() / "experiments" / "ml" / "autoresearch" / "runs"
+# Legacy fallback paths (used when no runs/ directory exists)
+_LEGACY_RESULTS = _repo_root() / "experiments" / "ml" / "autoresearch" / "results.tsv"
+_LEGACY_CHECKPOINT = _repo_root() / "experiments" / "ml" / "autoresearch" / "checkpoint.pt"
+_LEGACY_DATASET = _repo_root() / "experiments" / "ml" / "autoresearch" / "dataset"
 
 ACCENT_GREEN = "#4ade80"
 ACCENT_RED = "#f87171"
 ACCENT_BLUE = "#60a5fa"
 
 
+def _discover_runs() -> list[dict]:
+    """Scan runs/ directory for completed autoresearch runs."""
+    runs: list[dict] = []
+    if not RUNS_DIR.exists():
+        return runs
+    for run_dir in sorted(RUNS_DIR.iterdir()):
+        config_path = run_dir / "run_config.json"
+        if config_path.exists():
+            config = _json.loads(config_path.read_text(encoding="utf-8"))
+            config["_path"] = str(run_dir)
+            runs.append(config)
+    return runs
+
+
 @st.cache_resource
-def _load_predictor() -> "SurrogatePredictor":
-    return SurrogatePredictor(CHECKPOINT_PATH)
+def _load_predictor(checkpoint_path: str) -> "SurrogatePredictor":
+    return SurrogatePredictor(checkpoint_path)
 
 
 @st.cache_data
-def _batch_predict_test() -> (
-    tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray] | None
-):
+def _batch_predict_test(
+    checkpoint_path: str, test_path: str,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray] | None:
     """Run ensemble over the test set. Returns (X_test, y_test, means, stds)."""
-    if not (_HAS_TORCH and CHECKPOINT_PATH.exists() and TEST_PATH.exists()):
+    cp, tp = Path(checkpoint_path), Path(test_path)
+    if not (_HAS_TORCH and cp.exists() and tp.exists()):
         return None
-    predictor = _load_predictor()
-    data = np.load(TEST_PATH)
+    predictor = _load_predictor(checkpoint_path)
+    data = np.load(tp)
     x_test, y_test = data["X"].astype(np.float32), data["y"].astype(np.float32)
     means, stds = predictor.predict_batch(x_test)
     return x_test, y_test, means, stds
 
 
 @st.cache_data
-def _train_gbr() -> tuple[np.ndarray, np.ndarray] | None:
+def _train_gbr(
+    train_path: str, test_path: str,
+) -> tuple[np.ndarray, np.ndarray] | None:
     """Train two GBR models on the training set, return test predictions."""
-    if not (_HAS_SKLEARN and TRAIN_PATH.exists() and TEST_PATH.exists()):
+    trp, tep = Path(train_path), Path(test_path)
+    if not (_HAS_SKLEARN and trp.exists() and tep.exists()):
         return None
-    train = np.load(TRAIN_PATH)
-    test = np.load(TEST_PATH)
+    train = np.load(trp)
+    test = np.load(tep)
     x_tr, y_tr = train["X"].astype(np.float32), train["y"].astype(np.float32)
     x_te = test["X"].astype(np.float32)
     preds = np.zeros((x_te.shape[0], 2), dtype=np.float64)
@@ -150,22 +169,64 @@ def load_results(path: Path) -> pd.DataFrame | None:
 
 st.title("ML Autoresearch")
 
-df = load_results(RESULTS_PATH)
+if go is None:
+    st.error("Plotly is required for the ML Autoresearch dashboard but could not be imported.")
+    st.stop()
 
-if df is None:
+# ---- Run selector --------------------------------------------------------
+runs = _discover_runs()
+if not runs:
+    # Legacy fallback: try the old hardcoded path
+    if _LEGACY_RESULTS.exists():
+        runs = [{
+            "display_name": "Run 001 — Synthetic (legacy)",
+            "_path": str(_LEGACY_RESULTS.parent),
+            "experiments_attempted": 200,
+            "experiments_accepted": 36,
+            "best_score": 0.1517,
+            "improvement_pct": 57.5,
+            "dataset_samples": 2000,
+            "key_findings": [],
+        }]
+
+if not runs:
     st.info(
-        "No autoresearch results found.\n\n"
-        "Run the autoresearch loop to generate results:\n"
-        "```\n"
-        "cd experiments/ml/autoresearch\n"
-        "python prepare.py          # generate dataset\n"
-        "python run.py --budget 300 # run optimization loop\n"
-        "```"
+        "No autoresearch runs found.\n\n"
+        "Run the autoresearch loop to generate results, then archive them to "
+        "`experiments/ml/autoresearch/runs/`."
     )
     st.stop()
 
-if go is None:
-    st.error("Plotly is required for the ML Autoresearch dashboard but could not be imported.")
+run_names = [r["display_name"] for r in runs]
+selected_idx = st.selectbox(
+    "Select Run", range(len(run_names)), format_func=lambda i: run_names[i],
+)
+selected_run = runs[selected_idx]
+run_path = Path(selected_run["_path"])
+
+# Run summary card
+rc1, rc2, rc3, rc4 = st.columns(4)
+rc1.metric("Samples", selected_run.get("dataset_samples", "—"))
+rc2.metric(
+    "Experiments",
+    f"{selected_run.get('experiments_accepted', '?')}"
+    f"/{selected_run.get('experiments_attempted', '?')}",
+)
+rc3.metric("Best Score", f"{selected_run.get('best_score', 0):.4f}")
+rc4.metric("Improvement", f"{selected_run.get('improvement_pct', 0):.1f}%")
+
+if selected_run.get("key_findings"):
+    with st.expander("Key Findings"):
+        for finding in selected_run["key_findings"]:
+            st.markdown(f"- {finding}")
+
+# ---- Load data for selected run ------------------------------------------
+RESULTS_PATH = run_path / "results.tsv"
+CHECKPOINT_PATH = run_path / "checkpoint.pt"
+
+df = load_results(RESULTS_PATH)
+if df is None:
+    st.warning("No results.tsv found for the selected run.")
     st.stop()
 
 # Parse accepted column
@@ -421,7 +482,9 @@ with tab_best:
             )
 
         # --- Enhancement 1: Prediction vs Actual ---
-        batch_result = _batch_predict_test()
+        batch_result = _batch_predict_test(
+            str(CHECKPOINT_PATH), str(_LEGACY_DATASET / "test.npz"),
+        )
         if batch_result is not None:
             _, y_test, means, stds = batch_result
 
@@ -530,7 +593,9 @@ with tab_best:
             )
 
         # --- Enhancement 2: Model Comparison ---
-        gbr_result = _train_gbr()
+        gbr_result = _train_gbr(
+            str(_LEGACY_DATASET / "train.npz"), str(_LEGACY_DATASET / "test.npz"),
+        )
         if gbr_result is not None and batch_result is not None:
             gbr_preds, y_test_gbr = gbr_result
             _, y_test_mlp, mlp_means, _ = batch_result
@@ -569,15 +634,11 @@ with tab_playground:
         )
     elif not CHECKPOINT_PATH.exists():
         st.info(
-            "No model checkpoint found.\n\n"
-            "Train the surrogate and export a checkpoint:\n"
-            "```\n"
-            "python surrogate.py --dataset dataset --seed 42 "
-            "--budget-seconds 300 --save-checkpoint checkpoint.pt\n"
-            "```"
+            f"No saved checkpoint for **{selected_run['display_name']}**.\n\n"
+            "Generate one with `--save-checkpoint` during training."
         )
     else:
-        predictor = _load_predictor()
+        predictor = _load_predictor(str(CHECKPOINT_PATH))
         ranges = predictor.feature_ranges
 
         col_sliders, col_results = st.columns([1, 1])
