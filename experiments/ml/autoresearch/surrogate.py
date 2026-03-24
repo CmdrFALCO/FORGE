@@ -28,14 +28,14 @@ from forge.ml.autoresearch.constants import (  # noqa: E402
 )
 
 # === HYPERPARAMETERS ===
-HIDDEN_SIZE = 96
+HIDDEN_SIZE = 64
 NUM_LAYERS = 2
-LEARNING_RATE = 5e-3
+LEARNING_RATE = 1e-3
 BATCH_SIZE = 64
-ACTIVATION = "gelu"
+ACTIVATION = "relu"
 LOSS_FN = "mse"
 WEIGHT_DECAY = 0.0
-ENSEMBLE_SIZE = 10
+ENSEMBLE_SIZE = 1
 
 
 def _build_parser() -> argparse.ArgumentParser:
@@ -75,28 +75,25 @@ def _loss_fn(name: str) -> nn.Module:
     raise ValueError(f"Unsupported loss function: {name}")
 
 
-class _SkipNet(nn.Module):
-    """MLP with input skip connection and BatchNorm."""
+class _Net(nn.Module):
+    """Simple 2-layer MLP baseline."""
 
     def __init__(self, input_dim: int) -> None:
         super().__init__()
         self.fc1 = nn.Linear(input_dim, HIDDEN_SIZE)
-        self.bn1 = nn.BatchNorm1d(HIDDEN_SIZE)
         self.act1 = _activation_layer(ACTIVATION)
         self.fc2 = nn.Linear(HIDDEN_SIZE, HIDDEN_SIZE)
-        self.bn2 = nn.BatchNorm1d(HIDDEN_SIZE)
         self.act2 = _activation_layer(ACTIVATION)
-        self.fc_out = nn.Linear(HIDDEN_SIZE + input_dim, 2)
+        self.fc_out = nn.Linear(HIDDEN_SIZE, 2)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        h = self.act1(self.bn1(self.fc1(x)))
-        h = self.act2(self.bn2(self.fc2(h)))
-        h = torch.cat([h, x], dim=1)
+        h = self.act1(self.fc1(x))
+        h = self.act2(self.fc2(h))
         return self.fc_out(h)
 
 
 def _build_model(input_dim: int) -> nn.Module:
-    return _SkipNet(input_dim)
+    return _Net(input_dim)
 
 
 def main() -> int:
@@ -127,24 +124,6 @@ def main() -> int:
     X_train, y_train = _load_npz(train_path)
     X_val, y_val = _load_npz(val_path)
     X_test, y_test = _load_npz(test_path)
-
-    def _add_features(X: np.ndarray) -> np.ndarray:
-        # Indices: 0=electrode_thickness, 1=porosity, 3=n_tabs, 7=cell_height,
-        #          8=surface_to_volume, 9=tab_conductance_proxy, 10=diffusion_path_proxy
-        et_x_por = (X[:, 0] * X[:, 1]).reshape(-1, 1)          # interaction
-        ntabs_x_h = (X[:, 3] * X[:, 7]).reshape(-1, 1)          # interaction
-        log_diff = np.log(np.maximum(X[:, 10], 1e-6)).reshape(-1, 1)   # compress range
-        log_cond = np.log(np.maximum(X[:, 9], 1e-6)).reshape(-1, 1)    # compress conductance
-        log_stv = np.log(np.maximum(X[:, 8], 1e-6)).reshape(-1, 1)     # thermal dissipation
-        return np.concatenate([X, et_x_por, ntabs_x_h, log_diff, log_cond, log_stv], axis=1)
-
-    # Drop can_inner_diameter (idx 5) — narrow range (44-46mm), low-importance noise
-    for arr in [X_train, X_val, X_test]:
-        arr[:, 5] = 0.0
-
-    X_train = _add_features(X_train)
-    X_val = _add_features(X_val)
-    X_test = _add_features(X_test)
 
     x_mean = X_train.mean(axis=0, keepdims=True)
     x_std = X_train.std(axis=0, keepdims=True)
