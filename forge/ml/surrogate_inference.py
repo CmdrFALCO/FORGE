@@ -47,34 +47,62 @@ class _SkipNet(nn.Module):
         return self.fc_out(h)
 
 
+class _PlainNet(nn.Module):
+    """Simple 2-layer MLP without BatchNorm or skip connection."""
+
+    def __init__(self, input_dim: int, hidden_size: int, activation: str) -> None:
+        super().__init__()
+        self.fc1 = nn.Linear(input_dim, hidden_size)
+        self.act1 = _activation_layer(activation)
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.act2 = _activation_layer(activation)
+        self.fc_out = nn.Linear(hidden_size, 2)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        h = self.act1(self.fc1(x))
+        h = self.act2(self.fc2(h))
+        return self.fc_out(h)
+
+
 # ---------------------------------------------------------------------------
 # Feature engineering (must match surrogate.py _add_features exactly)
 # ---------------------------------------------------------------------------
 
-def _add_features(x: np.ndarray) -> np.ndarray:
-    """Reproduce the exact feature engineering from surrogate.py.
+def _compute_feature(x: np.ndarray, name: str) -> np.ndarray:
+    """Compute a single engineered feature by name."""
+    if name == "et_x_por":
+        return (x[:, 0] * x[:, 1]).reshape(-1, 1)
+    if name == "ntabs_x_h":
+        return (x[:, 3] * x[:, 7]).reshape(-1, 1)
+    if name == "log_diff":
+        return np.log(np.maximum(x[:, 10], 1e-6)).reshape(-1, 1)
+    if name == "log_cond":
+        return np.log(np.maximum(x[:, 9], 1e-6)).reshape(-1, 1)
+    if name == "log_stv":
+        return np.log(np.maximum(x[:, 8], 1e-6)).reshape(-1, 1)
+    if name == "log_por":
+        return np.log(np.maximum(x[:, 1], 1e-6)).reshape(-1, 1)
+    if name == "log_cond_diff":
+        log_cond = np.log(np.maximum(x[:, 9], 1e-6)).reshape(-1, 1)
+        log_diff = np.log(np.maximum(x[:, 10], 1e-6)).reshape(-1, 1)
+        return log_cond - log_diff
+    if name == "et_sq":
+        return (x[:, 0] ** 2).reshape(-1, 1)
+    if name == "bruggeman":
+        return (x[:, 1] ** 1.5).reshape(-1, 1)
+    if name == "diff_brugg":
+        return (x[:, 0] / np.maximum(x[:, 1] ** 1.5, 1e-6)).reshape(-1, 1)
+    if name == "log_et":
+        return np.log(np.maximum(x[:, 0], 1e-6)).reshape(-1, 1)
+    raise ValueError(f"Unknown engineered feature: {name}")
 
-    Indices assume raw 11-feature vector with can_inner_diameter already zeroed:
-      0=electrode_thickness, 1=porosity, 2=separator_thickness, 3=n_tabs,
-      4=tab_width, 5=can_inner_diameter(0), 6=can_wall_thickness, 7=cell_height,
-      8=surface_to_volume, 9=tab_conductance_proxy, 10=diffusion_path_proxy
-    """
-    et_x_por = (x[:, 0] * x[:, 1]).reshape(-1, 1)
-    ntabs_x_h = (x[:, 3] * x[:, 7]).reshape(-1, 1)
-    log_diff = np.log(np.maximum(x[:, 10], 1e-6)).reshape(-1, 1)
-    log_cond = np.log(np.maximum(x[:, 9], 1e-6)).reshape(-1, 1)
-    log_stv = np.log(np.maximum(x[:, 8], 1e-6)).reshape(-1, 1)
-    log_por = np.log(np.maximum(x[:, 1], 1e-6)).reshape(-1, 1)
-    log_cond_diff = log_cond - log_diff
-    et_sq = (x[:, 0] ** 2).reshape(-1, 1)
-    bruggeman = (x[:, 1] ** 1.5).reshape(-1, 1)
-    diff_brugg = (x[:, 0] / np.maximum(x[:, 1] ** 1.5, 1e-6)).reshape(-1, 1)
-    log_et = np.log(np.maximum(x[:, 0], 1e-6)).reshape(-1, 1)
-    return np.concatenate(
-        [x, et_x_por, ntabs_x_h, log_diff, log_cond, log_stv,
-         log_por, log_cond_diff, et_sq, bruggeman, diff_brugg, log_et],
-        axis=1,
-    )
+
+def _add_features(x: np.ndarray, feature_names: list[str]) -> np.ndarray:
+    """Apply engineered features specified in the checkpoint config."""
+    cols = [x]
+    for name in feature_names:
+        cols.append(_compute_feature(x, name))
+    return np.concatenate(cols, axis=1)
 
 
 # ---------------------------------------------------------------------------
@@ -98,11 +126,19 @@ class SurrogatePredictor:
         self._metadata = ckpt["metadata"]
         self._feature_config = ckpt["feature_config"]
         self._feature_names: list[str] = self._metadata["feature_names"]
+        self._engineered_features: list[str] = self._feature_config.get(
+            "engineered_features", []
+        )
+
+        # Detect architecture from state dict keys
+        first_sd = ckpt["ensemble_state_dicts"][0]
+        has_batchnorm = any("bn1" in k for k in first_sd)
+        model_cls = _SkipNet if has_batchnorm else _PlainNet
 
         # Reconstruct ensemble on CPU
         self._models: list[nn.Module] = []
         for sd in ckpt["ensemble_state_dicts"]:
-            model = _SkipNet(
+            model = model_cls(
                 input_dim=hp["input_dim"],
                 hidden_size=hp["hidden_size"],
                 activation=hp["activation"],
@@ -162,7 +198,7 @@ class SurrogatePredictor:
             raw[0, col] = 0.0
 
         # 4. Feature engineering
-        x = _add_features(raw)
+        x = _add_features(raw, self._engineered_features)
 
         # 5. Normalize
         x_n = (x - self._x_mean) / self._x_std
@@ -200,7 +236,7 @@ class SurrogatePredictor:
         x = x_raw.astype(np.float32).copy()
         for col in self._feature_config["zeroed_columns"]:
             x[:, col] = 0.0
-        x = _add_features(x)
+        x = _add_features(x, self._engineered_features)
         x_n = (x - self._x_mean) / self._x_std
         x_t = torch.from_numpy(x_n)
 

@@ -43,6 +43,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--dataset", required=True, help="Path to dataset directory")
     parser.add_argument("--seed", required=True, type=int, help="Random seed")
     parser.add_argument("--budget-seconds", required=True, type=int, help="Training budget in seconds")
+    parser.add_argument("--save-checkpoint", default=None, help="Path to save ensemble checkpoint")
     return parser
 
 
@@ -166,6 +167,7 @@ def main() -> int:
     input_dim = X_train_n.shape[1]
     per_model_budget = args.budget_seconds / ENSEMBLE_SIZE
     all_test_preds: list[np.ndarray] = []
+    all_best_states: list[dict[str, torch.Tensor]] = []
     num_epochs = 0
     num_params = 0
 
@@ -223,6 +225,7 @@ def main() -> int:
         num_epochs += member_epochs
         if best_state is not None:
             model.load_state_dict(best_state)
+            all_best_states.append(best_state)
         model.eval()
         with torch.no_grad():
             all_test_preds.append(model(X_test_t).cpu().numpy())
@@ -255,6 +258,34 @@ def main() -> int:
     print(f"{TOTAL_SECONDS}: {total_seconds:.3f}")
     print(f"{NUM_PARAMS}: {num_params}")
     print(f"{NUM_EPOCHS}: {num_epochs}")
+
+    if args.save_checkpoint and all_best_states:
+        checkpoint = {
+            "ensemble_state_dicts": all_best_states,
+            "hyperparameters": {
+                "hidden_size": HIDDEN_SIZE,
+                "ensemble_size": len(all_best_states),
+                "input_dim": input_dim,
+                "activation": ACTIVATION,
+                "num_layers": NUM_LAYERS,
+            },
+            "normalization": {
+                "x_mean": x_mean,
+                "x_std": x_std,
+                "y_mean": y_mean,
+                "y_std": y_std,
+            },
+            "feature_config": {
+                "zeroed_columns": [3, 4],
+                "engineered_features": ["diff_brugg", "et_x_por"],
+            },
+            "metadata": metadata,
+        }
+        ckpt_path = Path(args.save_checkpoint)
+        ckpt_path.parent.mkdir(parents=True, exist_ok=True)
+        torch.save(checkpoint, ckpt_path)
+        print(f"Checkpoint saved to {ckpt_path} ({len(all_best_states)} members)")
+
     return 0
 
 
