@@ -13,14 +13,6 @@ Skeleton package providing interfaces for:
 Status: Interface definitions only. Implementation follows thesis experiment planning.
 """
 
-from forge.ml.batch import BatchGenerator
-from forge.ml.dataset import DatasetBuilder, DatasetLoader
-from forge.ml.models import SurrogateModel
-from forge.ml.representations import RepresentationExtractor
-from forge.ml.sensitivity import SensitivityScreener
-from forge.ml.simulation import SimulationRunner
-from forge.ml.training import TrainingPipeline
-
 __all__ = [
     "BatchGenerator",
     "DatasetBuilder",
@@ -31,3 +23,29 @@ __all__ = [
     "SurrogateModel",
     "TrainingPipeline",
 ]
+
+
+def __getattr__(name: str):  # noqa: N807
+    """Lazy imports — avoid pulling in scipy/SALib/pybamm at module load."""
+    if name == "BatchGenerator":
+        from forge.ml.batch import BatchGenerator
+        return BatchGenerator
+    if name in ("DatasetBuilder", "DatasetLoader"):
+        from forge.ml import dataset
+        return getattr(dataset, name)
+    if name == "SurrogateModel":
+        from forge.ml.models import SurrogateModel
+        return SurrogateModel
+    if name == "RepresentationExtractor":
+        from forge.ml.representations import RepresentationExtractor
+        return RepresentationExtractor
+    if name == "SensitivityScreener":
+        from forge.ml.sensitivity import SensitivityScreener
+        return SensitivityScreener
+    if name == "SimulationRunner":
+        from forge.ml.simulation import SimulationRunner
+        return SimulationRunner
+    if name == "TrainingPipeline":
+        from forge.ml.training import TrainingPipeline
+        return TrainingPipeline
+    raise AttributeError(f"module 'forge.ml' has no attribute {name!r}")
