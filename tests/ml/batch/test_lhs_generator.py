@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import pytest
 
-from forge.ml.batch.lhs_generator import LHSGenerator
+pytest.importorskip("scipy")
+
+from forge.ml.batch.lhs_generator import LHSGenerator  # noqa: E402
 from forge.ml.common.types import CellType, DesignSpace, ParameterRange
 from forge.ml.simulation.geometry_translator import GeometryTranslator
 

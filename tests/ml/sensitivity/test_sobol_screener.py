@@ -8,8 +8,10 @@ from __future__ import annotations
 
 import pytest
 
-from forge.ml.common.types import SobolIndex, SobolResult
-from forge.ml.sensitivity.sobol_screener import SobolScreener
+pytest.importorskip("SALib")
+
+from forge.ml.common.types import SobolIndex, SobolResult  # noqa: E402
+from forge.ml.sensitivity.sobol_screener import SobolScreener  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Manually constructed fixture for fast tests
