@@ -43,7 +43,7 @@ class ExperimentDefinition:
 
 CLAUDE_SONNET_4 = BackendConfig(
     backend_type="claude",
-    model="claude-sonnet-4-6-20250514",
+    model="claude-sonnet-4-20250514",
     temperature=0.0,
     max_tokens=4096,
 )
