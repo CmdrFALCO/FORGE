@@ -6,8 +6,8 @@ The supervision mechanism is LLM-agnostic.
 """
 
 import os
-from dataclasses import dataclass
-from typing import Protocol
+from dataclasses import dataclass, field
+from typing import Any, Protocol
 
 try:
     import anthropic
@@ -26,8 +26,23 @@ except ImportError:
     REQUESTS_AVAILABLE = False
 
 
+@dataclass
+class LLMUsage:
+    """Token usage and metadata from an LLM call.
+
+    Populated after each generate() call. Access via backend.last_usage.
+    """
+
+    tokens_in: int = 0
+    tokens_out: int = 0
+    model: str = ""
+    raw_response: Any = None  # Full API response for downstream extraction
+
+
 class LLMBackend(Protocol):
     """Protocol for LLM backends."""
+
+    last_usage: LLMUsage
 
     def generate(self, messages: list[dict[str, str]]) -> str:
         """
@@ -54,6 +69,8 @@ class ClaudeBackend:
     api_key: str | None = None
     model: str = "claude-sonnet-4-20250514"
     max_tokens: int = 4096
+    temperature: float = 1.0
+    last_usage: LLMUsage = field(default_factory=LLMUsage)
 
     def __post_init__(self):
         if self.api_key is None:
@@ -86,8 +103,16 @@ class ClaudeBackend:
         response = client.messages.create(
             model=self.model,
             max_tokens=self.max_tokens,
+            temperature=self.temperature,
             system=system_content or "",
             messages=chat_messages,
+        )
+
+        self.last_usage = LLMUsage(
+            tokens_in=response.usage.input_tokens,
+            tokens_out=response.usage.output_tokens,
+            model=response.model,
+            raw_response=response,
         )
 
         return response.content[0].text
@@ -103,6 +128,9 @@ class OllamaBackend:
 
     host: str = "http://localhost:11434"
     model: str = "qwen2.5-coder:14b"
+    temperature: float = 1.0
+    num_ctx: int = 8192
+    last_usage: LLMUsage = field(default_factory=LLMUsage)
 
     def __post_init__(self):
         if self.host is None:
@@ -126,12 +154,29 @@ class OllamaBackend:
                 "model": self.model,
                 "messages": ollama_messages,
                 "stream": False,
+                "options": {
+                    "temperature": self.temperature,
+                    "num_ctx": self.num_ctx,
+                },
             },
-            timeout=120,  # Local inference can be slow
+            timeout=300,  # Local inference can be slow, especially large models
         )
         response.raise_for_status()
 
-        return response.json()["message"]["content"]
+        data = response.json()
+
+        # Ollama reports token counts in response metadata
+        tokens_in = data.get("prompt_eval_count", 0)
+        tokens_out = data.get("eval_count", 0)
+
+        self.last_usage = LLMUsage(
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
+            model=data.get("model", self.model),
+            raw_response=data,
+        )
+
+        return data["message"]["content"]
 
 
 class MockBackend:
@@ -145,6 +190,7 @@ class MockBackend:
         self.responses = responses
         self.call_count = 0
         self.received_messages: list[list[dict]] = []
+        self.last_usage = LLMUsage()
 
     def generate(self, messages: list[dict[str, str]]) -> str:
         self.received_messages.append(messages)
@@ -154,6 +200,11 @@ class MockBackend:
 
         response = self.responses[self.call_count]
         self.call_count += 1
+        self.last_usage = LLMUsage(
+            tokens_in=sum(len(m["content"]) // 4 for m in messages),
+            tokens_out=len(response) // 4,
+            model="mock",
+        )
         return response
 
 
