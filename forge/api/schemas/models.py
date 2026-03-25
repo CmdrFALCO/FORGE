@@ -180,6 +180,7 @@ class PipelineRequest(BaseModel):
     backend: str = "ollama"
     max_retries: int = Field(default=3, ge=1)
     model: str | None = None
+    supervised: bool = True
 
     model_config = {
         "json_schema_extra": {
@@ -194,12 +195,25 @@ class PipelineRequest(BaseModel):
     }
 
 
+class ConstraintResultSchema(BaseModel):
+    """Per-constraint pass/fail result for experiment logging."""
+
+    constraint_id: str
+    name: str
+    passed: bool
+    actual_value: Any = None
+    threshold: Any = None
+    message: str = ""
+    check_time_ms: float = 0.0
+
+
 class AttemptRecord(BaseModel):
     """Per-attempt record for pipeline endpoint (implemented in G1-B)."""
 
     attempt: int
     valid: bool
     errors: list[str] = Field(default_factory=list)
+    constraint_results: list[ConstraintResultSchema] = Field(default_factory=list)
 
 
 class PipelineData(BaseModel):

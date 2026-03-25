@@ -7,7 +7,7 @@ This module implements the first guard transition in the supervision Petri Net:
 """
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
@@ -25,12 +25,30 @@ class ValidationError:
 
 
 @dataclass
+class ConstraintResult:
+    """Result of a single constraint check (pass or fail).
+
+    Used for per-constraint logging in thesis experiments.
+    Every constraint emits one of these, regardless of pass/fail.
+    """
+
+    constraint_id: str      # "C1", "PR3", "CY7", etc.
+    name: str               # "np_ratio", "internal_height", etc.
+    passed: bool
+    actual_value: Any       # the value that was checked (None if field missing)
+    threshold: Any          # the bound/range/expected value
+    message: str            # human-readable; empty string if passed
+    check_time_ms: float    # milliseconds for this check
+
+
+@dataclass
 class ValidationResult:
     """Result of validation with errors if any."""
 
     valid: bool
     errors: list[ValidationError]
     level: str = "schema"  # "schema" or "physics"
+    constraint_results: list[ConstraintResult] = field(default_factory=list)
 
     def to_llm_feedback(self) -> str:
         """Format errors as feedback string for LLM to retry."""

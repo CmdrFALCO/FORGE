@@ -15,6 +15,7 @@ from fastapi import APIRouter, HTTPException
 from forge.api.deps import build_backend
 from forge.api.schemas.models import (
     AttemptRecord,
+    ConstraintResultSchema,
     PipelineData,
     PipelineRequest,
     PipelineResponse,
@@ -44,14 +45,39 @@ def _to_jsonable(value: Any) -> Any:
     return value
 
 
+def _constraint_results_to_schema(
+    constraint_results: list,
+) -> list[ConstraintResultSchema]:
+    """Convert internal ConstraintResult dataclasses to Pydantic schemas."""
+    return [
+        ConstraintResultSchema(
+            constraint_id=cr.constraint_id,
+            name=cr.name,
+            passed=cr.passed,
+            actual_value=cr.actual_value,
+            threshold=cr.threshold,
+            message=cr.message,
+            check_time_ms=cr.check_time_ms,
+        )
+        for cr in constraint_results
+    ]
+
+
 def _build_attempt_records(result: GenerationResult) -> list[AttemptRecord]:
     records: list[AttemptRecord] = []
+    acr = result.attempt_constraint_results
 
     for attempt_idx, reason in enumerate(result.retry_reasons, start=1):
-        records.append(AttemptRecord(attempt=attempt_idx, valid=False, errors=[reason]))
+        cr_schemas = _constraint_results_to_schema(acr[attempt_idx - 1]) if attempt_idx - 1 < len(acr) else []
+        records.append(AttemptRecord(
+            attempt=attempt_idx, valid=False, errors=[reason], constraint_results=cr_schemas,
+        ))
 
     if result.success:
-        records.append(AttemptRecord(attempt=result.attempts, valid=True, errors=[]))
+        cr_schemas = _constraint_results_to_schema(acr[-1]) if acr else []
+        records.append(AttemptRecord(
+            attempt=result.attempts, valid=True, errors=[], constraint_results=cr_schemas,
+        ))
         return records
 
     if result.attempts > len(records):
@@ -89,11 +115,16 @@ def _override_max_retries(max_retries: int):
 
 @router.post("/pipeline", response_model=PipelineResponse)
 def run_pipeline(payload: PipelineRequest) -> PipelineResponse:
-    """Run the full AXIOM loop: generate -> validate -> retry -> calculate."""
+    """Run the full AXIOM loop: generate -> validate -> retry -> calculate.
+
+    When supervised=False (unsupervised baseline): single attempt, no retry,
+    validation runs as measurement only. Full constraint report card returned.
+    """
     backend = build_backend(payload.backend, model=payload.model)
+    effective_retries = payload.max_retries if payload.supervised else 1
 
     try:
-        with _override_max_retries(payload.max_retries):
+        with _override_max_retries(effective_retries):
             generation_result = supervisor_driver.generate_cell_design(
                 request=payload.prompt,
                 backend=backend,
@@ -109,6 +140,24 @@ def run_pipeline(payload: PipelineRequest) -> PipelineResponse:
         raise HTTPException(status_code=502, detail=generation_result.last_error)
 
     attempts = _build_attempt_records(generation_result)
+
+    # Structured logging for each attempt with constraint details
+    for record in attempts:
+        if record.constraint_results:
+            passed = sum(1 for c in record.constraint_results if c.passed)
+            failed_ids = [c.constraint_id for c in record.constraint_results if not c.passed]
+            logger.info(
+                "constraint_check",
+                extra={
+                    "attempt": record.attempt,
+                    "supervised": payload.supervised,
+                    "design_valid": record.valid,
+                    "constraints_passed": passed,
+                    "constraints_total": len(record.constraint_results),
+                    "constraints_failed": failed_ids,
+                },
+            )
+
     data = PipelineData(
         result=_extract_pipeline_result(generation_result),
         attempts=attempts,

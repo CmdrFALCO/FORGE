@@ -31,6 +31,8 @@ class GenerationResult:
     # For thesis analysis
     tokens_used: int = 0
     retry_reasons: list[str] = field(default_factory=list)
+    # Per-attempt constraint results: each inner list is one attempt's full report card
+    attempt_constraint_results: list[list] = field(default_factory=list)
 
     def summary(self) -> str:
         """Human-readable summary for logging/display."""

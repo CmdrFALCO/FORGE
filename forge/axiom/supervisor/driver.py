@@ -97,6 +97,7 @@ def generate_cell_design(
     # Initialize tracking
     attempts = 0
     retry_reasons = []
+    attempt_constraint_results = []
     last_error = None
     yaml_content = None
     parse_result = None
@@ -140,6 +141,10 @@ def generate_cell_design(
             # Validate with cell type
             validation_result = validate_cell_definition(yaml_content, cell_type=cell_type_lower)
 
+            # Capture per-constraint results for this attempt
+            if validation_result.constraint_results:
+                attempt_constraint_results.append(validation_result.constraint_results)
+
             if not validation_result.valid:
                 feedback = validation_result.to_llm_feedback()
                 last_error = f"Validation failed: {feedback}"
@@ -176,6 +181,7 @@ def generate_cell_design(
                     yaml_content=parse_result.raw_yaml,
                     last_error=last_error,
                     retry_reasons=retry_reasons,
+                    attempt_constraint_results=attempt_constraint_results,
                 )
 
             calculation_result = None
@@ -204,6 +210,7 @@ def generate_cell_design(
                 cell_input=cell_input,
                 calculation_result=calculation_result,
                 retry_reasons=retry_reasons,
+                attempt_constraint_results=attempt_constraint_results,
             )
 
         except Exception as e:
@@ -225,5 +232,6 @@ def generate_cell_design(
         last_error=last_error,
         validation_errors=[str(e) for e in retry_reasons],
         retry_reasons=retry_reasons,
+        attempt_constraint_results=attempt_constraint_results,
     )
 

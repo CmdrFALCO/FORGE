@@ -10,10 +10,11 @@ This module implements the second guard transition in the supervision Petri Net:
   Valid Structure → [T_constraint_check] → Valid Design (or Feedback)
 """
 
+import time
 from collections.abc import Callable
 from typing import Any
 
-from .schema_validator import ValidationError, ValidationResult
+from .schema_validator import ConstraintResult, ValidationError, ValidationResult
 
 # Type for constraint validation functions
 ConstraintFunc = Callable[[dict], ValidationError | None]
@@ -936,6 +937,64 @@ CYLINDRICAL_CONSTRAINTS: list[ConstraintFunc] = [
 # Legacy: ALL_CONSTRAINTS for backward compatibility (defaults to prismatic)
 ALL_CONSTRAINTS: list[ConstraintFunc] = COMMON_CONSTRAINTS + PRISMATIC_CONSTRAINTS
 
+# ═══════════════════════════════════════════════════════════════
+# CONSTRAINT REGISTRY — ID mapping for per-constraint logging
+# Each entry: (constraint_id, human_name, check_function)
+# ═══════════════════════════════════════════════════════════════
+
+_RegistryEntry = tuple[str, str, ConstraintFunc]
+
+_COMMON_REGISTRY: list[_RegistryEntry] = [
+    ("C1", "np_ratio", check_np_ratio),
+    ("C2", "cathode_loading", check_cathode_loading_reasonable),
+    ("C3", "anode_loading", check_anode_loading_reasonable),
+    ("C4", "separator_porosity", check_separator_porosity_valid),
+    ("C5", "electrolyte_concentration", check_electrolyte_salt_concentration),
+    ("C6", "cathode_material", check_cathode_material_valid),
+    ("C7", "anode_material", check_anode_material_valid),
+]
+
+_PRISMATIC_REGISTRY: list[_RegistryEntry] = [
+    ("PR1", "internal_height", check_internal_height_positive),
+    ("PR2", "internal_width", check_internal_width_positive),
+    ("PR3", "internal_thickness", check_internal_thickness_positive),
+    ("PR4", "cathode_fits_cavity", check_cathode_fits_in_cavity),
+    ("PR5", "stacks_count", check_stacks_positive),
+    ("PR6", "electrode_pairs", check_electrode_pairs_positive),
+    ("PR7", "end_electrode_config", check_end_electrode_config_valid),
+]
+
+_POUCH_REGISTRY: list[_RegistryEntry] = [
+    ("PO1", "anode_offset", check_pouch_anode_offset_positive),
+    ("PO2", "separator_offset", check_pouch_separator_offset_positive),
+    ("PO3", "separator_covers_anode", check_pouch_separator_larger_than_anode),
+    ("PO4", "stacks_count", check_pouch_stacks_positive),
+    ("PO5", "electrode_pairs", check_pouch_electrode_pairs_positive),
+    ("PO6", "end_electrode_config", check_pouch_end_electrode_config_valid),
+    ("PO7", "packaging_offsets", check_pouch_packaging_offsets),
+]
+
+_CYLINDRICAL_REGISTRY: list[_RegistryEntry] = [
+    ("CY1", "mandrel_diameter", check_cylindrical_mandrel_diameter),
+    ("CY2", "winding_clearance", check_cylindrical_winding_clearance),
+    ("CY3", "tension_factor", check_cylindrical_tension_factor),
+    ("CY4", "tab_type", check_cylindrical_tab_type_valid),
+    ("CY5", "jelly_roll_fits", check_cylindrical_jelly_roll_fits),
+    ("CY6", "header_height", check_cylindrical_header_height),
+    ("CY7", "format_consistency", check_cylindrical_format_consistency),
+    ("CY8", "can_material", check_cylindrical_can_material_valid),
+]
+
+
+def _get_registry(cell_type: str) -> list[_RegistryEntry]:
+    """Select constraint registry based on cell type."""
+    cell_type_lower = cell_type.lower()
+    if cell_type_lower == "pouch":
+        return _COMMON_REGISTRY + _POUCH_REGISTRY
+    if cell_type_lower == "cylindrical":
+        return _COMMON_REGISTRY + _CYLINDRICAL_REGISTRY
+    return _COMMON_REGISTRY + _PRISMATIC_REGISTRY
+
 
 def validate_physics(cell_dict: dict, cell_type: str = "prismatic") -> ValidationResult:
     """
@@ -945,38 +1004,58 @@ def validate_physics(cell_dict: dict, cell_type: str = "prismatic") -> Validatio
     manufacturing feasibility. It should only be called AFTER schema validation
     (Level 1) has passed.
 
+    Returns a ValidationResult with:
+    - .valid: bool — overall pass/fail
+    - .errors: list[ValidationError] — failures only (for LLM feedback)
+    - .constraint_results: list[ConstraintResult] — ALL constraints, pass AND fail
+
     Args:
         cell_dict: Cell definition (already passed schema validation)
-        cell_type: Type of cell - "prismatic", "pouch", or "cylindrical" (default: "prismatic")
-
-    Returns:
-        ValidationResult with any constraint violations
+        cell_type: Type of cell - "prismatic", "pouch", or "cylindrical"
 
     Example:
-        schema_result = validate_structure(cell_dict, cell_type="pouch")
-        if schema_result.valid:
-            physics_result = validate_physics(cell_dict, cell_type="pouch")
-            if not physics_result.valid:
-                print(physics_result.to_llm_feedback())
+        result = validate_physics(cell_dict, cell_type="pouch")
+        for cr in result.constraint_results:
+            print(f"{cr.constraint_id} {cr.name}: {'PASS' if cr.passed else 'FAIL'}")
     """
-    errors = []
+    errors: list[ValidationError] = []
+    constraint_results: list[ConstraintResult] = []
 
-    # Select constraint set based on cell type
-    cell_type_lower = cell_type.lower()
-    if cell_type_lower == "pouch":
-        constraints = COMMON_CONSTRAINTS + POUCH_CONSTRAINTS
-    elif cell_type_lower == "cylindrical":
-        constraints = COMMON_CONSTRAINTS + CYLINDRICAL_CONSTRAINTS
-    else:
-        # Default to prismatic
-        constraints = COMMON_CONSTRAINTS + PRISMATIC_CONSTRAINTS
+    registry = _get_registry(cell_type)
 
-    for constraint in constraints:
-        error = constraint(cell_dict)
+    for constraint_id, name, check_fn in registry:
+        t0 = time.perf_counter_ns()
+        error = check_fn(cell_dict)
+        elapsed_ms = (time.perf_counter_ns() - t0) / 1_000_000
+
         if error is not None:
             errors.append(error)
+            constraint_results.append(ConstraintResult(
+                constraint_id=constraint_id,
+                name=name,
+                passed=False,
+                actual_value=error.value,
+                threshold=error.constraint,
+                message=error.message,
+                check_time_ms=elapsed_ms,
+            ))
+        else:
+            constraint_results.append(ConstraintResult(
+                constraint_id=constraint_id,
+                name=name,
+                passed=True,
+                actual_value=None,
+                threshold="",
+                message="",
+                check_time_ms=elapsed_ms,
+            ))
 
-    return ValidationResult(valid=len(errors) == 0, errors=errors, level="physics")
+    return ValidationResult(
+        valid=len(errors) == 0,
+        errors=errors,
+        level="physics",
+        constraint_results=constraint_results,
+    )
 
 
 def get_constraint_descriptions(cell_type: str = "prismatic") -> str:
