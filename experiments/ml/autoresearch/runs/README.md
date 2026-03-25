@@ -6,6 +6,7 @@ Each subdirectory contains frozen artifacts from a completed autoresearch run.
 |-----|---------|---------|-------------|------------|-------------|
 | run-001-synthetic | Synthetic proxy formulas | 2000 | 200 (36 accepted) | 0.1517 | 57.5% |
 | run-002-pybamm-500 | PyBaMM DFN (Chen2020) | 496 | 37 (6 accepted) | 0.4676 | 28.4% |
+| run-003-pybamm-3k | PyBaMM DFN (Chen2020) | 3000 | 16 (3 accepted) | 0.2871 | 2.95% |
 
 ## Structure per run
 

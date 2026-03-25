@@ -1,0 +1,28 @@
+{
+  "run_id": "run-003-pybamm-3k",
+  "display_name": "Run 003 — PyBaMM DFN (3000 samples)",
+  "dataset": "PyBaMM DFN simulations (Chen2020)",
+  "dataset_samples": 3000,
+  "training_samples": 2082,
+  "model_type": "PyBaMM DFN with lumped thermal",
+  "parameter_set": "Chen2020 (NMC532/Graphite)",
+  "cell_format": "4680 cylindrical",
+  "experiments_attempted": 16,
+  "experiments_accepted": 3,
+  "baseline_score": 0.2958,
+  "best_score": 0.2871,
+  "improvement_pct": 2.95,
+  "best_experiment": 10,
+  "branch": "autoresearch/run-003-pybamm-3k",
+  "date": "2026-03-25",
+  "duration_hours": 1.5,
+  "key_findings": [
+    "Data quantity dominates architecture sophistication — baseline already near-optimal with 2082 training samples",
+    "Dead feature zeroing (n_tabs, tab_width) accepted 3/3 runs — most robust finding across all runs",
+    "Bruggeman tortuosity feature rejected — MLP learns it implicitly with sufficient data",
+    "Target normalization rejected — unnecessary with enough data to resolve scale differences",
+    "GELU activation + HIDDEN=96 only accepted improvements — minimal architecture changes needed",
+    "Ensemble, BatchNorm, skip connections, 3-layer MLP all rejected — no overfitting to fix",
+    "Baseline score (0.2958) already beats Run 002 best (0.4676) by 37% — data > architecture"
+  ]
+}

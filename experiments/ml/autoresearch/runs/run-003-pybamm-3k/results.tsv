@@ -1,0 +1,5 @@
+experiment_id	primary_score	accepted	reason	git_hash
+0	0.295844	True	baseline	8e2bcc3
+4	0.294809	True	GELU activation	8b07456
+7	0.290375	True	zero n_tabs and tab_width (dead features)	bd69a4c
+10	0.287112	True	HIDDEN_SIZE=96	12a0660

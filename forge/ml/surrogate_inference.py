@@ -120,8 +120,13 @@ class SurrogatePredictor:
 
         self._x_mean = np.asarray(norm["x_mean"], dtype=np.float32)
         self._x_std = np.asarray(norm["x_std"], dtype=np.float32)
-        self._y_mean = np.asarray(norm["y_mean"], dtype=np.float32)
-        self._y_std = np.asarray(norm["y_std"], dtype=np.float32)
+        # Target normalization is optional — some runs train on raw targets
+        if "y_mean" in norm:
+            self._y_mean = np.asarray(norm["y_mean"], dtype=np.float32)
+            self._y_std = np.asarray(norm["y_std"], dtype=np.float32)
+        else:
+            self._y_mean = np.zeros(2, dtype=np.float32)
+            self._y_std = np.ones(2, dtype=np.float32)
 
         self._metadata = ckpt["metadata"]
         self._feature_config = ckpt["feature_config"]
