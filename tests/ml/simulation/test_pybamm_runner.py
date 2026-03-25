@@ -7,8 +7,10 @@ from __future__ import annotations
 
 import pytest
 
-from forge.ml.common.types import CellSpec, CellType, SimulationConfig
-from forge.ml.simulation.pybamm_runner import PyBaMMRunner
+pytest.importorskip("pybamm")
+
+from forge.ml.common.types import CellSpec, CellType, SimulationConfig  # noqa: E402
+from forge.ml.simulation.pybamm_runner import PyBaMMRunner  # noqa: E402
 
 pytestmark = pytest.mark.slow
 
