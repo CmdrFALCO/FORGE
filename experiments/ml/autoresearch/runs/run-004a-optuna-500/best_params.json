@@ -1,0 +1,30 @@
+{
+  "trial_number": 87,
+  "primary_score": 0.4634298086166382,
+  "params": {
+    "hidden_size": 192,
+    "num_layers": 2,
+    "activation": "silu",
+    "learning_rate": 0.004119840056727032,
+    "batch_size": 128,
+    "weight_decay": 0.002006761872483092,
+    "optimizer": "adamw",
+    "loss": "huber",
+    "batchnorm": false,
+    "skip_connection": true,
+    "dropout": 0.3,
+    "ensemble_size": 2
+  },
+  "metrics": {
+    "max_error_rate": 0.8832168579101562,
+    "max_error_temp": 3.6772079467773438,
+    "num_epochs": 28935,
+    "num_params": 39746,
+    "rmse_rate": 0.14522506296634674,
+    "rmse_rate_norm": 0.40832898020744324,
+    "rmse_temp": 0.8751094937324524,
+    "rmse_temp_norm": 0.055100828409194946,
+    "total_seconds": 300.0491478443146,
+    "training_seconds": 300.0115427970886
+  }
+}

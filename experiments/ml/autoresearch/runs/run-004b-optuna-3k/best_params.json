@@ -1,0 +1,30 @@
+{
+  "trial_number": 185,
+  "primary_score": 0.3053271509706974,
+  "params": {
+    "hidden_size": 128,
+    "num_layers": 1,
+    "activation": "tanh",
+    "learning_rate": 0.0036049201998849052,
+    "batch_size": 16,
+    "weight_decay": 1.2699282621554578e-06,
+    "optimizer": "adamw",
+    "loss": "huber",
+    "batchnorm": false,
+    "skip_connection": false,
+    "dropout": 0.0,
+    "ensemble_size": 8
+  },
+  "metrics": {
+    "max_error_rate": 0.821736216545105,
+    "max_error_temp": 2.1168289184570312,
+    "num_epochs": 2979,
+    "num_params": 1794,
+    "rmse_rate": 0.09691888839006424,
+    "rmse_rate_norm": 0.2762300670146942,
+    "rmse_temp": 0.45622313022613525,
+    "rmse_temp_norm": 0.02909708395600319,
+    "total_seconds": 300.4009792804718,
+    "training_seconds": 300.36259031295776
+  }
+}
