@@ -134,15 +134,23 @@ def _map_geometry(envelope: dict[str, Any]) -> PrismaticGeometry:
         MissingFieldError: If required fields missing
     """
     try:
+        # Support both flat and nested (schema) formats
+        # Flat: envelope.cell_height_mm
+        # Nested: envelope.external.cell_height_mm, envelope.walls.wall_top_mm
+        flat = dict(envelope)
+        for sub in ("external", "walls", "internals"):
+            if sub in flat and isinstance(flat[sub], dict):
+                flat.update(flat.pop(sub))
+
         return PrismaticGeometry(
-            cell_height_mm=_require_nested(envelope, "cell_height_mm"),
-            cell_width_mm=_require_nested(envelope, "cell_width_mm"),
-            cell_thickness_mm=_require_nested(envelope, "cell_thickness_mm"),
-            wall_top_mm=_require_nested(envelope, "wall_top_mm"),
-            wall_bottom_mm=_require_nested(envelope, "wall_bottom_mm"),
-            wall_front_back_mm=_require_nested(envelope, "wall_front_back_mm"),
-            wall_sides_mm=_require_nested(envelope, "wall_sides_mm"),
-            insulation_coating_um=_get_nested(envelope, "insulation_coating_um", 85.0),
+            cell_height_mm=_require_nested(flat, "cell_height_mm"),
+            cell_width_mm=_require_nested(flat, "cell_width_mm"),
+            cell_thickness_mm=_require_nested(flat, "cell_thickness_mm"),
+            wall_top_mm=_require_nested(flat, "wall_top_mm"),
+            wall_bottom_mm=_require_nested(flat, "wall_bottom_mm"),
+            wall_front_back_mm=_require_nested(flat, "wall_front_back_mm"),
+            wall_sides_mm=_require_nested(flat, "wall_sides_mm"),
+            insulation_coating_um=_get_nested(flat, "insulation_coating_um", 85.0),
         )
     except MissingFieldError:
         raise
@@ -199,14 +207,17 @@ def _map_cathode(electrochemistry: dict[str, Any]) -> CathodeMaterial:
     """
     try:
         cathode = electrochemistry.get("cathode", {})
-        name = _require_nested(cathode, "name")
+        name = (_get_nested(cathode, "material_name", None)
+                or _require_nested(cathode, "name"))
         chemistry = material_defaults.detect_chemistry(name)
 
         return CathodeMaterial(
             id=name.lower().replace(" ", "_"),
             name=name,
             chemistry=chemistry or "NCM",  # Default to NCM if not detected
-            rev_spec_capacity_mahg=_require_nested(cathode, "rev_spec_capacity_mahg"),
+            rev_spec_capacity_mahg=(_get_nested(cathode, "rev_spec_capacity_mahg", None)
+                                   or _get_nested(cathode, "specific_capacity_mah_g", None)
+                                   or _require_nested(cathode, "rev_spec_capacity_mahg")),
             max_spec_capacity_mahg=_get_nested(
                 cathode,
                 "max_spec_capacity_mahg",
@@ -214,9 +225,15 @@ def _map_cathode(electrochemistry: dict[str, Any]) -> CathodeMaterial:
             ),
             areal_weight_mgcm2=_require_nested(cathode, "loading_mg_cm2"),  # Field name mapping
             collector_thickness_um=_require_nested(cathode, "collector_thickness_um"),
-            coating_density_gcm3=_require_nested(cathode, "coating_density_gcm3"),
-            coating_thickness_0pct_um=_require_nested(cathode, "coating_thickness_0pct_um"),
-            coating_thickness_100pct_um=_require_nested(cathode, "coating_thickness_100pct_um"),
+            coating_density_gcm3=(_get_nested(cathode, "coating_density_g_cm3", None)
+                                  or _get_nested(cathode, "coating_density_gcm3",
+                                                 material_defaults.get_cathode_coating_density(chemistry))),
+            coating_thickness_0pct_um=(_get_nested(cathode, "coating_thickness_0pct_um", None)
+                                      or _get_nested(cathode, "coating_thickness_um", None)
+                                      or _require_nested(cathode, "coating_thickness_0pct_um")),
+            coating_thickness_100pct_um=(_get_nested(cathode, "coating_thickness_100pct_um", None)
+                                        or _get_nested(cathode, "coating_thickness_um", None)
+                                        or _require_nested(cathode, "coating_thickness_100pct_um")),
         )
     except MissingFieldError:
         raise
@@ -239,14 +256,17 @@ def _map_anode(electrochemistry: dict[str, Any]) -> AnodeMaterial:
     """
     try:
         anode = electrochemistry.get("anode", {})
-        name = _require_nested(anode, "name")
+        name = (_get_nested(anode, "material_name", None)
+                or _require_nested(anode, "name"))
         chemistry = material_defaults.detect_chemistry(name)
 
         return AnodeMaterial(
             id=name.lower().replace(" ", "_"),
             name=name,
             chemistry=chemistry or "Graphite",  # Default to Graphite if not detected
-            rev_spec_capacity_mahg=_require_nested(anode, "rev_spec_capacity_mahg"),
+            rev_spec_capacity_mahg=(_get_nested(anode, "rev_spec_capacity_mahg", None)
+                                   or _get_nested(anode, "specific_capacity_mah_g", None)
+                                   or _require_nested(anode, "rev_spec_capacity_mahg")),
             max_spec_capacity_mahg=_get_nested(
                 anode,
                 "max_spec_capacity_mahg",
@@ -254,9 +274,15 @@ def _map_anode(electrochemistry: dict[str, Any]) -> AnodeMaterial:
             ),
             areal_weight_mgcm2=_require_nested(anode, "loading_mg_cm2"),  # Field name mapping
             collector_thickness_um=_require_nested(anode, "collector_thickness_um"),
-            coating_density_gcm3=_require_nested(anode, "coating_density_gcm3"),
-            coating_thickness_0pct_um=_require_nested(anode, "coating_thickness_0pct_um"),
-            coating_thickness_100pct_um=_require_nested(anode, "coating_thickness_100pct_um"),
+            coating_density_gcm3=(_get_nested(anode, "coating_density_g_cm3", None)
+                                  or _get_nested(anode, "coating_density_gcm3",
+                                                 material_defaults.get_anode_coating_density(chemistry))),
+            coating_thickness_0pct_um=(_get_nested(anode, "coating_thickness_0pct_um", None)
+                                      or _get_nested(anode, "coating_thickness_um", None)
+                                      or _require_nested(anode, "coating_thickness_0pct_um")),
+            coating_thickness_100pct_um=(_get_nested(anode, "coating_thickness_100pct_um", None)
+                                        or _get_nested(anode, "coating_thickness_um", None)
+                                        or _require_nested(anode, "coating_thickness_100pct_um")),
         )
     except MissingFieldError:
         raise
@@ -279,16 +305,26 @@ def _map_separator(electrochemistry: dict[str, Any]) -> SeparatorMaterial:
     """
     try:
         separator = electrochemistry.get("separator", {})
-        name = _require_nested(separator, "name")
+        name = (_get_nested(separator, "material_name", None)
+                or _require_nested(separator, "name"))
+
+        # Porosity: schema uses porosity_pct (percentage), legacy uses porosity (fraction)
+        porosity_pct = _get_nested(separator, "porosity_pct", None)
+        if porosity_pct is None:
+            porosity_frac = _get_nested(separator, "porosity", None)
+            if porosity_frac is not None:
+                porosity_pct = porosity_frac * 100
+            else:
+                _require_nested(separator, "porosity_pct")  # raises MissingFieldError
 
         return SeparatorMaterial(
             id=name.lower().replace(" ", "_"),
             name=name,
             thickness_um=_require_nested(separator, "thickness_um"),
-            porosity_pct=_require_nested(separator, "porosity_pct"),
-            density_gcm3=_get_nested(
-                separator, "density_gcm3", material_defaults.get_separator_density(name)
-            ),
+            porosity_pct=porosity_pct,
+            density_gcm3=(_get_nested(separator, "density_g_cm3", None)
+                         or _get_nested(separator, "density_gcm3",
+                                        material_defaults.get_separator_density(name))),
             areal_weight_mgcm2=_require_nested(separator, "areal_weight_mgcm2"),
         )
     except MissingFieldError:
@@ -312,7 +348,9 @@ def _map_electrolyte(electrochemistry: dict[str, Any]) -> ElectrolyteModel:
     """
     try:
         electrolyte = electrochemistry.get("electrolyte", {})
-        name = _require_nested(electrolyte, "name")
+        # Support both "name" (legacy) and "material_name" (schema format)
+        name = (_get_nested(electrolyte, "material_name", None)
+                or _require_nested(electrolyte, "name"))
 
         # conductivity_sm is optional, so provide None as default
         conductivity = None
@@ -322,7 +360,8 @@ def _map_electrolyte(electrochemistry: dict[str, Any]) -> ElectrolyteModel:
         return ElectrolyteModel(
             id=name.lower().replace(" ", "_"),
             name=name,
-            density_gcm3=_require_nested(electrolyte, "density_gcm3"),
+            density_gcm3=(_get_nested(electrolyte, "density_g_cm3", None)
+                         or _require_nested(electrolyte, "density_gcm3")),
             conductivity_sm=conductivity,
         )
     except MissingFieldError:
@@ -366,39 +405,71 @@ def from_template_format(template_dict: dict[str, Any]) -> PrismaticCellInput:
 
         # Create the main input object
         return PrismaticCellInput(
-            cell_name=_get_nested(template_dict, "cell_name", "Prismatic Cell"),
+            cell_name=_get_nested(template_dict, "cell_name",
+                                  _get_nested(template_dict, "_meta.design_intent", "Prismatic Cell")),
             case_geometry=case_geometry,
             sheet_geometry=sheet_geometry,
-            number_of_stacks=_get_nested(stack_config, "stacks", 2),
-            electrode_pairs_per_stack=_get_nested(stack_config, "pairs", 22),
-            end_electrodes=_get_nested(stack_config, "end_electrodes", "BothNegative"),
+            number_of_stacks=_get_nested(
+                stack_config, "architecture.num_stacks",
+                _get_nested(stack_config, "stacks", 2),
+            ),
+            electrode_pairs_per_stack=_get_nested(
+                stack_config, "architecture.electrode_pairs_per_stack",
+                _get_nested(stack_config, "pairs", 22),
+            ),
+            end_electrodes=_get_nested(
+                stack_config, "architecture.end_electrode_config",
+                _get_nested(stack_config, "end_electrodes", "BothNegative"),
+            ),
             cathode=cathode,
             anode=anode,
             separator=separator,
             electrolyte=electrolyte,
-            # Optional parameters with defaults
+            # Optional parameters with defaults — support both flat and nested (schema) formats
             case_material_density_gcm3=_get_nested(
-                template_dict, "case_material_density_gcm3", 2.70
+                template_dict, "packaging.housing.case_density_g_cm3",
+                _get_nested(template_dict, "case_material_density_gcm3", 2.70),
             ),
             header_mass_g=_get_nested(template_dict, "header_mass_g", 88.76),
             insulation_shell_thickness_um=_get_nested(
-                template_dict, "insulation_shell_thickness_um", 120.0
+                template_dict, "packaging.insulation.shell_thickness_um",
+                _get_nested(template_dict, "insulation_shell_thickness_um", 120.0),
             ),
-            insulation_shell_count=_get_nested(template_dict, "insulation_shell_count", 2),
+            insulation_shell_count=_get_nested(
+                template_dict, "packaging.insulation.shell_count",
+                _get_nested(template_dict, "insulation_shell_count", 2),
+            ),
             insulation_shell_density_gcm3=_get_nested(
                 template_dict, "insulation_shell_density_gcm3", 0.91
             ),
-            electrolyte_excess_factor=_get_nested(template_dict, "electrolyte_excess_factor", 1.0),
+            electrolyte_excess_factor=_get_nested(
+                template_dict, "electrochemistry.electrolyte.excess_factor",
+                _get_nested(template_dict, "electrolyte_excess_factor", 1.0),
+            ),
             electrolyte_volume_override_ml=_get_nested(
                 template_dict, "electrolyte_volume_override_ml", None
             ),
-            cathode_porosity_pct=_get_nested(template_dict, "cathode_porosity_pct", 25.36),
-            anode_porosity_pct=_get_nested(template_dict, "anode_porosity_pct", 38.01),
+            cathode_porosity_pct=_get_nested(
+                template_dict, "electrochemistry.cathode.porosity_pct",
+                _get_nested(template_dict, "electrochemistry.cathode.porosity", 0) * 100
+                or _get_nested(template_dict, "cathode_porosity_pct", 25.36),
+            ),
+            anode_porosity_pct=_get_nested(
+                template_dict, "electrochemistry.anode.porosity_pct",
+                _get_nested(template_dict, "electrochemistry.anode.porosity", 0) * 100
+                or _get_nested(template_dict, "anode_porosity_pct", 38.01),
+            ),
             nominal_voltage_v=_get_nested(template_dict, "nominal_voltage_v", 3.644),
             capacity_ah=_get_nested(template_dict, "capacity_ah", None),
-            fixing_tape_count=_get_nested(template_dict, "fixing_tape_count", 4),
+            fixing_tape_count=_get_nested(
+                template_dict, "packaging.insulation.fixing_tape_count",
+                _get_nested(template_dict, "fixing_tape_count", 4),
+            ),
             fixing_tape_thickness_um=_get_nested(template_dict, "fixing_tape_thickness_um", 30.0),
-            fixing_tape_width_mm=_get_nested(template_dict, "fixing_tape_width_mm", 30.0),
+            fixing_tape_width_mm=_get_nested(
+                template_dict, "packaging.insulation.fixing_tape_width_mm",
+                _get_nested(template_dict, "fixing_tape_width_mm", 30.0),
+            ),
             fixing_tape_length_mm=_get_nested(template_dict, "fixing_tape_length_mm", 200.0),
             fixing_tape_density_gcm3=_get_nested(template_dict, "fixing_tape_density_gcm3", 1.42),
             insulation_coating_density_gcm3=_get_nested(
