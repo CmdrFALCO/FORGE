@@ -130,6 +130,8 @@ class OllamaBackend:
     model: str = "qwen2.5-coder:14b"
     temperature: float = 1.0
     num_ctx: int = 8192
+    num_predict: int = 2000  # Hard cap on output tokens to prevent runaway generation
+    think: bool = False  # Disable reasoning/thinking mode (e.g. Qwen 3.5)
     last_usage: LLMUsage = field(default_factory=LLMUsage)
 
     def __post_init__(self):
@@ -148,18 +150,22 @@ class OllamaBackend:
         for msg in messages:
             ollama_messages.append({"role": msg["role"], "content": msg["content"]})
 
+        payload = {
+            "model": self.model,
+            "messages": ollama_messages,
+            "stream": False,
+            "think": self.think,
+            "options": {
+                "temperature": self.temperature,
+                "num_ctx": self.num_ctx,
+                "num_predict": self.num_predict,
+            },
+        }
+
         response = requests.post(
             f"{self.host}/api/chat",
-            json={
-                "model": self.model,
-                "messages": ollama_messages,
-                "stream": False,
-                "options": {
-                    "temperature": self.temperature,
-                    "num_ctx": self.num_ctx,
-                },
-            },
-            timeout=300,  # Local inference can be slow, especially large models
+            json=payload,
+            timeout=600,  # Local inference can be slow, especially large models
         )
         response.raise_for_status()
 

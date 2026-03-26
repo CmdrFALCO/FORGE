@@ -166,13 +166,46 @@ def validate_required_fields(cell_dict: dict, cell_type: str = "prismatic") -> V
             "packaging",
         ]
 
+    # Structural hints for missing domains — helps LLM fix on retry
+    _DOMAIN_SKELETONS: dict[str, str] = {
+        "current_collection": (
+            "Add a current_collection section with this structure:\n"
+            "current_collection:\n"
+            "  tabs:\n"
+            "    cathode:\n"
+            "      material: \"Aluminum\"\n"
+            "      height_mm: <20-80>\n"
+            "      width_mm: <30-100>\n"
+            "      thickness_mm: <0.1-0.5>\n"
+            "    anode:\n"
+            "      material: \"Nickel-plated copper\"\n"
+            "      height_mm: <20-80>\n"
+            "      width_mm: <30-100>\n"
+            "      thickness_mm: <0.1-0.4>"
+        ),
+        "packaging": (
+            "Add a packaging section with this structure:\n"
+            "packaging:\n"
+            "  housing:\n"
+            "    case_material: \"Aluminum\"\n"
+            "    case_density_g_cm3: 2.70\n"
+            "    lid_thickness_mm: <1.0-3.0>\n"
+            "  insulation:\n"
+            "    shell_thickness_um: <80-200>\n"
+            "    shell_count: <1-3>\n"
+            "    fixing_tape_count: <2-6>"
+        ),
+    }
+
     errors = []
     for domain in required_domains:
         if domain not in cell_dict:
+            skeleton = _DOMAIN_SKELETONS.get(domain, "")
+            hint = f". {skeleton}" if skeleton else ""
             errors.append(
                 ValidationError(
                     path=domain,
-                    message=f"Required domain '{domain}' is missing",
+                    message=f"Required domain '{domain}' is missing{hint}",
                     value=None,
                     constraint="required_field",
                 )

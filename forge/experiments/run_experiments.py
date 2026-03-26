@@ -96,6 +96,7 @@ def _build_backend(cfg: BackendConfig) -> LLMBackend:
             model=cfg.model,
             temperature=cfg.temperature,
             num_ctx=cfg.num_ctx,
+            num_predict=cfg.num_predict,
         )
     raise ValueError(f"Unknown backend type: {cfg.backend_type}")
 
@@ -330,11 +331,12 @@ def _run_single_prompt(
     }
 
     # -- Assemble record --
-    backend_label = (
-        "claude_sonnet_4"
-        if experiment.backend_config.backend_type == "claude"
-        else "qwen_25_32b"
-    )
+    model_id = experiment.backend_config.model
+    if experiment.backend_config.backend_type == "claude":
+        backend_label = "claude_sonnet_4" if "sonnet" in model_id else "claude_haiku"
+    else:
+        # Ollama: use the model name as the label (e.g. qwen3.5:27b -> qwen35_27b)
+        backend_label = model_id.replace(".", "").replace(":", "_").replace("-", "_")
 
     record: dict[str, Any] = {
         "prompt_id": prompt_id,
@@ -592,11 +594,11 @@ def _build_dry_run_record(
     experiment: ExperimentDefinition,
 ) -> dict[str, Any]:
     """Return a lightweight placeholder record for dry-run mode."""
-    backend_label = (
-        "claude_sonnet_4"
-        if experiment.backend_config.backend_type == "claude"
-        else "qwen_25_32b"
-    )
+    model_id = experiment.backend_config.model
+    if experiment.backend_config.backend_type == "claude":
+        backend_label = "claude_sonnet_4" if "sonnet" in model_id else "claude_haiku"
+    else:
+        backend_label = model_id.replace(".", "").replace(":", "_").replace("-", "_")
     now = _utcnow_iso()
     return {
         "prompt_id": prompt_entry["prompt_id"],
@@ -748,6 +750,13 @@ def _build_parser() -> argparse.ArgumentParser:
         default=0,
         help="GPU index for nvidia-smi monitoring (default: 0).",
     )
+    parser.add_argument(
+        "--cell-type",
+        type=str,
+        default=None,
+        choices=["pouch", "prismatic", "cylindrical"],
+        help="Filter corpus to only prompts of this cell type.",
+    )
     return parser
 
 
@@ -763,8 +772,13 @@ def main() -> None:
     output_dir = Path(output_dir)
     corpus = _load_corpus(args.corpus)
 
+    # Filter by cell type if requested
+    if args.cell_type:
+        corpus = [p for p in corpus if p.get("cell_type") == args.cell_type]
+        print(f"Filtered to {len(corpus)} {args.cell_type} prompts")
+
     if args.experiment == "all":
-        experiment_ids = ["exp1", "exp2", "exp3a", "exp3b"]
+        experiment_ids = list(EXPERIMENTS.keys())
     else:
         experiment_ids = [args.experiment]
 

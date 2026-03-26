@@ -19,16 +19,21 @@ Supports all cell types: prismatic, pouch, and cylindrical.
 PRISMATIC_PARAMETER_SCHEMA = """
 ## Prismatic Cell Parameters
 
-### Envelope (External Dimensions)
-- height_mm: External height [50-200 mm, typical: 80-120]
-- width_mm: External width [100-400 mm, typical: 150-300]
-- thickness_mm: External thickness [10-50 mm, typical: 20-40]
+### Envelope — External Dimensions
+- cell_height_mm: External height [50-200 mm, typical: 80-120]
+- cell_width_mm: External width [100-400 mm, typical: 150-300]
+- cell_thickness_mm: External thickness [10-50 mm, typical: 20-40]
 
-### Walls
-- top_mm: Top lid thickness [1.0-3.0 mm]
-- bottom_mm: Bottom wall [0.5-2.0 mm]
-- front_back_mm: Front/back walls [0.3-1.0 mm]
-- sides_mm: Side walls [0.5-1.5 mm]
+### Envelope — Walls
+- wall_top_mm: Top lid thickness [1.0-3.0 mm]
+- wall_bottom_mm: Bottom wall [0.5-2.0 mm]
+- wall_front_back_mm: Front/back walls [0.3-1.0 mm]
+- wall_sides_mm: Side walls [0.5-1.5 mm]
+
+### Envelope — Internals
+- insulation_coating_um: Internal insulation coating [50-200 μm, typical: 100]
+- external_corner_radius_mm: External corner radius [1.0-5.0 mm, typical: 2.0]
+- internal_corner_radius_mm: Internal corner radius [0.5-3.0 mm, typical: 1.5]
 
 ### Stack Configuration
 - num_stacks: Number of electrode stacks [1-4, typical: 1-2]
@@ -38,39 +43,68 @@ PRISMATIC_PARAMETER_SCHEMA = """
 ### Sheet Geometry
 - cathode_height_mm: Cathode sheet height [fits inside case with margins]
 - cathode_width_mm: Cathode sheet width [fits inside case with margins]
-- anode_offset_*_mm: Anode extends beyond cathode [1-3 mm each side]
-- separator_offset_*_mm: Separator extends beyond anode [1-3 mm each side]
+- anode_offset_top_mm: Anode overhang top [1-3 mm]
+- anode_offset_bottom_mm: Anode overhang bottom [1-3 mm]
+- anode_offset_left_mm: Anode overhang left [1-3 mm]
+- anode_offset_right_mm: Anode overhang right [1-3 mm]
+- separator_offset_top_mm: Separator overhang top [1-3 mm]
+- separator_offset_bottom_mm: Separator overhang bottom [1-3 mm]
+- separator_offset_left_mm: Separator overhang left [1-3 mm]
+- separator_offset_right_mm: Separator overhang right [1-3 mm]
 
 ### Cathode Material
 - material_name: e.g., "NMC811", "LFP", "NCA"
 - loading_mg_cm2: Coating weight [10-25 mg/cm², LFP: 15-20, NMC: 18-25]
-- specific_capacity_mah_g: Reversible capacity [LFP: 150-165, NMC: 180-220]
+- rev_spec_capacity_mahg: Reversible specific capacity [LFP: 150-165, NMC: 180-220]
 - collector_thickness_um: Al foil [10-20 μm]
-- coating_thickness_um: Single-side coating [40-80 μm]
-- porosity: Coating porosity [0.20-0.40]
+- coating_thickness_0pct_um: Coating thickness at 0% SOC [40-80 μm]
+- coating_thickness_100pct_um: Coating thickness at 100% SOC [40-80 μm, typically same as 0%]
+- porosity_pct: Coating porosity in percent [20-40]
 
 ### Anode Material
 - material_name: e.g., "Graphite", "Graphite-SiO"
 - loading_mg_cm2: Coating weight [8-15 mg/cm²]
-- specific_capacity_mah_g: [Graphite: 330-360, with Si: 400-500]
+- rev_spec_capacity_mahg: [Graphite: 330-360, with Si: 400-500]
 - collector_thickness_um: Cu foil [6-12 μm]
-- coating_thickness_um: Single-side coating [50-100 μm]
-- porosity: Coating porosity [0.25-0.40]
+- coating_thickness_0pct_um: Coating thickness at 0% SOC [50-100 μm]
+- coating_thickness_100pct_um: Coating thickness at 100% SOC [50-100 μm]
+- porosity_pct: Coating porosity in percent [25-40]
+- np_ratio: N/P ratio [1.05-1.25]
 
 ### Separator
 - material_name: e.g., "PP", "PE", "Ceramic-coated PP"
 - thickness_um: [12-25 μm]
-- porosity: [0.35-0.55]
+- porosity_pct: Porosity in percent [35-55]
 - areal_weight_mgcm2: [0.8-2.0 mg/cm²]
 
 ### Electrolyte
 - material_name: e.g., "LiPF6 in EC:EMC"
+- salt_concentration_m: Salt concentration [0.8-1.5 M, typical: 1.2]
 - density_g_cm3: [1.1-1.3 g/cm³]
 - excess_factor: [1.0-1.3]
 
+### Current Collection (Tabs)
+- cathode tab:
+  - material: "Aluminum" (must match cathode collector)
+  - height_mm: [20-80 mm]
+  - width_mm: [30-100 mm]
+  - thickness_mm: [0.1-0.5 mm]
+- anode tab:
+  - material: "Copper" or "Nickel-plated copper" (must match anode collector)
+  - height_mm: [20-80 mm]
+  - width_mm: [30-100 mm]
+  - thickness_mm: [0.1-0.4 mm]
+
 ### Packaging
-- case_density_g_cm3: Aluminum [2.70]
-- header_mass_g: Lid + terminals [50-150 g depending on size]
+- housing:
+  - case_material: e.g., "Aluminum" or "Steel"
+  - case_density_g_cm3: [Aluminum: 2.70, Steel: 7.85]
+  - lid_thickness_mm: Lid thickness [1.0-3.0 mm]
+- insulation:
+  - shell_thickness_um: [80-200 μm]
+  - shell_count: [1-3]
+  - fixing_tape_width_mm: [10-50 mm]
+  - fixing_tape_count: [2-6]
 """
 
 
@@ -93,7 +127,7 @@ PRISMATIC_VALIDATION_RULES = """
 
 4. **Electrode Pairs**: Must be ≥ 1
 
-5. **Porosity**: Must be between 0 and 1 (not percentage)
+5. **Porosity**: Use porosity_pct (percentage, e.g., 30 for 30%)
 
 6. **Positive Values**: All dimensions, loadings, thicknesses must be > 0
 """
@@ -130,14 +164,18 @@ _meta:
 
 envelope:
   external:
-    height_mm: 120.0
-    width_mm: 280.0
-    thickness_mm: 32.0
+    cell_height_mm: 120.0
+    cell_width_mm: 280.0
+    cell_thickness_mm: 32.0
   walls:
-    top_mm: 2.0
-    bottom_mm: 1.0
-    front_back_mm: 0.5
-    sides_mm: 0.7
+    wall_top_mm: 2.0
+    wall_bottom_mm: 1.0
+    wall_front_back_mm: 0.5
+    wall_sides_mm: 0.7
+  internals:
+    insulation_coating_um: 100.0
+    external_corner_radius_mm: 2.0
+    internal_corner_radius_mm: 1.5
 
 stack_config:
   architecture:
@@ -160,34 +198,53 @@ electrochemistry:
   cathode:
     material_name: "LFP"
     loading_mg_cm2: 18.5
-    specific_capacity_mah_g: 160.0
+    rev_spec_capacity_mahg: 160.0
     collector_thickness_um: 14.0
-    coating_thickness_um: 65.0
-    porosity: 0.30
+    coating_thickness_0pct_um: 65.0
+    coating_thickness_100pct_um: 65.0
+    porosity_pct: 30.0
   anode:
     material_name: "Graphite"
     loading_mg_cm2: 10.5
-    specific_capacity_mah_g: 350.0
+    rev_spec_capacity_mahg: 350.0
     collector_thickness_um: 8.0
-    coating_thickness_um: 75.0
-    porosity: 0.32
+    coating_thickness_0pct_um: 75.0
+    coating_thickness_100pct_um: 75.0
+    porosity_pct: 32.0
+    np_ratio: 1.15
   separator:
     material_name: "Ceramic-coated PP"
     thickness_um: 16.0
-    porosity: 0.45
+    porosity_pct: 45.0
     areal_weight_mgcm2: 1.4
   electrolyte:
     material_name: "LiPF6 in EC:EMC"
+    salt_concentration_m: 1.2
     density_g_cm3: 1.22
     excess_factor: 1.1
 
+current_collection:
+  tabs:
+    cathode:
+      material: "Aluminum"
+      height_mm: 40.0
+      width_mm: 50.0
+      thickness_mm: 0.3
+    anode:
+      material: "Nickel-plated copper"
+      height_mm: 40.0
+      width_mm: 50.0
+      thickness_mm: 0.2
+
 packaging:
   housing:
+    case_material: "Aluminum"
     case_density_g_cm3: 2.70
-    header_mass_g: 95.0
+    lid_thickness_mm: 2.0
   insulation:
     shell_thickness_um: 120.0
     shell_count: 2
+    fixing_tape_width_mm: 10.0
     fixing_tape_count: 4
 ```
 
@@ -209,6 +266,7 @@ Include ALL required sections:
 - envelope (external dimensions and walls)
 - stack_config (architecture and sheet_geometry)
 - electrochemistry (cathode, anode, separator, electrolyte)
+- current_collection (tabs: cathode and anode tab dimensions)
 - packaging (housing and insulation)
 
 Do NOT include:

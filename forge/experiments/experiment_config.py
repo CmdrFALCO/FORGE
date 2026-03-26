@@ -19,6 +19,7 @@ class BackendConfig:
     temperature: float = 0.0   # deterministic for reproducibility
     max_tokens: int = 4096     # Claude-specific
     num_ctx: int = 8192        # Ollama-specific
+    num_predict: int = 2000    # Ollama-specific: hard cap on output tokens
     host: str = "http://localhost:11434"  # Ollama-specific
 
 
@@ -58,6 +59,22 @@ CLAUDE_HAIKU = BackendConfig(
 QWEN_25_32B = BackendConfig(
     backend_type="ollama",
     model="qwen2.5-coder:32b",
+    temperature=0.0,
+    num_ctx=8192,
+    host="http://localhost:11434",
+)
+
+QWEN_35_27B = BackendConfig(
+    backend_type="ollama",
+    model="qwen3.5:27b",
+    temperature=0.0,
+    num_ctx=8192,
+    host="http://localhost:11434",
+)
+
+QWEN_35_9B = BackendConfig(
+    backend_type="ollama",
+    model="qwen3.5:9b",
     temperature=0.0,
     num_ctx=8192,
     host="http://localhost:11434",
@@ -104,11 +121,48 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
         max_retries=4,
         output_filename="exp2h_supervised_haiku.jsonl",
     ),
+    # Prismatic fix re-runs (same prompts, fixed system prompt + schema feedback)
+    "exp1_pfix": ExperimentDefinition(
+        experiment_id="exp1_pfix",
+        name="Baseline Prismatic Fix (Sonnet)",
+        description="Unsupervised Sonnet 4, prismatic prompts only, with current_collection fix",
+        backend_config=CLAUDE_SONNET_4,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp1_prismatic_fix.jsonl",
+    ),
+    "exp2_pfix": ExperimentDefinition(
+        experiment_id="exp2_pfix",
+        name="Supervised Prismatic Fix (Sonnet)",
+        description="Full AXIOM pipeline, prismatic prompts only, with current_collection fix",
+        backend_config=CLAUDE_SONNET_4,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp2_prismatic_fix.jsonl",
+    ),
+    "exp1h_pfix": ExperimentDefinition(
+        experiment_id="exp1h_pfix",
+        name="Baseline Prismatic Fix (Haiku)",
+        description="Unsupervised Haiku 4.5, prismatic prompts only, with current_collection fix",
+        backend_config=CLAUDE_HAIKU,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp1h_prismatic_fix.jsonl",
+    ),
+    "exp2h_pfix": ExperimentDefinition(
+        experiment_id="exp2h_pfix",
+        name="Supervised Prismatic Fix (Haiku)",
+        description="Full AXIOM pipeline, prismatic prompts only, with current_collection fix",
+        backend_config=CLAUDE_HAIKU,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp2h_prismatic_fix.jsonl",
+    ),
     "exp3a": ExperimentDefinition(
         experiment_id="exp3a",
-        name="Baseline (Local)",
-        description="Unsupervised LLM, single attempt, Qwen 2.5 Coder 32B via Ollama",
-        backend_config=QWEN_25_32B,
+        name="Baseline (Local, Qwen 3.5 27B)",
+        description="Unsupervised LLM, single attempt, Qwen 3.5 27B via Ollama",
+        backend_config=QWEN_35_27B,
         supervised=False,
         max_retries=1,
         output_filename="exp3a_baseline_local.jsonl",
@@ -117,13 +171,35 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
     ),
     "exp3b": ExperimentDefinition(
         experiment_id="exp3b",
-        name="Supervised (Local)",
-        description="Full AXIOM pipeline with retries, Qwen 2.5 Coder 32B via Ollama",
-        backend_config=QWEN_25_32B,
+        name="Supervised (Local, Qwen 3.5 27B)",
+        description="Full AXIOM pipeline with retries, Qwen 3.5 27B via Ollama",
+        backend_config=QWEN_35_27B,
         supervised=True,
         max_retries=4,
         output_filename="exp3b_supervised_local.jsonl",
         gpu_monitor=True,
         gpu_log_filename="exp3b_gpu.csv",
+    ),
+    "exp3a_small": ExperimentDefinition(
+        experiment_id="exp3a_small",
+        name="Baseline (Local, Qwen 3.5 9B)",
+        description="Unsupervised LLM, single attempt, Qwen 3.5 9B via Ollama",
+        backend_config=QWEN_35_9B,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp3a_small_baseline_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp3a_small_gpu.csv",
+    ),
+    "exp3b_small": ExperimentDefinition(
+        experiment_id="exp3b_small",
+        name="Supervised (Local, Qwen 3.5 9B)",
+        description="Full AXIOM pipeline with retries, Qwen 3.5 9B via Ollama",
+        backend_config=QWEN_35_9B,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp3b_small_supervised_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp3b_small_gpu.csv",
     ),
 }

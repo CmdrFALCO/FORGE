@@ -94,6 +94,15 @@ def generate_cell_design(
     # Build system prompt for the specified cell type
     system_prompt = build_system_prompt(include_example=True, cell_type=cell_type_lower)
 
+    # For local Ollama models: enforce strict YAML-only output
+    is_ollama = hasattr(llm, 'host')  # OllamaBackend has host attr, ClaudeBackend does not
+    if is_ollama:
+        system_prompt += (
+            "\n\nCRITICAL: Output ONLY the YAML specification. "
+            "No explanations, no commentary, no text before or after the YAML block. "
+            "Start your response with ```yaml and end with ```. Do not write anything else."
+        )
+
     # Initialize tracking
     attempts = 0
     retry_reasons = []
