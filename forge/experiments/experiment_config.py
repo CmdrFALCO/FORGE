@@ -48,6 +48,13 @@ CLAUDE_SONNET_4 = BackendConfig(
     max_tokens=4096,
 )
 
+CLAUDE_HAIKU = BackendConfig(
+    backend_type="claude",
+    model="claude-haiku-4-5-20251001",
+    temperature=0.0,
+    max_tokens=4096,
+)
+
 QWEN_25_32B = BackendConfig(
     backend_type="ollama",
     model="qwen2.5-coder:32b",
@@ -78,6 +85,24 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
         supervised=True,
         max_retries=4,  # 1 initial + 3 retries = 4 total
         output_filename="exp2_supervised_cloud.jsonl",
+    ),
+    "exp1h": ExperimentDefinition(
+        experiment_id="exp1h",
+        name="Baseline (Cloud, Haiku)",
+        description="Unsupervised LLM, single attempt, Claude Haiku 4.5",
+        backend_config=CLAUDE_HAIKU,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp1h_baseline_haiku.jsonl",
+    ),
+    "exp2h": ExperimentDefinition(
+        experiment_id="exp2h",
+        name="Supervised (Cloud, Haiku)",
+        description="Full AXIOM pipeline with retries, Claude Haiku 4.5",
+        backend_config=CLAUDE_HAIKU,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp2h_supervised_haiku.jsonl",
     ),
     "exp3a": ExperimentDefinition(
         experiment_id="exp3a",

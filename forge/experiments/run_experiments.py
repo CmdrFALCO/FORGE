@@ -716,7 +716,7 @@ def _build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--experiment",
         required=True,
-        choices=["exp1", "exp2", "exp3a", "exp3b", "all"],
+        choices=[*EXPERIMENTS.keys(), "all"],
         help="Which experiment to run (or 'all' for sequential execution).",
     )
     parser.add_argument(
