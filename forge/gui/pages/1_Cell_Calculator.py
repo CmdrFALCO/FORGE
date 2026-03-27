@@ -816,7 +816,7 @@ with st.sidebar:
                     st.success(f"Loaded {parameter_set} parameters!")
                     st.rerun()
         else:
-            st.info("PyBaMM not installed. Using manual entry only.")
+            pass  # PyBaMM not available — manual entry works without it
 
         st.markdown("---")
 
