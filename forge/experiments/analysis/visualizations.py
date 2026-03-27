@@ -4,13 +4,13 @@ All figures saved as 300 DPI PNGs in forge/experiments/figures/.
 """
 
 import matplotlib
+
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
-import seaborn as sns
-import numpy as np
-import pandas as pd
 from pathlib import Path
+
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
 
 # --- Global style setup ---
 PALETTE = sns.color_palette("colorblind")
@@ -292,7 +292,7 @@ def fig_cost_per_valid(costs, fig_dir):
                 f'${val:.4f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
 
     ax.set_xticks(range(len(labels)))
-    ax.set_xticklabels([l.replace(' ', '\n') for l in labels])
+    ax.set_xticklabels([lbl.replace(' ', '\n') for lbl in labels])
     ax.set_ylabel('Cost per Valid Design (USD)')
     ax.set_title('Cost per Valid Design by Model and Condition')
 
