@@ -1,0 +1,628 @@
+[rerun] Selected 50 prompts: {'cylindrical': 17, 'pouch': 17, 'prismatic': 16}
+[rerun] Pre-warming richardyoung/kimi-vl-a3b-thinking:Q4_K_M ...
+[rerun] Model loaded: richardyoung/kimi-vl-a3b-thinking:Q4_K_M
+============================================================
+KIMI-VL RERUN — num_predict=8000 (2x baseline)
+============================================================
+
+[kimi_vl_8k_unsup] Starting — 50 prompts, supervised=False, num_predict=8000
+[kimi_vl_8k_unsup] Output: /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/experiments/demonstration/kimi_pilot/kimi_vl_thinking_8k_unsup.jsonl
+
+2026-03-30 20:37:34,607 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:38:39,256 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:38:39,257 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.0 Ah
+[kimi_vl_8k_unsup] P-006 | cylindrical/NMC-811/cons/under/detaile     | VALID  attempt 1/1 | 64.7s | 15/15 constraints
+2026-03-30 20:38:39,257 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:38:56,203 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:38:56,203 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-027 | pouch/LFP/cons/contr/natural               | REJECT attempt 1/1 | 16.9s | 0/0 constraints
+2026-03-30 20:38:56,204 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:39:17,095 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:39:17,095 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-028 | prismatic/NMC-622/powe/under/natural       | REJECT attempt 1/1 | 20.9s | 0/0 constraints
+2026-03-30 20:39:17,095 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:39:31,298 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:39:31,299 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.7 Ah
+[kimi_vl_8k_unsup] P-041 | cylindrical/NMC-622/powe/contr/natural     | VALID  attempt 1/1 | 14.2s | 15/15 constraints
+2026-03-30 20:39:31,299 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:40:34,879 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: mapping values are not allowed here
+  in "<unicode string>", line 15, column 37:
+    The capacity is given by the formula: Capacity (Ah) = (Number of cel ... 
+                                        ^
+2026-03-30 20:40:34,879 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-057 | cylindrical/LFP/grid/under/terse           | REJECT attempt 1/1 | 63.6s | 0/0 constraints
+2026-03-30 20:40:34,879 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:40:47,996 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:40:47,996 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-073 | prismatic/NMC-811/powe/contr/natural       | REJECT attempt 1/1 | 13.1s | 0/0 constraints
+2026-03-30 20:40:47,996 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:41:50,997 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while scanning a simple key
+  in "<unicode string>", line 10, column 1:
+    Given these requirements, I need ... 
+    ^
+could not find expected ':'
+  in "<unicode string>", line 12, column 1:
+    ### Key Considerations:
+    ^
+2026-03-30 20:41:50,997 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-092 | prismatic/NMC-622/ev_t/edge_/detaile       | REJECT attempt 1/1 | 63.0s | 0/0 constraints
+2026-03-30 20:41:50,997 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:42:07,711 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:42:07,711 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-100 | pouch/NMC-811/ev_t/edge_/terse             | REJECT attempt 1/1 | 16.7s | 0/0 constraints
+2026-03-30 20:42:07,712 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:42:23,961 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:42:23,962 INFO    forge.axiom.supervisor.driver - Calculation complete: 20.5 Ah
+[kimi_vl_8k_unsup] P-111 | pouch/LFP/grid/under/terse                 | VALID  attempt 1/1 | 16.3s | 14/14 constraints
+2026-03-30 20:42:23,963 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:42:41,382 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:42:41,382 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.6 Ah
+[kimi_vl_8k_unsup] P-112 | pouch/NMC-811/powe/edge_/natural           | VALID  attempt 1/1 | 17.4s | 14/14 constraints
+[kimi_vl_8k_unsup] Progress: 10/50 (20.0%) | Valid: 4 | Rejected: 6 | Errors: 0 | ETA: 20m 27s
+2026-03-30 20:42:41,383 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:42:56,493 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:42:56,494 INFO    forge.axiom.supervisor.driver - Calculation complete: 34.8 Ah
+[kimi_vl_8k_unsup] P-117 | cylindrical/NMC-622/ev_t/edge_/natural     | VALID  attempt 1/1 | 15.1s | 15/15 constraints
+2026-03-30 20:42:56,494 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:43:14,182 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 20:43:14,182 INFO    forge.axiom.supervisor.driver - Calculation complete: 38.4 Ah
+[kimi_vl_8k_unsup] P-118 | prismatic/LFP/powe/contr/detaile           | VALID  attempt 1/1 | 17.7s | 14/14 constraints
+2026-03-30 20:43:14,183 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:43:27,895 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:43:27,895 INFO    forge.axiom.supervisor.driver - Calculation complete: 13.5 Ah
+[kimi_vl_8k_unsup] P-119 | pouch/NMC-811/cons/contr/natural           | VALID  attempt 1/1 | 13.7s | 14/14 constraints
+2026-03-30 20:43:27,896 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:43:44,841 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:43:44,842 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.2 Ah
+[kimi_vl_8k_unsup] P-131 | cylindrical/NMC-811/powe/stand/natural     | VALID  attempt 1/1 | 16.9s | 15/15 constraints
+2026-03-30 20:43:44,842 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:44:48,039 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while parsing a block mapping
+  in "<unicode string>", line 21, column 3:
+    - End electrode configuration: "Bo ... 
+      ^
+expected <block end>, but found '<scalar>'
+  in "<unicode string>", line 21, column 47:
+     ... e configuration: "BothNegative" (both electrodes have aluminum c ... 
+                                         ^
+2026-03-30 20:44:48,039 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-132 | pouch/NMC-622/cons/stand/detaile           | REJECT attempt 1/1 | 63.2s | 0/0 constraints
+2026-03-30 20:44:48,039 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:45:08,629 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:45:08,629 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-138 | pouch/LFP/grid/under/detaile               | REJECT attempt 1/1 | 20.6s | 0/0 constraints
+2026-03-30 20:45:08,629 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:45:24,923 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:45:24,923 INFO    forge.axiom.supervisor.driver - Calculation complete: 24.3 Ah
+[kimi_vl_8k_unsup] P-140 | pouch/NMC-111/grid/edge_/natural           | VALID  attempt 1/1 | 16.3s | 14/14 constraints
+2026-03-30 20:45:24,924 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:45:36,322 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:45:36,322 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-142 | pouch/LFP/cons/edge_/natural               | REJECT attempt 1/1 | 11.4s | 0/0 constraints
+2026-03-30 20:45:36,322 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:45:48,633 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:45:48,633 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-148 | prismatic/NMC-111/grid/contr/natural       | REJECT attempt 1/1 | 12.3s | 0/0 constraints
+2026-03-30 20:45:48,633 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:46:01,743 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:46:01,743 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.4 Ah
+[kimi_vl_8k_unsup] P-158 | cylindrical/NMC-811/ev_t/contr/detaile     | VALID  attempt 1/1 | 13.1s | 15/15 constraints
+[kimi_vl_8k_unsup] Progress: 20/50 (40.0%) | Valid: 10 | Rejected: 10 | Errors: 0 | ETA: 10m 1s
+2026-03-30 20:46:01,744 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:46:18,656 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:46:18,656 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-169 | cylindrical/NMC-111/cons/stand/natural     | REJECT attempt 1/1 | 16.9s | 14/15 constraints
+2026-03-30 20:46:18,656 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:46:31,137 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:46:31,138 INFO    forge.axiom.supervisor.driver - Calculation complete: 23.0 Ah
+[kimi_vl_8k_unsup] P-179 | pouch/LFP/ev_t/under/natural               | VALID  attempt 1/1 | 12.5s | 14/14 constraints
+2026-03-30 20:46:31,138 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:46:56,805 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:46:56,805 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-198 | pouch/NMC-622/ev_t/under/terse             | REJECT attempt 1/1 | 25.7s | 0/0 constraints
+2026-03-30 20:46:56,805 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:47:08,789 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:47:08,789 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-213 | prismatic/NMC-111/cons/under/natural       | REJECT attempt 1/1 | 12.0s | 0/0 constraints
+2026-03-30 20:47:08,789 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:47:20,951 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:47:20,951 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.2 Ah
+[kimi_vl_8k_unsup] P-234 | cylindrical/NMC-111/cons/edge_/natural     | VALID  attempt 1/1 | 12.2s | 15/15 constraints
+2026-03-30 20:47:20,952 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:48:26,382 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while scanning an alias
+  in "<unicode string>", line 3, column 1:
+    **Key Requirements:**
+    ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 3, column 2:
+    **Key Requirements:**
+     ^
+2026-03-30 20:48:26,382 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-265 | cylindrical/NMC-811/cons/stand/natural     | REJECT attempt 1/1 | 65.4s | 0/0 constraints
+2026-03-30 20:48:26,382 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:48:38,552 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:48:38,552 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-278 | prismatic/LFP/grid/contr/detaile           | REJECT attempt 1/1 | 12.2s | 0/0 constraints
+2026-03-30 20:48:38,553 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:48:58,382 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:48:58,383 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-284 | prismatic/NMC-111/powe/under/detaile       | REJECT attempt 1/1 | 19.8s | 13/14 constraints
+2026-03-30 20:48:58,383 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:50:00,927 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:50:00,927 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-287 | prismatic/NMC-622/grid/contr/natural       | REJECT attempt 1/1 | 62.5s | 0/0 constraints
+2026-03-30 20:50:00,928 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:50:12,165 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:50:12,165 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-292 | cylindrical/LFP/ev_t/contr/detaile         | REJECT attempt 1/1 | 11.2s | 0/0 constraints
+[kimi_vl_8k_unsup] Progress: 30/50 (60.0%) | Valid: 12 | Rejected: 18 | Errors: 0 | ETA: 8m 21s
+2026-03-30 20:50:12,166 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:51:15,281 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:51:15,281 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-298 | pouch/NMC-111/powe/stand/natural           | REJECT attempt 1/1 | 63.1s | 0/0 constraints
+2026-03-30 20:51:15,281 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:51:36,587 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:51:36,587 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-309 | prismatic/NMC-111/ev_t/edge_/detaile       | REJECT attempt 1/1 | 21.3s | 0/0 constraints
+2026-03-30 20:51:36,587 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:51:58,586 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:51:58,586 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-324 | prismatic/LFP/cons/under/natural           | REJECT attempt 1/1 | 22.0s | 0/0 constraints
+2026-03-30 20:51:58,586 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:52:16,712 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:52:16,712 INFO    forge.axiom.supervisor.driver - Calculation complete: 9.4 Ah
+[kimi_vl_8k_unsup] P-340 | pouch/NMC-811/powe/under/detaile           | VALID  attempt 1/1 | 18.1s | 14/14 constraints
+2026-03-30 20:52:16,713 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:52:29,351 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 20:52:29,351 INFO    forge.axiom.supervisor.driver - Calculation complete: 129.1 Ah
+[kimi_vl_8k_unsup] P-349 | prismatic/NMC-811/cons/contr/detaile       | VALID  attempt 1/1 | 12.6s | 14/14 constraints
+2026-03-30 20:52:29,352 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:52:49,066 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:52:49,066 INFO    forge.axiom.supervisor.driver - Calculation complete: 13.4 Ah
+[kimi_vl_8k_unsup] P-360 | pouch/NMC-622/cons/stand/natural           | VALID  attempt 1/1 | 19.7s | 14/14 constraints
+2026-03-30 20:52:49,067 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:53:10,240 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:53:10,240 INFO    forge.axiom.supervisor.driver - Calculation complete: 4.7 Ah
+[kimi_vl_8k_unsup] P-377 | cylindrical/NMC-111/powe/under/terse       | VALID  attempt 1/1 | 21.2s | 15/15 constraints
+2026-03-30 20:53:10,241 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:53:19,885 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:53:19,886 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.2 Ah
+[kimi_vl_8k_unsup] P-378 | cylindrical/NMC-622/cons/edge_/natural     | VALID  attempt 1/1 | 9.6s | 15/15 constraints
+2026-03-30 20:53:19,887 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:53:34,090 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:53:34,090 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-383 | prismatic/NMC-622/grid/under/natural       | REJECT attempt 1/1 | 14.2s | 0/0 constraints
+2026-03-30 20:53:34,090 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:53:43,657 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 20:53:43,657 INFO    forge.axiom.supervisor.driver - Calculation complete: 4.5 Ah
+[kimi_vl_8k_unsup] P-394 | pouch/NMC-622/cons/edge_/detaile           | VALID  attempt 1/1 | 9.6s | 14/14 constraints
+[kimi_vl_8k_unsup] Progress: 40/50 (80.0%) | Valid: 18 | Rejected: 22 | Errors: 0 | ETA: 4m 31s
+2026-03-30 20:53:43,658 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:53:52,657 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:53:52,658 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.4 Ah
+[kimi_vl_8k_unsup] P-411 | cylindrical/NMC-622/ev_t/under/natural     | VALID  attempt 1/1 | 9.0s | 15/15 constraints
+2026-03-30 20:53:52,658 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:54:58,554 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: mapping values are not allowed here
+  in "<unicode string>", line 3, column 9:
+    **Step 1: Determine Cell Dimensions**
+            ^
+2026-03-30 20:54:58,554 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-417 | prismatic/LFP/powe/under/detaile           | REJECT attempt 1/1 | 65.9s | 0/0 constraints
+2026-03-30 20:54:58,555 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:55:20,964 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 20:55:20,964 INFO    forge.axiom.supervisor.driver - Calculation complete: 72.0 Ah
+[kimi_vl_8k_unsup] P-418 | prismatic/NMC-111/powe/stand/detaile       | VALID  attempt 1/1 | 22.4s | 14/14 constraints
+2026-03-30 20:55:20,965 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:55:35,348 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:55:35,348 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-439 | cylindrical/NMC-111/cons/under/natural     | REJECT attempt 1/1 | 14.4s | 14/15 constraints
+2026-03-30 20:55:35,349 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:55:44,737 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:55:44,737 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.4 Ah
+[kimi_vl_8k_unsup] P-442 | cylindrical/NMC-111/cons/contr/detaile     | VALID  attempt 1/1 | 9.4s | 15/15 constraints
+2026-03-30 20:55:44,738 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:55:59,414 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:55:59,415 INFO    forge.axiom.supervisor.driver - Calculation complete: 2.8 Ah
+[kimi_vl_8k_unsup] P-447 | cylindrical/LFP/ev_t/edge_/natural         | VALID  attempt 1/1 | 14.7s | 15/15 constraints
+2026-03-30 20:55:59,415 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:56:27,899 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:56:27,899 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-450 | prismatic/NMC-811/grid/stand/detaile       | REJECT attempt 1/1 | 28.5s | 0/0 constraints
+2026-03-30 20:56:27,899 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:56:42,461 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:56:42,461 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-463 | pouch/NMC-622/powe/contr/terse             | REJECT attempt 1/1 | 14.6s | 0/0 constraints
+2026-03-30 20:56:42,461 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:56:56,012 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:56:56,012 ERROR   forge.axiom.supervisor.driver - Failed after 1 attempts
+[kimi_vl_8k_unsup] P-482 | pouch/NMC-811/cons/stand/natural           | REJECT attempt 1/1 | 13.6s | 0/0 constraints
+2026-03-30 20:56:56,012 INFO    forge.axiom.supervisor.driver - Generation attempt 1/1
+2026-03-30 20:57:27,387 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:57:27,388 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.5 Ah
+[kimi_vl_8k_unsup] P-486 | cylindrical/NMC-811/powe/under/terse       | VALID  attempt 1/1 | 31.4s | 15/15 constraints
+[kimi_vl_8k_unsup] Progress: 50/50 (100.0%) | Valid: 23 | Rejected: 27 | Errors: 0 | ETA: 0s
+
+[kimi_vl_8k_unsup] DONE: 50/50
+  Valid:    23/50 (46.0%)
+  Rejected: 27/50
+  Errors:   0/50
+  Output:   /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/experiments/demonstration/kimi_pilot/kimi_vl_thinking_8k_unsup.jsonl
+
+
+[kimi_vl_8k_sup] Starting — 50 prompts, supervised=True, num_predict=8000
+[kimi_vl_8k_sup] Output: /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/experiments/demonstration/kimi_pilot/kimi_vl_thinking_8k_sup.jsonl
+
+2026-03-30 20:57:27,389 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 20:57:40,064 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 20:57:40,064 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.1 Ah
+[kimi_vl_8k_sup] P-006 | cylindrical/NMC-811/cons/under/detaile     | VALID  attempt 1/4 | 12.7s | 15/15 constraints
+2026-03-30 20:57:40,065 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 20:58:43,491 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while scanning a simple key
+  in "<unicode string>", line 3, column 1:
+    1. High capacity (around 185.1 Ah)
+    ^
+could not find expected ':'
+  in "<unicode string>", line 4, column 1:
+    2. Slim packaging with minimal e ... 
+    ^
+2026-03-30 20:58:43,492 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 20:58:57,115 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 2
+2026-03-30 20:58:57,115 INFO    forge.axiom.supervisor.driver - Calculation complete: 10.9 Ah
+[kimi_vl_8k_sup] P-027 | pouch/LFP/cons/contr/natural               | VALID  attempt 2/4 | 77.1s | 14/14 constraints (recovered)
+2026-03-30 20:58:57,116 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 20:59:17,984 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 20:59:17,984 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 20:59:32,200 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 20:59:32,200 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 20:59:46,500 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 20:59:46,500 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:00:02,518 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:00:02,518 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-028 | prismatic/NMC-622/powe/under/natural       | REJECT attempt 4/4 | 65.4s | 0/0 constraints
+2026-03-30 21:00:02,518 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:00:15,016 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:00:15,016 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.7 Ah
+[kimi_vl_8k_sup] P-041 | cylindrical/NMC-622/powe/contr/natural     | VALID  attempt 1/4 | 12.5s | 15/15 constraints
+2026-03-30 21:00:15,017 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:00:37,176 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:00:37,176 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:00:54,877 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:00:54,877 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:01:12,770 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:01:12,770 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:01:36,474 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:01:36,474 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-057 | cylindrical/LFP/grid/under/terse           | REJECT attempt 4/4 | 81.5s | 0/0 constraints
+2026-03-30 21:01:36,475 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:01:49,676 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:01:49,676 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:01:55,636 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:01:55,636 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:02:02,675 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:02:02,676 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:02:11,612 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:02:11,612 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-073 | prismatic/NMC-811/powe/contr/natural       | REJECT attempt 4/4 | 35.1s | 0/0 constraints
+2026-03-30 21:02:11,613 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:03:14,617 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while scanning a simple key
+  in "<unicode string>", line 10, column 1:
+    Given these requirements, I need ... 
+    ^
+could not find expected ':'
+  in "<unicode string>", line 12, column 1:
+    ### Key Considerations:
+    ^
+2026-03-30 21:03:14,617 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:03:45,432 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while parsing a block mapping
+  in "<unicode string>", line 114, column 5:
+        capacity_range: [200-300] Ah
+        ^
+expected <block end>, but found '<scalar>'
+  in "<unicode string>", line 114, column 31:
+        capacity_range: [200-300] Ah
+                                  ^
+2026-03-30 21:03:45,432 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:04:07,309 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while parsing a block mapping
+  in "<unicode string>", line 114, column 5:
+        capacity_range: [200-300] Ah
+        ^
+expected <block end>, but found '<scalar>'
+  in "<unicode string>", line 114, column 31:
+        capacity_range: [200-300] Ah
+                                  ^
+2026-03-30 21:04:07,309 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:04:36,699 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while parsing a block mapping
+  in "<unicode string>", line 114, column 5:
+        capacity_range: [200-300] Ah
+        ^
+expected <block end>, but found '<scalar>'
+  in "<unicode string>", line 114, column 31:
+        capacity_range: [200-300] Ah
+                                  ^
+2026-03-30 21:04:36,699 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-092 | prismatic/NMC-622/ev_t/edge_/detaile       | REJECT attempt 4/4 | 145.1s | 0/0 constraints
+2026-03-30 21:04:36,699 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:04:53,436 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:04:53,436 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:04:59,729 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 2
+2026-03-30 21:04:59,729 INFO    forge.axiom.supervisor.driver - Calculation complete: 12.5 Ah
+[kimi_vl_8k_sup] P-100 | pouch/NMC-811/ev_t/edge_/terse             | VALID  attempt 2/4 | 23.0s | 14/14 constraints (recovered)
+2026-03-30 21:04:59,730 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:05:16,030 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:05:16,031 INFO    forge.axiom.supervisor.driver - Calculation complete: 20.5 Ah
+[kimi_vl_8k_sup] P-111 | pouch/LFP/grid/under/terse                 | VALID  attempt 1/4 | 16.3s | 14/14 constraints
+2026-03-30 21:05:16,031 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:05:33,487 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:05:33,488 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.6 Ah
+[kimi_vl_8k_sup] P-112 | pouch/NMC-811/powe/edge_/natural           | VALID  attempt 1/4 | 17.5s | 14/14 constraints
+[kimi_vl_8k_sup] Progress: 10/50 (20.0%) | Valid: 6 | Rejected: 4 | Errors: 0 | ETA: 32m 24s
+2026-03-30 21:05:33,488 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:05:48,406 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:05:48,406 INFO    forge.axiom.supervisor.driver - Calculation complete: 34.8 Ah
+[kimi_vl_8k_sup] P-117 | cylindrical/NMC-622/ev_t/edge_/natural     | VALID  attempt 1/4 | 14.9s | 15/15 constraints
+2026-03-30 21:05:48,407 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:06:06,116 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 21:06:06,116 INFO    forge.axiom.supervisor.driver - Calculation complete: 38.4 Ah
+[kimi_vl_8k_sup] P-118 | prismatic/LFP/powe/contr/detaile           | VALID  attempt 1/4 | 17.7s | 14/14 constraints
+2026-03-30 21:06:06,116 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:06:19,824 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:06:19,824 INFO    forge.axiom.supervisor.driver - Calculation complete: 13.5 Ah
+[kimi_vl_8k_sup] P-119 | pouch/NMC-811/cons/contr/natural           | VALID  attempt 1/4 | 13.7s | 14/14 constraints
+2026-03-30 21:06:19,825 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:06:36,847 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:06:36,848 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.2 Ah
+[kimi_vl_8k_sup] P-131 | cylindrical/NMC-811/powe/stand/natural     | VALID  attempt 1/4 | 17.0s | 15/15 constraints
+2026-03-30 21:06:36,848 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:07:39,832 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while parsing a block mapping
+  in "<unicode string>", line 21, column 3:
+    - End electrode configuration: "Bo ... 
+      ^
+expected <block end>, but found '<scalar>'
+  in "<unicode string>", line 21, column 47:
+     ... e configuration: "BothNegative" (both electrodes have aluminum c ... 
+                                         ^
+2026-03-30 21:07:39,832 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:07:54,948 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:07:54,948 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:08:09,328 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:08:09,328 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:08:23,914 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:08:23,914 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-132 | pouch/NMC-622/cons/stand/detaile           | REJECT attempt 4/4 | 107.1s | 0/0 constraints
+2026-03-30 21:08:23,914 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:08:42,416 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:08:42,416 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:08:56,904 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:08:56,904 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:09:13,597 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:09:13,597 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:09:19,647 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:09:19,647 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-138 | pouch/LFP/grid/under/detaile               | REJECT attempt 4/4 | 55.7s | 0/0 constraints
+2026-03-30 21:09:19,647 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:09:36,620 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:09:36,620 INFO    forge.axiom.supervisor.driver - Calculation complete: 12.5 Ah
+[kimi_vl_8k_sup] P-140 | pouch/NMC-111/grid/edge_/natural           | VALID  attempt 1/4 | 17.0s | 14/14 constraints
+2026-03-30 21:09:36,621 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:09:51,622 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:09:51,622 INFO    forge.axiom.supervisor.driver - Calculation complete: 9.4 Ah
+[kimi_vl_8k_sup] P-142 | pouch/LFP/cons/edge_/natural               | VALID  attempt 1/4 | 15.0s | 14/14 constraints
+2026-03-30 21:09:51,623 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:10:03,991 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:10:03,991 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:10:19,689 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:10:19,689 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:10:35,138 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:10:35,138 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:10:49,733 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:10:49,733 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-148 | prismatic/NMC-111/grid/contr/natural       | REJECT attempt 4/4 | 58.1s | 0/0 constraints
+2026-03-30 21:10:49,733 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:10:59,895 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:10:59,896 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.4 Ah
+[kimi_vl_8k_sup] P-158 | cylindrical/NMC-811/ev_t/contr/detaile     | VALID  attempt 1/4 | 10.2s | 15/15 constraints
+[kimi_vl_8k_sup] Progress: 20/50 (40.0%) | Valid: 13 | Rejected: 7 | Errors: 0 | ETA: 16m 19s
+2026-03-30 21:10:59,896 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:11:15,979 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:11:15,979 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:11:24,529 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:11:24,529 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:11:37,165 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:11:37,165 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:11:45,958 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:11:45,958 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-169 | cylindrical/NMC-111/cons/stand/natural     | REJECT attempt 4/4 | 46.1s | 14/15 constraints
+2026-03-30 21:11:45,959 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:12:01,270 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:12:01,270 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:12:08,738 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:12:08,738 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:12:20,370 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:12:20,370 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:12:32,198 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:12:32,198 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-179 | pouch/LFP/ev_t/under/natural               | REJECT attempt 4/4 | 46.2s | 0/0 constraints
+2026-03-30 21:12:32,198 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:12:49,117 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:12:49,118 INFO    forge.axiom.supervisor.driver - Calculation complete: 12.8 Ah
+[kimi_vl_8k_sup] P-198 | pouch/NMC-622/ev_t/under/terse             | VALID  attempt 1/4 | 16.9s | 14/14 constraints
+2026-03-30 21:12:49,118 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:13:01,082 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:13:01,082 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:13:10,364 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:13:10,364 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:13:19,817 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:13:19,817 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:13:29,385 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:13:29,385 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-213 | prismatic/NMC-111/cons/under/natural       | REJECT attempt 4/4 | 40.3s | 0/0 constraints
+2026-03-30 21:13:29,385 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:13:41,733 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:13:41,734 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.4 Ah
+[kimi_vl_8k_sup] P-234 | cylindrical/NMC-111/cons/edge_/natural     | VALID  attempt 1/4 | 12.3s | 15/15 constraints
+2026-03-30 21:13:41,735 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:13:54,888 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:13:54,888 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.4 Ah
+[kimi_vl_8k_sup] P-265 | cylindrical/NMC-811/cons/stand/natural     | VALID  attempt 1/4 | 13.2s | 15/15 constraints
+2026-03-30 21:13:54,888 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:14:24,229 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:14:24,229 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:14:40,741 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 21:14:40,741 INFO    forge.axiom.supervisor.driver - Calculation complete: 84.7 Ah
+[kimi_vl_8k_sup] P-278 | prismatic/LFP/grid/contr/detaile           | VALID  attempt 2/4 | 45.9s | 14/14 constraints (recovered)
+2026-03-30 21:14:40,742 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:15:02,244 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 21:15:02,244 INFO    forge.axiom.supervisor.driver - Calculation complete: 80.6 Ah
+[kimi_vl_8k_sup] P-284 | prismatic/NMC-111/powe/under/detaile       | VALID  attempt 1/4 | 21.5s | 14/14 constraints
+2026-03-30 21:15:02,244 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:15:18,209 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:15:18,209 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:15:27,704 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 21:15:27,704 INFO    forge.axiom.supervisor.driver - Calculation complete: 46.5 Ah
+[kimi_vl_8k_sup] P-287 | prismatic/NMC-622/grid/contr/natural       | VALID  attempt 2/4 | 25.5s | 14/14 constraints (recovered)
+2026-03-30 21:15:27,704 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:15:48,754 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:15:48,754 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:16:04,804 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:16:04,804 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:16:20,039 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:16:20,039 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:16:36,988 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:16:36,988 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-292 | cylindrical/LFP/ev_t/contr/detaile         | REJECT attempt 4/4 | 69.3s | 0/0 constraints
+[kimi_vl_8k_sup] Progress: 30/50 (60.0%) | Valid: 19 | Rejected: 11 | Errors: 0 | ETA: 11m 14s
+2026-03-30 21:16:36,989 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:16:51,321 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:16:51,321 INFO    forge.axiom.supervisor.driver - Calculation complete: 11.2 Ah
+[kimi_vl_8k_sup] P-298 | pouch/NMC-111/powe/stand/natural           | VALID  attempt 1/4 | 14.3s | 14/14 constraints
+2026-03-30 21:16:51,322 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:17:12,020 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:17:12,020 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:17:21,747 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:17:21,747 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:17:31,533 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:17:31,533 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:17:41,313 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:17:41,313 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-309 | prismatic/NMC-111/ev_t/edge_/detaile       | REJECT attempt 4/4 | 50.0s | 0/0 constraints
+2026-03-30 21:17:41,313 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:18:03,438 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:18:03,438 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:18:13,176 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 21:18:13,176 INFO    forge.axiom.supervisor.driver - Calculation complete: 46.0 Ah
+[kimi_vl_8k_sup] P-324 | prismatic/LFP/cons/under/natural           | VALID  attempt 2/4 | 31.9s | 14/14 constraints (recovered)
+2026-03-30 21:18:13,177 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:18:31,363 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:18:31,363 INFO    forge.axiom.supervisor.driver - Calculation complete: 9.4 Ah
+[kimi_vl_8k_sup] P-340 | pouch/NMC-811/powe/under/detaile           | VALID  attempt 1/4 | 18.2s | 14/14 constraints
+2026-03-30 21:18:31,364 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:18:43,988 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 21:18:43,989 INFO    forge.axiom.supervisor.driver - Calculation complete: 129.1 Ah
+[kimi_vl_8k_sup] P-349 | prismatic/NMC-811/cons/contr/detaile       | VALID  attempt 1/4 | 12.6s | 14/14 constraints
+2026-03-30 21:18:43,990 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:19:03,782 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:19:03,783 INFO    forge.axiom.supervisor.driver - Calculation complete: 13.4 Ah
+[kimi_vl_8k_sup] P-360 | pouch/NMC-622/cons/stand/natural           | VALID  attempt 1/4 | 19.8s | 14/14 constraints
+2026-03-30 21:19:03,783 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:19:25,041 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:19:25,042 INFO    forge.axiom.supervisor.driver - Calculation complete: 4.7 Ah
+[kimi_vl_8k_sup] P-377 | cylindrical/NMC-111/powe/under/terse       | VALID  attempt 1/4 | 21.3s | 15/15 constraints
+2026-03-30 21:19:25,042 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:19:34,608 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:19:34,609 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.2 Ah
+[kimi_vl_8k_sup] P-378 | cylindrical/NMC-622/cons/edge_/natural     | VALID  attempt 1/4 | 9.6s | 15/15 constraints
+2026-03-30 21:19:34,610 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:19:48,862 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:19:48,862 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:20:04,657 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 21:20:04,657 INFO    forge.axiom.supervisor.driver - Calculation complete: 84.7 Ah
+[kimi_vl_8k_sup] P-383 | prismatic/NMC-622/grid/under/natural       | VALID  attempt 2/4 | 30.0s | 14/14 constraints (recovered)
+2026-03-30 21:20:04,658 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:20:14,356 INFO    forge.axiom.supervisor.driver - Valid pouch design generated on attempt 1
+2026-03-30 21:20:14,356 INFO    forge.axiom.supervisor.driver - Calculation complete: 4.5 Ah
+[kimi_vl_8k_sup] P-394 | pouch/NMC-622/cons/edge_/detaile           | VALID  attempt 1/4 | 9.7s | 14/14 constraints
+[kimi_vl_8k_sup] Progress: 40/50 (80.0%) | Valid: 28 | Rejected: 12 | Errors: 0 | ETA: 4m 37s
+2026-03-30 21:20:14,357 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:20:23,430 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:20:23,430 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.4 Ah
+[kimi_vl_8k_sup] P-411 | cylindrical/NMC-622/ev_t/under/natural     | VALID  attempt 1/4 | 9.1s | 15/15 constraints
+2026-03-30 21:20:23,431 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:21:29,217 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: mapping values are not allowed here
+  in "<unicode string>", line 3, column 9:
+    **Step 1: Determine Cell Dimensions**
+            ^
+2026-03-30 21:21:29,217 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:21:59,076 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:21:59,076 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:22:27,516 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:22:27,516 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:22:56,975 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:22:56,975 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-417 | prismatic/LFP/powe/under/detaile           | REJECT attempt 4/4 | 153.5s | 0/0 constraints
+2026-03-30 21:22:56,976 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:23:19,441 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 21:23:19,442 INFO    forge.axiom.supervisor.driver - Calculation complete: 72.0 Ah
+[kimi_vl_8k_sup] P-418 | prismatic/NMC-111/powe/stand/detaile       | VALID  attempt 1/4 | 22.5s | 14/14 constraints
+2026-03-30 21:23:19,442 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:23:33,774 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:23:33,775 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:23:40,385 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 2
+2026-03-30 21:23:40,386 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.8 Ah
+[kimi_vl_8k_sup] P-439 | cylindrical/NMC-111/cons/under/natural     | VALID  attempt 2/4 | 20.9s | 15/15 constraints (recovered)
+2026-03-30 21:23:40,387 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:23:49,580 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:23:49,581 INFO    forge.axiom.supervisor.driver - Calculation complete: 3.4 Ah
+[kimi_vl_8k_sup] P-442 | cylindrical/NMC-111/cons/contr/detaile     | VALID  attempt 1/4 | 9.2s | 15/15 constraints
+2026-03-30 21:23:49,582 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:24:04,122 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:24:04,123 INFO    forge.axiom.supervisor.driver - Calculation complete: 2.8 Ah
+[kimi_vl_8k_sup] P-447 | cylindrical/LFP/ev_t/edge_/natural         | VALID  attempt 1/4 | 14.5s | 15/15 constraints
+2026-03-30 21:24:04,123 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:24:32,603 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:24:32,603 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:24:48,968 WARNING forge.axiom.supervisor.driver - Parse error: YAML parse error: while parsing a block mapping
+  in "<unicode string>", line 7, column 5:
+        cell_height_mm: [50-200] (typica ... 
+        ^
+expected <block end>, but found '<scalar>'
+  in "<unicode string>", line 7, column 30:
+        cell_height_mm: [50-200] (typical 120)
+                                 ^
+2026-03-30 21:24:48,969 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:25:10,809 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 3
+2026-03-30 21:25:10,810 INFO    forge.axiom.supervisor.driver - Calculation complete: 95.3 Ah
+[kimi_vl_8k_sup] P-450 | prismatic/NMC-811/grid/stand/detaile       | VALID  attempt 3/4 | 66.7s | 14/14 constraints (recovered)
+2026-03-30 21:25:10,811 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:25:25,492 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:25:25,492 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:25:38,698 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:25:38,698 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:25:51,993 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:25:51,993 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:26:05,477 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:26:05,477 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-463 | pouch/NMC-622/powe/contr/terse             | REJECT attempt 4/4 | 54.7s | 0/0 constraints
+2026-03-30 21:26:05,477 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:26:25,604 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 21:26:25,604 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 21:26:31,667 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 2
+2026-03-30 21:26:31,667 INFO    forge.axiom.supervisor.driver - Generation attempt 3/4
+2026-03-30 21:26:37,782 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 3
+2026-03-30 21:26:37,782 INFO    forge.axiom.supervisor.driver - Generation attempt 4/4
+2026-03-30 21:26:43,906 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 4
+2026-03-30 21:26:43,906 ERROR   forge.axiom.supervisor.driver - Failed after 4 attempts
+[kimi_vl_8k_sup] P-482 | pouch/NMC-811/cons/stand/natural           | REJECT attempt 4/4 | 38.4s | 0/0 constraints
+2026-03-30 21:26:43,906 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 21:27:15,298 INFO    forge.axiom.supervisor.driver - Valid cylindrical design generated on attempt 1
+2026-03-30 21:27:15,299 INFO    forge.axiom.supervisor.driver - Calculation complete: 5.5 Ah
+[kimi_vl_8k_sup] P-486 | cylindrical/NMC-811/powe/under/terse       | VALID  attempt 1/4 | 31.4s | 15/15 constraints
+[kimi_vl_8k_sup] Progress: 50/50 (100.0%) | Valid: 35 | Rejected: 15 | Errors: 0 | ETA: 0s
+
+[kimi_vl_8k_sup] DONE: 50/50
+  Valid:    35/50 (70.0%)
+  Rejected: 15/50
+  Errors:   0/50
+  Output:   /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/experiments/demonstration/kimi_pilot/kimi_vl_thinking_8k_sup.jsonl
+
+============================================================
+RERUN COMPLETE
+============================================================

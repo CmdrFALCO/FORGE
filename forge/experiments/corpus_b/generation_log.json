@@ -1,0 +1,4454 @@
+{
+  "generator_version": "1.0",
+  "seed_bank_version": "1.1-FROZEN",
+  "rng_seed": 42,
+  "generated_at": "2026-03-30T21:12:25Z",
+  "total_prompts": 250,
+  "entries": [
+    {
+      "prompt_id": "B-001",
+      "seed_exemplar_id": "S-B1N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-002",
+      "seed_exemplar_id": "S-B1N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-003",
+      "seed_exemplar_id": "S-B1N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-004",
+      "seed_exemplar_id": "S-B1N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-005",
+      "seed_exemplar_id": "S-B1N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-006",
+      "seed_exemplar_id": "S-B1N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:811",
+        "clause_reorder",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-007",
+      "seed_exemplar_id": "S-B1N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:ESS",
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-008",
+      "seed_exemplar_id": "S-B1N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-009",
+      "seed_exemplar_id": "S-B1N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-010",
+      "seed_exemplar_id": "S-B1N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-011",
+      "seed_exemplar_id": "S-B1N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "casual_chemistry:NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-012",
+      "seed_exemplar_id": "S-B1N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:nmc622",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-013",
+      "seed_exemplar_id": "S-B1N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-014",
+      "seed_exemplar_id": "S-B1N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:ESS"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-015",
+      "seed_exemplar_id": "S-B1N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:power tool"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-016",
+      "seed_exemplar_id": "S-B1N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "note",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-017",
+      "seed_exemplar_id": "S-B1C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:electric vehicle",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-018",
+      "seed_exemplar_id": "S-B1C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-019",
+      "seed_exemplar_id": "S-B1C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-020",
+      "seed_exemplar_id": "S-B1C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tool"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-021",
+      "seed_exemplar_id": "S-B1C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:grid",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-022",
+      "seed_exemplar_id": "S-B1C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-023",
+      "seed_exemplar_id": "S-B1C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-024",
+      "seed_exemplar_id": "S-B1C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-025",
+      "seed_exemplar_id": "S-B1C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:electric vehicle",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-026",
+      "seed_exemplar_id": "S-B1C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid storage",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-027",
+      "seed_exemplar_id": "S-B1C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:power tool"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-028",
+      "seed_exemplar_id": "S-B1C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-029",
+      "seed_exemplar_id": "S-B1C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-030",
+      "seed_exemplar_id": "S-B1C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-031",
+      "seed_exemplar_id": "S-B1C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-032",
+      "seed_exemplar_id": "S-B1C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:nmc 811",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "conversation",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-033",
+      "seed_exemplar_id": "S-B1M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:consumer device"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-034",
+      "seed_exemplar_id": "S-B1M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-035",
+      "seed_exemplar_id": "S-B1M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-036",
+      "seed_exemplar_id": "S-B1M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:ESS"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-037",
+      "seed_exemplar_id": "S-B1M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:power tools",
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D1",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-038",
+      "seed_exemplar_id": "S-B1M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:consumer"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-039",
+      "seed_exemplar_id": "S-B1M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:portable electronics",
+        "typo:double_letter:portable->portablle"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-040",
+      "seed_exemplar_id": "S-B1M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:grid storage"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D1",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-041",
+      "seed_exemplar_id": "S-B1M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-042",
+      "seed_exemplar_id": "S-B1M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:automotive",
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-043",
+      "seed_exemplar_id": "S-B1M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D1",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-044",
+      "seed_exemplar_id": "S-B1M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-045",
+      "seed_exemplar_id": "S-B1M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:nmc 111"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-046",
+      "seed_exemplar_id": "S-B1M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D1",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-047",
+      "seed_exemplar_id": "S-B1M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-048",
+      "seed_exemplar_id": "S-B1M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:EV"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B1",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-049",
+      "seed_exemplar_id": "S-B2N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-050",
+      "seed_exemplar_id": "S-B2N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-051",
+      "seed_exemplar_id": "S-B2N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:lfp",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-052",
+      "seed_exemplar_id": "S-B2N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:power tools",
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-053",
+      "seed_exemplar_id": "S-B2N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid storage",
+        "casual_chemistry:iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-054",
+      "seed_exemplar_id": "S-B2N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:portable electronics",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-055",
+      "seed_exemplar_id": "S-B2N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:portable electronics",
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-056",
+      "seed_exemplar_id": "S-B2N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid",
+        "casual_chemistry:nmc 111",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-057",
+      "seed_exemplar_id": "S-B2N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:phone/tablet",
+        "casual_chemistry:NMC811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-058",
+      "seed_exemplar_id": "S-B2N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:cordless drill"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-059",
+      "seed_exemplar_id": "S-B2N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-060",
+      "seed_exemplar_id": "S-B2N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-061",
+      "seed_exemplar_id": "S-B2N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:consumer device",
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-062",
+      "seed_exemplar_id": "S-B2N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-063",
+      "seed_exemplar_id": "S-B2N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "clause_reorder",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-064",
+      "seed_exemplar_id": "S-B2N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-065",
+      "seed_exemplar_id": "S-B2C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tool",
+        "casual_chemistry:NMC 622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-066",
+      "seed_exemplar_id": "S-B2C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-067",
+      "seed_exemplar_id": "S-B2C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-068",
+      "seed_exemplar_id": "S-B2C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-069",
+      "seed_exemplar_id": "S-B2C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-070",
+      "seed_exemplar_id": "S-B2C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-071",
+      "seed_exemplar_id": "S-B2C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-072",
+      "seed_exemplar_id": "S-B2C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:consumer device",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-073",
+      "seed_exemplar_id": "S-B2C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:consumer device",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-074",
+      "seed_exemplar_id": "S-B2C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid",
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-075",
+      "seed_exemplar_id": "S-B2C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:automotive",
+        "casual_chemistry:NMC 622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-076",
+      "seed_exemplar_id": "S-B2C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:lithium iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-077",
+      "seed_exemplar_id": "S-B2C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:consumer device",
+        "casual_chemistry:lithium iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-078",
+      "seed_exemplar_id": "S-B2C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:grid storage",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-079",
+      "seed_exemplar_id": "S-B2C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-080",
+      "seed_exemplar_id": "S-B2C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-081",
+      "seed_exemplar_id": "S-B2M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-082",
+      "seed_exemplar_id": "S-B2M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:cordless drill",
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-083",
+      "seed_exemplar_id": "S-B2M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:automotive",
+        "casual_chemistry:high-nickel NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-084",
+      "seed_exemplar_id": "S-B2M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-085",
+      "seed_exemplar_id": "S-B2M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:EV"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-086",
+      "seed_exemplar_id": "S-B2M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:ESS"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-087",
+      "seed_exemplar_id": "S-B2M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:NMC111",
+        "typo:missing_letter:balanced->balancd"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-088",
+      "seed_exemplar_id": "S-B2M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-089",
+      "seed_exemplar_id": "S-B2M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:cordless drill"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-090",
+      "seed_exemplar_id": "S-B2M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:portable electronics"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-091",
+      "seed_exemplar_id": "S-B2M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:cordless drill"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-092",
+      "seed_exemplar_id": "S-B2M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-093",
+      "seed_exemplar_id": "S-B2M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:lithium iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-094",
+      "seed_exemplar_id": "S-B2M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-095",
+      "seed_exemplar_id": "S-B2M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-096",
+      "seed_exemplar_id": "S-B2M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B2",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-097",
+      "seed_exemplar_id": "S-B3N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-098",
+      "seed_exemplar_id": "S-B3N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid storage",
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-099",
+      "seed_exemplar_id": "S-B3N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:111 chemistry",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-100",
+      "seed_exemplar_id": "S-B3N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:automotive",
+        "casual_chemistry:NMC811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-101",
+      "seed_exemplar_id": "S-B3N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-102",
+      "seed_exemplar_id": "S-B3N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:phone/tablet",
+        "casual_chemistry:lithium iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-103",
+      "seed_exemplar_id": "S-B3N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:grid"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-104",
+      "seed_exemplar_id": "S-B3N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:nmc 811",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-105",
+      "seed_exemplar_id": "S-B3N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-106",
+      "seed_exemplar_id": "S-B3N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-107",
+      "seed_exemplar_id": "S-B3N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-108",
+      "seed_exemplar_id": "S-B3N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-109",
+      "seed_exemplar_id": "S-B3N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-110",
+      "seed_exemplar_id": "S-B3N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-111",
+      "seed_exemplar_id": "S-B3N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:ESS"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-112",
+      "seed_exemplar_id": "S-B3N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-113",
+      "seed_exemplar_id": "S-B3C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:ESS",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-114",
+      "seed_exemplar_id": "S-B3C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:NMC811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-115",
+      "seed_exemplar_id": "S-B3C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:consumer",
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-116",
+      "seed_exemplar_id": "S-B3C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-117",
+      "seed_exemplar_id": "S-B3C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:NMC111",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-118",
+      "seed_exemplar_id": "S-B3C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-119",
+      "seed_exemplar_id": "S-B3C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-120",
+      "seed_exemplar_id": "S-B3C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:cordless drill"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-121",
+      "seed_exemplar_id": "S-B3C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC 622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-122",
+      "seed_exemplar_id": "S-B3C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-123",
+      "seed_exemplar_id": "S-B3C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:portable electronics"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-124",
+      "seed_exemplar_id": "S-B3C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-125",
+      "seed_exemplar_id": "S-B3C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:nmc622",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-126",
+      "seed_exemplar_id": "S-B3C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:power tools"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-127",
+      "seed_exemplar_id": "S-B3C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-128",
+      "seed_exemplar_id": "S-B3C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:stationary storage"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-129",
+      "seed_exemplar_id": "S-B3M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-130",
+      "seed_exemplar_id": "S-B3M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-131",
+      "seed_exemplar_id": "S-B3M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-132",
+      "seed_exemplar_id": "S-B3M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:NMC622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-133",
+      "seed_exemplar_id": "S-B3M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:ESS"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-134",
+      "seed_exemplar_id": "S-B3M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-135",
+      "seed_exemplar_id": "S-B3M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:lithium iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-136",
+      "seed_exemplar_id": "S-B3M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-137",
+      "seed_exemplar_id": "S-B3M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid storage"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-138",
+      "seed_exemplar_id": "S-B3M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:power tools",
+        "casual_chemistry:iron phosphate",
+        "typo:double_letter:tools->toolls"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-139",
+      "seed_exemplar_id": "S-B3M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:phone/tablet",
+        "casual_chemistry:NMC 622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-140",
+      "seed_exemplar_id": "S-B3M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-141",
+      "seed_exemplar_id": "S-B3M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-142",
+      "seed_exemplar_id": "S-B3M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:electric vehicle"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-143",
+      "seed_exemplar_id": "S-B3M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tool"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-144",
+      "seed_exemplar_id": "S-B3M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:portable electronics",
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B3",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-145",
+      "seed_exemplar_id": "S-B4N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-146",
+      "seed_exemplar_id": "S-B4N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:NMC111",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-147",
+      "seed_exemplar_id": "S-B4N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:622",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-148",
+      "seed_exemplar_id": "S-B4N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:EV traction"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-149",
+      "seed_exemplar_id": "S-B4N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:electric vehicle",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-150",
+      "seed_exemplar_id": "S-B4N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-151",
+      "seed_exemplar_id": "S-B4N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-152",
+      "seed_exemplar_id": "S-B4N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:nmc 111",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-153",
+      "seed_exemplar_id": "S-B4N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-154",
+      "seed_exemplar_id": "S-B4N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-155",
+      "seed_exemplar_id": "S-B4N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:high-nickel NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-156",
+      "seed_exemplar_id": "S-B4N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:NMC111",
+        "clause_reorder",
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-157",
+      "seed_exemplar_id": "S-B4N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:consumer"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-158",
+      "seed_exemplar_id": "S-B4N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-159",
+      "seed_exemplar_id": "S-B4N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-160",
+      "seed_exemplar_id": "S-B4N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-161",
+      "seed_exemplar_id": "S-B4C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-162",
+      "seed_exemplar_id": "S-B4C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:811",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-163",
+      "seed_exemplar_id": "S-B4C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-164",
+      "seed_exemplar_id": "S-B4C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-165",
+      "seed_exemplar_id": "S-B4C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:nmc 111",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-166",
+      "seed_exemplar_id": "S-B4C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:tool pack"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-167",
+      "seed_exemplar_id": "S-B4C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:electric vehicle"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-168",
+      "seed_exemplar_id": "S-B4C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:ESS",
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-169",
+      "seed_exemplar_id": "S-B4C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:consumer",
+        "casual_chemistry:NMC622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-170",
+      "seed_exemplar_id": "S-B4C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:lithium iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-171",
+      "seed_exemplar_id": "S-B4C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:grid",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-172",
+      "seed_exemplar_id": "S-B4C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:ESS"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-173",
+      "seed_exemplar_id": "S-B4C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-174",
+      "seed_exemplar_id": "S-B4C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:NMC 622",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-175",
+      "seed_exemplar_id": "S-B4C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-176",
+      "seed_exemplar_id": "S-B4C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-177",
+      "seed_exemplar_id": "S-B4M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-178",
+      "seed_exemplar_id": "S-B4M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-179",
+      "seed_exemplar_id": "S-B4M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tool",
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-180",
+      "seed_exemplar_id": "S-B4M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-181",
+      "seed_exemplar_id": "S-B4M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:nmc 111"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-182",
+      "seed_exemplar_id": "S-B4M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "casual_chemistry:nmc622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-183",
+      "seed_exemplar_id": "S-B4M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:NMC 622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-184",
+      "seed_exemplar_id": "S-B4M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-185",
+      "seed_exemplar_id": "S-B4M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-186",
+      "seed_exemplar_id": "S-B4M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-187",
+      "seed_exemplar_id": "S-B4M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-188",
+      "seed_exemplar_id": "S-B4M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-189",
+      "seed_exemplar_id": "S-B4M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-190",
+      "seed_exemplar_id": "S-B4M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:electric vehicle"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-191",
+      "seed_exemplar_id": "S-B4M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:stationary storage"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-192",
+      "seed_exemplar_id": "S-B4M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:portable electronics"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B4",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-193",
+      "seed_exemplar_id": "S-B5N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:high-nickel NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-194",
+      "seed_exemplar_id": "S-B5N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:tool pack",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-195",
+      "seed_exemplar_id": "S-B5N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-196",
+      "seed_exemplar_id": "S-B5N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-197",
+      "seed_exemplar_id": "S-B5N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-198",
+      "seed_exemplar_id": "S-B5N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "punctuation_drop:period"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-199",
+      "seed_exemplar_id": "S-B5N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-200",
+      "seed_exemplar_id": "S-B5N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-201",
+      "seed_exemplar_id": "S-B5N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-202",
+      "seed_exemplar_id": "S-B5N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:EV",
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-203",
+      "seed_exemplar_id": "S-B5N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:phone/tablet"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-204",
+      "seed_exemplar_id": "S-B5N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-205",
+      "seed_exemplar_id": "S-B5N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:power tool"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-206",
+      "seed_exemplar_id": "S-B5N-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-207",
+      "seed_exemplar_id": "S-B5N-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:consumer",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-208",
+      "seed_exemplar_id": "S-B5N-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "note",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-209",
+      "seed_exemplar_id": "S-B5C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tool",
+        "casual_chemistry:NMC 622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-210",
+      "seed_exemplar_id": "S-B5C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-211",
+      "seed_exemplar_id": "S-B5C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:grid"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-212",
+      "seed_exemplar_id": "S-B5C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tool",
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-213",
+      "seed_exemplar_id": "S-B5C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:power tool",
+        "casual_chemistry:NMC811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-214",
+      "seed_exemplar_id": "S-B5C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-215",
+      "seed_exemplar_id": "S-B5C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-216",
+      "seed_exemplar_id": "S-B5C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:grid storage",
+        "casual_chemistry:nmc622",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-217",
+      "seed_exemplar_id": "S-B5C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:electric vehicle",
+        "casual_chemistry:NMC622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-218",
+      "seed_exemplar_id": "S-B5C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:EV traction",
+        "casual_chemistry:111 chemistry",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-219",
+      "seed_exemplar_id": "S-B5C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:cordless drill",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-220",
+      "seed_exemplar_id": "S-B5C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:power tool",
+        "casual_chemistry:622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-221",
+      "seed_exemplar_id": "S-B5C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:power tools",
+        "casual_chemistry:lithium iron phosphate",
+        "clause_reorder"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-222",
+      "seed_exemplar_id": "S-B5C-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:ESS",
+        "casual_chemistry:NMC111"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-223",
+      "seed_exemplar_id": "S-B5C-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:grid",
+        "casual_chemistry:111 chemistry"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-224",
+      "seed_exemplar_id": "S-B5C-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:electric vehicle"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "conversation",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-225",
+      "seed_exemplar_id": "S-B5M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "pouch",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-226",
+      "seed_exemplar_id": "S-B5M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC111"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-227",
+      "seed_exemplar_id": "S-B5M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_application:grid",
+        "casual_chemistry:NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-111",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-228",
+      "seed_exemplar_id": "S-B5M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:lfp"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-229",
+      "seed_exemplar_id": "S-B5M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-230",
+      "seed_exemplar_id": "S-B5M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "broken_fragment:// TODO: check with thermal team"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-231",
+      "seed_exemplar_id": "S-B5M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:high-nickel NMC",
+        "broken_fragment:[link: confluence.internal/cell-design/... (broken)]"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-232",
+      "seed_exemplar_id": "S-B5M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_application:automotive"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-622",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-233",
+      "seed_exemplar_id": "S-B5M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:iron phosphate"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "LFP",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-234",
+      "seed_exemplar_id": "S-B5M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "broken_fragment:[link: confluence.internal/cell-design/... (broken)]"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-235",
+      "seed_exemplar_id": "S-B5M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:nmc 111"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "pouch",
+      "chemistry": "NMC-111",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-236",
+      "seed_exemplar_id": "S-B5M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [],
+      "casual_chemistry_used": false,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-622",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-237",
+      "seed_exemplar_id": "S-B5M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_application:cordless drill"
+      ],
+      "casual_chemistry_used": false,
+      "casual_application_used": true,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "cylindrical",
+      "chemistry": "NMC-811",
+      "application": "power_tools"
+    },
+    {
+      "prompt_id": "B-238",
+      "seed_exemplar_id": "S-B5M-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "casual_chemistry:NMC622"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-622",
+      "application": "consumer_electronics"
+    },
+    {
+      "prompt_id": "B-239",
+      "seed_exemplar_id": "S-B5M-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 1,
+      "applied_transforms": [
+        "casual_chemistry:nmc 811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D2",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "grid_storage"
+    },
+    {
+      "prompt_id": "B-240",
+      "seed_exemplar_id": "S-B5M-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 2,
+      "applied_transforms": [
+        "casual_chemistry:811"
+      ],
+      "casual_chemistry_used": true,
+      "casual_application_used": false,
+      "roughness_family": "B5",
+      "surface_style": "mixed_fragment",
+      "difficulty_tag": "D3",
+      "cell_type": "prismatic",
+      "chemistry": "NMC-811",
+      "application": "ev_traction"
+    },
+    {
+      "prompt_id": "B-241",
+      "seed_exemplar_id": "S-SENT-01",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-242",
+      "seed_exemplar_id": "S-SENT-02",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-243",
+      "seed_exemplar_id": "S-SENT-03",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-244",
+      "seed_exemplar_id": "S-SENT-04",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-245",
+      "seed_exemplar_id": "S-SENT-05",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-246",
+      "seed_exemplar_id": "S-SENT-06",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-247",
+      "seed_exemplar_id": "S-SENT-07",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-248",
+      "seed_exemplar_id": "S-SENT-08",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-249",
+      "seed_exemplar_id": "S-SENT-09",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    },
+    {
+      "prompt_id": "B-250",
+      "seed_exemplar_id": "S-SENT-10",
+      "generator_version": "1.0",
+      "rng_seed": 42,
+      "transform_level": 0,
+      "applied_transforms": [
+        "sentinel_verbatim"
+      ],
+      "roughness_family": "SENT",
+      "surface_style": "sentinel",
+      "difficulty_tag": "D4"
+    }
+  ]
+}

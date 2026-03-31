@@ -80,6 +80,30 @@ QWEN_35_9B = BackendConfig(
     host="http://localhost:11434",
 )
 
+MISTRAL_SMALL_31 = BackendConfig(
+    backend_type="ollama",
+    model="mistral-small3.1",
+    temperature=0.0,
+    num_ctx=8192,
+    host="http://localhost:11434",
+)
+
+LLAMA_31_8B = BackendConfig(
+    backend_type="ollama",
+    model="llama3.1:8b",
+    temperature=0.0,
+    num_ctx=8192,
+    host="http://localhost:11434",
+)
+
+LLAMA_32_3B = BackendConfig(
+    backend_type="ollama",
+    model="llama3.2:3b",
+    temperature=0.0,
+    num_ctx=8192,
+    host="http://localhost:11434",
+)
+
 # ---------------------------------------------------------------------------
 # Experiment definitions
 # ---------------------------------------------------------------------------
@@ -201,5 +225,74 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
         output_filename="exp3b_small_supervised_local.jsonl",
         gpu_monitor=True,
         gpu_log_filename="exp3b_small_gpu.csv",
+    ),
+    # ── Mistral Small 3.1 ──
+    "exp_mistral_unsup": ExperimentDefinition(
+        experiment_id="exp_mistral_unsup",
+        name="Baseline (Local, Mistral Small 3.1)",
+        description="Unsupervised LLM, single attempt, Mistral Small 3.1 via Ollama",
+        backend_config=MISTRAL_SMALL_31,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp_mistral_unsup_baseline_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp_mistral_unsup_gpu.csv",
+    ),
+    "exp_mistral_sup": ExperimentDefinition(
+        experiment_id="exp_mistral_sup",
+        name="Supervised (Local, Mistral Small 3.1)",
+        description="Full AXIOM pipeline with retries, Mistral Small 3.1 via Ollama",
+        backend_config=MISTRAL_SMALL_31,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp_mistral_sup_supervised_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp_mistral_sup_gpu.csv",
+    ),
+    # ── Llama 3.1 8B ──
+    "exp_llama8b_unsup": ExperimentDefinition(
+        experiment_id="exp_llama8b_unsup",
+        name="Baseline (Local, Llama 3.1 8B)",
+        description="Unsupervised LLM, single attempt, Llama 3.1 8B via Ollama",
+        backend_config=LLAMA_31_8B,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp_llama8b_unsup_baseline_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp_llama8b_unsup_gpu.csv",
+    ),
+    "exp_llama8b_sup": ExperimentDefinition(
+        experiment_id="exp_llama8b_sup",
+        name="Supervised (Local, Llama 3.1 8B)",
+        description="Full AXIOM pipeline with retries, Llama 3.1 8B via Ollama",
+        backend_config=LLAMA_31_8B,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp_llama8b_sup_supervised_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp_llama8b_sup_gpu.csv",
+    ),
+    # ── Llama 3.2 3B ──
+    "exp_llama3b_unsup": ExperimentDefinition(
+        experiment_id="exp_llama3b_unsup",
+        name="Baseline (Local, Llama 3.2 3B)",
+        description="Unsupervised LLM, single attempt, Llama 3.2 3B via Ollama",
+        backend_config=LLAMA_32_3B,
+        supervised=False,
+        max_retries=1,
+        output_filename="exp_llama3b_unsup_baseline_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp_llama3b_unsup_gpu.csv",
+    ),
+    "exp_llama3b_sup": ExperimentDefinition(
+        experiment_id="exp_llama3b_sup",
+        name="Supervised (Local, Llama 3.2 3B)",
+        description="Full AXIOM pipeline with retries, Llama 3.2 3B via Ollama",
+        backend_config=LLAMA_32_3B,
+        supervised=True,
+        max_retries=4,
+        output_filename="exp_llama3b_sup_supervised_local.jsonl",
+        gpu_monitor=True,
+        gpu_log_filename="exp_llama3b_sup_gpu.csv",
     ),
 }

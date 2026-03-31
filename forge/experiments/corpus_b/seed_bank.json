@@ -1,0 +1,527 @@
+{
+  "seed_bank_version": "1.1-FROZEN",
+  "total_seeds": 45,
+  "structure": "3 seeds × 5 families × 3 surface styles = 45",
+  "changelog": "v1.1: Roughened B1 conversation, strengthened B3 traps, added implicit underspec to B2, softened some B4 contradictions, split B5 stale markers (half explicit/half ambiguous), updated sentinels S2/S4/S5/S6",
+  "seeds": {
+    "B1_note": [
+      {
+        "id": "S-B1N-01",
+        "text": "Need {cell_type} {chemistry} for {application}. Safe first. Keep size reasonable. Long life more important than max energy.",
+        "difficulty_tag": "D1",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Clean shorthand, one clear priority"
+      },
+      {
+        "id": "S-B1N-02",
+        "text": "{chemistry} {cell_type}, {application} use. Push energy density. Standard materials only. No exotic stuff.",
+        "difficulty_tag": "D1",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Terse commands, no articles"
+      },
+      {
+        "id": "S-B1N-03",
+        "text": "{cell_type} cell — {chemistry} — {application}. High cycle life priority. Cost secondary. Keep temps under control.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": "underspecification",
+        "notes": "Dash-separated fragments, vague thermal req"
+      }
+    ],
+    "B1_conversation": [
+      {
+        "id": "S-B1C-01",
+        "text": "Need {cell_type} {chemistry} for {application}. Safe + practical. Don't go exotic.",
+        "difficulty_tag": "D1",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Clipped, no politeness padding"
+      },
+      {
+        "id": "S-B1C-02",
+        "text": "{chemistry} {cell_type}, {application} project. Reliability over max performance. Nothing fancy, just works.",
+        "difficulty_tag": "D1",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Internal-note cadence, missing articles"
+      },
+      {
+        "id": "S-B1C-03",
+        "text": "{cell_type} {chemistry}, {application}. Not sure on capacity yet. Needs to be competitive though. Standard approach.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": "underspecification",
+        "notes": "Hedging, no full sentences"
+      }
+    ],
+    "B1_mixed": [
+      {
+        "id": "S-B1M-01",
+        "text": "Cell type: {cell_type}\nChemistry: {chemistry}\nUse case: {application}\n\nKeep it practical. Good energy density but safe operation non-negotiable.",
+        "difficulty_tag": "D1",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Bullet-header + prose mix"
+      },
+      {
+        "id": "S-B1M-02",
+        "text": "Quick spec:\n- {cell_type}\n- {chemistry}\n- for {application}\nDon't overcomplicate it. Standard loading, reasonable porosity, good balance.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Bullets then terse instruction"
+      },
+      {
+        "id": "S-B1M-03",
+        "text": "Req: {chemistry} {cell_type} / {application}\nPriority: cycle life > safety > energy > cost\nNotes: nothing fancy, proven materials",
+        "difficulty_tag": "D1",
+        "primary_roughness": "incomplete_shorthand",
+        "secondary_roughness": null,
+        "notes": "Structured note with priority list"
+      }
+    ],
+
+    "B2_note": [
+      {
+        "id": "S-B2N-01",
+        "text": "{cell_type} {chemistry}, {application}. Capacity not fixed yet. Same general direction as last gen but adjusted for this use case.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": null,
+        "notes": "Implicit underspec — references nonexistent 'last gen'"
+      },
+      {
+        "id": "S-B2N-02",
+        "text": "{cell_type} {chemistry}, {application}. Dims still open. We only know chemistry and use case for now.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": "incomplete_shorthand",
+        "notes": "Explicitly partial, no delegation language"
+      },
+      {
+        "id": "S-B2N-03",
+        "text": "Need {chemistry} cell, {cell_type} format, {application}. Need baseline only. No hard constraints from our side yet.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": null,
+        "notes": "Nearly empty spec, asks for baseline"
+      }
+    ],
+    "B2_conversation": [
+      {
+        "id": "S-B2C-01",
+        "text": "Exploring {cell_type} {chemistry} for {application}. Haven't locked requirements. What does a reasonable starting point look like?",
+        "difficulty_tag": "D2",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": null,
+        "notes": "Exploration framing, no explicit delegation"
+      },
+      {
+        "id": "S-B2C-02",
+        "text": "{chemistry} {cell_type} for {application}. Know the chemistry and form factor. Details TBD. Just need something to react to.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": "incomplete_shorthand",
+        "notes": "'Something to react to' — implicit baseline request"
+      },
+      {
+        "id": "S-B2C-03",
+        "text": "{cell_type} {chemistry}, {application} application. Everything beyond chemistry and format is still open. Practical design, nothing extreme.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": null,
+        "notes": "No explicit delegation, just states gaps"
+      }
+    ],
+    "B2_mixed": [
+      {
+        "id": "S-B2M-01",
+        "text": "Project: {application}\nFormat: {cell_type}\nChemistry: {chemistry}\n\nEverything else TBD. Need a baseline to iterate from.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": null,
+        "notes": "Structured header, open body"
+      },
+      {
+        "id": "S-B2M-02",
+        "text": "Cell brief:\n- {cell_type}, {chemistry}\n- Application: {application}\n- Capacity: TBD\n- Dimensions: TBD\n- Priority: safe and practical",
+        "difficulty_tag": "D2",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": null,
+        "notes": "Explicit TBD markers, no 'fill in blanks' instruction"
+      },
+      {
+        "id": "S-B2M-03",
+        "text": "Requirements (partial):\n  Form: {cell_type}\n  Chem: {chemistry}\n  Use: {application}\n  Rest: open — aim for balanced practical design",
+        "difficulty_tag": "D3",
+        "primary_roughness": "underspecification",
+        "secondary_roughness": "incomplete_shorthand",
+        "notes": "Indented partial spec, 'open' not 'use your judgment'"
+      }
+    ],
+
+    "B3_note": [
+      {
+        "id": "S-B3N-01",
+        "text": "{cell_type} {chemistry} for {application}, around {dim_hint} {dim_unit_trap}, separator maybe {sep_trap} thick, high energy but keep temps sane.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "unit_ambiguity",
+        "secondary_roughness": null,
+        "notes": "Ambiguous separator unit, vague dimension"
+      },
+      {
+        "id": "S-B3N-02",
+        "text": "{chemistry} {cell_type}, {application}. About {capacity_trap} capacity. Cathode coat around {loading_trap} active. Standard electrolyte.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "unit_ambiguity",
+        "secondary_roughness": null,
+        "notes": "Capacity Ah/Wh ambiguity, loading described as 'active' (density vs thickness?)"
+      },
+      {
+        "id": "S-B3N-03",
+        "text": "{cell_type} for {application}, {chemistry}. Cell about {scale_trap_dim}, not the whole module. Electrode maybe {thickness_trap} thick.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "scale_confusion",
+        "secondary_roughness": "unit_ambiguity",
+        "notes": "Says cell-not-module but dimension may be module-scale"
+      }
+    ],
+    "B3_conversation": [
+      {
+        "id": "S-B3C-01",
+        "text": "{cell_type} {chemistry} for {application}. Thinking something around {dim_hint} {dim_unit_trap} in the main dimension. Separator {sep_trap} sep. Not sure if that's reasonable.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "unit_ambiguity",
+        "secondary_roughness": null,
+        "notes": "Unit-ambiguous with hedging"
+      },
+      {
+        "id": "S-B3C-02",
+        "text": "{chemistry} {cell_type}, {application}. Something in the {capacity_trap} range. Coating should be around {loading_trap} coat. Normal separator.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "unit_ambiguity",
+        "secondary_roughness": null,
+        "notes": "'coat' — thickness or areal density?"
+      },
+      {
+        "id": "S-B3C-03",
+        "text": "Need {cell_type} {chemistry} for {application}. Target is a {scale_trap_cap} cell — just the cell, not pack. Standard form factor.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "scale_confusion",
+        "secondary_roughness": null,
+        "notes": "Capacity value could be cell or pack level"
+      }
+    ],
+    "B3_mixed": [
+      {
+        "id": "S-B3M-01",
+        "text": "Spec draft:\n- {cell_type} / {chemistry} / {application}\n- Target size: ~{dim_hint} {dim_unit_trap}\n- Separator: {sep_trap} sep\n- Energy: maximize within safe limits",
+        "difficulty_tag": "D2",
+        "primary_roughness": "unit_ambiguity",
+        "secondary_roughness": null,
+        "notes": "Structured but units ambiguous"
+      },
+      {
+        "id": "S-B3M-02",
+        "text": "Cell req:\n  Type: {cell_type}\n  Chemistry: {chemistry}\n  App: {application}\n  Dimensions: about {scale_trap_dim}\n  Note: CELL level, not module\n  Cathode: {loading_trap} loading",
+        "difficulty_tag": "D3",
+        "primary_roughness": "scale_confusion",
+        "secondary_roughness": "unit_ambiguity",
+        "notes": "Cell-level warning but dims may be wrong scale"
+      },
+      {
+        "id": "S-B3M-03",
+        "text": "Design brief\n{chemistry} {cell_type} for {application}\nCapacity target: {capacity_trap}\nWall: maybe {wall_trap}\nRest: practical defaults",
+        "difficulty_tag": "D2",
+        "primary_roughness": "unit_ambiguity",
+        "secondary_roughness": "underspecification",
+        "notes": "Mixed units and missing specs"
+      }
+    ],
+
+    "B4_note": [
+      {
+        "id": "S-B4N-01",
+        "text": "{cell_type} {chemistry} for {application}. High energy, but don't let it run hot. Cost matters but not at the expense of safety. Long life preferred.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "Soft contradictions — sounds like realistic ask"
+      },
+      {
+        "id": "S-B4N-02",
+        "text": "{chemistry} {cell_type}, {application}. Max power and max energy. Keep lightweight and cheap. Fast charging if possible.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "Power vs energy vs weight vs cost"
+      },
+      {
+        "id": "S-B4N-03",
+        "text": "{cell_type} {chemistry} for {application}. Long life more important than performance, but still needs strong fast-charge story. Cost competitive with LFP.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "Soft tension — life vs charge rate vs cost"
+      }
+    ],
+    "B4_conversation": [
+      {
+        "id": "S-B4C-01",
+        "text": "{cell_type} {chemistry} for {application}. Customer wants maximum energy density but also insists on very high safety margins and cheapest possible materials. Can you make that work?",
+        "difficulty_tag": "D2",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "Polite framing of hard requirements"
+      },
+      {
+        "id": "S-B4C-02",
+        "text": "{chemistry} {cell_type} for {application} that's high-power and high-energy, lightweight, affordable, handles fast charging without degradation. Best you can do?",
+        "difficulty_tag": "D3",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": "incomplete_shorthand",
+        "notes": "Hard bundle, clipped"
+      },
+      {
+        "id": "S-B4C-03",
+        "text": "{cell_type} {chemistry}, {application}. Marketing wants max energy. Engineering wants max safety. Procurement wants min cost. Premium feel still expected though.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "Stakeholder conflict plus soft extra constraint"
+      }
+    ],
+    "B4_mixed": [
+      {
+        "id": "S-B4M-01",
+        "text": "Requirements:\n- {cell_type}, {chemistry}, {application}\n- HIGH energy density\n- HIGH safety\n- LOW cost\n- LONG cycle life\n- COMPACT form factor\n\nAll must-haves per management.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "Bullet list of contradictions, management mandate"
+      },
+      {
+        "id": "S-B4M-02",
+        "text": "Cell spec — {chemistry} {cell_type} for {application}\nNeeds:\n  - best-in-class energy\n  - very low self-heating\n  - cost competitive\n  - fast charge capable\nAll requirements P0, no trade-offs",
+        "difficulty_tag": "D3",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": "incomplete_shorthand",
+        "notes": "P0 everything — realistic management language"
+      },
+      {
+        "id": "S-B4M-03",
+        "text": "Brief:\n{cell_type} / {chemistry} / {application}\n\nKey asks: lightweight + safe + affordable + high capacity + long life\nPriority: all equal\nBudget: tight\nTimeline: aggressive",
+        "difficulty_tag": "D2",
+        "primary_roughness": "contradiction_bundle",
+        "secondary_roughness": null,
+        "notes": "All-equal priority with tight constraints"
+      }
+    ],
+
+    "B5_note": [
+      {
+        "id": "S-B5N-01",
+        "text": "From meeting: {cell_type} / {chemistry} / {application}. Customer said high runtime. Old note mentions {stale_ref} but probably outdated. Keep safe and light.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": null,
+        "notes": "Stale reference EXPLICITLY marked outdated"
+      },
+      {
+        "id": "S-B5N-02",
+        "text": "{chemistry} {cell_type} for {application}. Previous design used {stale_ref}. Main ask: practical design, safe, good energy.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": null,
+        "notes": "Stale reference NOT marked outdated — ambiguously current"
+      },
+      {
+        "id": "S-B5N-03",
+        "text": "Carry over from last project: {cell_type}, {chemistry}. New target: {application}. Old capacity was {stale_cap}Ah. Reuse what makes sense.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": "underspecification",
+        "notes": "Stale capacity presented as fact, ambiguous whether still valid"
+      }
+    ],
+    "B5_conversation": [
+      {
+        "id": "S-B5C-01",
+        "text": "Forwarding notes from last session. Settled on {cell_type} with {chemistry} for {application}. Tom mentioned {stale_ref} but that might have been for the old design. Can you put together a cell spec?",
+        "difficulty_tag": "D2",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": null,
+        "notes": "Forwarded email style, stale ref with 'might have been' hedge"
+      },
+      {
+        "id": "S-B5C-02",
+        "text": "Following up on {application} project. {chemistry} {cell_type}. Sarah's brief says {stale_ref} and {stale_cap}Ah. Not sure if those numbers are still current. Balanced performance is the goal.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": "underspecification",
+        "notes": "Stale numbers with weak 'not sure if current' — model may still latch on"
+      },
+      {
+        "id": "S-B5C-03",
+        "text": "{cell_type} {chemistry} for {application}. Some old notes attached but half are from a different project. The {stale_ref} number is in there. Safe, practical, good energy.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": null,
+        "notes": "No explicit warning about stale data — just 'different project' mention"
+      }
+    ],
+    "B5_mixed": [
+      {
+        "id": "S-B5M-01",
+        "text": "Project: {application}\nFormat: {cell_type}\nChem: {chemistry}\n\nFrom old brief:\n  - capacity: {stale_cap}Ah\n  - {stale_ref}\n\nCurrent ask: safe, practical, good energy. Supersedes old numbers.",
+        "difficulty_tag": "D2",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": null,
+        "notes": "Structured with EXPLICITLY stale section"
+      },
+      {
+        "id": "S-B5M-02",
+        "text": "Meeting notes — {application} cell\n- {cell_type}, {chemistry}\n- \"need high energy\" — marketing\n- \"keep it safe\" — engineering\n- reference: {stale_ref}\n- budget is tight\n- customer wants low weight",
+        "difficulty_tag": "D2",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": "contradiction_bundle",
+        "notes": "Raw meeting notes — stale ref NOT marked as stale"
+      },
+      {
+        "id": "S-B5M-03",
+        "text": "From Jira ticket:\nTitle: {application} cell design\nType: {cell_type}\nChem: {chemistry}\nPM: \"needs to be competitive\"\nEng: \"{stale_ref}, needs update\"\nQA: \"safety first\"\n\nGenerate complete cell design from this.",
+        "difficulty_tag": "D3",
+        "primary_roughness": "noise_contamination",
+        "secondary_roughness": "underspecification",
+        "notes": "Jira ticket with 'needs update' hint but no actual update provided"
+      }
+    ]
+  },
+
+  "template_variables": {
+    "cell_type": ["pouch", "prismatic", "cylindrical"],
+    "chemistry": ["NMC-111", "NMC-622", "NMC-811", "LFP"],
+    "application": ["ev_traction", "consumer_electronics", "grid_storage", "power_tools"],
+    "application_casual": {
+      "ev_traction": ["EV", "electric vehicle", "EV traction", "automotive"],
+      "consumer_electronics": ["consumer", "phone/tablet", "consumer device", "portable electronics"],
+      "grid_storage": ["grid", "grid storage", "stationary storage", "ESS"],
+      "power_tools": ["power tool", "tool pack", "cordless drill", "power tools"]
+    },
+    "chemistry_casual": {
+      "NMC-111": ["NMC111", "nmc 111", "NMC", "111 chemistry"],
+      "NMC-622": ["NMC622", "nmc622", "622", "NMC 622"],
+      "NMC-811": ["NMC811", "nmc 811", "811", "high-nickel NMC"],
+      "LFP": ["LFP", "lfp", "iron phosphate", "lithium iron phosphate"]
+    },
+
+    "dim_hint": {
+      "cylindrical": ["46 dia", "21mm round", "4680 size", "18-ish diameter"],
+      "prismatic": ["Blade-ish size", "150 tall", "standard prismatic", "medium rectangular"],
+      "pouch": ["thin pack", "300 sheet", "compact flat", "slim profile"]
+    },
+    "dim_unit_trap": ["", "cm", "height", "class", "dia"],
+    "sep_trap": ["3.5", "0.02", "20", "15", "25ish"],
+    "capacity_trap": {
+      "ev_traction": ["100-200", "around 150", "100+", "high"],
+      "consumer_electronics": ["5-10", "around 8Wh", "maybe 3000mAh", "small"],
+      "grid_storage": ["200+", "around 280", "500Wh class", "large"],
+      "power_tools": ["3-6Ah maybe", "around 5", "20Wh", "enough for a drill"]
+    },
+    "loading_trap": ["3.5", "180", "20", "150", "4 mAh/cm2 maybe"],
+    "scale_trap_dim": {
+      "cylindrical": ["120 dia", "170mm round", "large EV can size", "pack-level cylinder"],
+      "prismatic": ["about 170x100", "Blade dimensions", "200mm class", "module format"],
+      "pouch": ["about 500x200", "A4 size-ish", "module sheet", "large format"]
+    },
+    "scale_trap_cap": {
+      "ev_traction": ["50Ah", "150Ah", "100 amp-hour", "200Wh"],
+      "consumer_electronics": ["5Ah", "15Wh", "3000mAh", "10 watt-hours"],
+      "grid_storage": ["280Ah", "500Wh", "large", "100Ah minimum"],
+      "power_tools": ["5Ah", "20Wh", "6000mAh", "enough for 30 min runtime"]
+    },
+    "thickness_trap": ["180", "0.15mm", "about 150 thick", "3.5"],
+    "wall_trap": ["1.5", "0.8cm", "about 1", "standard"],
+    "stale_ref": [
+      "21700 format", "100Ah target", "3mm separator", "steel casing",
+      "18650 baseline", "250Ah from Phase 1", "Al case", "150mm height",
+      "module-level sizing", "old BOM"
+    ],
+    "stale_cap": ["50", "100", "150", "280"]
+  },
+
+  "sentinel_prompts": [
+    {
+      "id": "S-SENT-01",
+      "text": "Need a large prismatic LFP cell for grid storage. Think BYD Blade class. Cathode sheets should be tall — around 170-180mm if possible. High capacity, robust design.",
+      "target": "Prismatic 175mm cathode-height trap",
+      "expected_failure": "range_error",
+      "notes": "Directly triggers Mistral's cathode_height_mm=175 prior"
+    },
+    {
+      "id": "S-SENT-02",
+      "text": "Design a prismatic cell, Blade-type form factor. Long and thin, like the ones used in modern EV packs. LFP, high energy. Cell level only, not the module.",
+      "target": "Blade-like wording trap",
+      "expected_failure": "scale_confusion",
+      "notes": "Changed to LFP to match BYD/Blade prior naturally. NMC811 would mix two unusual signals."
+    },
+    {
+      "id": "S-SENT-03",
+      "text": "Cylindrical NMC622 for EV traction. Large format, maybe 170mm diameter, 300mm long. High capacity for direct pack integration.",
+      "target": "Cylindrical module-vs-cell diameter trap",
+      "expected_failure": "scale_confusion",
+      "notes": "Module-scale cylindrical dimensions presented as cell"
+    },
+    {
+      "id": "S-SENT-04",
+      "text": "Pouch NMC811 for consumer electronics. Thin separator — about 3.5 thick for good ionic conductivity. Keep overall cell thin.",
+      "target": "Separator thickness mm-vs-um trap",
+      "expected_failure": "unit_confusion",
+      "notes": "'3.5 thick' — natural sloppy note that creates unit ambiguity"
+    },
+    {
+      "id": "S-SENT-05",
+      "text": "Prismatic NMC622 for EV. Robust metal case, standard automotive shell. High energy density target.",
+      "target": "Steel-vs-aluminium case material trap — spontaneous prior test",
+      "expected_failure": "material_misprior",
+      "notes": "Changed: no longer explicitly says 'steel'. 'Robust metal case' + 'automotive' tests whether model spontaneously picks steel vs aluminium."
+    },
+    {
+      "id": "S-SENT-06",
+      "text": "21700 LFP for power tools. Ni-plated steel can. Rev cap around 160. Good rate performance.",
+      "target": "Wrong-field alias wording trap",
+      "expected_failure": "structural_wrong_alias",
+      "notes": "Simplified: focused on 'Ni-plated steel' (space) and 'rev cap' (colloquial alias). Fewer moving parts."
+    },
+    {
+      "id": "S-SENT-07",
+      "text": "Pouch NMC111 for grid storage. Target 500Wh per cell. Lightweight packaging. Standard electrolyte.",
+      "target": "Cell-vs-pack energy target trap",
+      "expected_failure": "scale_confusion",
+      "notes": "500Wh is pack-level, not cell-level for a single pouch cell"
+    },
+    {
+      "id": "S-SENT-08",
+      "text": "Need a cylindrical NMC811 for EV that is simultaneously: highest possible energy density, fastest charging rate, lowest cost per kWh, safest possible thermal behavior, lightest weight, and longest cycle life. All requirements are equal priority.",
+      "target": "Contradictory stakeholder bundle trap",
+      "expected_failure": "consistency_tradeoff",
+      "notes": "Maximum contradictions in formal language"
+    },
+    {
+      "id": "S-SENT-09",
+      "text": "Meeting notes copied below:\n- prismatic, NMC622, EV application\n- OLD: target was 18650 cylindrical (CHANGED)\n- Sarah says use LFP instead (OVERRULED)\n- current: NMC622 prismatic stays\n- capacity: ~100Ah class\n- Jim's comment: \"make it cheap and safe\"\n\nPlease design the cell from these notes.",
+      "target": "Parse contamination trap",
+      "expected_failure": "parse_contamination",
+      "notes": "Multiple contradictory fragments, some explicitly overruled"
+    },
+    {
+      "id": "S-SENT-10",
+      "text": "FW: RE: Cell design brief\n\nHi, see below from last month. Some specs may have changed.\n\n--- Original message ---\nPouch, LFP, consumer electronics.\nTarget: 50Ah, 3mm separator, 200mm cathode height.\n--- End ---\n\nUpdate: capacity target is now flexible. Separator and dimensions probably need revision too. Please generate a complete updated design.",
+      "target": "Forwarded-email fragment trap",
+      "expected_failure": "noise_contamination",
+      "notes": "Stale numbers in forwarded email, explicit 'may have changed' warning"
+    }
+  ]
+}

@@ -1,0 +1,319 @@
+[demo] Loaded 50 prompts (the known Mistral rejects)
+[demo] Pre-warming mistral-small3.1 ...
+[demo] Model loaded: mistral-small3.1
+
+[demo_mistral_range_fb] Starting — 50 prompts, supervised, max_retries=4
+[demo_mistral_range_fb] Change: range-enriched validation feedback
+[demo_mistral_range_fb] Output: /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/experiments/demonstration/demo_mistral_range_feedback.jsonl
+
+2026-03-30 10:11:32,275 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:11:52,217 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:11:52,217 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:12:10,644 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:12:10,644 INFO    forge.axiom.supervisor.driver - Calculation complete: 67.0 Ah
+[demo_mistral_range_fb] P-002 | prismatic/LFP/ev_t/stand/detaile           | VALID  attempt 2/4 | 38.4s | 14/14 constraints (recovered)
+2026-03-30 10:12:10,645 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:12:29,029 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:12:29,029 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:12:47,271 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:12:47,271 INFO    forge.axiom.supervisor.driver - Calculation complete: 148.3 Ah
+[demo_mistral_range_fb] P-010 | prismatic/NMC-811/ev_t/under/detaile       | VALID  attempt 2/4 | 36.6s | 14/14 constraints (recovered)
+2026-03-30 10:12:47,272 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:13:04,888 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:13:04,888 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:13:22,763 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:13:22,764 INFO    forge.axiom.supervisor.driver - Calculation complete: 173.7 Ah
+[demo_mistral_range_fb] P-021 | prismatic/NMC-811/grid/contr/terse         | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:13:22,765 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:13:40,548 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 10:13:40,548 INFO    forge.axiom.supervisor.driver - Calculation complete: 50.5 Ah
+[demo_mistral_range_fb] P-030 | prismatic/NMC-111/ev_t/under/detaile       | VALID  attempt 1/4 | 17.8s | 14/14 constraints
+2026-03-30 10:13:40,549 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:13:58,196 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:13:58,197 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:14:16,129 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:14:16,130 INFO    forge.axiom.supervisor.driver - Calculation complete: 173.7 Ah
+[demo_mistral_range_fb] P-051 | prismatic/NMC-811/grid/under/detaile       | VALID  attempt 2/4 | 35.6s | 14/14 constraints (recovered)
+2026-03-30 10:14:16,131 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:14:33,580 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:14:33,581 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:14:51,228 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:14:51,229 INFO    forge.axiom.supervisor.driver - Calculation complete: 171.2 Ah
+[demo_mistral_range_fb] P-061 | prismatic/NMC-811/ev_t/contr/natural       | VALID  attempt 2/4 | 35.1s | 14/14 constraints (recovered)
+2026-03-30 10:14:51,230 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:15:08,914 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:15:08,914 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:15:26,833 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:15:26,834 INFO    forge.axiom.supervisor.driver - Calculation complete: 89.6 Ah
+[demo_mistral_range_fb] P-063 | prismatic/NMC-111/ev_t/stand/detaile       | VALID  attempt 2/4 | 35.6s | 14/14 constraints (recovered)
+2026-03-30 10:15:26,834 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:15:44,578 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:15:44,578 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:16:02,554 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:16:02,555 INFO    forge.axiom.supervisor.driver - Calculation complete: 207.1 Ah
+[demo_mistral_range_fb] P-092 | prismatic/NMC-622/ev_t/edge_/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:16:02,556 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:16:20,141 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:16:20,141 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:16:37,945 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:16:37,945 INFO    forge.axiom.supervisor.driver - Calculation complete: 145.0 Ah
+[demo_mistral_range_fb] P-104 | prismatic/LFP/grid/stand/detaile           | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:16:37,946 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:16:55,627 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:16:55,627 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:17:13,543 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:17:13,544 INFO    forge.axiom.supervisor.driver - Calculation complete: 231.6 Ah
+[demo_mistral_range_fb] P-109 | prismatic/NMC-111/ev_t/contr/natural       | VALID  attempt 2/4 | 35.6s | 14/14 constraints (recovered)
+[demo_mistral_range_fb] Progress: 10/50 (20.0%) | Valid: 10 | Rejected: 0 | Errors: 0 | ETA: 23m 45s
+2026-03-30 10:17:13,545 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:17:31,123 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:17:31,123 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:17:48,962 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:17:48,962 INFO    forge.axiom.supervisor.driver - Calculation complete: 186.1 Ah
+[demo_mistral_range_fb] P-110 | prismatic/NMC-811/grid/under/natural       | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:17:48,963 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:18:06,586 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:18:06,586 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:18:24,424 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:18:24,424 INFO    forge.axiom.supervisor.driver - Calculation complete: 66.5 Ah
+[demo_mistral_range_fb] P-113 | prismatic/LFP/ev_t/edge_/detaile           | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:18:24,424 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:18:42,177 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:18:42,177 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:19:00,167 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:19:00,167 INFO    forge.axiom.supervisor.driver - Calculation complete: 165.0 Ah
+[demo_mistral_range_fb] P-116 | prismatic/NMC-622/grid/stand/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:19:00,168 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:19:17,734 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:19:17,734 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:19:35,580 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:19:35,581 INFO    forge.axiom.supervisor.driver - Calculation complete: 74.1 Ah
+[demo_mistral_range_fb] P-124 | prismatic/NMC-811/ev_t/under/terse         | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:19:35,582 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:19:53,219 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:19:53,220 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:20:11,063 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:20:11,064 INFO    forge.axiom.supervisor.driver - Calculation complete: 66.7 Ah
+[demo_mistral_range_fb] P-130 | prismatic/NMC-111/ev_t/under/terse         | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:20:11,065 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:20:28,736 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:20:28,736 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:20:46,578 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:20:46,579 INFO    forge.axiom.supervisor.driver - Calculation complete: 112.0 Ah
+[demo_mistral_range_fb] P-135 | prismatic/NMC-622/ev_t/under/detaile       | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:20:46,580 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:21:04,175 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:21:04,175 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:21:21,997 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:21:21,998 INFO    forge.axiom.supervisor.driver - Calculation complete: 66.5 Ah
+[demo_mistral_range_fb] P-147 | prismatic/LFP/ev_t/contr/detaile           | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:21:21,999 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:21:39,815 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:21:39,815 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:21:57,798 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:21:57,799 INFO    forge.axiom.supervisor.driver - Calculation complete: 89.6 Ah
+[demo_mistral_range_fb] P-161 | prismatic/NMC-111/ev_t/contr/detaile       | VALID  attempt 2/4 | 35.8s | 14/14 constraints (recovered)
+2026-03-30 10:21:57,800 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:22:15,569 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:22:15,570 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:22:33,560 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:22:33,560 INFO    forge.axiom.supervisor.driver - Calculation complete: 205.5 Ah
+[demo_mistral_range_fb] P-175 | prismatic/NMC-111/ev_t/stand/natural       | VALID  attempt 2/4 | 35.8s | 14/14 constraints (recovered)
+2026-03-30 10:22:33,561 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:22:51,292 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:22:51,292 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:23:09,271 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:23:09,271 INFO    forge.axiom.supervisor.driver - Calculation complete: 144.0 Ah
+[demo_mistral_range_fb] P-188 | prismatic/NMC-622/ev_t/stand/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+[demo_mistral_range_fb] Progress: 20/50 (40.0%) | Valid: 20 | Rejected: 0 | Errors: 0 | ETA: 18m 47s
+2026-03-30 10:23:09,272 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:23:26,943 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:23:26,943 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:23:44,858 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:23:44,859 INFO    forge.axiom.supervisor.driver - Calculation complete: 167.5 Ah
+[demo_mistral_range_fb] P-194 | prismatic/NMC-111/ev_t/edge_/terse         | VALID  attempt 2/4 | 35.6s | 14/14 constraints (recovered)
+2026-03-30 10:23:44,860 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:24:02,613 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:24:02,613 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:24:20,606 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:24:20,606 INFO    forge.axiom.supervisor.driver - Calculation complete: 124.4 Ah
+[demo_mistral_range_fb] P-212 | prismatic/NMC-811/ev_t/stand/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:24:20,607 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:24:38,377 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:24:38,377 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:24:56,401 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:24:56,401 INFO    forge.axiom.supervisor.driver - Calculation complete: 124.4 Ah
+[demo_mistral_range_fb] P-223 | prismatic/NMC-811/ev_t/contr/detaile       | VALID  attempt 2/4 | 35.8s | 14/14 constraints (recovered)
+2026-03-30 10:24:56,402 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:25:14,031 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:25:14,031 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:25:31,909 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:25:31,910 INFO    forge.axiom.supervisor.driver - Calculation complete: 89.0 Ah
+[demo_mistral_range_fb] P-226 | prismatic/NMC-111/ev_t/contr/terse         | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:25:31,911 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:25:49,459 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:25:49,459 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:26:07,280 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:26:07,280 INFO    forge.axiom.supervisor.driver - Calculation complete: 189.0 Ah
+[demo_mistral_range_fb] P-239 | prismatic/LFP/grid/under/detaile           | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:26:07,281 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:26:24,976 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:26:24,976 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:26:42,953 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:26:42,953 INFO    forge.axiom.supervisor.driver - Calculation complete: 103.5 Ah
+[demo_mistral_range_fb] P-240 | prismatic/NMC-622/ev_t/contr/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:26:42,954 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:27:00,701 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:27:00,701 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:27:18,624 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:27:18,625 INFO    forge.axiom.supervisor.driver - Calculation complete: 93.9 Ah
+[demo_mistral_range_fb] P-247 | prismatic/NMC-622/ev_t/under/terse         | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:27:18,626 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:27:36,344 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:27:36,344 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:27:54,227 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:27:54,227 INFO    forge.axiom.supervisor.driver - Calculation complete: 248.2 Ah
+[demo_mistral_range_fb] P-253 | prismatic/NMC-622/ev_t/stand/natural       | VALID  attempt 2/4 | 35.6s | 14/14 constraints (recovered)
+2026-03-30 10:27:54,228 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:28:12,198 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:28:12,198 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:28:30,827 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:28:30,827 INFO    forge.axiom.supervisor.driver - Calculation complete: 173.7 Ah
+[demo_mistral_range_fb] P-264 | prismatic/NMC-811/grid/under/terse         | VALID  attempt 2/4 | 36.6s | 14/14 constraints (recovered)
+2026-03-30 10:28:30,828 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:28:49,456 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:28:49,456 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:29:07,336 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:29:07,337 INFO    forge.axiom.supervisor.driver - Calculation complete: 103.5 Ah
+[demo_mistral_range_fb] P-280 | prismatic/NMC-622/ev_t/contr/terse         | VALID  attempt 2/4 | 36.5s | 14/14 constraints (recovered)
+[demo_mistral_range_fb] Progress: 30/50 (60.0%) | Valid: 30 | Rejected: 0 | Errors: 0 | ETA: 12m 56s
+2026-03-30 10:29:07,338 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:29:24,890 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:29:24,890 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:29:42,648 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:29:42,648 INFO    forge.axiom.supervisor.driver - Calculation complete: 162.4 Ah
+[demo_mistral_range_fb] P-295 | prismatic/LFP/ev_t/under/natural           | VALID  attempt 2/4 | 35.3s | 14/14 constraints (recovered)
+2026-03-30 10:29:42,648 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:30:00,098 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:30:00,098 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:30:17,782 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:30:17,783 INFO    forge.axiom.supervisor.driver - Calculation complete: 73.3 Ah
+[demo_mistral_range_fb] P-307 | prismatic/LFP/ev_t/contr/terse             | VALID  attempt 2/4 | 35.1s | 14/14 constraints (recovered)
+2026-03-30 10:30:17,783 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:30:35,539 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:30:35,539 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:30:53,495 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:30:53,496 INFO    forge.axiom.supervisor.driver - Calculation complete: 196.2 Ah
+[demo_mistral_range_fb] P-309 | prismatic/NMC-111/ev_t/edge_/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:30:53,497 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:31:11,258 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:31:11,258 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:31:29,279 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:31:29,279 INFO    forge.axiom.supervisor.driver - Calculation complete: 12.0 Ah
+[demo_mistral_range_fb] P-324 | prismatic/LFP/cons/under/natural           | VALID  attempt 2/4 | 35.8s | 14/14 constraints (recovered)
+2026-03-30 10:31:29,280 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:31:46,886 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:31:46,886 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:32:04,717 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:32:04,717 INFO    forge.axiom.supervisor.driver - Calculation complete: 124.1 Ah
+[demo_mistral_range_fb] P-350 | prismatic/NMC-811/grid/edge_/natural       | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:32:04,717 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:32:22,322 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:32:22,322 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:32:40,164 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:32:40,164 INFO    forge.axiom.supervisor.driver - Calculation complete: 231.6 Ah
+[demo_mistral_range_fb] P-361 | prismatic/NMC-811/ev_t/under/natural       | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:32:40,165 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:32:57,758 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:32:57,758 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:33:15,584 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:33:15,585 INFO    forge.axiom.supervisor.driver - Calculation complete: 231.6 Ah
+[demo_mistral_range_fb] P-363 | prismatic/NMC-811/ev_t/edge_/natural       | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:33:15,585 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:33:33,348 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:33:33,348 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:33:51,346 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:33:51,347 INFO    forge.axiom.supervisor.driver - Calculation complete: 205.5 Ah
+[demo_mistral_range_fb] P-368 | prismatic/NMC-622/ev_t/contr/natural       | VALID  attempt 2/4 | 35.8s | 14/14 constraints (recovered)
+2026-03-30 10:33:51,348 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:34:08,901 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:34:08,901 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:34:26,734 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:34:26,734 INFO    forge.axiom.supervisor.driver - Calculation complete: 123.6 Ah
+[demo_mistral_range_fb] P-371 | prismatic/NMC-111/ev_t/edge_/natural       | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:34:26,735 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:34:44,364 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:34:44,364 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:35:02,194 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:35:02,194 INFO    forge.axiom.supervisor.driver - Calculation complete: 141.7 Ah
+[demo_mistral_range_fb] P-383 | prismatic/NMC-622/grid/under/natural       | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+[demo_mistral_range_fb] Progress: 40/50 (80.0%) | Valid: 40 | Rejected: 0 | Errors: 0 | ETA: 6m 55s
+2026-03-30 10:35:02,195 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:35:19,825 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:35:19,825 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:35:37,674 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:35:37,674 INFO    forge.axiom.supervisor.driver - Calculation complete: 142.1 Ah
+[demo_mistral_range_fb] P-385 | prismatic/NMC-111/grid/edge_/natural       | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:35:37,675 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:35:55,331 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:35:55,332 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:36:13,206 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:36:13,207 INFO    forge.axiom.supervisor.driver - Calculation complete: 163.5 Ah
+[demo_mistral_range_fb] P-399 | prismatic/NMC-811/ev_t/contr/terse         | VALID  attempt 2/4 | 35.5s | 14/14 constraints (recovered)
+2026-03-30 10:36:13,207 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:36:30,723 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 10:36:30,723 INFO    forge.axiom.supervisor.driver - Calculation complete: 121.6 Ah
+[demo_mistral_range_fb] P-405 | prismatic/NMC-622/ev_t/under/natural       | VALID  attempt 1/4 | 17.5s | 14/14 constraints
+2026-03-30 10:36:30,724 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:36:48,272 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:36:48,272 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:37:06,044 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:37:06,045 INFO    forge.axiom.supervisor.driver - Calculation complete: 66.5 Ah
+[demo_mistral_range_fb] P-406 | prismatic/LFP/ev_t/under/detaile           | VALID  attempt 2/4 | 35.3s | 14/14 constraints (recovered)
+2026-03-30 10:37:06,046 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:37:23,765 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:37:23,765 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:37:41,730 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:37:41,730 INFO    forge.axiom.supervisor.driver - Calculation complete: 99.5 Ah
+[demo_mistral_range_fb] P-419 | prismatic/NMC-811/ev_t/edge_/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:37:41,731 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:37:59,470 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:37:59,471 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:38:17,424 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:38:17,424 INFO    forge.axiom.supervisor.driver - Calculation complete: 184.8 Ah
+[demo_mistral_range_fb] P-450 | prismatic/NMC-811/grid/stand/detaile       | VALID  attempt 2/4 | 35.7s | 14/14 constraints (recovered)
+2026-03-30 10:38:17,425 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:38:35,191 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 1
+2026-03-30 10:38:35,191 INFO    forge.axiom.supervisor.driver - Calculation complete: 136.0 Ah
+[demo_mistral_range_fb] P-469 | prismatic/NMC-111/grid/edge_/detaile       | VALID  attempt 1/4 | 17.8s | 14/14 constraints
+2026-03-30 10:38:35,192 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:38:52,698 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:38:52,698 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:39:10,456 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:39:10,457 INFO    forge.axiom.supervisor.driver - Calculation complete: 115.2 Ah
+[demo_mistral_range_fb] P-483 | prismatic/LFP/ev_t/stand/natural           | VALID  attempt 2/4 | 35.3s | 14/14 constraints (recovered)
+2026-03-30 10:39:10,458 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:39:28,028 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:39:28,028 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:39:45,856 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:39:45,857 INFO    forge.axiom.supervisor.driver - Calculation complete: 243.0 Ah
+[demo_mistral_range_fb] P-487 | prismatic/LFP/grid/edge_/detaile           | VALID  attempt 2/4 | 35.4s | 14/14 constraints (recovered)
+2026-03-30 10:39:45,858 INFO    forge.axiom.supervisor.driver - Generation attempt 1/4
+2026-03-30 10:40:03,342 WARNING forge.axiom.supervisor.driver - Validation failed on attempt 1
+2026-03-30 10:40:03,342 INFO    forge.axiom.supervisor.driver - Generation attempt 2/4
+2026-03-30 10:40:21,061 INFO    forge.axiom.supervisor.driver - Valid prismatic design generated on attempt 2
+2026-03-30 10:40:21,061 INFO    forge.axiom.supervisor.driver - Calculation complete: 177.2 Ah
+[demo_mistral_range_fb] P-488 | prismatic/LFP/grid/contr/terse             | VALID  attempt 2/4 | 35.2s | 14/14 constraints (recovered)
+[demo_mistral_range_fb] Progress: 50/50 (100.0%) | Valid: 50 | Rejected: 0 | Errors: 0 | ETA: 0s
+
+============================================================
+[demo_mistral_range_fb] DONE: 50/50
+  Valid:    50/50 (100.0%)
+  Rejected: 0/50
+  Errors:   0/50
+  Output:   /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/experiments/demonstration/demo_mistral_range_feedback.jsonl
+
+  Baseline (no ranges): 0/50 valid (0.0%)
+  Demo (with ranges):   50/50 valid (100.0%)
+  Improvement:          +50 designs recovered
+============================================================
