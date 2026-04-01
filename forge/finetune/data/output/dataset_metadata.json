@@ -1,0 +1,153 @@
+{
+  "timestamp": "2026-04-01T08:01:04Z",
+  "seed": 42,
+  "train_ratio": 0.8,
+  "total_records": 5000,
+  "train_count": 3997,
+  "val_count": 1003,
+  "medium_train_file": "medium_train.jsonl",
+  "medium_val_file": "medium_val.jsonl",
+  "hard_train_file": "hard_train.jsonl",
+  "hard_val_file": "hard_val.jsonl",
+  "hard_missing": 0,
+  "stratification": {
+    "train": {
+      "cylindrical_LFP": 595,
+      "cylindrical_NCA": 152,
+      "cylindrical_NMC": 585,
+      "pouch_LFP": 567,
+      "pouch_NCA": 131,
+      "pouch_NMC": 635,
+      "prismatic_LFP": 561,
+      "prismatic_NCA": 138,
+      "prismatic_NMC": 633
+    },
+    "val": {
+      "cylindrical_LFP": 149,
+      "cylindrical_NCA": 38,
+      "cylindrical_NMC": 147,
+      "pouch_LFP": 142,
+      "pouch_NCA": 33,
+      "pouch_NMC": 159,
+      "prismatic_LFP": 141,
+      "prismatic_NCA": 35,
+      "prismatic_NMC": 159
+    }
+  },
+  "token_stats": {
+    "medium_train": {
+      "system_tokens": {
+        "min": 853,
+        "max": 1054,
+        "avg": 953,
+        "p95": 1054
+      },
+      "user_tokens": {
+        "min": 5,
+        "max": 48,
+        "avg": 23,
+        "p95": 38
+      },
+      "assistant_tokens": {
+        "min": 96,
+        "max": 154,
+        "avg": 120,
+        "p95": 154
+      },
+      "total_tokens": {
+        "min": 966,
+        "max": 1256,
+        "avg": 1096,
+        "p95": 1243
+      }
+    },
+    "medium_val": {
+      "system_tokens": {
+        "min": 853,
+        "max": 1054,
+        "avg": 953,
+        "p95": 1054
+      },
+      "user_tokens": {
+        "min": 5,
+        "max": 47,
+        "avg": 24,
+        "p95": 38
+      },
+      "assistant_tokens": {
+        "min": 96,
+        "max": 154,
+        "avg": 120,
+        "p95": 154
+      },
+      "total_tokens": {
+        "min": 966,
+        "max": 1255,
+        "avg": 1097,
+        "p95": 1244
+      }
+    },
+    "hard_train": {
+      "system_tokens": {
+        "min": 821,
+        "max": 1022,
+        "avg": 921,
+        "p95": 1022
+      },
+      "user_tokens": {
+        "min": 5,
+        "max": 48,
+        "avg": 23,
+        "p95": 38
+      },
+      "assistant_tokens": {
+        "min": 266,
+        "max": 381,
+        "avg": 318,
+        "p95": 359
+      },
+      "total_tokens": {
+        "min": 1098,
+        "max": 1438,
+        "avg": 1262,
+        "p95": 1411
+      }
+    },
+    "hard_val": {
+      "system_tokens": {
+        "min": 821,
+        "max": 1022,
+        "avg": 921,
+        "p95": 1022
+      },
+      "user_tokens": {
+        "min": 5,
+        "max": 47,
+        "avg": 24,
+        "p95": 38
+      },
+      "assistant_tokens": {
+        "min": 274,
+        "max": 376,
+        "avg": 318,
+        "p95": 358
+      },
+      "total_tokens": {
+        "min": 1115,
+        "max": 1432,
+        "avg": 1262,
+        "p95": 1412
+      }
+    }
+  },
+  "decontamination": {
+    "checked_against_corpus_a": 500,
+    "checked_against_corpus_b": 250,
+    "flagged": 0
+  },
+  "notes": {
+    "medium_system_prompt": "build_system_prompt(cell_type) + YAML-only suffix",
+    "hard_system_prompt": "build_system_prompt(cell_type), no suffix",
+    "stage5_note": "Hard model eval needs suppress_yaml_suffix flag in ExperimentDefinition"
+  }
+}

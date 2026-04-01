@@ -1,0 +1,30 @@
+{
+  "timestamp": "2026-03-31T21:56:07Z",
+  "seed": 42,
+  "sigma": 0.15,
+  "target": 5000,
+  "strategy": "LHS within schema ranges, 29-constraint validation",
+  "generated": {
+    "prismatic": 1667,
+    "pouch": 1667,
+    "cylindrical": 1666
+  },
+  "attempts": {
+    "prismatic": 2437,
+    "pouch": 1721,
+    "cylindrical": 5861
+  },
+  "pass_rate": {
+    "prismatic": 0.684,
+    "pouch": 0.969,
+    "cylindrical": 0.284
+  },
+  "chemistry_distribution": {
+    "LFP": 2155,
+    "NMC": 2318,
+    "NCA": 527
+  },
+  "centroid_distribution": {},
+  "schema": "v1",
+  "constraints_version": "29_checks"
+}
