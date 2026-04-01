@@ -18,8 +18,6 @@ from __future__ import annotations
 
 import json
 import logging
-import sys
-import time
 from collections import deque
 from pathlib import Path
 
@@ -27,8 +25,8 @@ from pathlib import Path
 # Monkey-patch validate_structure BEFORE any pipeline imports pick it up.
 # This is the ONLY change: enrich error messages with valid ranges.
 # ---------------------------------------------------------------------------
-
 import jsonschema
+
 from forge.engine.validation import schema_validator
 
 _original_validate_structure = schema_validator.validate_structure
@@ -123,7 +121,6 @@ _pipeline.validate_structure = _validate_structure_with_ranges
 # Now import the rest (after patching).
 # ---------------------------------------------------------------------------
 
-from forge.axiom.supervisor import driver as supervisor_driver  # noqa: E402
 from forge.experiments.experiment_config import (  # noqa: E402
     MISTRAL_SMALL_31,
     ExperimentDefinition,

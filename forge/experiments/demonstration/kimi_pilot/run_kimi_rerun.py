@@ -19,7 +19,6 @@ import random
 from collections import deque
 from pathlib import Path
 
-from forge.axiom.supervisor import driver as supervisor_driver
 from forge.experiments.experiment_config import BackendConfig, ExperimentDefinition
 from forge.experiments.run_experiments import (
     _build_backend,

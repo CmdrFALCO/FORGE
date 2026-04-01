@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import json
 import re
-from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from random import Random
@@ -669,7 +668,7 @@ def main():
     # Summary stats
     prompts = corpus["prompts"]
     core = [p for p in prompts if p["roughness_family"] != "SENT"]
-    print(f"\n[corpus_b] Summary:")
+    print("\n[corpus_b] Summary:")
     print(f"  Total: {len(prompts)}")
     print(f"  Core: {len(core)}, Sentinels: {len(prompts) - len(core)}")
     for fam in FAMILIES:
@@ -680,7 +679,7 @@ def main():
         print(f"  {ct}: {count}")
 
     # Sample prompts for review
-    print(f"\n[corpus_b] Sample prompts for review:")
+    print("\n[corpus_b] Sample prompts for review:")
     review_ids = ["B-001", "B-049", "B-097", "B-145", "B-193", "B-241"]
     for rid in review_ids:
         p = next((p for p in prompts if p["prompt_id"] == rid), None)
