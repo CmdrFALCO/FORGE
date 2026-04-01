@@ -14,6 +14,7 @@ Usage:
         --seed 42
 """
 
+# ruff: noqa: I001 — import order matters: unsloth must patch before trl/transformers
 from __future__ import annotations
 
 import argparse

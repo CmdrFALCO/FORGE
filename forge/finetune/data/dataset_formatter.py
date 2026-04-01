@@ -319,7 +319,7 @@ def format_datasets(
     hard_val_stats = compute_token_stats(hard_val_chatml)
 
     if verbose:
-        print(f"\nToken estimates (whitespace-split words):")
+        print("\nToken estimates (whitespace-split words):")
         print(f"  Medium train — total: avg {med_train_stats['total_tokens']['avg']}, "
               f"p95 {med_train_stats['total_tokens']['p95']}")
         print(f"  Hard train   — total: avg {hard_train_stats['total_tokens']['avg']}, "

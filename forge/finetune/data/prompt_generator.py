@@ -167,19 +167,16 @@ def _build_terse(rng: np.random.Generator, cell_type: str, chemistry: str,
             disclosed.append("format")
 
     # Optionally add a dimension
-    dim_added = False
     if cell_type == "prismatic" and rng.random() < 0.5:
         h = params.get("cell_height_mm")
         if h:
             parts.append(f"{rng.choice(APPROX)} {round(h)}mm tall")
             disclosed.append("cell_height_mm")
-            dim_added = True
     elif cell_type == "pouch" and rng.random() < 0.4:
         h = params.get("cathode_height_mm")
         if h:
             parts.append(f"{rng.choice(APPROX)} {round(h)}mm cathode")
             disclosed.append("cathode_height_mm")
-            dim_added = True
 
     # Application context
     app = _pick_application(rng, chemistry, cell_type)
@@ -209,14 +206,19 @@ def _build_detailed(rng: np.random.Generator, cell_type: str, chemistry: str,
         h = params.get("cell_height_mm")
         w = params.get("cell_width_mm")
         t = params.get("cell_thickness_mm")
-        if h: spec_pool.append(("cell_height_mm", f"Height: {rng.choice(APPROX)} {round(h)} mm"))
-        if w: spec_pool.append(("cell_width_mm", f"Width: {rng.choice(APPROX)} {round(w)} mm"))
-        if t: spec_pool.append(("cell_thickness_mm", f"Thickness: {rng.choice(APPROX)} {round(t)} mm"))
+        if h:
+            spec_pool.append(("cell_height_mm", f"Height: {rng.choice(APPROX)} {round(h)} mm"))
+        if w:
+            spec_pool.append(("cell_width_mm", f"Width: {rng.choice(APPROX)} {round(w)} mm"))
+        if t:
+            spec_pool.append(("cell_thickness_mm", f"Thickness: {rng.choice(APPROX)} {round(t)} mm"))
     elif cell_type == "pouch":
         h = params.get("cathode_height_mm")
         w = params.get("cathode_width_mm")
-        if h: spec_pool.append(("cathode_height_mm", f"Cathode height: {rng.choice(APPROX)} {round(h)} mm"))
-        if w: spec_pool.append(("cathode_width_mm", f"Cathode width: {rng.choice(APPROX)} {round(w)} mm"))
+        if h:
+            spec_pool.append(("cathode_height_mm", f"Cathode height: {rng.choice(APPROX)} {round(h)} mm"))
+        if w:
+            spec_pool.append(("cathode_width_mm", f"Cathode width: {rng.choice(APPROX)} {round(w)} mm"))
     elif cell_type == "cylindrical":
         fmt = params.get("format", "custom")
         d = params.get("diameter_mm")
@@ -227,11 +229,14 @@ def _build_detailed(rng: np.random.Generator, cell_type: str, chemistry: str,
 
     # Common specs
     cl = params.get("cathode_loading")
-    if cl: spec_pool.append(("cathode_loading", f"Cathode loading: {rng.choice(APPROX)} {round(cl, 1)} mg/cm2"))
+    if cl:
+        spec_pool.append(("cathode_loading", f"Cathode loading: {rng.choice(APPROX)} {round(cl, 1)} mg/cm2"))
     st = params.get("separator_thickness")
-    if st: spec_pool.append(("separator_thickness", f"Separator: {round(st)} um"))
+    if st:
+        spec_pool.append(("separator_thickness", f"Separator: {round(st)} um"))
     ep = params.get("electrode_pairs")
-    if ep: spec_pool.append(("electrode_pairs", f"Electrode pairs: {ep}"))
+    if ep:
+        spec_pool.append(("electrode_pairs", f"Electrode pairs: {ep}"))
 
     # Select 3-6 specs to disclose
     n_specs = min(len(spec_pool), int(rng.integers(3, 7)))

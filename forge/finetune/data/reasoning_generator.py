@@ -121,15 +121,15 @@ def submit_batch(requests_path: Path) -> str:
 
     batch = client.messages.batches.create(requests=requests)
 
-    print(f"Batch submitted successfully!")
+    print("Batch submitted successfully!")
     print(f"  Batch ID: {batch.id}")
     print(f"  Status: {batch.processing_status}")
     print(f"  Created: {batch.created_at}")
-    print(f"\nUse this command to check status and collect results:")
-    print(f"  python -m forge.finetune.data.reasoning_generator collect \\")
+    print("\nUse this command to check status and collect results:")
+    print("  python -m forge.finetune.data.reasoning_generator collect \\")
     print(f"      --batch-id {batch.id} \\")
-    print(f"      --input forge/finetune/data/output/configs_with_prompts.jsonl \\")
-    print(f"      --output forge/finetune/data/output/configs_with_reasoning.jsonl")
+    print("      --input forge/finetune/data/output/configs_with_prompts.jsonl \\")
+    print("      --output forge/finetune/data/output/configs_with_reasoning.jsonl")
 
     return batch.id
 
@@ -237,7 +237,7 @@ def collect_results(
             failure_rate * 100,
         )
 
-    print(f"\n=== Collection complete ===")
+    print("\n=== Collection complete ===")
     print(f"  Succeeded: {succeeded}/{total}")
     print(f"  Failed: {failed}/{total}")
     print(f"  Avg reasoning: {avg_len:.0f} words")
