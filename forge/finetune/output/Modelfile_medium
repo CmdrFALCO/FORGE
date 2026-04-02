@@ -1,0 +1,7 @@
+FROM /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/finetune/output/qwen25-7b-forge-medium.gguf
+
+PARAMETER temperature 0.0
+PARAMETER num_ctx 4096
+PARAMETER num_predict 2000
+PARAMETER stop <|im_end|>
+PARAMETER stop <|endoftext|>
