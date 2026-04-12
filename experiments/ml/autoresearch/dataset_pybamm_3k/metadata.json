@@ -1,0 +1,90 @@
+{
+  "n_samples": 2975,
+  "n_features": 11,
+  "n_targets": 2,
+  "feature_names": [
+    "electrode_thickness",
+    "porosity",
+    "separator_thickness",
+    "n_tabs",
+    "tab_width",
+    "can_inner_diameter",
+    "can_wall_thickness",
+    "cell_height",
+    "surface_to_volume",
+    "tab_conductance_proxy",
+    "diffusion_path_proxy"
+  ],
+  "target_names": [
+    "rate_capability_proxy",
+    "max_temp_proxy"
+  ],
+  "split_sizes": {
+    "train": 2082,
+    "val": 446,
+    "test": 447
+  },
+  "target_stds": {
+    "rate_capability_proxy": 0.35086292028427124,
+    "max_temp_proxy": 15.679342269897461
+  },
+  "target_means": {
+    "rate_capability_proxy": 0.3292158842086792,
+    "max_temp_proxy": 53.97718048095703
+  },
+  "feature_ranges": {
+    "electrode_thickness": [
+      50.011470794677734,
+      149.99752807617188
+    ],
+    "porosity": [
+      0.20000573992729187,
+      0.4999876022338867
+    ],
+    "separator_thickness": [
+      10.012316703796387,
+      49.986839294433594
+    ],
+    "n_tabs": [
+      1.0,
+      6.0
+    ],
+    "tab_width": [
+      5.007452487945557,
+      29.999534606933594
+    ],
+    "can_inner_diameter": [
+      44.00005340576172,
+      45.9996223449707
+    ],
+    "can_wall_thickness": [
+      0.2001211792230606,
+      0.7999522089958191
+    ],
+    "cell_height": [
+      65.00641632080078,
+      94.99068450927734
+    ],
+    "surface_to_volume": [
+      0.10816200077533722,
+      0.12141534686088562
+    ],
+    "tab_conductance_proxy": [
+      5.1952433586120605,
+      179.81480407714844
+    ],
+    "diffusion_path_proxy": [
+      101.59317016601562,
+      735.6926879882812
+    ]
+  },
+  "hashes": {
+    "train": "313fb312f8f65e7811786de24fd07ec781a6ce9cc0cc5329acbdd4cccddc6fdc",
+    "val": "7a5798412976b7527b9a8a9de3216bfa76ee1a7a26fa1cd7c998fc81849897d2",
+    "test": "356283f314a5145371e5c94deedf5f9e9923507226e024b83971b74d1004f191"
+  },
+  "seed": 42,
+  "source": "pybamm_dfn",
+  "attempted": 3000,
+  "failed": 25
+}

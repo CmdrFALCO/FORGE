@@ -1,0 +1,90 @@
+{
+  "optimizer_type": "optuna_tpe",
+  "study_name": "run-004a-500",
+  "n_trials": 200,
+  "n_completed": 112,
+  "n_pruned": 88,
+  "budget_seconds_per_trial": 300,
+  "seed": 42,
+  "dataset": "/home/cmdrfalco/Projects/CmdrFALCO/FORGE/experiments/ml/autoresearch/dataset_pybamm",
+  "dataset_name": "dataset_pybamm",
+  "n_train": 347,
+  "n_val": 74,
+  "n_test": 75,
+  "n_features": 11,
+  "search_space": {
+    "hidden_size": {
+      "low": 32,
+      "high": 256,
+      "step": 32
+    },
+    "num_layers": {
+      "low": 1,
+      "high": 4
+    },
+    "activation": [
+      "relu",
+      "gelu",
+      "tanh",
+      "silu"
+    ],
+    "learning_rate": {
+      "low": 0.0001,
+      "high": 0.01,
+      "log": true
+    },
+    "batch_size": [
+      16,
+      32,
+      64,
+      128
+    ],
+    "weight_decay": {
+      "low": 1e-06,
+      "high": 0.01,
+      "log": true
+    },
+    "optimizer": [
+      "adam",
+      "adamw"
+    ],
+    "loss": [
+      "mse",
+      "huber"
+    ],
+    "batchnorm": [
+      true,
+      false
+    ],
+    "skip_connection": [
+      true,
+      false
+    ],
+    "dropout": {
+      "low": 0.0,
+      "high": 0.3,
+      "step": 0.05
+    },
+    "ensemble_size": {
+      "low": 1,
+      "high": 10
+    }
+  },
+  "fixed_features": "11 raw (no engineering, no selection)",
+  "comparison_note": "Fair comparison \u2014 Optuna tunes numbers, LLM invents ideas",
+  "best_score": 0.4634298086166382,
+  "best_params": {
+    "hidden_size": 192,
+    "num_layers": 2,
+    "activation": "silu",
+    "learning_rate": 0.004119840056727032,
+    "batch_size": 128,
+    "weight_decay": 0.002006761872483092,
+    "optimizer": "adamw",
+    "loss": "huber",
+    "batchnorm": false,
+    "skip_connection": true,
+    "dropout": 0.3,
+    "ensemble_size": 2
+  }
+}
