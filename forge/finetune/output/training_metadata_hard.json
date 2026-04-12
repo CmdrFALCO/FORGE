@@ -21,14 +21,14 @@
   "train_samples": 3997,
   "val_samples": 1003,
   "total_steps": 750,
-  "final_train_loss": 0.144317,
-  "final_val_loss": 0.113269,
-  "best_val_loss": 0.113269,
+  "final_train_loss": 0.396588,
+  "final_val_loss": 0.378895,
+  "best_val_loss": 0.378895,
   "best_val_step": 700,
-  "training_time_minutes": 686.1,
-  "peak_gpu_memory_gb": 22.28,
+  "training_time_minutes": 763.4,
+  "peak_gpu_memory_gb": 22.51,
   "gpu": "NVIDIA GeForce RTX 3090",
   "seed": 42,
   "adapter_path": "forge/finetune/output/adapter_hard",
-  "timestamp": "2026-04-02T07:49:58Z"
+  "timestamp": "2026-04-03T13:15:40Z"
 }

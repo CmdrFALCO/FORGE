@@ -1,5 +1,13 @@
 FROM /home/cmdrfalco/Projects/CmdrFALCO/FORGE/forge/finetune/output/qwen25-7b-forge-hard.gguf
 
+TEMPLATE """{{- if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+<|im_start|>assistant
+{{ .Response }}<|im_end|>
+"""
+
 PARAMETER temperature 0.0
 PARAMETER num_ctx 4096
 PARAMETER num_predict 2000
