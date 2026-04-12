@@ -21,6 +21,7 @@ class BackendConfig:
     num_ctx: int = 8192        # Ollama-specific
     num_predict: int = 2000    # Ollama-specific: hard cap on output tokens
     host: str = "http://localhost:11434"  # Ollama-specific
+    append_yaml_suffix: bool = True  # Append YAML-only suffix for Ollama models
 
 
 @dataclass(frozen=True)
@@ -102,6 +103,38 @@ LLAMA_32_3B = BackendConfig(
     temperature=0.0,
     num_ctx=8192,
     host="http://localhost:11434",
+)
+
+# ── Fine-Tuning Evaluation Models ──
+
+QWEN_25_7B_BASE = BackendConfig(
+    backend_type="ollama",
+    model="qwen2.5:7b",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,
+)
+
+QWEN_25_7B_MEDIUM = BackendConfig(
+    backend_type="ollama",
+    model="qwen25-7b-forge-medium",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,  # Trained WITH suffix
+)
+
+QWEN_25_7B_HARD = BackendConfig(
+    backend_type="ollama",
+    model="qwen25-7b-forge-hard",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=False,  # Trained WITHOUT suffix (reasoning before YAML)
 )
 
 # ---------------------------------------------------------------------------
@@ -294,5 +327,60 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
         output_filename="exp_llama3b_sup_supervised_local.jsonl",
         gpu_monitor=True,
         gpu_log_filename="exp_llama3b_sup_gpu.csv",
+    ),
+    # ── Fine-Tuning Evaluation: Qwen 2.5 7B base + Medium + Hard ──
+    "ft_base_unsup": ExperimentDefinition(
+        experiment_id="ft_base_unsup",
+        name="Baseline (Qwen 2.5 7B, unsupervised)",
+        description="Qwen 2.5 7B base model, single attempt, no fine-tuning",
+        backend_config=QWEN_25_7B_BASE,
+        supervised=False,
+        max_retries=1,
+        output_filename="ft_base_unsup.jsonl",
+    ),
+    "ft_base_sup": ExperimentDefinition(
+        experiment_id="ft_base_sup",
+        name="Baseline (Qwen 2.5 7B, supervised)",
+        description="Qwen 2.5 7B base model, full AXIOM pipeline with retries",
+        backend_config=QWEN_25_7B_BASE,
+        supervised=True,
+        max_retries=4,
+        output_filename="ft_base_sup.jsonl",
+    ),
+    "ft_medium_unsup": ExperimentDefinition(
+        experiment_id="ft_medium_unsup",
+        name="Medium Fine-Tuned (unsupervised)",
+        description="QLoRA Medium adapter on Qwen 2.5 7B, single attempt",
+        backend_config=QWEN_25_7B_MEDIUM,
+        supervised=False,
+        max_retries=1,
+        output_filename="ft_medium_unsup.jsonl",
+    ),
+    "ft_medium_sup": ExperimentDefinition(
+        experiment_id="ft_medium_sup",
+        name="Medium Fine-Tuned (supervised)",
+        description="QLoRA Medium adapter on Qwen 2.5 7B, full AXIOM pipeline",
+        backend_config=QWEN_25_7B_MEDIUM,
+        supervised=True,
+        max_retries=4,
+        output_filename="ft_medium_sup.jsonl",
+    ),
+    "ft_hard_unsup": ExperimentDefinition(
+        experiment_id="ft_hard_unsup",
+        name="Hard Fine-Tuned (unsupervised)",
+        description="QLoRA Hard adapter (reasoning+YAML) on Qwen 2.5 7B, single attempt",
+        backend_config=QWEN_25_7B_HARD,
+        supervised=False,
+        max_retries=1,
+        output_filename="ft_hard_unsup.jsonl",
+    ),
+    "ft_hard_sup": ExperimentDefinition(
+        experiment_id="ft_hard_sup",
+        name="Hard Fine-Tuned (supervised)",
+        description="QLoRA Hard adapter (reasoning+YAML) on Qwen 2.5 7B, full AXIOM pipeline",
+        backend_config=QWEN_25_7B_HARD,
+        supervised=True,
+        max_retries=4,
+        output_filename="ft_hard_sup.jsonl",
     ),
 }

@@ -97,6 +97,7 @@ def _build_backend(cfg: BackendConfig) -> LLMBackend:
             temperature=cfg.temperature,
             num_ctx=cfg.num_ctx,
             num_predict=cfg.num_predict,
+            append_yaml_suffix=getattr(cfg, 'append_yaml_suffix', True),
         )
     raise ValueError(f"Unknown backend type: {cfg.backend_type}")
 

@@ -60,3 +60,23 @@ site/
 # ML artifacts (binary, served via Docker volume mount)
 experiments/ml/autoresearch/checkpoint.pt
 
+# Finetune model weights and merged models (large binaries)
+forge/finetune/output/qwen25-7b-forge-hard/
+forge/finetune/output/qwen25-7b-forge-medium/
+forge/finetune/output/*.gguf
+forge/finetune/output/checkpoints_hard/
+forge/finetune/output/checkpoints_medium/
+forge/finetune/output/adapter_hard/adapter_model.safetensors
+forge/finetune/output/adapter_hard/tokenizer.json
+forge/finetune/output/adapter_medium/adapter_model.safetensors
+forge/finetune/output/adapter_medium/tokenizer.json
+
+# Finetune training data dumps (regenerable, ~178MB)
+forge/finetune/data/output/
+
+# Unsloth build cache
+unsloth_compiled_cache/
+
+# Private thesis drafts and session handoff notes
+docs/thesis/
+docs/Handoff_Session_Summary_*.md

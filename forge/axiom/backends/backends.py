@@ -132,6 +132,7 @@ class OllamaBackend:
     num_ctx: int = 8192
     num_predict: int = 2000  # Hard cap on output tokens to prevent runaway generation
     think: bool = False  # Disable reasoning/thinking mode (e.g. Qwen 3.5)
+    append_yaml_suffix: bool = True  # Append YAML-only suffix to system prompt
     last_usage: LLMUsage = field(default_factory=LLMUsage)
 
     def __post_init__(self):

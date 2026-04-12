@@ -151,6 +151,14 @@ def train_adapter(
         args=training_args,
     )
 
+    # Apply Unsloth's response-only masking: loss only on assistant turns
+    from unsloth.chat_templates import train_on_responses_only
+    trainer = train_on_responses_only(
+        trainer,
+        instruction_part="<|im_start|>user\n",
+        response_part="<|im_start|>assistant\n",
+    )
+
     logger.info("Starting training: %d epochs, effective batch %d, lr=%s",
                 epochs, batch_size * grad_accum, lr)
 
