@@ -137,6 +137,48 @@ QWEN_25_7B_HARD = BackendConfig(
     append_yaml_suffix=False,  # Trained WITHOUT suffix (reasoning before YAML)
 )
 
+# ── Gemma 4 Evaluation Models ──
+
+GEMMA4_E2B = BackendConfig(
+    backend_type="ollama",
+    model="gemma4:e2b",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,
+)
+
+GEMMA4_E4B = BackendConfig(
+    backend_type="ollama",
+    model="gemma4:e4b",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,
+)
+
+GEMMA4_26B = BackendConfig(
+    backend_type="ollama",
+    model="gemma4:26b",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,
+)
+
+GEMMA4_31B = BackendConfig(
+    backend_type="ollama",
+    model="gemma4:31b",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,
+)
+
 # ---------------------------------------------------------------------------
 # Experiment definitions
 # ---------------------------------------------------------------------------
@@ -382,5 +424,78 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
         supervised=True,
         max_retries=4,
         output_filename="ft_hard_sup.jsonl",
+    ),
+    # ── Gemma 4 Evaluation: E2B / E4B / 26B / 31B on Corpus A ──
+    "gemma4_e2b_unsup_a": ExperimentDefinition(
+        experiment_id="gemma4_e2b_unsup_a",
+        name="Gemma 4 E2B (unsupervised, Corpus A)",
+        description="Gemma 4 E2B via Ollama, single attempt, Corpus A",
+        backend_config=GEMMA4_E2B,
+        supervised=False,
+        max_retries=1,
+        output_filename="gemma4_e2b_unsup_a.jsonl",
+    ),
+    "gemma4_e2b_sup_a": ExperimentDefinition(
+        experiment_id="gemma4_e2b_sup_a",
+        name="Gemma 4 E2B (supervised, Corpus A)",
+        description="Gemma 4 E2B via Ollama, full AXIOM pipeline with retries, Corpus A",
+        backend_config=GEMMA4_E2B,
+        supervised=True,
+        max_retries=4,
+        output_filename="gemma4_e2b_sup_a.jsonl",
+    ),
+    "gemma4_e4b_unsup_a": ExperimentDefinition(
+        experiment_id="gemma4_e4b_unsup_a",
+        name="Gemma 4 E4B (unsupervised, Corpus A)",
+        description="Gemma 4 E4B via Ollama, single attempt, Corpus A",
+        backend_config=GEMMA4_E4B,
+        supervised=False,
+        max_retries=1,
+        output_filename="gemma4_e4b_unsup_a.jsonl",
+    ),
+    "gemma4_e4b_sup_a": ExperimentDefinition(
+        experiment_id="gemma4_e4b_sup_a",
+        name="Gemma 4 E4B (supervised, Corpus A)",
+        description="Gemma 4 E4B via Ollama, full AXIOM pipeline with retries, Corpus A",
+        backend_config=GEMMA4_E4B,
+        supervised=True,
+        max_retries=4,
+        output_filename="gemma4_e4b_sup_a.jsonl",
+    ),
+    "gemma4_26b_unsup_a": ExperimentDefinition(
+        experiment_id="gemma4_26b_unsup_a",
+        name="Gemma 4 26B (unsupervised, Corpus A)",
+        description="Gemma 4 26B via Ollama, single attempt, Corpus A",
+        backend_config=GEMMA4_26B,
+        supervised=False,
+        max_retries=1,
+        output_filename="gemma4_26b_unsup_a.jsonl",
+    ),
+    "gemma4_26b_sup_a": ExperimentDefinition(
+        experiment_id="gemma4_26b_sup_a",
+        name="Gemma 4 26B (supervised, Corpus A)",
+        description="Gemma 4 26B via Ollama, full AXIOM pipeline with retries, Corpus A",
+        backend_config=GEMMA4_26B,
+        supervised=True,
+        max_retries=4,
+        output_filename="gemma4_26b_sup_a.jsonl",
+    ),
+    "gemma4_31b_unsup_a": ExperimentDefinition(
+        experiment_id="gemma4_31b_unsup_a",
+        name="Gemma 4 31B (unsupervised, Corpus A)",
+        description="Gemma 4 31B via Ollama, single attempt, Corpus A",
+        backend_config=GEMMA4_31B,
+        supervised=False,
+        max_retries=1,
+        output_filename="gemma4_31b_unsup_a.jsonl",
+    ),
+    "gemma4_31b_sup_a": ExperimentDefinition(
+        experiment_id="gemma4_31b_sup_a",
+        name="Gemma 4 31B (supervised, Corpus A)",
+        description="Gemma 4 31B via Ollama, full AXIOM pipeline with retries, Corpus A",
+        backend_config=GEMMA4_31B,
+        supervised=True,
+        max_retries=4,
+        output_filename="gemma4_31b_sup_a.jsonl",
     ),
 }
