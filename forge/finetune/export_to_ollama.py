@@ -24,16 +24,25 @@ from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
+STOP_TOKENS_BY_FAMILY = {
+    "qwen": ["<|im_end|>", "<|endoftext|>"],
+    "gemma4": ["<turn|>", "<end_of_turn>"],
+}
+
+
 def export_to_ollama(
     adapter_path: Path,
     model_name: str,
     quantization: str = "q4_k_m",
     output_dir: Path | None = None,
     verbose: bool = False,
+    family: str = "qwen",
 ):
     """Merge adapter, convert to GGUF, register with Ollama."""
     if output_dir is None:
         output_dir = adapter_path.parent
+    if family not in STOP_TOKENS_BY_FAMILY:
+        raise ValueError(f"Unknown family {family!r}; known: {list(STOP_TOKENS_BY_FAMILY)}")
 
     # Step 1: Merge adapter into base model and save as GGUF
     logger.info("Merging adapter and saving as GGUF (%s)...", quantization)
@@ -85,13 +94,13 @@ def export_to_ollama(
 
     # Step 2: Create Ollama Modelfile
     modelfile_path = output_dir / f"Modelfile_{model_name}"
+    stop_lines = "\n".join(f'PARAMETER stop "{tok}"' for tok in STOP_TOKENS_BY_FAMILY[family])
     modelfile_content = f"""FROM {gguf_path}
 
 PARAMETER temperature 0.0
 PARAMETER num_ctx 4096
 PARAMETER num_predict 2000
-PARAMETER stop <|im_end|>
-PARAMETER stop <|endoftext|>
+{stop_lines}
 """
     with open(modelfile_path, "w") as f:
         f.write(modelfile_content)
@@ -153,6 +162,9 @@ def main():
     parser.add_argument("--model-name", required=True, type=str)
     parser.add_argument("--quantization", type=str, default="q4_k_m")
     parser.add_argument("--output-dir", type=str, default=None)
+    parser.add_argument("--family", type=str, default="qwen",
+                        choices=sorted(STOP_TOKENS_BY_FAMILY.keys()),
+                        help="Model family for Modelfile stop tokens (qwen/gemma4).")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
@@ -168,6 +180,7 @@ def main():
         quantization=args.quantization,
         output_dir=out_dir,
         verbose=args.verbose,
+        family=args.family,
     )
 
 

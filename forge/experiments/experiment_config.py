@@ -137,6 +137,16 @@ QWEN_25_7B_HARD = BackendConfig(
     append_yaml_suffix=False,  # Trained WITHOUT suffix (reasoning before YAML)
 )
 
+GEMMA4_E4B_FORGE_MEDIUM = BackendConfig(
+    backend_type="ollama",
+    model="gemma4-e4b-forge-medium",
+    temperature=0.0,
+    num_ctx=4096,
+    num_predict=2000,
+    host="http://localhost:11434",
+    append_yaml_suffix=True,  # Trained WITH suffix (Medium recipe)
+)
+
 # ── Gemma 4 Evaluation Models ──
 
 GEMMA4_E2B = BackendConfig(
@@ -497,5 +507,15 @@ EXPERIMENTS: dict[str, ExperimentDefinition] = {
         supervised=True,
         max_retries=4,
         output_filename="gemma4_31b_sup_a.jsonl",
+    ),
+    # ── Gemma 4 E4B Fine-Tuned (Medium) — defensive 500-prompt eval ──
+    "gemma4_e4b_ft_medium_unsup_a": ExperimentDefinition(
+        experiment_id="gemma4_e4b_ft_medium_unsup_a",
+        name="Gemma 4 E4B Medium FT (unsupervised, Corpus A)",
+        description="QLoRA Medium adapter on Gemma 4 E4B, single attempt, Corpus A",
+        backend_config=GEMMA4_E4B_FORGE_MEDIUM,
+        supervised=False,
+        max_retries=1,
+        output_filename="gemma4_e4b_ft_medium_unsup_a.jsonl",
     ),
 }

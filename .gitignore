@@ -71,6 +71,16 @@ forge/finetune/output/adapter_hard/tokenizer.json
 forge/finetune/output/adapter_medium/adapter_model.safetensors
 forge/finetune/output/adapter_medium/tokenizer.json
 
+# Gemma 4 finetune outputs (mirrors the Qwen rules above)
+forge/finetune/output/gemma4-e2b-forge-medium-smoke/
+forge/finetune/output/gemma4-e4b-forge-medium/
+forge/finetune/output/gemma4-e4b-forge-medium_gguf/
+forge/finetune/output/checkpoints_gemma4_*/
+forge/finetune/output/adapter_gemma4_e2b_medium_smoke/adapter_model.safetensors
+forge/finetune/output/adapter_gemma4_e2b_medium_smoke/tokenizer.json
+forge/finetune/output/adapter_gemma4_e4b_medium/adapter_model.safetensors
+forge/finetune/output/adapter_gemma4_e4b_medium/tokenizer.json
+
 # Finetune training data dumps (regenerable, ~178MB)
 forge/finetune/data/output/
 
