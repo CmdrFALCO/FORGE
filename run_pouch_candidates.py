@@ -20,11 +20,11 @@ note, and a bundle hash. The script then git-adds the bundle (does NOT commit
 automatically — you review, then commit).
 """
 
-import os
-import sys
-import json
 import hashlib
+import json
+import os
 import subprocess
+import sys
 from datetime import datetime, timezone
 
 # --- FORGE import -----------------------------------------------------------
