@@ -1,0 +1,111 @@
+{
+  "run_id": "20260624_224042Z_nmc111_pouch",
+  "started_utc": "2026-06-24T22:40:43Z",
+  "model": "qwen3.5:27b",
+  "ollama_modelfile_sha256": "ff07c9433d3fc2b6c3a12d2b54ce0ee35a4cad7daa977c0ee8be13ff172e2547",
+  "chemistry_pinned": {
+    "cathode_material": "NMC111",
+    "cathode_rev_spec_capacity_mahg": 160.0,
+    "anode_material": "Graphite",
+    "anode_rev_spec_capacity_mahg": 350.0,
+    "np_ratio_target": 1.1,
+    "citation_note": "Specific capacities pinned from standard Li-ion materials literature (NMC111 practical ~150-165 mAh/g; graphite ~350-360 mAh/g). To be reconciled with ICSI materials data if/when provided."
+  },
+  "selection_policy": "No selection made at generation time. Valid candidates span a lab capacity range and will be offered (2-3) to the ICSI fabrication partner; final selection joint, per line constraints.",
+  "partner_constraints_status": "No ICSI line constraints available as of 2026-06-24. Lab-scale targets and conservative loadings are OUR stated design assumptions, to be reconciled on partner response.",
+  "candidates": [
+    {
+      "id": "C1_xs",
+      "timestamp_utc": "2026-06-24T22:40:43Z",
+      "status": "valid",
+      "target_ah": 0.5,
+      "design_note": "smallest coupon, few layers, low loading",
+      "success": true,
+      "attempts": 2,
+      "retry_reasons": [
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [stack_config.electrode_pairs_per_stack]\n    Error: 4 is not valid under any of the given schemas\n    Got: 4\n"
+      ],
+      "spec_yaml_sha256": "59ec9ebbe59f2a180540129635710b91a5d23747020b717e0233579d56320ea2",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 2)\n  Capacity: 0.2 Ah\n  Energy: 0.8 Wh\n  Mass: 6.2 g\n  Gravimetric ED: 136.1 Wh/kg"
+    },
+    {
+      "id": "C2_s",
+      "timestamp_utc": "2026-06-24T22:41:33Z",
+      "status": "valid",
+      "target_ah": 1.0,
+      "design_note": "small validation cell",
+      "success": true,
+      "attempts": 3,
+      "retry_reasons": [
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry (computed N/P ratio)]\n    Error: Computed N/P ratio 1.489 exceeds maximum 1.25. Calculated from: anode (8.85 mg/cm² × 350.0 mAh/g) / cathode (13.0 mg/cm² × 160.0 mAh/g). Risk of interface instability. Decrease anode loading or increase cathode loading. Declared np_ratio=1.100 disagrees with computed value 1.489 (delta=0.389).\n    Got: 1.4891826923076923\n",
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry (computed N/P ratio)]\n    Error: Computed N/P ratio 1.003 is below minimum 1.05. Calculated from: anode (5.96 mg/cm² × 350.0 mAh/g) / cathode (13.0 mg/cm² × 160.0 mAh/g). Risk of lithium plating on anode. Increase anode loading or decrease cathode loading. Declared np_ratio=1.100 disagrees with computed value 1.003 (delta=0.097).\n    Got: 1.0028846153846154\n"
+      ],
+      "spec_yaml_sha256": "83e8f8591f5353e0b4f63b8496ed18eed6919d8452bb8a157998354a013018a5",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 3)\n  Capacity: 0.5 Ah\n  Energy: 1.8 Wh\n  Mass: 11.4 g\n  Gravimetric ED: 159.8 Wh/kg"
+    },
+    {
+      "id": "C3_sm",
+      "timestamp_utc": "2026-06-24T22:42:42Z",
+      "status": "valid",
+      "target_ah": 1.5,
+      "design_note": "small-modest",
+      "success": true,
+      "attempts": 1,
+      "retry_reasons": [],
+      "spec_yaml_sha256": "a81d3a44f43b650a267bf76f43d44439436995c55832ed82468941f4c99d0737",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 1)\n  Capacity: 0.8 Ah\n  Energy: 2.9 Wh\n  Mass: 15.8 g\n  Gravimetric ED: 185.9 Wh/kg"
+    },
+    {
+      "id": "C4_m",
+      "timestamp_utc": "2026-06-24T22:43:09Z",
+      "status": "valid",
+      "target_ah": 2.0,
+      "design_note": "modest",
+      "success": true,
+      "attempts": 3,
+      "retry_reasons": [
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry (computed N/P ratio)]\n    Error: Computed N/P ratio 0.902 is below minimum 1.05. Calculated from: anode (5.77 mg/cm² × 350.0 mAh/g) / cathode (14.0 mg/cm² × 160.0 mAh/g). Risk of lithium plating on anode. Increase anode loading or decrease cathode loading. Declared np_ratio=1.100 disagrees with computed value 0.902 (delta=0.198).\n    Got: 0.9015624999999999\n",
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry (computed N/P ratio)]\n    Error: Computed N/P ratio 0.991 is below minimum 1.05. Calculated from: anode (6.34 mg/cm² × 350.0 mAh/g) / cathode (14.0 mg/cm² × 160.0 mAh/g). Risk of lithium plating on anode. Increase anode loading or decrease cathode loading. Declared np_ratio=1.100 disagrees with computed value 0.991 (delta=0.109).\n    Got: 0.990625\n"
+      ],
+      "spec_yaml_sha256": "352342449a0d4a3fd141f46214180565355a8fdb46d3b194a41e8d4cd6dfc90c",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 3)\n  Capacity: 1.2 Ah\n  Energy: 4.3 Wh\n  Mass: 26.2 g\n  Gravimetric ED: 164.8 Wh/kg"
+    },
+    {
+      "id": "C5_mh",
+      "timestamp_utc": "2026-06-24T22:44:22Z",
+      "status": "valid",
+      "target_ah": 2.5,
+      "design_note": "modest-high",
+      "success": true,
+      "attempts": 2,
+      "retry_reasons": [
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry.anode.coating_thickness_0pct_um]\n    Error: 38.0 is not valid under any of the given schemas\n    Got: 38.0\n"
+      ],
+      "spec_yaml_sha256": "27b3794227e10017019c3785a6db966bd429190733103a63a2e6c88a377a2d7d",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 2)\n  Capacity: 1.6 Ah\n  Energy: 5.9 Wh\n  Mass: 27.6 g\n  Gravimetric ED: 213.0 Wh/kg"
+    },
+    {
+      "id": "C6_h",
+      "timestamp_utc": "2026-06-24T22:45:07Z",
+      "status": "valid",
+      "target_ah": 3.0,
+      "design_note": "upper end of lab range",
+      "success": true,
+      "attempts": 2,
+      "retry_reasons": [
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry (computed N/P ratio)]\n    Error: Computed N/P ratio 1.395 exceeds maximum 1.25. Calculated from: anode (10.2 mg/cm² × 350.0 mAh/g) / cathode (16.0 mg/cm² × 160.0 mAh/g). Risk of interface instability. Decrease anode loading or increase cathode loading. Declared np_ratio=1.100 disagrees with computed value 1.395 (delta=0.295).\n    Got: 1.3945312499999998\n"
+      ],
+      "spec_yaml_sha256": "72859aec9ccac753314809ed2f7b6beec7250f2534ebfd67e06bd18fab2fa47c",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 2)\n  Capacity: 2.5 Ah\n  Energy: 9.1 Wh\n  Mass: 40.6 g\n  Gravimetric ED: 223.7 Wh/kg"
+    }
+  ],
+  "finished_utc": "2026-06-24T22:45:54Z",
+  "valid_count": 6,
+  "total_candidates": 6
+}

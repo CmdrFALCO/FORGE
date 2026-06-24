@@ -145,39 +145,67 @@ def check_cathode_fits_in_cavity(cell: dict) -> ValidationError | None:
 
 def check_np_ratio(cell: dict) -> ValidationError | None:
     """
-    CRITICAL Constraint: N/P ratio = anode_capacity / cathode_capacity ∈ [1.05, 1.25]
+    CRITICAL Constraint: computed N/P ratio ∈ [1.05, 1.25].
 
-    The N/P ratio prevents lithium plating (if < 1.05) and interface instability (if > 1.25).
-    This is one of the most important safety constraints in battery design.
+    Computes the per-unit-area N/P ratio from actual electrode parameters:
+        N/P = (anode_loading × anode_spec_capacity) / (cathode_loading × cathode_spec_capacity)
 
-    From prismatic_master.yaml:
-      anode.np_ratio:
-        RANGE: [1.05 - 1.5]
-        NOTE: Must be 1.05-1.25 for safe operation
+    This is the same formula as calculate_np_ratio() in energy.py with area and
+    sheet-count terms cancelled (they are equal per unit area on each side).
+
+    The PASS/FAIL decision is based on the COMPUTED value, not any declared
+    np_ratio field. If a declared field exists and disagrees with the computed
+    value by more than 0.05, the discrepancy is noted in the error message.
+
+    Returns None (can't check) when any of the four required fields
+    (cathode loading, cathode spec capacity, anode loading, anode spec capacity)
+    are missing from the spec.
     """
-    np_ratio = _get_nested(cell, "electrochemistry.anode.np_ratio")
+    cathode_loading = _get_nested(cell, "electrochemistry.cathode.loading_mg_cm2")
+    cathode_spec_cap = _get_nested(cell, "electrochemistry.cathode.rev_spec_capacity_mahg")
+    anode_loading = _get_nested(cell, "electrochemistry.anode.loading_mg_cm2")
+    anode_spec_cap = _get_nested(cell, "electrochemistry.anode.rev_spec_capacity_mahg")
 
-    if np_ratio is None:
-        return None  # Can't check without value
+    if any(v is None for v in (cathode_loading, cathode_spec_cap, anode_loading, anode_spec_cap)):
+        return None  # Can't compute — loadings or specific capacities missing
 
-    if np_ratio < 1.05:
-        return ValidationError(
-            path="electrochemistry.anode.np_ratio",
-            message=f"N/P ratio {np_ratio:.3f} is below minimum 1.05. "
-            f"Risk of lithium plating on anode. "
-            f"Increase anode capacity or decrease cathode capacity.",
-            value=np_ratio,
-            constraint="N/P ratio >= 1.05 (lithium plating prevention)",
+    cathode_areal_cap = cathode_loading * cathode_spec_cap
+    if cathode_areal_cap <= 0:
+        return None  # Degenerate cathode — can't compute ratio
+
+    computed_np = (anode_loading * anode_spec_cap) / cathode_areal_cap
+
+    # Check for discrepancy with declared value (informational, not gating)
+    declared_np = _get_nested(cell, "electrochemistry.anode.np_ratio")
+    discrepancy_note = ""
+    if declared_np is not None and abs(declared_np - computed_np) > 0.05:
+        discrepancy_note = (
+            f" Declared np_ratio={declared_np:.3f} disagrees with computed "
+            f"value {computed_np:.3f} (delta={abs(declared_np - computed_np):.3f})."
         )
 
-    if np_ratio > 1.25:
+    if computed_np < 1.05:
         return ValidationError(
-            path="electrochemistry.anode.np_ratio",
-            message=f"N/P ratio {np_ratio:.3f} exceeds recommended maximum 1.25. "
+            path="electrochemistry (computed N/P ratio)",
+            message=f"Computed N/P ratio {computed_np:.3f} is below minimum 1.05. "
+            f"Calculated from: anode ({anode_loading} mg/cm² × {anode_spec_cap} mAh/g) "
+            f"/ cathode ({cathode_loading} mg/cm² × {cathode_spec_cap} mAh/g). "
+            f"Risk of lithium plating on anode. "
+            f"Increase anode loading or decrease cathode loading.{discrepancy_note}",
+            value=computed_np,
+            constraint="computed N/P ratio >= 1.05 (lithium plating prevention)",
+        )
+
+    if computed_np > 1.25:
+        return ValidationError(
+            path="electrochemistry (computed N/P ratio)",
+            message=f"Computed N/P ratio {computed_np:.3f} exceeds maximum 1.25. "
+            f"Calculated from: anode ({anode_loading} mg/cm² × {anode_spec_cap} mAh/g) "
+            f"/ cathode ({cathode_loading} mg/cm² × {cathode_spec_cap} mAh/g). "
             f"Risk of interface instability. "
-            f"Decrease anode capacity or increase cathode capacity.",
-            value=np_ratio,
-            constraint="N/P ratio <= 1.25 (interface stability)",
+            f"Decrease anode loading or increase cathode loading.{discrepancy_note}",
+            value=computed_np,
+            constraint="computed N/P ratio <= 1.25 (interface stability)",
         )
 
     return None

@@ -1,0 +1,61 @@
+_meta:
+  cell_type: pouch
+  design_intent: "1.0 Ah NMC111 Graphite laboratory pouch cell for research validation"
+
+geometry:
+  cathode_height_mm: 50.0
+  cathode_width_mm: 40.0
+  anode_offset_mm: 2.0
+  separator_offset_mm: 2.5
+
+stack_config:
+  num_stacks: 1
+  electrode_pairs_per_stack: 6
+  end_electrode_config: "BothNegative"
+  separator_overwraps: 1
+
+electrochemistry:
+  cathode:
+    material_name: "NMC111"
+    loading_mg_cm2: 13.0
+    rev_spec_capacity_mahg: 160.0
+    collector_thickness_um: 12.0
+    coating_thickness_0pct_um: 48.0
+    coating_thickness_100pct_um: 50.0
+    porosity_pct: 30.0
+  anode:
+    material_name: "Graphite"
+    loading_mg_cm2: 6.31
+    rev_spec_capacity_mahg: 350.0
+    collector_thickness_um: 8.0
+    coating_thickness_0pct_um: 42.0
+    coating_thickness_100pct_um: 44.0
+    porosity_pct: 35.0
+    np_ratio: 1.10
+  separator:
+    material_name: "PP"
+    thickness_um: 20.0
+    porosity_pct: 40.0
+    areal_weight_mgcm2: 1.6
+  electrolyte:
+    material_name: "LiPF6 in EC:EMC"
+    density_g_cm3: 1.22
+    excess_factor: 1.15
+
+tabs:
+  cathode:
+    material: "Aluminum"
+    height_mm: 20.0
+    width_mm: 20.0
+    thickness_mm: 0.2
+  anode:
+    material: "Nickel-plated Copper"
+    height_mm: 20.0
+    width_mm: 20.0
+    thickness_mm: 0.15
+
+packaging:
+  pouch_thickness_mm: 0.113
+  offset_top_mm: 10.0
+  offset_bottom_mm: 5.0
+  offset_sides_mm: 5.0

@@ -1,0 +1,424 @@
+{
+  "success": true,
+  "attempts": 2,
+  "yaml_content": "_meta:\n  cell_type: pouch\n  design_intent: \"3.0 Ah NMC111/Graphite laboratory pouch cell for research validation\"\n\ngeometry:\n  cathode_height_mm: 60.0\n  cathode_width_mm: 45.0\n  anode_offset_mm: 1.5\n  separator_offset_mm: 2.0\n\nstack_config:\n  num_stacks: 1\n  electrode_pairs_per_stack: 18\n  end_electrode_config: \"BothNegative\"\n  separator_overwraps: 1\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC111\"\n    loading_mg_cm2: 16.0\n    rev_spec_capacity_mahg: 160.0\n    collector_thickness_um: 15.0\n    coating_thickness_0pct_um: 60.0\n    coating_thickness_100pct_um: 62.0\n    porosity_pct: 30.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 7.76\n    rev_spec_capacity_mahg: 350.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 50.0\n    coating_thickness_100pct_um: 53.0\n    porosity_pct: 35.0\n    np_ratio: 1.10\n  separator:\n    material_name: \"PP\"\n    thickness_um: 16.0\n    porosity_pct: 40.0\n    areal_weight_mgcm2: 1.5\n  electrolyte:\n    material_name: \"LiPF6 in EC:DMC:EMC\"\n    density_g_cm3: 1.2\n    excess_factor: 1.15\n\ntabs:\n  cathode:\n    material: \"Aluminum\"\n    height_mm: 15.0\n    width_mm: 20.0\n    thickness_mm: 0.2\n  anode:\n    material: \"Copper\"\n    height_mm: 15.0\n    width_mm: 20.0\n    thickness_mm: 0.15\n\npackaging:\n  pouch_thickness_mm: 0.07\n  offset_top_mm: 10.0\n  offset_bottom_mm: 5.0\n  offset_sides_mm: 5.0",
+  "cell_input": {
+    "cell_name": "3.0 Ah NMC111/Graphite laboratory pouch cell for research validation",
+    "cathode": {
+      "id": "nmc111",
+      "name": "NMC111",
+      "chemistry": "NMC",
+      "rev_spec_capacity_mahg": 160.0,
+      "max_spec_capacity_mahg": 180,
+      "areal_weight_mgcm2": 16.0,
+      "collector_thickness_um": 15.0,
+      "coating_density_gcm3": 3.5,
+      "coating_thickness_0pct_um": 60.0,
+      "coating_thickness_100pct_um": 62.0
+    },
+    "anode": {
+      "id": "graphite",
+      "name": "Graphite",
+      "chemistry": "Graphite",
+      "rev_spec_capacity_mahg": 350.0,
+      "max_spec_capacity_mahg": 372,
+      "areal_weight_mgcm2": 7.76,
+      "collector_thickness_um": 8.0,
+      "coating_density_gcm3": 2.2,
+      "coating_thickness_0pct_um": 50.0,
+      "coating_thickness_100pct_um": 53.0
+    },
+    "separator": {
+      "id": "pp",
+      "name": "PP",
+      "thickness_um": 16.0,
+      "porosity_pct": 40.0,
+      "density_gcm3": 0.9,
+      "areal_weight_mgcm2": 1.5
+    },
+    "electrolyte": {
+      "id": "lipf6_in_ec:dmc:emc",
+      "name": "LiPF6 in EC:DMC:EMC",
+      "density_gcm3": 1.2,
+      "conductivity_sm": null
+    },
+    "geometry": {
+      "cathode_height_mm": 60.0,
+      "cathode_width_mm": 45.0,
+      "anode_offset_y_mm": 1.5,
+      "anode_offset_x_mm": 1.5,
+      "separator_offset_y_mm": 2.0,
+      "separator_offset_x_mm": 2.0,
+      "cathode_flag_width_mm": 0.0,
+      "cathode_flag_height_mm": 0.0,
+      "anode_flag_width_mm": 0.0,
+      "anode_flag_height_mm": 0.0
+    },
+    "packaging": {
+      "pouch_offset_top_mm": 10.0,
+      "pouch_offset_bottom_mm": 5.0,
+      "pouch_offset_left_mm": 5.0,
+      "pouch_offset_right_mm": 5.0
+    },
+    "stack_config": {
+      "number_of_stacks": 1,
+      "electrode_pairs_per_stack": 18,
+      "end_electrodes": {
+        "_value_": "BothNegative",
+        "_name_": "BOTH_NEGATIVE",
+        "__objclass__": "mappingproxy({'_generate_next_value_': <staticmethod(<function Enum._generate_next_value_ at 0x727a93cab920>)>, '__module__': 'forge.engine.models.stack', '__doc__': 'End electrode configuration for the stack.\\n\\n    Determines how many cathode vs anode sheets are in the stack.\\n\\n    BOTH_NEGATIVE: Stack ends with anode on both sides (N cathodes, N+1 anodes)\\n    BOTH_POSITIVE: Stack ends with cathode on both sides (N+1 cathodes, N anodes)\\n    POSITIVE_NEGATIVE: Stack ends with one cathode and one anode (N each)\\n    ', '_new_member_': <built-in method __new__ of type object at 0xa43820>, '_use_args_': False, '_member_names_': ['BOTH_NEGATIVE', 'BOTH_POSITIVE', 'POSITIVE_NEGATIVE'], '_member_map_': {'BOTH_NEGATIVE': <EndElectrodesMode.BOTH_NEGATIVE: 'BothNegative'>, 'BOTH_POSITIVE': <EndElectrodesMode.BOTH_POSITIVE: 'BothPositive'>, 'POSITIVE_NEGATIVE': <EndElectrodesMode.POSITIVE_NEGATIVE: 'PositiveNegative'>}, '_value2member_map_': {'BothNegative': <EndElectrodesMode.BOTH_NEGATIVE: 'BothNegative'>, 'BothPositive': <EndElectrodesMode.BOTH_POSITIVE: 'BothPositive'>, 'PositiveNegative': <EndElectrodesMode.POSITIVE_NEGATIVE: 'PositiveNegative'>}, '_unhashable_values_': [], '_member_type_': <class 'object'>, '_value_repr_': None, 'BOTH_NEGATIVE': <EndElectrodesMode.BOTH_NEGATIVE: 'BothNegative'>, 'BOTH_POSITIVE': <EndElectrodesMode.BOTH_POSITIVE: 'BothPositive'>, 'POSITIVE_NEGATIVE': <EndElectrodesMode.POSITIVE_NEGATIVE: 'PositiveNegative'>, '__new__': <function Enum.__new__ at 0x727a93cab7e0>})",
+        "_sort_order_": 0
+      },
+      "separator_overwraps_per_stack": 1,
+      "additional_overwraps_per_stack": 0,
+      "insulation_shell_count": 1,
+      "fixing_tapes_per_stack": 1
+    },
+    "case_composition": [
+      {
+        "name": "PET",
+        "version": "v1",
+        "thickness_um": 7.5,
+        "porosity_pct": 0.0,
+        "density_gcm3": 1.38
+      },
+      {
+        "name": "Aluminum",
+        "version": "v1",
+        "thickness_um": 25.0,
+        "porosity_pct": 0.0,
+        "density_gcm3": 2.7
+      },
+      {
+        "name": "PP",
+        "version": "v1",
+        "thickness_um": 37.5,
+        "porosity_pct": 0.0,
+        "density_gcm3": 0.91
+      }
+    ],
+    "anode_tab": {
+      "material": "Copper",
+      "height_mm": 15.0,
+      "width_mm": 20.0,
+      "thickness_mm": 0.15,
+      "density_gcm3": 8.96
+    },
+    "cathode_tab": {
+      "material": "Aluminum",
+      "height_mm": 15.0,
+      "width_mm": 20.0,
+      "thickness_mm": 0.2,
+      "density_gcm3": 2.7
+    },
+    "nominal_voltage_v": 3.65,
+    "capacity_ah": null,
+    "electrolyte_excess_factor": 1.15,
+    "electrolyte_volume_override_ml": null,
+    "cathode_porosity_pct": 30.0,
+    "anode_porosity_pct": 35.0
+  },
+  "calculation_result": {
+    "cell_name": "3.0 Ah NMC111/Graphite laboratory pouch cell for research validation",
+    "cell_type": "Pouch",
+    "cell_height_mm": 82.0,
+    "cell_width_mm": 62.0,
+    "cell_thickness_dry_mm": 5.404999999999999,
+    "cell_thickness_soc0_mm": 5.510299999999999,
+    "cell_thickness_soc100_mm": 5.73634,
+    "volume_cell_cm3": 28.014365199999997,
+    "volume_stack_cm3": 18.7101252,
+    "cathode_sheets": 18,
+    "anode_sheets": 19,
+    "separator_sheets": 38,
+    "cathode_coating_mass_g": 15.552,
+    "cathode_collector_mass_g": 1.9683,
+    "anode_coating_mass_g": 8.917171199999999,
+    "anode_collector_mass_g": 4.11844608,
+    "separator_mass_g": 1.98588,
+    "electrolyte_mass_g": 6.3588589440000005,
+    "housing_mass_g": 1.1385618,
+    "tabs_mass_g": 0.5652,
+    "capacity_ah": 2.48832,
+    "nominal_voltage_v": 3.65,
+    "gravimetric_ed_whkg": 223.67930491287174,
+    "volumetric_ed_cell_whl": 324.2039551908176,
+    "volumetric_ed_stack_whl": 485.425292611083,
+    "areal_capacity_mahcm2": 5.119999999999999,
+    "areal_energy_mwhcm2": 18.687999999999995,
+    "ecu_thickness_um": 142.5,
+    "ecu_volume_cm3": 6.9255,
+    "ecu_energy_density_wh_l": 1311.4385964912278,
+    "separator_compression_dry_pct": 0.0,
+    "separator_compression_soc0_pct": 0.0,
+    "separator_compression_soc100_pct": 0.0,
+    "total_cost_usd": 0.0,
+    "cost_per_kwh": 0.0,
+    "cathode_material": "",
+    "anode_material": ""
+  },
+  "validation_errors": [],
+  "last_error": null,
+  "tokens_used": 0,
+  "retry_reasons": [
+    "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [electrochemistry (computed N/P ratio)]\n    Error: Computed N/P ratio 1.395 exceeds maximum 1.25. Calculated from: anode (10.2 mg/cm² × 350.0 mAh/g) / cathode (16.0 mg/cm² × 160.0 mAh/g). Risk of interface instability. Decrease anode loading or increase cathode loading. Declared np_ratio=1.100 disagrees with computed value 1.395 (delta=0.295).\n    Got: 1.3945312499999998\n"
+  ],
+  "attempt_constraint_results": [
+    [
+      {
+        "constraint_id": "C1",
+        "name": "np_ratio",
+        "passed": false,
+        "actual_value": 1.3945312499999998,
+        "threshold": "computed N/P ratio <= 1.25 (interface stability)",
+        "message": "Computed N/P ratio 1.395 exceeds maximum 1.25. Calculated from: anode (10.2 mg/cm² × 350.0 mAh/g) / cathode (16.0 mg/cm² × 160.0 mAh/g). Risk of interface instability. Decrease anode loading or increase cathode loading. Declared np_ratio=1.100 disagrees with computed value 1.395 (delta=0.295).",
+        "check_time_ms": 0.03413
+      },
+      {
+        "constraint_id": "C2",
+        "name": "cathode_loading",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00315
+      },
+      {
+        "constraint_id": "C3",
+        "name": "anode_loading",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.0024
+      },
+      {
+        "constraint_id": "C4",
+        "name": "separator_porosity",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.0027
+      },
+      {
+        "constraint_id": "C5",
+        "name": "electrolyte_concentration",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00267
+      },
+      {
+        "constraint_id": "C6",
+        "name": "cathode_material",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00262
+      },
+      {
+        "constraint_id": "C7",
+        "name": "anode_material",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00215
+      },
+      {
+        "constraint_id": "PO1",
+        "name": "anode_offset",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.002
+      },
+      {
+        "constraint_id": "PO2",
+        "name": "separator_offset",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00161
+      },
+      {
+        "constraint_id": "PO3",
+        "name": "separator_covers_anode",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.0029
+      },
+      {
+        "constraint_id": "PO4",
+        "name": "stacks_count",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00248
+      },
+      {
+        "constraint_id": "PO5",
+        "name": "electrode_pairs",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00177
+      },
+      {
+        "constraint_id": "PO6",
+        "name": "end_electrode_config",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00297
+      },
+      {
+        "constraint_id": "PO7",
+        "name": "packaging_offsets",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00625
+      }
+    ],
+    [
+      {
+        "constraint_id": "C1",
+        "name": "np_ratio",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.01658
+      },
+      {
+        "constraint_id": "C2",
+        "name": "cathode_loading",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00289
+      },
+      {
+        "constraint_id": "C3",
+        "name": "anode_loading",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00209
+      },
+      {
+        "constraint_id": "C4",
+        "name": "separator_porosity",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.002461
+      },
+      {
+        "constraint_id": "C5",
+        "name": "electrolyte_concentration",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00284
+      },
+      {
+        "constraint_id": "C6",
+        "name": "cathode_material",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00274
+      },
+      {
+        "constraint_id": "C7",
+        "name": "anode_material",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00221
+      },
+      {
+        "constraint_id": "PO1",
+        "name": "anode_offset",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.0018
+      },
+      {
+        "constraint_id": "PO2",
+        "name": "separator_offset",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00165
+      },
+      {
+        "constraint_id": "PO3",
+        "name": "separator_covers_anode",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00284
+      },
+      {
+        "constraint_id": "PO4",
+        "name": "stacks_count",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00273
+      },
+      {
+        "constraint_id": "PO5",
+        "name": "electrode_pairs",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00181
+      },
+      {
+        "constraint_id": "PO6",
+        "name": "end_electrode_config",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.003321
+      },
+      {
+        "constraint_id": "PO7",
+        "name": "packaging_offsets",
+        "passed": true,
+        "actual_value": null,
+        "threshold": "",
+        "message": "",
+        "check_time_ms": 0.00713
+      }
+    ]
+  ]
+}
