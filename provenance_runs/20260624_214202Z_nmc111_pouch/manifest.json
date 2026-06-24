@@ -1,0 +1,101 @@
+{
+  "run_id": "20260624_214202Z_nmc111_pouch",
+  "started_utc": "2026-06-24T21:42:02Z",
+  "model": "qwen3.5:27b",
+  "ollama_modelfile_sha256": "f5ff8d0e8e7e4c391f0e71063a4977a50027cee857ab5f10ce36c1d3f5b6dba3",
+  "chemistry_pinned": {
+    "cathode_material": "NMC111",
+    "cathode_rev_spec_capacity_mahg": 160.0,
+    "anode_material": "Graphite",
+    "anode_rev_spec_capacity_mahg": 350.0,
+    "np_ratio_target": 1.1,
+    "citation_note": "Specific capacities pinned from standard Li-ion materials literature (NMC111 practical ~150-165 mAh/g; graphite ~350-360 mAh/g). To be reconciled with ICSI materials data if/when provided."
+  },
+  "selection_policy": "No selection made at generation time. Valid candidates span a lab capacity range and will be offered (2-3) to the ICSI fabrication partner; final selection joint, per line constraints.",
+  "partner_constraints_status": "No ICSI line constraints available as of 2026-06-24. Lab-scale targets and conservative loadings are OUR stated design assumptions, to be reconciled on partner response.",
+  "candidates": [
+    {
+      "id": "C1_xs",
+      "timestamp_utc": "2026-06-24T21:42:02Z",
+      "status": "valid",
+      "target_ah": 0.5,
+      "design_note": "smallest coupon, few layers, low loading",
+      "success": true,
+      "attempts": 2,
+      "retry_reasons": [
+        "[VALIDATION FAILED - SCHEMA LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [stack_config.electrode_pairs_per_stack]\n    Error: 4 is not valid under any of the given schemas\n    Got: 4\n"
+      ],
+      "spec_yaml_sha256": "98d62a27e0465905f0f1709c8d1f66469e6f60897ddab2de833ea9ee63d43f73",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 2)\n  Capacity: 0.2 Ah\n  Energy: 0.8 Wh\n  Mass: 6.9 g\n  Gravimetric ED: 121.4 Wh/kg"
+    },
+    {
+      "id": "C2_s",
+      "timestamp_utc": "2026-06-24T21:42:53Z",
+      "status": "valid",
+      "target_ah": 1.0,
+      "design_note": "small validation cell",
+      "success": true,
+      "attempts": 1,
+      "retry_reasons": [],
+      "spec_yaml_sha256": "28eb888e8f0c92471b30d68c148493094e16249c9d905ceac35d98e4dd714ecb",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 1)\n  Capacity: 0.5 Ah\n  Energy: 1.8 Wh\n  Mass: 10.9 g\n  Gravimetric ED: 167.2 Wh/kg"
+    },
+    {
+      "id": "C3_sm",
+      "timestamp_utc": "2026-06-24T21:43:17Z",
+      "status": "valid",
+      "target_ah": 1.5,
+      "design_note": "small-modest",
+      "success": true,
+      "attempts": 1,
+      "retry_reasons": [],
+      "spec_yaml_sha256": "2c5d6ee2e40deab9e7bf13976dab8027172c7ef95010fe4319492a3a3193e486",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 1)\n  Capacity: 0.8 Ah\n  Energy: 2.9 Wh\n  Mass: 16.4 g\n  Gravimetric ED: 179.3 Wh/kg"
+    },
+    {
+      "id": "C4_m",
+      "timestamp_utc": "2026-06-24T21:43:42Z",
+      "status": "valid",
+      "target_ah": 2.0,
+      "design_note": "modest",
+      "success": true,
+      "attempts": 1,
+      "retry_reasons": [],
+      "spec_yaml_sha256": "dd76309d6525658767fc9dd356aca197aa890edc3035ded55be1fe5060eae671",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 1)\n  Capacity: 1.2 Ah\n  Energy: 4.3 Wh\n  Mass: 25.7 g\n  Gravimetric ED: 167.8 Wh/kg"
+    },
+    {
+      "id": "C5_mh",
+      "timestamp_utc": "2026-06-24T21:44:08Z",
+      "status": "valid",
+      "target_ah": 2.5,
+      "design_note": "modest-high",
+      "success": true,
+      "attempts": 1,
+      "retry_reasons": [],
+      "spec_yaml_sha256": "60eeff283a256e4d7626faf7d3f7127839861b58da4908f0040b165ea1c8c633",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 1)\n  Capacity: 1.6 Ah\n  Energy: 5.9 Wh\n  Mass: 29.6 g\n  Gravimetric ED: 198.9 Wh/kg"
+    },
+    {
+      "id": "C6_h",
+      "timestamp_utc": "2026-06-24T21:44:30Z",
+      "status": "valid",
+      "target_ah": 3.0,
+      "design_note": "upper end of lab range",
+      "success": true,
+      "attempts": 1,
+      "retry_reasons": [],
+      "spec_yaml_sha256": "4ac7a26bc3e2448f8bca581de28dafdd70a0d6006e7512c844d3109ab84815ca",
+      "system_prompt_captured": false,
+      "summary": "âœ“ Design successful (attempt 1)\n  Capacity: 2.5 Ah\n  Energy: 9.1 Wh\n  Mass: 45.9 g\n  Gravimetric ED: 198.0 Wh/kg"
+    }
+  ],
+  "finished_utc": "2026-06-24T21:44:52Z",
+  "valid_count": 6,
+  "total_candidates": 6
+}

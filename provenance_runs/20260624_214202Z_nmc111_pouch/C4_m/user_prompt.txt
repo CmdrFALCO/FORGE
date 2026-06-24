@@ -1,0 +1,10 @@
+Design a laboratory pouch cell for research validation.
+Chemistry (USE THESE EXACT VALUES, do not substitute):
+  - Cathode: NMC111, reversible specific capacity 160.0 mAh/g.
+  - Anode: Graphite, reversible specific capacity 350.0 mAh/g.
+  - N/P ratio target approximately 1.1.
+Target nominal capacity approximately 2.0 Ah.
+Cathode sheet footprint approximately 60x40 mm.
+Use approximately 11 electrode pairs in a single stack.
+Cathode areal loading approximately 14.0 mg/cm2 (conservative, for reliable coating on a pilot line — do NOT maximize loading or energy density).
+Separator PP. Electrolyte LiPF6-based. Produce a complete, physics-valid pouch specification.
