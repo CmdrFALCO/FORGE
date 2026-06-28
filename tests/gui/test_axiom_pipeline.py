@@ -42,7 +42,7 @@ electrochemistry:
     porosity_pct: 25.0
   anode:
     material_name: "Graphite"
-    loading_mg_cm2: 11.0
+    loading_mg_cm2: 12.359
     rev_spec_capacity_mahg: 355.0
     collector_thickness_um: 6.0
     coating_thickness_0pct_um: 75.0

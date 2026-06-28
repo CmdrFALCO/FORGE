@@ -1,5 +1,6 @@
 ﻿"""Tests for physics constraint validation (Level 2)."""
 
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -125,12 +126,24 @@ def valid_cell(template):
     }
 
 
+@pytest.fixture
+def valid_cell_balanced(valid_cell):
+    """valid_cell with anode loading set so the COMPUTED N/P sits mid-band (~1.125).
+
+    Separate from valid_cell so the negative N/P tests in this module keep the
+    original (intentionally inconsistent) loadings and continue to fail-as-designed.
+    """
+    cell = deepcopy(valid_cell)
+    cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 12.954
+    return cell
+
+
 class TestPhysicsConstraints:
     """Tests for physics constraint validation."""
 
-    def test_valid_cell_passes(self, valid_cell):
+    def test_valid_cell_passes(self, valid_cell_balanced):
         """Valid cell should pass all physics constraints."""
-        result = validate_physics(valid_cell)
+        result = validate_physics(valid_cell_balanced)
         assert result.valid, f"Should pass physics: {result.to_llm_feedback()}"
 
     def test_np_ratio_below_minimum(self, valid_cell):

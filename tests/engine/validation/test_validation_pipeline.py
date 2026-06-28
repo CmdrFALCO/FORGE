@@ -95,7 +95,7 @@ class TestValidationPipeline:
                 },
                 "anode": {
                     "material_name": "Graphite",
-                    "loading_mg_cm2": 11.478,
+                    "loading_mg_cm2": 12.954,
                     "rev_spec_capacity_mahg": 331.161,
                     "collector_thickness_um": 6.0,
                     "coating_thickness_0pct_um": 85.47,
@@ -214,7 +214,7 @@ class TestValidationPipeline:
                 },
                 "anode": {
                     "material_name": "Graphite",
-                    "loading_mg_cm2": 11.478,
+                    "loading_mg_cm2": 12.954,
                     "rev_spec_capacity_mahg": 331.161,
                     "collector_thickness_um": 6.0,
                     "coating_thickness_0pct_um": 85.47,

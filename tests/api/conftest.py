@@ -11,7 +11,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from forge.api.app import app
-from tests.axiom.test_cylindrical_support import VALID_CYLINDRICAL_CELL
+from tests.axiom.test_cylindrical_support import VALID_CYLINDRICAL_CELL_BALANCED
 from tests.axiom.test_pouch_support import VALID_POUCH_CELL
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -67,7 +67,7 @@ VALID_PRISMATIC_VALIDATION_SPEC: dict[str, Any] = {
         },
         "anode": {
             "material_name": "Graphite",
-            "loading_mg_cm2": 11.478,
+            "loading_mg_cm2": 12.954,
             "rev_spec_capacity_mahg": 331.161,
             "collector_thickness_um": 6.0,
             "coating_thickness_0pct_um": 85.47,
@@ -253,7 +253,7 @@ def valid_pouch_spec() -> dict[str, Any]:
 
 @pytest.fixture
 def valid_cylindrical_spec() -> dict[str, Any]:
-    return deepcopy(VALID_CYLINDRICAL_CELL)
+    return deepcopy(VALID_CYLINDRICAL_CELL_BALANCED)
 
 
 @pytest.fixture

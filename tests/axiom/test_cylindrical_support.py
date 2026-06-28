@@ -7,6 +7,8 @@ This module tests the cylindrical cell extensions:
 - Prompt builder for cylindrical cells
 """
 
+from copy import deepcopy
+
 import pytest
 
 from forge.axiom.generator.prompt_builder import (
@@ -96,6 +98,14 @@ VALID_CYLINDRICAL_CELL = {
 }
 
 
+# Balanced variant of VALID_CYLINDRICAL_CELL: anode loading adjusted so the
+# COMPUTED N/P lands mid-band (~1.125). Kept separate from VALID_CYLINDRICAL_CELL
+# so the negative N/P tests (e.g. test_invalid_np_ratio_fails) keep the original
+# out-of-band loadings and continue to fail-as-designed.
+VALID_CYLINDRICAL_CELL_BALANCED = deepcopy(VALID_CYLINDRICAL_CELL)
+VALID_CYLINDRICAL_CELL_BALANCED["electrochemistry"]["anode"]["loading_mg_cm2"] = 13.944
+
+
 # Valid 4680 tabless cell for testing
 VALID_4680_TABLESS_CELL = {
     "_meta": {
@@ -130,7 +140,7 @@ VALID_4680_TABLESS_CELL = {
         },
         "anode": {
             "material_name": "Graphite-SiO",
-            "loading_mg_cm2": 11.5,
+            "loading_mg_cm2": 12.536,
             "rev_spec_capacity_mahg": 420.0,
             "collector_thickness_um": 8.0,
             "coating_thickness_0pct_um": 70.0,
@@ -398,7 +408,7 @@ class TestCylindricalPhysicsConstraints:
 
     def test_valid_cylindrical_passes_physics(self):
         """Test that a valid cylindrical cell passes physics validation."""
-        result = validate_physics(VALID_CYLINDRICAL_CELL, cell_type="cylindrical")
+        result = validate_physics(VALID_CYLINDRICAL_CELL_BALANCED, cell_type="cylindrical")
         assert result.valid, f"Expected valid, got errors: {result.errors}"
 
 
@@ -407,7 +417,7 @@ class TestCylindricalFullValidation:
 
     def test_full_validation_passes(self):
         """Test that valid cylindrical cell passes full validation."""
-        result = validate_cell_definition(VALID_CYLINDRICAL_CELL, cell_type="cylindrical")
+        result = validate_cell_definition(VALID_CYLINDRICAL_CELL_BALANCED, cell_type="cylindrical")
         assert result.valid, f"Expected valid, got errors: {result.errors}"
 
     def test_4680_full_validation_passes(self):
