@@ -426,12 +426,14 @@ class TestCylindricalFullValidation:
         assert result.valid, f"Expected valid, got errors: {result.errors}"
 
     def test_invalid_np_ratio_fails(self):
-        """Test that invalid N/P ratio fails validation."""
+        """Test that invalid computed N/P ratio fails validation."""
         cell = VALID_CYLINDRICAL_CELL.copy()
         cell = {**cell}
         cell["electrochemistry"] = {**cell["electrochemistry"]}
         cell["electrochemistry"]["anode"] = {**cell["electrochemistry"]["anode"]}
-        cell["electrochemistry"]["anode"]["np_ratio"] = 0.9  # Below minimum 1.05
+        # anode 11.775 mg/cm² x 355 mAh/g / (22 mg/cm² x 200 mAh/g) -> computed N/P ~0.950
+        cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 11.775
+        cell["electrochemistry"]["anode"]["np_ratio"] = 0.95  # Below minimum 1.05
 
         result = validate_cell_definition(cell, cell_type="cylindrical")
         assert not result.valid

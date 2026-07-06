@@ -147,7 +147,9 @@ class TestPhysicsConstraints:
         assert result.valid, f"Should pass physics: {result.to_llm_feedback()}"
 
     def test_np_ratio_below_minimum(self, valid_cell):
-        """N/P ratio below 1.05 should fail (lithium plating risk)."""
+        """Computed N/P ratio below 1.05 should fail (lithium plating risk)."""
+        # anode 11.514 mg/cm² x 331.161 mAh/g / cathode areal capacity -> computed N/P ~1.000
+        valid_cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 11.514
         valid_cell["electrochemistry"]["anode"]["np_ratio"] = 1.00
         result = validate_physics(valid_cell)
         assert not result.valid
@@ -155,7 +157,9 @@ class TestPhysicsConstraints:
         assert any("1.05" in str(e) for e in result.errors)
 
     def test_np_ratio_above_maximum(self, valid_cell):
-        """N/P ratio above 1.25 should fail (interface instability)."""
+        """Computed N/P ratio above 1.25 should fail (interface instability)."""
+        # anode 14.969 mg/cm² -> computed N/P ~1.300
+        valid_cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 14.969
         valid_cell["electrochemistry"]["anode"]["np_ratio"] = 1.30
         result = validate_physics(valid_cell)
         assert not result.valid
@@ -163,14 +167,17 @@ class TestPhysicsConstraints:
         assert any("1.25" in str(e) for e in result.errors)
 
     def test_np_ratio_at_boundary_min(self, valid_cell):
-        """N/P ratio at 1.05 boundary should pass."""
+        """Computed N/P ratio just inside the 1.05 boundary should pass."""
+        # anode 12.091 mg/cm² -> computed N/P ~1.0501 (float-safe margin above 1.05)
+        valid_cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 12.091
         valid_cell["electrochemistry"]["anode"]["np_ratio"] = 1.05
         result = validate_physics(valid_cell)
-        # Should pass
         assert not any("N/P" in str(e) for e in result.errors)
 
     def test_np_ratio_at_boundary_max(self, valid_cell):
-        """N/P ratio at 1.25 boundary should pass."""
+        """Computed N/P ratio just inside the 1.25 boundary should pass."""
+        # anode 14.392 mg/cm² -> computed N/P ~1.2499 (float-safe margin below 1.25)
+        valid_cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 14.392
         valid_cell["electrochemistry"]["anode"]["np_ratio"] = 1.25
         result = validate_physics(valid_cell)
         assert not any("N/P" in str(e) for e in result.errors)
@@ -249,6 +256,8 @@ class TestPhysicsConstraints:
 
     def test_error_feedback_helpful(self, valid_cell):
         """Error feedback should help LLM correct the issue."""
+        # anode 10.939 mg/cm² -> computed N/P ~0.950
+        valid_cell["electrochemistry"]["anode"]["loading_mg_cm2"] = 10.939
         valid_cell["electrochemistry"]["anode"]["np_ratio"] = 0.95
         result = validate_physics(valid_cell)
         feedback = result.to_llm_feedback()
