@@ -19,6 +19,18 @@
       "cell_type": "cylindrical",
       "target_constraints": ["CY5"],
       "prompt": "Design a custom 10 mm diameter, 45 mm long NMC cylindrical cell for an instrument. Use a 6 mm central mandrel to preserve an internal sensor channel, a mechanically robust steel can, traditional tabs, and the highest practical capacity while satisfying safety margins."
+    },
+    {
+      "id": "P4",
+      "cell_type": "cylindrical",
+      "target_constraints": ["CY5"],
+      "prompt": "Design a compact custom NMC cylindrical cell for an optical instrument, targeting a 10 mm outer diameter and 45 mm length with an approximately 7.5 mm clear central sensor channel. Use a mechanically robust steel can and traditional tabs, choose practical manufacturing clearances, and maximize useful electrode capacity. Treat the device envelope and sensor channel as strong packaging targets, but return the best feasible first-pass design."
+    },
+    {
+      "id": "P5",
+      "cell_type": "pouch",
+      "target_constraints": ["PO3"],
+      "prompt": "Design an ultracompact 8 Ah NMC pouch cell for a high-rate portable instrument. Maximize active electrode area, use a generous anode overhang for fast-charge edge safety, and aggressively minimize inactive separator border and pouch sealing margins. Choose practical manufacturing values and return the best balanced first-pass design."
     }
   ]
 }

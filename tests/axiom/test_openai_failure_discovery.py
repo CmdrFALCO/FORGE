@@ -78,10 +78,24 @@ class FakeLiveBackend:
 def test_candidate_registry_contains_reviewed_prompts() -> None:
     candidates = discovery.load_candidates()
 
-    assert list(candidates) == ["P1", "P2", "P3"]
+    assert list(candidates) == ["P1", "P2", "P3", "P4", "P5"]
     assert candidates["P1"]["target_constraints"] == ["C1"]
     assert candidates["P3"]["target_constraints"] == ["CY5"]
+    assert candidates["P4"]["target_constraints"] == ["CY5"]
+    assert candidates["P5"]["target_constraints"] == ["PO3"]
+    assert candidates["P5"]["cell_type"] == "pouch"
     assert {candidate["requested_model"] for candidate in candidates.values()} == {"gpt-5.6"}
+
+
+def test_revised_candidates_do_not_explicitly_request_constraint_failures() -> None:
+    candidates = discovery.load_candidates()
+
+    for candidate_id in ("P4", "P5"):
+        candidate = candidates[candidate_id]
+        prompt = candidate["prompt"].lower()
+        assert all(constraint_id.lower() not in prompt for constraint_id in candidate["target_constraints"])
+        assert "violate" not in prompt
+        assert "must fail" not in prompt
 
 
 def test_first_attempt_classifies_isolated_engineering_failure() -> None:
@@ -172,19 +186,36 @@ def test_classify_output_distinguishes_primary_categories() -> None:
 def test_request_ledger_enforces_kind_and_total_limits(tmp_path, monkeypatch) -> None:
     monkeypatch.setattr(discovery, "STAGING_ROOT", tmp_path)
 
-    for index in range(3):
+    for index in range(5):
         discovery.reserve_call("discovery", f"run-d{index}", f"P{index}", 1)
     with pytest.raises(discovery.BudgetError, match="discovery request budget"):
         discovery.reserve_call("discovery", "run-extra", "PX", 1)
 
-    for index in range(2):
-        discovery.reserve_call("correction", f"run-c{index}", "P1", index + 2)
-    with pytest.raises(discovery.BudgetError, match="five-request"):
+    discovery.reserve_call("correction", "run-c0", "P1", 2)
+    with pytest.raises(discovery.BudgetError, match="6-request"):
         discovery.reserve_call("correction", "run-extra", "P1", 3)
 
     ledger = discovery._read_ledger()
-    assert len(ledger["entries"]) == 5
+    assert len(ledger["entries"]) == 6
     assert all(entry["status"] == "reserved" for entry in ledger["entries"])
+
+
+def test_discovery_closes_after_correction_begins(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(discovery, "STAGING_ROOT", tmp_path)
+    discovery.reserve_call("discovery", "run-d0", "P4", 1)
+    discovery.reserve_call("correction", "run-c0", "P4", 2)
+
+    with pytest.raises(discovery.BudgetError, match="closed after a correction"):
+        discovery.reserve_call("discovery", "run-d1", "P5", 1)
+
+
+def test_revised_campaign_allows_only_one_correction(tmp_path, monkeypatch) -> None:
+    monkeypatch.setattr(discovery, "STAGING_ROOT", tmp_path)
+    discovery.reserve_call("discovery", "run-d0", "P4", 1)
+    discovery.reserve_call("correction", "run-c0", "P4", 2)
+
+    with pytest.raises(discovery.BudgetError, match="correction request budget"):
+        discovery.reserve_call("correction", "run-c1", "P4", 3)
 
 
 def test_duplicate_discovery_prompt_is_refused(tmp_path, monkeypatch) -> None:

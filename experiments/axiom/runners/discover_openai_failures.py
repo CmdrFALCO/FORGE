@@ -46,9 +46,9 @@ PROMPTS_PATH = (
 STAGING_ROOT = PROJECT_ROOT / "experiments" / "axiom" / "runs" / "_staging"
 EXPECTED_BRANCH = "build-week/openai"
 LIVE_CONFIRMATION = "SEND_FORGE_PROMPT_TO_OPENAI"
-MAX_DISCOVERY_CALLS = 3
-MAX_CORRECTION_CALLS = 2
-MAX_TOTAL_CALLS = 5
+MAX_DISCOVERY_CALLS = 5
+MAX_CORRECTION_CALLS = 1
+MAX_TOTAL_CALLS = 6
 TRACE_SCHEMA_VERSION = 1
 SECRET_PATTERN = re.compile(r"sk-[A-Za-z0-9_-]{20,}")
 FORBIDDEN_KEY_PARTS = {
@@ -377,10 +377,12 @@ def reserve_call(kind: str, run_id: str, prompt_id: str, attempt: int) -> int:
     ledger = _read_ledger()
     entries = ledger.setdefault("entries", [])
     if len(entries) >= MAX_TOTAL_CALLS:
-        raise BudgetError("The five-request discovery budget is exhausted.")
+        raise BudgetError(f"The {MAX_TOTAL_CALLS}-request discovery budget is exhausted.")
     kind_limit = MAX_DISCOVERY_CALLS if kind == "discovery" else MAX_CORRECTION_CALLS
     if sum(entry.get("kind") == kind for entry in entries) >= kind_limit:
         raise BudgetError(f"The {kind} request budget is exhausted.")
+    if kind == "discovery" and any(entry.get("kind") == "correction" for entry in entries):
+        raise BudgetError("Discovery is closed after a correction request begins.")
     if kind == "discovery" and any(
         entry.get("kind") == "discovery" and entry.get("prompt_id") == prompt_id
         for entry in entries
