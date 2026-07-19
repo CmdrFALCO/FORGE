@@ -18,6 +18,7 @@ import re
 import subprocess
 import sys
 from contextlib import contextmanager
+from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable
@@ -29,6 +30,14 @@ if str(PROJECT_ROOT) not in sys.path:
 from forge.axiom.backends.backends import LLMUsage, OpenAIBackend  # noqa: E402
 from forge.axiom.generator.parser import extract_yaml_block  # noqa: E402
 from forge.axiom.supervisor import driver as supervisor_driver  # noqa: E402
+from forge.engine.calculators.cylindrical_calculator import CylindricalCalculator  # noqa: E402
+from forge.engine.calculators.pouch_calculator import CellCalculator  # noqa: E402
+from forge.engine.calculators.prismatic_calculator import PrismaticCalculator  # noqa: E402
+from forge.engine.conversion import (  # noqa: E402
+    from_cylindrical_template_format,
+    from_pouch_template_format,
+    from_template_format,
+)
 from forge.engine.validation.constraint_validator import validate_physics  # noqa: E402
 from forge.engine.validation.schema_validator import (  # noqa: E402
     ValidationError,
@@ -44,6 +53,7 @@ PROMPTS_PATH = (
     / "openai_build_week_candidates.json"
 )
 STAGING_ROOT = PROJECT_ROOT / "experiments" / "axiom" / "runs" / "_staging"
+VERIFIED_REPLAY_ROOT = PROJECT_ROOT / "data" / "demos" / "axiom"
 EXPECTED_BRANCH = "build-week/openai"
 LIVE_CONFIRMATION = "SEND_FORGE_PROMPT_TO_OPENAI"
 MAX_DISCOVERY_CALLS = 5
@@ -485,15 +495,12 @@ def write_bundle(run_dir: Path, trace: dict[str, Any]) -> None:
     _atomic_write_text(run_dir / "BUNDLE_SHA256.txt", bundle_sha256 + "\n")
 
 
-def load_trace(run_id: str) -> tuple[Path, dict[str, Any]]:
-    if not run_id or Path(run_id).name != run_id or run_id in {".", ".."}:
-        raise DiscoveryError("Invalid staged run identifier.")
-    run_dir = STAGING_ROOT / run_id
+def _load_bundle(run_dir: Path, expected_run_id: str) -> tuple[dict[str, Any], dict[str, Any]]:
     trace_path = run_dir / "trace.json"
     manifest_path = run_dir / "manifest.json"
     bundle_path = run_dir / "BUNDLE_SHA256.txt"
     if not all(path.is_file() for path in (trace_path, manifest_path, bundle_path)):
-        raise DiscoveryError(f"Unknown staged run: {run_id}")
+        raise DiscoveryError(f"Incomplete trace bundle: {run_dir}")
 
     trace_text = trace_path.read_text(encoding="utf-8-sig")
     manifest_text = manifest_path.read_text(encoding="utf-8-sig")
@@ -503,12 +510,94 @@ def load_trace(run_id: str) -> tuple[Path, dict[str, Any]]:
     _assert_redacted(trace)
     _assert_redacted(manifest)
     if manifest.get("trace_sha256") != sha256_text(trace_text):
-        raise TraceIntegrityError("Staged trace hash does not match its manifest.")
+        raise TraceIntegrityError("Trace hash does not match its manifest.")
     if recorded_bundle_sha256 != sha256_text(trace_text + manifest_text):
-        raise TraceIntegrityError("Staged bundle hash does not match its contents.")
-    if manifest.get("run_id") != run_id or trace.get("run_id") != run_id:
-        raise TraceIntegrityError("Staged run identifier does not match its bundle.")
+        raise TraceIntegrityError("Bundle hash does not match its contents.")
+    if manifest.get("run_id") != expected_run_id or trace.get("run_id") != expected_run_id:
+        raise TraceIntegrityError("Trace run identifier does not match its bundle.")
+    return trace, manifest
+
+
+def load_trace(run_id: str) -> tuple[Path, dict[str, Any]]:
+    if not run_id or Path(run_id).name != run_id or run_id in {".", ".."}:
+        raise DiscoveryError("Invalid staged run identifier.")
+    run_dir = STAGING_ROOT / run_id
+    if not run_dir.is_dir():
+        raise DiscoveryError(f"Unknown staged run: {run_id}")
+    trace, _ = _load_bundle(run_dir, run_id)
     return run_dir, trace
+
+
+def _derive_calculation(trace: dict[str, Any]) -> dict[str, Any]:
+    attempts = trace.get("attempts", [])
+    if not attempts:
+        raise DiscoveryError("Verified replay requires at least one captured attempt.")
+    parsed = attempts[-1].get("validation", {}).get("parsed_yaml")
+    if not isinstance(parsed, dict):
+        raise DiscoveryError("Final attempt is missing parsed output for calculation.")
+
+    cell_type = trace["candidate"]["cell_type"]
+    if cell_type == "cylindrical":
+        report = CylindricalCalculator(from_cylindrical_template_format(parsed)).calculate()
+    elif cell_type == "pouch":
+        report = CellCalculator(from_pouch_template_format(parsed)).calculate()
+    else:
+        report = PrismaticCalculator(from_template_format(parsed)).calculate()
+    return {
+        "source": "deterministic_recalculation",
+        "attempt": len(attempts),
+        "capacity_ah": report.capacity_ah,
+        "energy_wh": report.energy_wh,
+        "total_mass_g": report.total_mass_g,
+        "gravimetric_ed_whkg": report.gravimetric_ed_whkg,
+        "volumetric_ed_cell_whl": report.volumetric_ed_cell_whl,
+    }
+
+
+def promote_trace(run_id: str, replay_id: str) -> tuple[Path, dict[str, Any]]:
+    """Create a sanitized, integrity-checked verified-replay bundle."""
+    if not replay_id or Path(replay_id).name != replay_id or replay_id in {".", ".."}:
+        raise DiscoveryError("Invalid verified-replay identifier.")
+    source_dir, source_trace = load_trace(run_id)
+    _, source_manifest = _load_bundle(source_dir, run_id)
+    attempts = source_trace.get("attempts", [])
+    if (
+        source_trace.get("source") != "live_gpt56"
+        or source_trace.get("git", {}).get("clean") is not True
+        or len(attempts) < 2
+        or attempts[0].get("validation", {}).get("classification") != "engineering"
+        or attempts[-1].get("validation", {}).get("classification") != "accepted"
+        or source_trace.get("latest_classification") != "accepted"
+        or any(attempt.get("source") != "live_gpt56" for attempt in attempts)
+    ):
+        raise DiscoveryError(
+            "Verified replay requires a clean authentic engineering failure followed by acceptance."
+        )
+
+    destination = VERIFIED_REPLAY_ROOT / replay_id
+    if destination.exists():
+        raise DiscoveryError(f"Verified-replay destination already exists: {destination}")
+
+    promoted = deepcopy(source_trace)
+    removed_identifiers = 0
+    for attempt in promoted["attempts"]:
+        usage = attempt.get("usage", {})
+        if usage.pop("response_id", None) is not None:
+            removed_identifiers += 1
+    promoted["promotion"] = {
+        "mode": "verified_replay",
+        "source_run_id": run_id,
+        "source_trace_sha256": source_manifest["trace_sha256"],
+        "source_bundle_sha256": (source_dir / "BUNDLE_SHA256.txt")
+        .read_text(encoding="utf-8-sig")
+        .strip(),
+        "originating_commit": source_trace["git"]["head"],
+        "removed_response_identifiers": removed_identifiers,
+    }
+    promoted["derived_calculation"] = _derive_calculation(promoted)
+    write_bundle(destination, promoted)
+    verified_trace, _ = _load_bundle(destination, run_id)
+    return destination, verified_trace
 
 
 def _new_trace(candidate: dict[str, Any], state: dict[str, Any]) -> dict[str, Any]:
@@ -662,6 +751,23 @@ def command_summarize(args: argparse.Namespace) -> int:
     return 0
 
 
+def command_promote(args: argparse.Namespace) -> int:
+    destination, trace = promote_trace(args.run_id, args.replay_id)
+    print(
+        json.dumps(
+            {
+                "run_id": trace["run_id"],
+                "replay_id": args.replay_id,
+                "mode": trace["promotion"]["mode"],
+                "attempt_count": len(trace["attempts"]),
+                "destination": str(destination),
+            },
+            indent=2,
+        )
+    )
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -684,6 +790,13 @@ def build_parser() -> argparse.ArgumentParser:
     summary_parser = subparsers.add_parser("summarize", help="Print an allowlisted local summary.")
     summary_parser.add_argument("--run-id", required=True)
     summary_parser.set_defaults(handler=command_summarize)
+
+    promote_parser = subparsers.add_parser(
+        "promote", help="Create a sanitized verified-replay bundle without network access."
+    )
+    promote_parser.add_argument("--run-id", required=True)
+    promote_parser.add_argument("--replay-id", required=True)
+    promote_parser.set_defaults(handler=command_promote)
     return parser
 
 

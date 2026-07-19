@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "run_id": "20260719_174526Z_p4_gpt56",
+  "created_utc": "2026-07-19T17:45:26Z",
+  "updated_utc": "2026-07-19T17:48:43Z",
+  "source": "live_gpt56",
+  "mode": "failure_discovery",
+  "git": {
+    "branch": "build-week/openai",
+    "head": "91f30ab88e0e10c733dceca805aa479de8bee3b8",
+    "clean": true
+  },
+  "settings": {
+    "openai_sdk_version": "2.46.0",
+    "max_output_tokens": 4096,
+    "timeout_seconds": 120.0,
+    "transport_max_retries": 0
+  },
+  "candidate": {
+    "id": "P4",
+    "cell_type": "cylindrical",
+    "target_constraints": [
+      "CY5"
+    ],
+    "prompt": "Design a compact custom NMC cylindrical cell for an optical instrument, targeting a 10 mm outer diameter and 45 mm length with an approximately 7.5 mm clear central sensor channel. Use a mechanically robust steel can and traditional tabs, choose practical manufacturing clearances, and maximize useful electrode capacity. Treat the device envelope and sensor channel as strong packaging targets, but return the best feasible first-pass design.",
+    "requested_model": "gpt-5.6"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "captured_utc": "2026-07-19T17:45:58Z",
+      "source": "live_gpt56",
+      "messages": [
+        {
+          "role": "system",
+          "content": "# Battery Cell Design Assistant\n\nYou are an expert battery cell designer. Given a design request, you generate complete, valid cylindrical cell definitions in YAML format.\n\nYour designs must satisfy all physical constraints and engineering best practices.\n\n\n## Cylindrical Cell Parameters\n\n### Metadata\n- format: \"18650\" | \"21700\" | \"4680\" | \"custom\"\n\n### Geometry (External Can Dimensions)\n- diameter_mm: External can diameter [10-60 mm]\n  - 18650: 18 mm, 21700: 21 mm, 4680: 46 mm\n- length_mm: External can length [30-100 mm]\n  - 18650: 65 mm, 21700: 70 mm, 4680: 80 mm\n- can_wall_thickness_mm: Can body wall [0.15-0.6 mm, typical: 0.2-0.35]\n- can_bottom_thickness_mm: Can bottom plate [0.2-1.0 mm]\n- header_height_mm: Top assembly/header height [2.0-6.0 mm]\n\n### Winding Configuration (Jelly Roll)\n- mandrel_diameter_mm: Inner core diameter [1.5-8.0 mm, typical: 2-4]\n- winding_clearance_mm: Gap to can wall [0.05-0.5 mm, typical: 0.1-0.2]\n- winding_tension_factor: Compression factor [0.90-1.0, typical: 0.95]\n  - 1.0 = no compression, 0.95 = 5% compressed\n- tab_type: \"traditional\" | \"tabless\"\n  - traditional: Welded tabs, typical for 18650/21700\n  - tabless: 4680-style foil extensions, lower resistance\n\n### For Traditional Tab Type (optional if tabless)\n- anode_tab_width_mm: [2-15 mm]\n- anode_tab_thickness_mm: [0.05-0.3 mm]\n- cathode_tab_width_mm: [2-15 mm]\n- cathode_tab_thickness_mm: [0.05-0.3 mm]\n\n### For Tabless Design (optional if traditional)\n- anode_foil_extension_mm: Foil extension beyond coating [1-8 mm, typical: 3]\n- cathode_foil_extension_mm: Foil extension beyond coating [1-8 mm, typical: 3]\n\n### Cathode Material\n- material_name: e.g., \"NMC811\", \"LFP\", \"NCA\"\n- loading_mg_cm2: Coating weight [5-30 mg/cm², typical: 15-25]\n- rev_spec_capacity_mahg: Reversible capacity [140-220 mAh/g]\n- collector_thickness_um: Al foil [8-20 μm]\n- coating_thickness_0pct_um: Coating at 0% SoC [40-100 μm]\n- coating_thickness_100pct_um: Coating at 100% SoC [40-100 μm]\n- porosity_pct: Coating porosity [15-40 %]\n\n### Anode Material\n- material_name: e.g., \"Graphite\", \"Graphite-SiO\"\n- loading_mg_cm2: Coating weight [5-20 mg/cm²]\n- rev_spec_capacity_mahg: [300-500 mAh/g]\n- collector_thickness_um: Cu foil [4-12 μm]\n- coating_thickness_0pct_um: Coating at 0% SoC [40-150 μm]\n- coating_thickness_100pct_um: Coating at 100% SoC [40-150 μm]\n- porosity_pct: Coating porosity [20-45 %]\n- np_ratio: N/P ratio [1.05-1.5]\n\n### Separator\n- material_name: e.g., \"PP\", \"PE\", \"Ceramic-coated PP\"\n- thickness_um: [9-25 μm]\n- porosity_pct: [30-55 %]\n- areal_weight_mgcm2: [0.8-3.0 mg/cm²]\n\n### Electrolyte\n- material_name: e.g., \"LiPF6 in EC:EMC\"\n- density_g_cm3: [1.1-1.4 g/cm³]\n- excess_factor: [1.0-1.3]\n\n### Housing\n- can_material: \"steel\" | \"aluminum\" | \"nickel_plated_steel\"\n- header_mass_g: Total header/cap assembly mass [0.5-10 g]\n  - 18650: ~1.5g, 21700: ~2.0g, 4680: ~5.0g\n- bottom_insulator_mass_g: Bottom insulator disc [0.01-1.0 g]\n- top_insulator_mass_g: Top insulator ring [0.01-1.0 g]\n\n\n\n## Design Rules (MUST satisfy all)\n\n1. **Format Consistency**: If using standard format (18650/21700/4680), dimensions must match\n   - 18650: diameter ~18 mm, length ~65 mm\n   - 21700: diameter ~21 mm, length ~70 mm\n   - 4680: diameter ~46 mm, length ~80 mm\n\n2. **Jelly Roll Fit**: Jelly roll must fit inside can\n   - Available space = (inner_diameter - mandrel_diameter) / 2 - clearance\n   - Must leave room for electrode winding (typically 7-15 mm radial)\n\n3. **Mandrel Size**: Mandrel should be appropriate for cell size\n   - Small cells (18650): 2-3 mm\n   - Medium cells (21700): 3-4 mm\n   - Large cells (4680): 4-6 mm\n\n4. **N/P Ratio**: Anode capacity / Cathode capacity must be 1.05-1.25\n   - N/P = (anode_loading × anode_capacity) / (cathode_loading × cathode_capacity)\n   - Too low (<1.05): Risk of lithium plating\n   - Too high (>1.25): Wasted anode material\n\n5. **Tab Type Selection**:\n   - 18650/21700: Usually traditional tabs\n   - 4680: Usually tabless for lower resistance\n\n6. **Winding Tension**: Factor in [0.90, 1.0]\n   - Lower values = more compression, denser winding\n   - Too low (<0.90) may damage electrodes\n\n7. **Positive Values**: All dimensions, loadings, thicknesses must be > 0\n\n\n\n## Design Trade-offs (Engineering Knowledge)\n\n### Energy vs Power\n- Higher loading → more energy, slower charging\n- Thicker electrodes → higher energy density, worse rate capability\n- More electrode pairs → more capacity, but diminishing returns on density\n\n### Chemistry Selection\n- **LFP**: Lower energy density (~160 Wh/kg), excellent safety, long cycle life, cheap\n- **NMC811**: High energy density (~250 Wh/kg), requires more thermal management\n- **NMC622**: Balanced energy/safety, good cycle life\n\n### Typical Targets by Application\n- **EV**: 200-300 Wh/kg, 50-150 Ah cells, NMC chemistry\n- **ESS (Stationary)**: 150-180 Wh/kg, 100-300 Ah cells, LFP preferred\n- **Power tools**: High power density, smaller cells, moderate energy\n\n\n\n## Example: Valid 5Ah 21700 NMC Cell\n\n```yaml\n_meta:\n  cell_type: cylindrical\n  format: \"21700\"\n  design_intent: \"5Ah NMC811 21700 cell for EV application\"\n\ngeometry:\n  diameter_mm: 21.0\n  length_mm: 70.0\n  can_wall_thickness_mm: 0.25\n  can_bottom_thickness_mm: 0.4\n  header_height_mm: 3.5\n\nwinding:\n  mandrel_diameter_mm: 3.5\n  winding_clearance_mm: 0.15\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 6.0\n  anode_tab_thickness_mm: 0.1\n  cathode_tab_width_mm: 5.0\n  cathode_tab_thickness_mm: 0.15\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 22.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 12.0\n    coating_thickness_0pct_um: 60.0\n    coating_thickness_100pct_um: 62.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.5\n    rev_spec_capacity_mahg: 355.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 85.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 32.0\n    np_ratio: 1.12\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 12.0\n    porosity_pct: 42.0\n    areal_weight_mgcm2: 1.0\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC\"\n    density_g_cm3: 1.22\n    excess_factor: 1.05\n\nhousing:\n  can_material: \"nickel_plated_steel\"\n  header_mass_g: 2.0\n  bottom_insulator_mass_g: 0.1\n  top_insulator_mass_g: 0.1\n```\n\nThis design achieves approximately:\n- Capacity: ~5 Ah\n- Energy: ~18 Wh\n- Gravimetric ED: ~260 Wh/kg\n- N/P ratio: ~1.12 (safe margin)\n\n\n\n## Output Format\n\nRespond with a complete YAML cell definition inside a ```yaml code block.\n\nInclude ALL required sections:\n- _meta (with cell_type: \"cylindrical\", format, and design_intent)\n- geometry (diameter, length, wall thicknesses, header_height)\n- winding (mandrel, clearance, tension, tab_type, and appropriate tab/foil fields)\n- electrochemistry (cathode, anode, separator, electrolyte)\n- housing (can_material, header_mass_g)\n\nDo NOT include:\n- Explanatory text inside the YAML\n- Comments that break YAML parsing\n- Incomplete sections\n\nYou may include brief explanation BEFORE or AFTER the ```yaml block, but the block itself must be valid, complete YAML.\n"
+        },
+        {
+          "role": "user",
+          "content": "Design a compact custom NMC cylindrical cell for an optical instrument, targeting a 10 mm outer diameter and 45 mm length with an approximately 7.5 mm clear central sensor channel. Use a mechanically robust steel can and traditional tabs, choose practical manufacturing clearances, and maximize useful electrode capacity. Treat the device envelope and sensor channel as strong packaging targets, but return the best feasible first-pass design."
+        }
+      ],
+      "message_sha256": "ef0fe096d9b35553f4c8cf6be69021bde3cdb38edb790db2244917b9bf74e7e3",
+      "output_text": "```yaml\n_meta:\n  cell_type: \"cylindrical\"\n  format: \"custom\"\n  design_intent: \"Compact annular NMC811 cell for an optical instrument with a 10 mm outer diameter, 45 mm length, and approximately 7.5 mm clear central sensor channel\"\n\ngeometry:\n  diameter_mm: 10.0\n  length_mm: 45.0\n  can_wall_thickness_mm: 0.30\n  can_bottom_thickness_mm: 0.35\n  header_height_mm: 2.0\n\nwinding:\n  mandrel_diameter_mm: 7.5\n  winding_clearance_mm: 0.10\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 2.0\n  anode_tab_thickness_mm: 0.05\n  cathode_tab_width_mm: 2.0\n  cathode_tab_thickness_mm: 0.05\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 20.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 70.0\n    coating_thickness_100pct_um: 72.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.6\n    rev_spec_capacity_mahg: 350.0\n    collector_thickness_um: 6.0\n    coating_thickness_0pct_um: 84.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 30.0\n    np_ratio: 1.10\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 9.0\n    porosity_pct: 40.0\n    areal_weight_mgcm2: 0.8\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC with low-gassing additives\"\n    density_g_cm3: 1.22\n    excess_factor: 1.10\n\nhousing:\n  can_material: \"steel\"\n  header_mass_g: 0.5\n  bottom_insulator_mass_g: 0.02\n  top_insulator_mass_g: 0.02\n```",
+      "output_sha256": "74ab2fe422f36fc7b4f38a0e49f98a601e56cfbdadb1e8f107c49e0e3cb86775",
+      "usage": {
+        "tokens_in": 2417,
+        "tokens_out": 1894,
+        "model": "gpt-5.6-sol"
+      },
+      "validation": {
+        "classification": "engineering",
+        "parse_error": null,
+        "raw_yaml": "_meta:\n  cell_type: \"cylindrical\"\n  format: \"custom\"\n  design_intent: \"Compact annular NMC811 cell for an optical instrument with a 10 mm outer diameter, 45 mm length, and approximately 7.5 mm clear central sensor channel\"\n\ngeometry:\n  diameter_mm: 10.0\n  length_mm: 45.0\n  can_wall_thickness_mm: 0.30\n  can_bottom_thickness_mm: 0.35\n  header_height_mm: 2.0\n\nwinding:\n  mandrel_diameter_mm: 7.5\n  winding_clearance_mm: 0.10\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 2.0\n  anode_tab_thickness_mm: 0.05\n  cathode_tab_width_mm: 2.0\n  cathode_tab_thickness_mm: 0.05\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 20.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 70.0\n    coating_thickness_100pct_um: 72.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.6\n    rev_spec_capacity_mahg: 350.0\n    collector_thickness_um: 6.0\n    coating_thickness_0pct_um: 84.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 30.0\n    np_ratio: 1.10\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 9.0\n    porosity_pct: 40.0\n    areal_weight_mgcm2: 0.8\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC with low-gassing additives\"\n    density_g_cm3: 1.22\n    excess_factor: 1.10\n\nhousing:\n  can_material: \"steel\"\n  header_mass_g: 0.5\n  bottom_insulator_mass_g: 0.02\n  top_insulator_mass_g: 0.02",
+        "parsed_yaml": {
+          "_meta": {
+            "cell_type": "cylindrical",
+            "format": "custom",
+            "design_intent": "Compact annular NMC811 cell for an optical instrument with a 10 mm outer diameter, 45 mm length, and approximately 7.5 mm clear central sensor channel"
+          },
+          "geometry": {
+            "diameter_mm": 10.0,
+            "length_mm": 45.0,
+            "can_wall_thickness_mm": 0.3,
+            "can_bottom_thickness_mm": 0.35,
+            "header_height_mm": 2.0
+          },
+          "winding": {
+            "mandrel_diameter_mm": 7.5,
+            "winding_clearance_mm": 0.1,
+            "winding_tension_factor": 0.95,
+            "tab_type": "traditional",
+            "anode_tab_width_mm": 2.0,
+            "anode_tab_thickness_mm": 0.05,
+            "cathode_tab_width_mm": 2.0,
+            "cathode_tab_thickness_mm": 0.05
+          },
+          "electrochemistry": {
+            "cathode": {
+              "material_name": "NMC811",
+              "loading_mg_cm2": 20.0,
+              "rev_spec_capacity_mahg": 200.0,
+              "collector_thickness_um": 8.0,
+              "coating_thickness_0pct_um": 70.0,
+              "coating_thickness_100pct_um": 72.0,
+              "porosity_pct": 25.0
+            },
+            "anode": {
+              "material_name": "Graphite",
+              "loading_mg_cm2": 12.6,
+              "rev_spec_capacity_mahg": 350.0,
+              "collector_thickness_um": 6.0,
+              "coating_thickness_0pct_um": 84.0,
+              "coating_thickness_100pct_um": 90.0,
+              "porosity_pct": 30.0,
+              "np_ratio": 1.1
+            },
+            "separator": {
+              "material_name": "Ceramic-coated PE",
+              "thickness_um": 9.0,
+              "porosity_pct": 40.0,
+              "areal_weight_mgcm2": 0.8
+            },
+            "electrolyte": {
+              "material_name": "LiPF6 in EC:EMC with low-gassing additives",
+              "density_g_cm3": 1.22,
+              "excess_factor": 1.1
+            }
+          },
+          "housing": {
+            "can_material": "steel",
+            "header_mass_g": 0.5,
+            "bottom_insulator_mass_g": 0.02,
+            "top_insulator_mass_g": 0.02
+          }
+        },
+        "schema_errors": [],
+        "constraint_results": [
+          {
+            "constraint_id": "C1",
+            "name": "np_ratio",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0116
+          },
+          {
+            "constraint_id": "C2",
+            "name": "cathode_loading",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0019
+          },
+          {
+            "constraint_id": "C3",
+            "name": "anode_loading",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0015
+          },
+          {
+            "constraint_id": "C4",
+            "name": "separator_porosity",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0018
+          },
+          {
+            "constraint_id": "C5",
+            "name": "electrolyte_concentration",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0016
+          },
+          {
+            "constraint_id": "C6",
+            "name": "cathode_material",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0023
+          },
+          {
+            "constraint_id": "C7",
+            "name": "anode_material",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0015
+          },
+          {
+            "constraint_id": "CY1",
+            "name": "mandrel_diameter",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0021
+          },
+          {
+            "constraint_id": "CY2",
+            "name": "winding_clearance",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0012
+          },
+          {
+            "constraint_id": "CY3",
+            "name": "tension_factor",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0012
+          },
+          {
+            "constraint_id": "CY4",
+            "name": "tab_type",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.002
+          },
+          {
+            "constraint_id": "CY5",
+            "name": "jelly_roll_fits",
+            "passed": false,
+            "actual_value": 1.7000000000000004,
+            "threshold": "available_for_winding >= 2.0 mm",
+            "message": "Insufficient space for jelly roll. Available: 1.70 mm. Inner diameter 9.40 mm - mandrel 7.5 mm - 2 * clearance 0.1 mm leaves < 2 mm for electrodes. Increase cell diameter, reduce mandrel, or reduce clearance.",
+            "check_time_ms": 0.0139
+          },
+          {
+            "constraint_id": "CY6",
+            "name": "header_height",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0014
+          },
+          {
+            "constraint_id": "CY7",
+            "name": "format_consistency",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0031
+          },
+          {
+            "constraint_id": "CY8",
+            "name": "can_material",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0018
+          }
+        ],
+        "failed_constraint_ids": [
+          "CY5"
+        ]
+      },
+      "supervisor": {
+        "success": false,
+        "attempts": 1,
+        "last_error": "Validation failed: [VALIDATION FAILED - PHYSICS LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [geometry (jelly roll fit constraint)]\n    Error: Insufficient space for jelly roll. Available: 1.70 mm. Inner diameter 9.40 mm - mandrel 7.5 mm - 2 * clearance 0.1 mm leaves < 2 mm for electrodes. Increase cell diameter, reduce mandrel, or reduce clearance.\n    Got: 1.7000000000000004\n",
+        "retry_reasons": [
+          "[VALIDATION FAILED - PHYSICS LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [geometry (jelly roll fit constraint)]\n    Error: Insufficient space for jelly roll. Available: 1.70 mm. Inner diameter 9.40 mm - mandrel 7.5 mm - 2 * clearance 0.1 mm leaves < 2 mm for electrodes. Increase cell diameter, reduce mandrel, or reduce clearance.\n    Got: 1.7000000000000004\n"
+        ]
+      }
+    },
+    {
+      "attempt": 2,
+      "captured_utc": "2026-07-19T17:48:43Z",
+      "source": "live_gpt56",
+      "messages": [
+        {
+          "role": "system",
+          "content": "# Battery Cell Design Assistant\n\nYou are an expert battery cell designer. Given a design request, you generate complete, valid cylindrical cell definitions in YAML format.\n\nYour designs must satisfy all physical constraints and engineering best practices.\n\n\n## Cylindrical Cell Parameters\n\n### Metadata\n- format: \"18650\" | \"21700\" | \"4680\" | \"custom\"\n\n### Geometry (External Can Dimensions)\n- diameter_mm: External can diameter [10-60 mm]\n  - 18650: 18 mm, 21700: 21 mm, 4680: 46 mm\n- length_mm: External can length [30-100 mm]\n  - 18650: 65 mm, 21700: 70 mm, 4680: 80 mm\n- can_wall_thickness_mm: Can body wall [0.15-0.6 mm, typical: 0.2-0.35]\n- can_bottom_thickness_mm: Can bottom plate [0.2-1.0 mm]\n- header_height_mm: Top assembly/header height [2.0-6.0 mm]\n\n### Winding Configuration (Jelly Roll)\n- mandrel_diameter_mm: Inner core diameter [1.5-8.0 mm, typical: 2-4]\n- winding_clearance_mm: Gap to can wall [0.05-0.5 mm, typical: 0.1-0.2]\n- winding_tension_factor: Compression factor [0.90-1.0, typical: 0.95]\n  - 1.0 = no compression, 0.95 = 5% compressed\n- tab_type: \"traditional\" | \"tabless\"\n  - traditional: Welded tabs, typical for 18650/21700\n  - tabless: 4680-style foil extensions, lower resistance\n\n### For Traditional Tab Type (optional if tabless)\n- anode_tab_width_mm: [2-15 mm]\n- anode_tab_thickness_mm: [0.05-0.3 mm]\n- cathode_tab_width_mm: [2-15 mm]\n- cathode_tab_thickness_mm: [0.05-0.3 mm]\n\n### For Tabless Design (optional if traditional)\n- anode_foil_extension_mm: Foil extension beyond coating [1-8 mm, typical: 3]\n- cathode_foil_extension_mm: Foil extension beyond coating [1-8 mm, typical: 3]\n\n### Cathode Material\n- material_name: e.g., \"NMC811\", \"LFP\", \"NCA\"\n- loading_mg_cm2: Coating weight [5-30 mg/cm², typical: 15-25]\n- rev_spec_capacity_mahg: Reversible capacity [140-220 mAh/g]\n- collector_thickness_um: Al foil [8-20 μm]\n- coating_thickness_0pct_um: Coating at 0% SoC [40-100 μm]\n- coating_thickness_100pct_um: Coating at 100% SoC [40-100 μm]\n- porosity_pct: Coating porosity [15-40 %]\n\n### Anode Material\n- material_name: e.g., \"Graphite\", \"Graphite-SiO\"\n- loading_mg_cm2: Coating weight [5-20 mg/cm²]\n- rev_spec_capacity_mahg: [300-500 mAh/g]\n- collector_thickness_um: Cu foil [4-12 μm]\n- coating_thickness_0pct_um: Coating at 0% SoC [40-150 μm]\n- coating_thickness_100pct_um: Coating at 100% SoC [40-150 μm]\n- porosity_pct: Coating porosity [20-45 %]\n- np_ratio: N/P ratio [1.05-1.5]\n\n### Separator\n- material_name: e.g., \"PP\", \"PE\", \"Ceramic-coated PP\"\n- thickness_um: [9-25 μm]\n- porosity_pct: [30-55 %]\n- areal_weight_mgcm2: [0.8-3.0 mg/cm²]\n\n### Electrolyte\n- material_name: e.g., \"LiPF6 in EC:EMC\"\n- density_g_cm3: [1.1-1.4 g/cm³]\n- excess_factor: [1.0-1.3]\n\n### Housing\n- can_material: \"steel\" | \"aluminum\" | \"nickel_plated_steel\"\n- header_mass_g: Total header/cap assembly mass [0.5-10 g]\n  - 18650: ~1.5g, 21700: ~2.0g, 4680: ~5.0g\n- bottom_insulator_mass_g: Bottom insulator disc [0.01-1.0 g]\n- top_insulator_mass_g: Top insulator ring [0.01-1.0 g]\n\n\n\n## Design Rules (MUST satisfy all)\n\n1. **Format Consistency**: If using standard format (18650/21700/4680), dimensions must match\n   - 18650: diameter ~18 mm, length ~65 mm\n   - 21700: diameter ~21 mm, length ~70 mm\n   - 4680: diameter ~46 mm, length ~80 mm\n\n2. **Jelly Roll Fit**: Jelly roll must fit inside can\n   - Available space = (inner_diameter - mandrel_diameter) / 2 - clearance\n   - Must leave room for electrode winding (typically 7-15 mm radial)\n\n3. **Mandrel Size**: Mandrel should be appropriate for cell size\n   - Small cells (18650): 2-3 mm\n   - Medium cells (21700): 3-4 mm\n   - Large cells (4680): 4-6 mm\n\n4. **N/P Ratio**: Anode capacity / Cathode capacity must be 1.05-1.25\n   - N/P = (anode_loading × anode_capacity) / (cathode_loading × cathode_capacity)\n   - Too low (<1.05): Risk of lithium plating\n   - Too high (>1.25): Wasted anode material\n\n5. **Tab Type Selection**:\n   - 18650/21700: Usually traditional tabs\n   - 4680: Usually tabless for lower resistance\n\n6. **Winding Tension**: Factor in [0.90, 1.0]\n   - Lower values = more compression, denser winding\n   - Too low (<0.90) may damage electrodes\n\n7. **Positive Values**: All dimensions, loadings, thicknesses must be > 0\n\n\n\n## Design Trade-offs (Engineering Knowledge)\n\n### Energy vs Power\n- Higher loading → more energy, slower charging\n- Thicker electrodes → higher energy density, worse rate capability\n- More electrode pairs → more capacity, but diminishing returns on density\n\n### Chemistry Selection\n- **LFP**: Lower energy density (~160 Wh/kg), excellent safety, long cycle life, cheap\n- **NMC811**: High energy density (~250 Wh/kg), requires more thermal management\n- **NMC622**: Balanced energy/safety, good cycle life\n\n### Typical Targets by Application\n- **EV**: 200-300 Wh/kg, 50-150 Ah cells, NMC chemistry\n- **ESS (Stationary)**: 150-180 Wh/kg, 100-300 Ah cells, LFP preferred\n- **Power tools**: High power density, smaller cells, moderate energy\n\n\n\n## Example: Valid 5Ah 21700 NMC Cell\n\n```yaml\n_meta:\n  cell_type: cylindrical\n  format: \"21700\"\n  design_intent: \"5Ah NMC811 21700 cell for EV application\"\n\ngeometry:\n  diameter_mm: 21.0\n  length_mm: 70.0\n  can_wall_thickness_mm: 0.25\n  can_bottom_thickness_mm: 0.4\n  header_height_mm: 3.5\n\nwinding:\n  mandrel_diameter_mm: 3.5\n  winding_clearance_mm: 0.15\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 6.0\n  anode_tab_thickness_mm: 0.1\n  cathode_tab_width_mm: 5.0\n  cathode_tab_thickness_mm: 0.15\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 22.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 12.0\n    coating_thickness_0pct_um: 60.0\n    coating_thickness_100pct_um: 62.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.5\n    rev_spec_capacity_mahg: 355.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 85.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 32.0\n    np_ratio: 1.12\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 12.0\n    porosity_pct: 42.0\n    areal_weight_mgcm2: 1.0\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC\"\n    density_g_cm3: 1.22\n    excess_factor: 1.05\n\nhousing:\n  can_material: \"nickel_plated_steel\"\n  header_mass_g: 2.0\n  bottom_insulator_mass_g: 0.1\n  top_insulator_mass_g: 0.1\n```\n\nThis design achieves approximately:\n- Capacity: ~5 Ah\n- Energy: ~18 Wh\n- Gravimetric ED: ~260 Wh/kg\n- N/P ratio: ~1.12 (safe margin)\n\n\n\n## Output Format\n\nRespond with a complete YAML cell definition inside a ```yaml code block.\n\nInclude ALL required sections:\n- _meta (with cell_type: \"cylindrical\", format, and design_intent)\n- geometry (diameter, length, wall thicknesses, header_height)\n- winding (mandrel, clearance, tension, tab_type, and appropriate tab/foil fields)\n- electrochemistry (cathode, anode, separator, electrolyte)\n- housing (can_material, header_mass_g)\n\nDo NOT include:\n- Explanatory text inside the YAML\n- Comments that break YAML parsing\n- Incomplete sections\n\nYou may include brief explanation BEFORE or AFTER the ```yaml block, but the block itself must be valid, complete YAML.\n"
+        },
+        {
+          "role": "user",
+          "content": "Design a compact custom NMC cylindrical cell for an optical instrument, targeting a 10 mm outer diameter and 45 mm length with an approximately 7.5 mm clear central sensor channel. Use a mechanically robust steel can and traditional tabs, choose practical manufacturing clearances, and maximize useful electrode capacity. Treat the device envelope and sensor channel as strong packaging targets, but return the best feasible first-pass design."
+        },
+        {
+          "role": "assistant",
+          "content": "```yaml\n_meta:\n  cell_type: \"cylindrical\"\n  format: \"custom\"\n  design_intent: \"Compact annular NMC811 cell for an optical instrument with a 10 mm outer diameter, 45 mm length, and approximately 7.5 mm clear central sensor channel\"\n\ngeometry:\n  diameter_mm: 10.0\n  length_mm: 45.0\n  can_wall_thickness_mm: 0.30\n  can_bottom_thickness_mm: 0.35\n  header_height_mm: 2.0\n\nwinding:\n  mandrel_diameter_mm: 7.5\n  winding_clearance_mm: 0.10\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 2.0\n  anode_tab_thickness_mm: 0.05\n  cathode_tab_width_mm: 2.0\n  cathode_tab_thickness_mm: 0.05\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 20.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 70.0\n    coating_thickness_100pct_um: 72.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.6\n    rev_spec_capacity_mahg: 350.0\n    collector_thickness_um: 6.0\n    coating_thickness_0pct_um: 84.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 30.0\n    np_ratio: 1.10\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 9.0\n    porosity_pct: 40.0\n    areal_weight_mgcm2: 0.8\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC with low-gassing additives\"\n    density_g_cm3: 1.22\n    excess_factor: 1.10\n\nhousing:\n  can_material: \"steel\"\n  header_mass_g: 0.5\n  bottom_insulator_mass_g: 0.02\n  top_insulator_mass_g: 0.02\n```"
+        },
+        {
+          "role": "user",
+          "content": "Your previous cylindrical cell design was invalid. Here are the issues:\n\n[VALIDATION FAILED - PHYSICS LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [geometry (jelly roll fit constraint)]\n    Error: Insufficient space for jelly roll. Available: 1.70 mm. Inner diameter 9.40 mm - mandrel 7.5 mm - 2 * clearance 0.1 mm leaves < 2 mm for electrodes. Increase cell diameter, reduce mandrel, or reduce clearance.\n    Got: 1.7000000000000004\n\n\nOriginal request: Design a compact custom NMC cylindrical cell for an optical instrument, targeting a 10 mm outer diameter and 45 mm length with an approximately 7.5 mm clear central sensor channel. Use a mechanically robust steel can and traditional tabs, choose practical manufacturing clearances, and maximize useful electrode capacity. Treat the device envelope and sensor channel as strong packaging targets, but return the best feasible first-pass design.\n\nPlease generate a corrected cylindrical design that addresses these specific issues.\nOutput the complete YAML template with your corrections in a ```yaml code block.\n"
+        }
+      ],
+      "message_sha256": "a753c7b44cb2e60d0298756c9621be976cd126442a2c92e8c04d1bfb485137a6",
+      "output_text": "```yaml\n_meta:\n  cell_type: \"cylindrical\"\n  format: \"custom\"\n  design_intent: \"Compact annular NMC811 optical-instrument cell with a 10.5 mm outer diameter, 45 mm length, and approximately 7.5 mm central sensor channel\"\n\ngeometry:\n  diameter_mm: 10.5\n  length_mm: 45.0\n  can_wall_thickness_mm: 0.30\n  can_bottom_thickness_mm: 0.35\n  header_height_mm: 2.0\n\nwinding:\n  mandrel_diameter_mm: 7.5\n  winding_clearance_mm: 0.10\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 2.0\n  anode_tab_thickness_mm: 0.05\n  cathode_tab_width_mm: 2.0\n  cathode_tab_thickness_mm: 0.05\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 20.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 70.0\n    coating_thickness_100pct_um: 72.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.6\n    rev_spec_capacity_mahg: 350.0\n    collector_thickness_um: 6.0\n    coating_thickness_0pct_um: 84.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 30.0\n    np_ratio: 1.10\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 9.0\n    porosity_pct: 40.0\n    areal_weight_mgcm2: 0.8\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC with low-gassing additives\"\n    density_g_cm3: 1.22\n    excess_factor: 1.10\n\nhousing:\n  can_material: \"steel\"\n  header_mass_g: 0.5\n  bottom_insulator_mass_g: 0.02\n  top_insulator_mass_g: 0.02\n```",
+      "output_sha256": "d27a1e4b64307c49294d342cb2e0e37823b65575d3a253a0d938268ec2302b31",
+      "usage": {
+        "tokens_in": 3188,
+        "tokens_out": 992,
+        "model": "gpt-5.6-sol"
+      },
+      "validation": {
+        "classification": "accepted",
+        "parse_error": null,
+        "raw_yaml": "_meta:\n  cell_type: \"cylindrical\"\n  format: \"custom\"\n  design_intent: \"Compact annular NMC811 optical-instrument cell with a 10.5 mm outer diameter, 45 mm length, and approximately 7.5 mm central sensor channel\"\n\ngeometry:\n  diameter_mm: 10.5\n  length_mm: 45.0\n  can_wall_thickness_mm: 0.30\n  can_bottom_thickness_mm: 0.35\n  header_height_mm: 2.0\n\nwinding:\n  mandrel_diameter_mm: 7.5\n  winding_clearance_mm: 0.10\n  winding_tension_factor: 0.95\n  tab_type: \"traditional\"\n  anode_tab_width_mm: 2.0\n  anode_tab_thickness_mm: 0.05\n  cathode_tab_width_mm: 2.0\n  cathode_tab_thickness_mm: 0.05\n\nelectrochemistry:\n  cathode:\n    material_name: \"NMC811\"\n    loading_mg_cm2: 20.0\n    rev_spec_capacity_mahg: 200.0\n    collector_thickness_um: 8.0\n    coating_thickness_0pct_um: 70.0\n    coating_thickness_100pct_um: 72.0\n    porosity_pct: 25.0\n  anode:\n    material_name: \"Graphite\"\n    loading_mg_cm2: 12.6\n    rev_spec_capacity_mahg: 350.0\n    collector_thickness_um: 6.0\n    coating_thickness_0pct_um: 84.0\n    coating_thickness_100pct_um: 90.0\n    porosity_pct: 30.0\n    np_ratio: 1.10\n  separator:\n    material_name: \"Ceramic-coated PE\"\n    thickness_um: 9.0\n    porosity_pct: 40.0\n    areal_weight_mgcm2: 0.8\n  electrolyte:\n    material_name: \"LiPF6 in EC:EMC with low-gassing additives\"\n    density_g_cm3: 1.22\n    excess_factor: 1.10\n\nhousing:\n  can_material: \"steel\"\n  header_mass_g: 0.5\n  bottom_insulator_mass_g: 0.02\n  top_insulator_mass_g: 0.02",
+        "parsed_yaml": {
+          "_meta": {
+            "cell_type": "cylindrical",
+            "format": "custom",
+            "design_intent": "Compact annular NMC811 optical-instrument cell with a 10.5 mm outer diameter, 45 mm length, and approximately 7.5 mm central sensor channel"
+          },
+          "geometry": {
+            "diameter_mm": 10.5,
+            "length_mm": 45.0,
+            "can_wall_thickness_mm": 0.3,
+            "can_bottom_thickness_mm": 0.35,
+            "header_height_mm": 2.0
+          },
+          "winding": {
+            "mandrel_diameter_mm": 7.5,
+            "winding_clearance_mm": 0.1,
+            "winding_tension_factor": 0.95,
+            "tab_type": "traditional",
+            "anode_tab_width_mm": 2.0,
+            "anode_tab_thickness_mm": 0.05,
+            "cathode_tab_width_mm": 2.0,
+            "cathode_tab_thickness_mm": 0.05
+          },
+          "electrochemistry": {
+            "cathode": {
+              "material_name": "NMC811",
+              "loading_mg_cm2": 20.0,
+              "rev_spec_capacity_mahg": 200.0,
+              "collector_thickness_um": 8.0,
+              "coating_thickness_0pct_um": 70.0,
+              "coating_thickness_100pct_um": 72.0,
+              "porosity_pct": 25.0
+            },
+            "anode": {
+              "material_name": "Graphite",
+              "loading_mg_cm2": 12.6,
+              "rev_spec_capacity_mahg": 350.0,
+              "collector_thickness_um": 6.0,
+              "coating_thickness_0pct_um": 84.0,
+              "coating_thickness_100pct_um": 90.0,
+              "porosity_pct": 30.0,
+              "np_ratio": 1.1
+            },
+            "separator": {
+              "material_name": "Ceramic-coated PE",
+              "thickness_um": 9.0,
+              "porosity_pct": 40.0,
+              "areal_weight_mgcm2": 0.8
+            },
+            "electrolyte": {
+              "material_name": "LiPF6 in EC:EMC with low-gassing additives",
+              "density_g_cm3": 1.22,
+              "excess_factor": 1.1
+            }
+          },
+          "housing": {
+            "can_material": "steel",
+            "header_mass_g": 0.5,
+            "bottom_insulator_mass_g": 0.02,
+            "top_insulator_mass_g": 0.02
+          }
+        },
+        "schema_errors": [],
+        "constraint_results": [
+          {
+            "constraint_id": "C1",
+            "name": "np_ratio",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0091
+          },
+          {
+            "constraint_id": "C2",
+            "name": "cathode_loading",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0015
+          },
+          {
+            "constraint_id": "C3",
+            "name": "anode_loading",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0011
+          },
+          {
+            "constraint_id": "C4",
+            "name": "separator_porosity",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0013
+          },
+          {
+            "constraint_id": "C5",
+            "name": "electrolyte_concentration",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0011
+          },
+          {
+            "constraint_id": "C6",
+            "name": "cathode_material",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0018
+          },
+          {
+            "constraint_id": "C7",
+            "name": "anode_material",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0012
+          },
+          {
+            "constraint_id": "CY1",
+            "name": "mandrel_diameter",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.001
+          },
+          {
+            "constraint_id": "CY2",
+            "name": "winding_clearance",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.001
+          },
+          {
+            "constraint_id": "CY3",
+            "name": "tension_factor",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0014
+          },
+          {
+            "constraint_id": "CY4",
+            "name": "tab_type",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0013
+          },
+          {
+            "constraint_id": "CY5",
+            "name": "jelly_roll_fits",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0045
+          },
+          {
+            "constraint_id": "CY6",
+            "name": "header_height",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0013
+          },
+          {
+            "constraint_id": "CY7",
+            "name": "format_consistency",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0023
+          },
+          {
+            "constraint_id": "CY8",
+            "name": "can_material",
+            "passed": true,
+            "actual_value": null,
+            "threshold": "",
+            "message": "",
+            "check_time_ms": 0.0014
+          }
+        ],
+        "failed_constraint_ids": []
+      },
+      "supervisor": {
+        "success": true,
+        "attempts": 2,
+        "last_error": null,
+        "retry_reasons": [
+          "[VALIDATION FAILED - PHYSICS LEVEL]\nFound 1 error(s). Please fix and retry:\n\n  [geometry (jelly roll fit constraint)]\n    Error: Insufficient space for jelly roll. Available: 1.70 mm. Inner diameter 9.40 mm - mandrel 7.5 mm - 2 * clearance 0.1 mm leaves < 2 mm for electrodes. Increase cell diameter, reduce mandrel, or reduce clearance.\n    Got: 1.7000000000000004\n"
+        ]
+      }
+    }
+  ],
+  "latest_classification": "accepted",
+  "latest_failed_constraint_ids": [],
+  "promotion": {
+    "mode": "verified_replay",
+    "source_run_id": "20260719_174526Z_p4_gpt56",
+    "source_trace_sha256": "171e3c3e816541b099742fc832c76d626da8a3e69376cd5a18330c51cc8fadf1",
+    "source_bundle_sha256": "3c9e38031156ab120af9f2beae6596c18b09fab48c17a4cd1d48d5bb0946f5bc",
+    "originating_commit": "91f30ab88e0e10c733dceca805aa479de8bee3b8",
+    "removed_response_identifiers": 2
+  },
+  "derived_calculation": {
+    "source": "deterministic_recalculation",
+    "attempt": 2,
+    "capacity_ah": 0.2915229951092681,
+    "energy_wh": 1.0494827823933652,
+    "total_mass_g": 7.3874128464133175,
+    "gravimetric_ed_whkg": 142.99237189687867,
+    "volumetric_ed_cell_whl": 269.3359496219542
+  }
+}

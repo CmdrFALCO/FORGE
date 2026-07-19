@@ -594,3 +594,116 @@ failure without making a live request during the implementation task.
 - Obtain separate explicit authorization before one candidate discovery request.
 - Do not begin the Phase 3 demonstration interface until an authentic Phase 2 failure-and-correction trace has been
   captured, inspected, and approved.
+
+## 2026-07-19 - Authentic GPT-5.6 CY5 trace captured and promoted
+
+### Objective
+
+Find one genuine schema-valid GPT-5.6 engineering failure, preserve AXIOM's exact deterministic feedback, capture a
+successful model correction, and promote a sanitized integrity-checked verified replay without changing any
+engineering constraint.
+
+### Actions
+
+- Ran four separately authorized one-call discovery requests with SDK transport retries disabled:
+  - P1 targeting C1: accepted on attempt 1;
+  - P3 targeting CY5: accepted on attempt 1;
+  - P2 targeting C1: accepted on attempt 1;
+  - P4 targeting CY5: schema-valid engineering failure on attempt 1.
+- Revised the campaign after read-only analysis showed that GPT-5.6 solved the disclosed C1 equation exactly and
+  that P3 remained above CY5's implemented threshold.
+- Added P4 as a compact cylindrical optical-instrument packaging tradeoff and P5 as an unused pouch fallback.
+- For P4, captured an isolated CY5 failure while every other deterministic constraint passed.
+- Obtained separate authorization for one correction request.
+- Hash-verified and replayed attempt 1 locally through the production supervisor, then sent the preserved history
+  and exact CY5 feedback for one new GPT-5.6 response.
+- Captured attempt 2 as accepted with no failed constraints.
+- Added an offline promotion command that verifies authentic source provenance, refuses unsafe paths and overwrites,
+  removes response identifiers, preserves message and output hashes, records source hashes, derives deterministic
+  calculation metrics, and regenerates bundle integrity hashes.
+- Promoted the reviewed replay to `data/demos/axiom/openai_build_week_cy5/`.
+
+### Evidence
+
+- Run ID: `20260719_174526Z_p4_gpt56`.
+- Requested model: `gpt-5.6`.
+- Returned model telemetry for both attempts: `gpt-5.6-sol`.
+- Attempt 1 usage: 2,417 input tokens; 1,894 output tokens.
+- Attempt 2 usage: 3,188 input tokens; 992 output tokens.
+- Attempt 1 geometry:
+  - external diameter: `10.0 mm`;
+  - wall thickness: `0.30 mm`;
+  - mandrel / sensor channel: `7.5 mm`;
+  - winding clearance: `0.10 mm`;
+  - available winding space: `1.70 mm`.
+- CY5 threshold: `available_for_winding >= 2.0 mm`.
+- Exact deterministic result: attempt 1 failed only CY5.
+- Corrective feedback instructed the model to increase cell diameter, reduce the mandrel, or reduce clearance.
+- Attempt 2 changed only external diameter from `10.0 mm` to `10.5 mm`.
+- Corrected available winding space: `2.20 mm`.
+- Exact deterministic result: attempt 2 passed all constraints.
+- Total campaign ledger: four discovery calls, one correction call, five calls total; P5 was not called.
+
+### Promoted replay provenance
+
+- Originating Git commit: `91f30ab88e0e10c733dceca805aa479de8bee3b8`.
+- Source trace SHA-256: `171e3c3e816541b099742fc832c76d626da8a3e69376cd5a18330c51cc8fadf1`.
+- Source bundle SHA-256: `3c9e38031156ab120af9f2beae6596c18b09fab48c17a4cd1d48d5bb0946f5bc`.
+- Promoted trace SHA-256: `f12139e7566451df26ced03e659bd1fe7c08eb539d4a79480007043539c1fb59`.
+- Removed transport metadata: two OpenAI response identifiers.
+- Preserved exactly: prompts, system messages, model outputs, message hashes, output hashes, validator results,
+  corrective feedback, timestamps, model telemetry, token usage, and Git capture state.
+- Promoted bundle scan found no API key, authorization token, response token, personal path, or proprietary input.
+
+### Derived deterministic result
+
+- Source label: `deterministic_recalculation`.
+- Capacity: approximately `0.291523 Ah`.
+- Energy: approximately `1.04948 Wh`.
+- Total mass: approximately `7.38741 g`.
+- Gravimetric energy density: approximately `142.992 Wh/kg`.
+- Volumetric cell energy density: approximately `269.336 Wh/L`.
+
+### Decisions
+
+- P4 is the selected authentic Build Week demonstration trace.
+- P5 must not be called; discovery closed when the correction request began.
+- The promoted three-file bundle is the canonical verified-replay evidence. A future UI adapter should consume it
+  rather than weakening provenance by converting the canonical file into the older recorded-demo schema.
+- Replay must always be visibly labelled `Verified Replay`; the trace's `live_gpt56` source describes capture, not
+  playback.
+- No validator, equation, threshold, or source output was changed to manufacture the result.
+
+### Files changed
+
+- `data/demos/axiom/openai_build_week_cy5/trace.json`
+- `data/demos/axiom/openai_build_week_cy5/manifest.json`
+- `data/demos/axiom/openai_build_week_cy5/BUNDLE_SHA256.txt`
+- `experiments/axiom/runners/discover_openai_failures.py`
+- `tests/axiom/test_openai_failure_discovery.py`
+- `docs/BUILD_WEEK_LOG.md`
+
+### Tests and checks
+
+- Promotion and committed-fixture tests: `28 passed`.
+- Full configured non-live suite: `1449 passed, 10 skipped, 18 deselected`.
+- Ruff: passed.
+- MyPy for the discovery runner: passed.
+- `git diff --check`: no whitespace errors; Windows line-ending notices only.
+- Promoted-bundle integrity, provenance, content-hash, redaction, failure, and acceptance assertions: passed.
+
+### Risks or open questions
+
+- This is one authentic P4 run; no repeat campaign was performed to estimate failure or recovery frequency.
+- The cylindrical system prompt describes typical radial winding space while CY5 enforces a smaller total-diametric
+  minimum. This pre-existing semantics difference was not changed and must be described accurately in the demo.
+- Passing the declared validator set is not proof of total physical correctness or production feasibility.
+- Deterministic calculation metrics were recomputed during promotion and are not OpenAI response telemetry.
+- The unresolved global Git ignore permission warning and two existing FastAPI `on_event` deprecations remain
+  non-blocking.
+
+### Next gate
+
+- Review and commit this bounded Phase 2 evidence and promotion change.
+- Push only after separate approval.
+- Begin Phase 3 verified-replay interface planning only after the evidence commit is reviewed and pushed.

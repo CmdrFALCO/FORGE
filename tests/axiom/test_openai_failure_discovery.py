@@ -261,7 +261,7 @@ def test_load_trace_rejects_tampered_bundle(tmp_path, monkeypatch) -> None:
         encoding="utf-8",
     )
 
-    with pytest.raises(discovery.TraceIntegrityError, match="trace hash"):
+    with pytest.raises(discovery.TraceIntegrityError, match="Trace hash"):
         discovery.load_trace(trace["run_id"])
 
 
@@ -271,6 +271,109 @@ def test_load_trace_rejects_unsafe_run_id(tmp_path, monkeypatch, run_id) -> None
 
     with pytest.raises(discovery.DiscoveryError, match="Invalid staged run"):
         discovery.load_trace(run_id)
+
+
+def test_promote_trace_sanitizes_and_preserves_authentic_content(tmp_path, monkeypatch) -> None:
+    staging_root = tmp_path / "staging"
+    replay_root = tmp_path / "replays"
+    monkeypatch.setattr(discovery, "STAGING_ROOT", staging_root)
+    monkeypatch.setattr(discovery, "VERIFIED_REPLAY_ROOT", replay_root)
+    trace = _trace()
+    discovery.execute_one_attempt(trace, FakeLiveBackend(_c1_failure_response()))
+    discovery.execute_one_attempt(trace, FakeLiveBackend(_accepted_response()))
+    source_dir = staging_root / trace["run_id"]
+    discovery.write_bundle(source_dir, trace)
+    source_manifest = json.loads((source_dir / "manifest.json").read_text(encoding="utf-8"))
+    source_bundle_sha256 = (source_dir / "BUNDLE_SHA256.txt").read_text(encoding="utf-8").strip()
+
+    destination, promoted = discovery.promote_trace(trace["run_id"], "verified-c1")
+
+    assert destination == replay_root / "verified-c1"
+    assert {path.name for path in destination.iterdir()} == {
+        "trace.json",
+        "manifest.json",
+        "BUNDLE_SHA256.txt",
+    }
+    assert promoted["promotion"] == {
+        "mode": "verified_replay",
+        "source_run_id": trace["run_id"],
+        "source_trace_sha256": source_manifest["trace_sha256"],
+        "source_bundle_sha256": source_bundle_sha256,
+        "originating_commit": trace["git"]["head"],
+        "removed_response_identifiers": 2,
+    }
+    assert all("response_id" not in attempt["usage"] for attempt in promoted["attempts"])
+    assert [attempt["messages"] for attempt in promoted["attempts"]] == [
+        attempt["messages"] for attempt in trace["attempts"]
+    ]
+    assert [attempt["output_text"] for attempt in promoted["attempts"]] == [
+        attempt["output_text"] for attempt in trace["attempts"]
+    ]
+    assert [attempt["output_sha256"] for attempt in promoted["attempts"]] == [
+        attempt["output_sha256"] for attempt in trace["attempts"]
+    ]
+    assert promoted["derived_calculation"]["source"] == "deterministic_recalculation"
+    assert promoted["derived_calculation"]["capacity_ah"] > 0
+
+
+def test_promote_trace_refuses_incomplete_overwrite_and_unsafe_name(tmp_path, monkeypatch) -> None:
+    staging_root = tmp_path / "staging"
+    replay_root = tmp_path / "replays"
+    monkeypatch.setattr(discovery, "STAGING_ROOT", staging_root)
+    monkeypatch.setattr(discovery, "VERIFIED_REPLAY_ROOT", replay_root)
+    trace = _trace()
+    discovery.execute_one_attempt(trace, FakeLiveBackend(_c1_failure_response()))
+    source_dir = staging_root / trace["run_id"]
+    discovery.write_bundle(source_dir, trace)
+
+    with pytest.raises(discovery.DiscoveryError, match="failure followed by acceptance"):
+        discovery.promote_trace(trace["run_id"], "verified-c1")
+    with pytest.raises(discovery.DiscoveryError, match="Invalid verified-replay"):
+        discovery.promote_trace(trace["run_id"], "../outside")
+
+    discovery.execute_one_attempt(trace, FakeLiveBackend(_accepted_response()))
+    discovery.write_bundle(source_dir, trace)
+    discovery.promote_trace(trace["run_id"], "verified-c1")
+    with pytest.raises(discovery.DiscoveryError, match="already exists"):
+        discovery.promote_trace(trace["run_id"], "verified-c1")
+
+
+def test_build_week_replay_fixture_is_authentic_and_integral() -> None:
+    replay_dir = discovery.VERIFIED_REPLAY_ROOT / "openai_build_week_cy5"
+
+    trace, manifest = discovery._load_bundle(replay_dir, "20260719_174526Z_p4_gpt56")
+
+    assert trace["promotion"]["mode"] == "verified_replay"
+    assert trace["promotion"]["originating_commit"] == (
+        "91f30ab88e0e10c733dceca805aa479de8bee3b8"
+    )
+    assert trace["promotion"]["removed_response_identifiers"] == 2
+    assert trace["promotion"]["source_trace_sha256"] == (
+        "171e3c3e816541b099742fc832c76d626da8a3e69376cd5a18330c51cc8fadf1"
+    )
+    assert trace["promotion"]["source_bundle_sha256"] == (
+        "3c9e38031156ab120af9f2beae6596c18b09fab48c17a4cd1d48d5bb0946f5bc"
+    )
+    assert [attempt["validation"]["classification"] for attempt in trace["attempts"]] == [
+        "engineering",
+        "accepted",
+    ]
+    assert trace["attempts"][0]["validation"]["failed_constraint_ids"] == ["CY5"]
+    assert trace["attempts"][1]["validation"]["failed_constraint_ids"] == []
+    assert all("response_id" not in attempt["usage"] for attempt in trace["attempts"])
+    assert all(
+        attempt["message_sha256"] == discovery.sha256_text(
+            discovery.canonical_json(attempt["messages"])
+        )
+        for attempt in trace["attempts"]
+    )
+    assert all(
+        attempt["output_sha256"] == discovery.sha256_text(attempt["output_text"])
+        for attempt in trace["attempts"]
+    )
+    assert trace["derived_calculation"]["capacity_ah"] == pytest.approx(0.291523)
+    assert manifest["attempt_count"] == 2
+    assert manifest["redaction_check"] == "passed"
 
 
 @pytest.mark.parametrize(
