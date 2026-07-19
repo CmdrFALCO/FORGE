@@ -45,5 +45,5 @@ mkdocs build       # Build static site to site/
 | Group | Install | Contents |
 |-------|---------|----------|
 | dev | pip install -e \".[dev]\" | pytest, httpx, ruff, mypy |
-| llm | pip install -e \".[llm]\" | anthropic, requests |
+| llm | pip install -e \".[llm]\" | Anthropic, OpenAI, requests |
 | docs | pip install -e \".[docs]\" | mkdocs, mkdocs-material |

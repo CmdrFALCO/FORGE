@@ -805,3 +805,80 @@ state.
 - Create one bounded Phase 3 commit only after explicit approval.
 - Push only after separate explicit approval.
 - Do not begin Phase 4 packaging until the Phase 3 commit and push are verified.
+
+## 2026-07-19 - Phase 4 packaging documentation implemented, not committed
+
+### Objective
+
+Prepare the public repository documentation and licensing needed for judges to understand, install, run, and audit
+the Build Week extension without changing application behavior.
+
+### Official submission requirements reviewed
+
+- The user confirmed registration in the OpenAI Build Week challenge on Devpost.
+- The official deadline is July 21, 2026 at 5:00 PM Pacific Time.
+- The submission requires a working project, category, description, public or judge-shared repository, and a public
+  YouTube demonstration video under three minutes.
+- The video must include audio explaining what was built and how Codex and GPT-5.6 were used.
+- The repository README must provide setup, sample-data, run, Codex-collaboration, and GPT-5.6 guidance.
+- A `/feedback` Codex Session ID is required for the thread containing most core implementation work.
+- Developer-tool entries must document installation, supported platforms, and an accessible judge testing path.
+- Existing projects are permitted, but only work added during the submission period is evaluated and the boundary
+  from pre-existing work must be clearly documented.
+
+### Actions
+
+- Replaced the sparse repository README with a judge-oriented product description, architecture flow, two-mode
+  demonstration guide, portable Windows/Linux/macOS setup, safe process-scoped API-key handling, offline testing
+  commands, supported-platform statement, provenance links, limitations, and explicit Build Week contribution
+  boundary.
+- Documented how Codex accelerated the extension and which product, engineering, authorization, review, commit, and
+  push decisions remained under human control.
+- Documented GPT-5.6 as the supervised generator and deterministic AXIOM validation as the acceptance authority.
+- Added a focused MkDocs page containing the keyless judge path, verified trace facts and hashes, redaction and
+  integrity checks, baseline distinction, Codex collaboration, and limitations.
+- Registered the new page in MkDocs navigation.
+- Corrected the existing development-guide `llm` dependency description to include OpenAI.
+- Added the standard MIT license using the user-confirmed holder `Cristian Leu`, consistent with the existing
+  `pyproject.toml` MIT declaration.
+- Deliberately did not add `.env.example`; the application reads the process environment directly and does not load
+  dotenv files.
+- Deliberately did not recommend the pre-existing machine-specific Windows setup script; the README uses portable
+  Python virtual-environment commands and installs only `gui` and `llm` extras for the demo.
+
+### Files changed
+
+- `README.md`
+- `LICENSE`
+- `docs/openai-build-week.md`
+- `docs/development.md`
+- `mkdocs.yml`
+- `docs/BUILD_WEEK_LOG.md`
+
+### Tests and checks
+
+- `python -m mkdocs build --strict`: passed.
+- All repository-relative paths referenced by the new documentation exist.
+- Scoped API-key, bearer-token, personal-path, and placeholder scans: no matches.
+- `git diff --check`: passed; Windows line-ending notices only.
+- The strict build emitted the existing Material/MkDocs compatibility notice and existing unlisted-page inventory;
+  neither caused a build failure.
+- No application source, dependency declaration, constraint, trace, or test file changed.
+- No OpenAI API request occurred.
+
+### Remaining work and risks
+
+- Build Week screenshots have not been captured or added.
+- A public keyless Verified Replay deployment or equivalent judge-accessible test path has not been created.
+- The Build Week branch has not been merged to the public repository's default `main` branch.
+- A clean Python 3.11 installation check and final full verification suite remain pending.
+- The public YouTube video, Devpost text and images, and `/feedback` Codex Session ID remain pending.
+- macOS is documented as expected but not independently verified.
+- The global Git ignore warning, Windows line-ending notices, Material/MkDocs compatibility notice, and existing
+  FastAPI deprecation warnings remain non-blocking.
+
+### Next gate
+
+- Review the five public packaging files plus this engineering-log entry.
+- After approval, stage and inspect exactly those six files before a bounded documentation commit.
+- Do not deploy, merge, record video, or begin submission entry in the same task.

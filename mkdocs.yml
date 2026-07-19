@@ -32,6 +32,7 @@ nav:
   - Architecture: architecture.md
   - Engine: engine.md
   - AXIOM: axiom.md
+  - OpenAI Build Week: openai-build-week.md
   - ML Layer: ml-layer.md
   - API Reference: api-reference.md
   - Development: development.md
