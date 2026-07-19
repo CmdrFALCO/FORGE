@@ -10,7 +10,12 @@ from forge.gui.axiom_pipeline import (
     load_pipeline_run,
     run_pipeline_with_tracking,
 )
-from forge.gui.components.axiom_cpn import compute_cpn_sequence, render_cpn_graph
+from forge.gui.components.axiom_cpn import (
+    PLACE_LAYOUT,
+    TRANSITION_LAYOUT,
+    compute_cpn_sequence,
+    render_cpn_graph,
+)
 from forge.gui.components.axiom_flow import render_pipeline_flow
 
 VALID_POUCH_RESPONSE = """
@@ -284,6 +289,21 @@ def test_render_cpn_graph_returns_svg() -> None:
     assert "AXIOM Colored Petri Net" in svg
 
 
+def test_cpn_reject_transition_does_not_overlap_cell_input() -> None:
+    reject = TRANSITION_LAYOUT["T_reject"]
+    cell_input = PLACE_LAYOUT["P_input"]
+    horizontal_gap = (
+        abs(float(reject["x"]) - float(cell_input["x"]))
+        - float(reject["width"]) / 2
+        - float(cell_input["radius"])
+    )
+
+    assert horizontal_gap >= 16.0
+    assert float(reject["x"]) == float(PLACE_LAYOUT["P_rejected"]["x"])
+    assert float(cell_input["x"]) == float(PLACE_LAYOUT["P_valid"]["x"])
+    assert float(cell_input["x"]) == float(PLACE_LAYOUT["P_result"]["x"])
+
+
 def test_compute_cpn_sequence_success_run_ends_at_result() -> None:
     run = load_pipeline_run(DEMO_DIR / "successful_first_try.json")
 
@@ -304,6 +324,38 @@ def test_compute_cpn_sequence_retry_run_includes_loop() -> None:
     assert "T_retry" in transition_ids
     assert "T_regenerate" in transition_ids
     assert sequence[-1]["token_place"] == "P_result"
+    assert sequence[-1]["attempt"] == 2
+
+
+def test_compute_cpn_sequence_exhausted_run_ends_at_rejected() -> None:
+    run = PipelineRun(
+        prompt="Design a cylindrical cell",
+        backend_name="OpenAI",
+        attempt=2,
+        max_attempts=2,
+        success=False,
+        last_error="Physics validation failed: CY5",
+        steps=[
+            PipelineStep(name="LLM Generate", status=StepStatus.PASSED, attempt=1),
+            PipelineStep(name="Parse YAML", status=StepStatus.PASSED, attempt=1),
+            PipelineStep(name="Schema Validate", status=StepStatus.PASSED, attempt=1),
+            PipelineStep(name="Physics Validate", status=StepStatus.FAILED, attempt=1),
+            PipelineStep(name="Retry Feedback", status=StepStatus.PASSED, attempt=1),
+            PipelineStep(name="LLM Generate", status=StepStatus.PASSED, attempt=2),
+            PipelineStep(name="Parse YAML", status=StepStatus.PASSED, attempt=2),
+            PipelineStep(name="Schema Validate", status=StepStatus.PASSED, attempt=2),
+            PipelineStep(name="Physics Validate", status=StepStatus.FAILED, attempt=2),
+            PipelineStep(name="Retry Feedback", status=StepStatus.PASSED, attempt=2),
+        ],
+    )
+
+    sequence = compute_cpn_sequence(run)
+    transition_ids = [snapshot["transition_id"] for snapshot in sequence]
+
+    assert transition_ids.count("T_retry") == 1
+    assert transition_ids.count("T_regenerate") == 1
+    assert sequence[-1]["transition_id"] == "T_reject"
+    assert sequence[-1]["token_place"] == "P_rejected"
     assert sequence[-1]["attempt"] == 2
 
 

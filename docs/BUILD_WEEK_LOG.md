@@ -707,3 +707,101 @@ engineering constraint.
 - Review and commit this bounded Phase 2 evidence and promotion change.
 - Push only after separate approval.
 - Begin Phase 3 verified-replay interface planning only after the evidence commit is reviewed and pushed.
+
+## 2026-07-19 - Phase 3 demonstration interface implemented and verified
+
+### Objective
+
+Provide one focused Streamlit page that makes the authentic GPT-5.6 CY5 correction trace understandable without
+reading source code, supports a bounded live OpenAI run, and keeps replay provenance distinct from live session
+state.
+
+### Actions
+
+- Added an integrity-checking adapter for the canonical three-file verified-replay bundle.
+- Projected the authenticated trace into the existing `PipelineRun` and `PipelineStep` GUI models without changing
+  the canonical replay format.
+- Added a focused `OpenAI Build Week` Streamlit page with visibly distinct `Verified Replay` and `Live OpenAI`
+  modes.
+- Added side-by-side replay attempts, CY5 constraint evidence, exact corrective feedback, corrected metrics,
+  pipeline flow, colored Petri net replay controls, provenance fields, and audit-bundle download.
+- Added a live GPT-5.6 path through the existing tracked AXIOM pipeline with a fixed two-attempt limit.
+- Added per-attempt live output, parsed YAML, step status, corrective or terminal feedback, final outcome, and
+  browser-session-only persistence reporting.
+- Kept verified-replay provenance out of Live mode and prevented Live mode from falling back to replay results
+  before a session run exists.
+- Corrected the CPN layout so the Reject transition and Rejected place do not overlap the Cell Input path.
+- Corrected terminal CPN behavior so a failure on the final allowed attempt ends at Rejected rather than displaying
+  a nonexistent feedback loop.
+- Restored explicit `Replay`, `Step by step`, and `Reset` controls for the CPN view.
+- Preserved the P4 design request across execution-mode widget changes using non-widget session state.
+
+### Live verification evidence
+
+- An initial user-visible P4 live session reached attempt 2 of 2 and remained rejected on CY5. This exposed the
+  false terminal-retry visualization and replay-provenance leakage in Live mode; both were corrected.
+- A separate automated browser smoke session accepted a generated P4 design on attempt 1 and exercised one live
+  GPT-5.6 request.
+- A final user-run P4 session exercised the corrected interface and completed in two GPT-5.6 requests:
+  - attempt 1 used a `10.0 mm` outer diameter and failed CY5 with `1.90 mm` available winding space;
+  - exact deterministic feedback was returned to the model;
+  - attempt 2 increased the outer diameter to `10.2 mm` and passed all 15 declared constraints;
+  - deterministic result: `0.334 Ah`, `1.204 Wh`, `6.238 g`, `194.8 Wh/kg`, and `327.4 Wh/L`.
+- Five live model requests were observed across the three Phase 3 verification sessions: two in the initial rejected
+  session, one in the automated accepted session, and two in the final accepted session.
+- The transient live outputs remain browser-session data and were not promoted into or substituted for the
+  canonical Phase 2 replay.
+- User-captured PDF evidence remains outside the repository and is not part of the commit scope.
+- Streamlit was stopped after verification and `OPENAI_API_KEY` was removed from the PowerShell process environment.
+  The key value was never printed or written to the repository.
+
+### Files changed
+
+- `forge/gui/verified_replay.py`
+- `forge/gui/build_week_demo.py`
+- `forge/gui/pages/6_OpenAI_Build_Week.py`
+- `forge/gui/components/axiom_cpn.py`
+- `tests/gui/test_verified_replay.py`
+- `tests/gui/test_openai_build_week_page.py`
+- `tests/gui/test_axiom_pipeline.py`
+- `docs/BUILD_WEEK_LOG.md`
+
+### Tests and checks
+
+- Focused replay, page, and CPN tests: `24 passed` before the final page-level regression was added.
+- Page-level Live mode regression tests: `5 passed`.
+- Full configured non-live suite: `1463 passed, 10 skipped, 18 deselected`.
+- Targeted Ruff check: passed.
+- MyPy for all four affected GUI source modules: passed.
+- `git diff --check`: passed; Windows line-ending notices only.
+- Phase 3 secret scan found no API-key-shaped value, bearer token, secret file, or personal filesystem path.
+- The symbolic `OPENAI_API_KEY` environment-variable name is the only API-key reference in the Phase 3 runtime
+  code.
+- No API request was made by the test, lint, type-check, secret-scan, or documentation-review commands.
+
+### Decisions
+
+- The canonical Phase 2 trace remains the only source for Verified Replay and audit export.
+- Live results are explicitly session-only and do not claim authenticated replay provenance.
+- The final accepted live run is compatibility and presentation evidence, not a replacement provenance fixture.
+- The Phase 3 gate is functionally satisfied: verified replay works, live mode works, and attempt progression is
+  visible without reading source code.
+
+### Risks or open questions
+
+- Live P4 outcomes are nondeterministic: one session exhausted both attempts while later sessions accepted in one or
+  two attempts. Verified Replay remains necessary for a reliable recorded demonstration.
+- Live session state is intentionally not durable across a Streamlit server restart.
+- The complete audit bundle contains the reviewed synthetic prompt and visible model outputs by design; it contains
+  no credentials or response identifiers.
+- The global Git ignore permission warning, Windows line-ending notices, and two existing FastAPI `on_event`
+  deprecations remain non-blocking.
+- Packaging, setup instructions, final baseline-diff review, video recording, and submission materials remain Phase
+  4 work.
+
+### Next gate
+
+- Review this documentation update together with the seven Phase 3 implementation and test files.
+- Create one bounded Phase 3 commit only after explicit approval.
+- Push only after separate explicit approval.
+- Do not begin Phase 4 packaging until the Phase 3 commit and push are verified.

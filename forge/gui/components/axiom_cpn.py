@@ -40,25 +40,25 @@ PLACE_LAYOUT: dict[str, dict[str, object]] = {
         "radius": 20.0,
         "kind": "normal",
     },
-    "P_valid": {"label": "Valid", "x": 1020.0, "y": 75.0, "radius": 20.0, "kind": "normal"},
+    "P_valid": {"label": "Valid", "x": 1100.0, "y": 75.0, "radius": 20.0, "kind": "normal"},
     "P_input": {
         "label": "Cell Input",
-        "x": 1020.0,
+        "x": 1100.0,
         "y": 235.0,
         "radius": 20.0,
         "kind": "normal",
     },
     "P_result": {
         "label": "Result",
-        "x": 1020.0,
-        "y": 395.0,
+        "x": 1100.0,
+        "y": 415.0,
         "radius": 22.0,
         "kind": "success",
     },
     "P_rejected": {
         "label": "Rejected",
-        "x": 1090.0,
-        "y": 305.0,
+        "x": 1020.0,
+        "y": 300.0,
         "radius": 22.0,
         "kind": "failure",
     },
@@ -103,7 +103,7 @@ TRANSITION_LAYOUT: dict[str, dict[str, object]] = {
     },
     "T_accept": {
         "label": "Accept",
-        "x": 900.0,
+        "x": 930.0,
         "y": 75.0,
         "width": 58.0,
         "height": 28.0,
@@ -112,7 +112,7 @@ TRANSITION_LAYOUT: dict[str, dict[str, object]] = {
     },
     "T_retry": {
         "label": "Retry",
-        "x": 905.0,
+        "x": 915.0,
         "y": 210.0,
         "width": 54.0,
         "height": 28.0,
@@ -121,7 +121,7 @@ TRANSITION_LAYOUT: dict[str, dict[str, object]] = {
     },
     "T_reject": {
         "label": "Reject",
-        "x": 1000.0,
+        "x": 1020.0,
         "y": 210.0,
         "width": 58.0,
         "height": 28.0,
@@ -139,7 +139,7 @@ TRANSITION_LAYOUT: dict[str, dict[str, object]] = {
     },
     "T_convert": {
         "label": "Convert",
-        "x": 1020.0,
+        "x": 1100.0,
         "y": 155.0,
         "width": 64.0,
         "height": 28.0,
@@ -148,8 +148,8 @@ TRANSITION_LAYOUT: dict[str, dict[str, object]] = {
     },
     "T_calculate": {
         "label": "Calculate",
-        "x": 1020.0,
-        "y": 315.0,
+        "x": 1100.0,
+        "y": 325.0,
         "width": 72.0,
         "height": 28.0,
         "from": "P_input",
@@ -459,7 +459,7 @@ def _append_failure_exit(
     attempt: int,
     run: PipelineRun,
 ) -> None:
-    if retry_step is not None:
+    if retry_step is not None and attempt < run.max_attempts:
         _append_transition(
             snapshots,
             fired,
