@@ -6,13 +6,15 @@ from fastapi import HTTPException
 
 from forge.axiom.backends.backends import (
     ANTHROPIC_AVAILABLE,
+    OPENAI_AVAILABLE,
     REQUESTS_AVAILABLE,
     ClaudeBackend,
     LLMBackend,
     OllamaBackend,
+    OpenAIBackend,
 )
 
-SUPPORTED_BACKENDS = ("ollama", "claude", "anthropic")
+SUPPORTED_BACKENDS = ("ollama", "claude", "anthropic", "openai")
 
 
 def _normalize_backend_name(backend: str) -> str:
@@ -66,6 +68,28 @@ def build_backend(backend: str, model: str | None = None) -> LLMBackend:
             raise HTTPException(
                 status_code=503,
                 detail=f"Failed to initialize Claude backend: {exc}",
+            ) from exc
+
+    if backend_name == "openai":
+        if not OPENAI_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail=(
+                    "OpenAI backend requires 'openai'. Install with: "
+                    "pip install forge[llm]"
+                ),
+            )
+        kwargs: dict[str, str] = {}
+        if model:
+            kwargs["model"] = model
+        try:
+            return OpenAIBackend(**kwargs)
+        except ValueError as exc:
+            raise HTTPException(status_code=503, detail=str(exc)) from exc
+        except Exception as exc:
+            raise HTTPException(
+                status_code=503,
+                detail="Failed to initialize OpenAI backend.",
             ) from exc
 
     raise HTTPException(

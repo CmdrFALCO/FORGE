@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock, patch
 
+from fastapi import HTTPException
+
 
 def _assert_error_envelope(response_json: dict) -> None:
     assert response_json["success"] is False
@@ -86,4 +88,66 @@ def test_generate_mocked_success(client):
     assert body["success"] is True
     assert "cell_type: pouch" in body["data"]["raw_yaml"]
     assert body["data"]["model"] == "mock-llm"
+
+
+def test_generate_openai_routes_messages_and_model_override(client):
+    mocked_backend = MagicMock()
+    mocked_backend.generate.return_value = "```yaml\ncell_type: prismatic\n```"
+    mocked_backend.model = "custom-openai-model"
+
+    with patch(
+        "forge.api.routes.generation.build_backend",
+        return_value=mocked_backend,
+    ) as build_backend:
+        response = client.post(
+            "/api/v1/generate",
+            json={
+                "prompt": "Generate a prismatic cell",
+                "system_prompt": "Return YAML only",
+                "backend": "openai",
+                "model": "custom-openai-model",
+            },
+        )
+
+    body = response.json()
+    assert response.status_code == 200
+    assert body["success"] is True
+    assert body["data"]["model"] == "custom-openai-model"
+    build_backend.assert_called_once_with("openai", model="custom-openai-model")
+    mocked_backend.generate.assert_called_once_with(
+        [
+            {"role": "system", "content": "Return YAML only"},
+            {"role": "user", "content": "Generate a prismatic cell"},
+        ]
+    )
+
+
+def test_generate_openai_factory_error_maps_to_503(client):
+    with patch(
+        "forge.api.routes.generation.build_backend",
+        side_effect=HTTPException(status_code=503, detail="OpenAI backend unavailable"),
+    ):
+        response = client.post(
+            "/api/v1/generate",
+            json={"prompt": "test", "backend": "openai"},
+        )
+
+    assert response.status_code == 503
+    _assert_error_envelope(response.json())
+
+
+def test_generate_openai_upstream_error_maps_to_502(client):
+    mocked_backend = MagicMock()
+    mocked_backend.generate.side_effect = RuntimeError("OpenAI API error: request failed")
+
+    with patch("forge.api.routes.generation.build_backend", return_value=mocked_backend):
+        response = client.post(
+            "/api/v1/generate",
+            json={"prompt": "test", "backend": "openai"},
+        )
+
+    body = response.json()
+    assert response.status_code == 502
+    _assert_error_envelope(body)
+    assert "OpenAI API error: request failed" in body["error"]["message"]
 

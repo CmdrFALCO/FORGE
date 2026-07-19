@@ -154,3 +154,69 @@ def test_pipeline_mocked_generation_error_mapping(client):
     assert response.status_code == 502
     _assert_error_envelope(response.json())
 
+
+def test_pipeline_openai_reaches_unchanged_supervisor_with_model_override(client):
+    mocked_backend = MagicMock()
+    mocked_result = GenerationResult(
+        success=True,
+        attempts=1,
+        calculation_result=_sample_report(),
+        retry_reasons=[],
+    )
+
+    with (
+        patch(
+            "forge.api.routes.pipeline.build_backend",
+            return_value=mocked_backend,
+        ) as build_backend,
+        patch(
+            "forge.api.routes.pipeline.supervisor_driver.generate_cell_design",
+            return_value=mocked_result,
+        ) as generate_cell_design,
+    ):
+        response = client.post(
+            "/api/v1/pipeline",
+            json={
+                "prompt": "Design a cell",
+                "backend": "openai",
+                "model": "custom-openai-model",
+            },
+        )
+
+    body = response.json()
+    assert response.status_code == 200
+    assert body["success"] is True
+    assert body["data"]["final_valid"] is True
+    build_backend.assert_called_once_with("openai", model="custom-openai-model")
+    generate_cell_design.assert_called_once_with(
+        request="Design a cell",
+        backend=mocked_backend,
+        calculate=True,
+    )
+
+
+def test_pipeline_openai_generation_error_maps_to_502(client):
+    mocked_result = GenerationResult(
+        success=False,
+        attempts=1,
+        retry_reasons=["Generation error: OpenAI API error: request failed"],
+        last_error="Generation error: OpenAI API error: request failed",
+    )
+
+    with (
+        patch("forge.api.routes.pipeline.build_backend", return_value=MagicMock()),
+        patch(
+            "forge.api.routes.pipeline.supervisor_driver.generate_cell_design",
+            return_value=mocked_result,
+        ),
+    ):
+        response = client.post(
+            "/api/v1/pipeline",
+            json={"prompt": "test", "backend": "openai"},
+        )
+
+    body = response.json()
+    assert response.status_code == 502
+    _assert_error_envelope(body)
+    assert body["error"]["message"].startswith("Generation error: OpenAI API error")
+
