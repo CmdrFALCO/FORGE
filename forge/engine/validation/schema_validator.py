@@ -55,7 +55,7 @@ class ValidationResult:
         if self.valid:
             return "Validation passed."
 
-        lines = ["[VALIDATION FAILED - SCHEMA LEVEL]"]
+        lines = [f"[VALIDATION FAILED - {self.level.upper()} LEVEL]"]
         lines.append(f"Found {len(self.errors)} error(s). Please fix and retry:")
         lines.append("")
 

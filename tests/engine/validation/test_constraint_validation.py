@@ -261,6 +261,7 @@ class TestPhysicsConstraints:
         valid_cell["electrochemistry"]["anode"]["np_ratio"] = 0.95
         result = validate_physics(valid_cell)
         feedback = result.to_llm_feedback()
+        assert "PHYSICS LEVEL" in feedback
         assert "N/P" in feedback
         assert "1.05" in feedback
         assert "increase" in feedback.lower() or "decrease" in feedback.lower()

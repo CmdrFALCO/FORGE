@@ -134,6 +134,7 @@ class OpenAIBackend:
     model: str = "gpt-5.6"
     max_output_tokens: int = 4096
     timeout: float = 120.0
+    transport_max_retries: int = 2
     last_usage: LLMUsage = field(default_factory=LLMUsage)
 
     def __post_init__(self):
@@ -188,7 +189,11 @@ class OpenAIBackend:
             request["instructions"] = "\n\n".join(instructions)
 
         try:
-            client = openai.OpenAI(api_key=self.api_key, timeout=self.timeout)
+            client = openai.OpenAI(
+                api_key=self.api_key,
+                timeout=self.timeout,
+                max_retries=self.transport_max_retries,
+            )
             response = client.responses.create(**request)
         except Exception as exc:
             raise RuntimeError("OpenAI API error: request failed") from exc

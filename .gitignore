@@ -60,6 +60,9 @@ site/
 # ML artifacts (binary, served via Docker volume mount)
 experiments/ml/autoresearch/checkpoint.pt
 
+# OpenAI Build Week live-run staging (review before promoting any trace)
+experiments/axiom/runs/_staging/
+
 # Finetune model weights and merged models (large binaries)
 forge/finetune/output/qwen25-7b-forge-hard/
 forge/finetune/output/qwen25-7b-forge-medium/

@@ -49,8 +49,14 @@ def fake_openai(monkeypatch):
             return state.response
 
     class FakeOpenAIClient:
-        def __init__(self, *, api_key, timeout):
-            state.clients.append({"api_key": api_key, "timeout": timeout})
+        def __init__(self, *, api_key, timeout, max_retries):
+            state.clients.append(
+                {
+                    "api_key": api_key,
+                    "timeout": timeout,
+                    "max_retries": max_retries,
+                }
+            )
             self.responses = FakeResponses()
 
     monkeypatch.setattr(backend_module, "openai", SimpleNamespace(OpenAI=FakeOpenAIClient))
@@ -101,6 +107,7 @@ def test_generate_maps_messages_request_response_and_usage(fake_openai):
         model="configured-model",
         max_output_tokens=2048,
         timeout=45.0,
+        transport_max_retries=0,
     )
     messages = [
         {"role": "system", "content": "First instruction"},
@@ -113,7 +120,9 @@ def test_generate_maps_messages_request_response_and_usage(fake_openai):
     result = backend.generate(messages)
 
     assert result == "generated design"
-    assert fake_openai.clients == [{"api_key": "test-key", "timeout": 45.0}]
+    assert fake_openai.clients == [
+        {"api_key": "test-key", "timeout": 45.0, "max_retries": 0}
+    ]
     assert fake_openai.requests == [
         {
             "model": "configured-model",
@@ -138,6 +147,7 @@ def test_generate_omits_instructions_without_system_message(fake_openai):
     backend.generate([{"role": "user", "content": "Design a cell"}])
 
     assert "instructions" not in fake_openai.requests[0]
+    assert fake_openai.clients[0]["max_retries"] == 2
 
 
 def test_absent_usage_uses_zeroes_and_missing_model_uses_configured_model(fake_openai):

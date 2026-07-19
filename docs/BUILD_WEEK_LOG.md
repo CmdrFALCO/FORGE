@@ -510,3 +510,87 @@ FastAPI and AXIOM pipeline without changing the supervisor, validator, or engine
 - Review and commit this Phase 1 live-smoke evidence as one bounded documentation change.
 - Then define the Phase 2 failure-discovery protocol, prompt candidates, retention policy, request budget, and
   approval boundary before making any further live API request.
+
+## 2026-07-19 - Phase 2 failure-discovery harness implemented
+
+### Objective
+
+Implement and verify the bounded, reviewable tooling required to discover an authentic GPT-5.6 engineering
+failure without making a live request during the implementation task.
+
+### Actions
+
+- Added a versioned registry containing three reviewed synthetic candidate prompts targeting C1 and CY5.
+- Added a standalone failure-discovery CLI with `list`, `start`, `continue`, and `summarize` commands and no batch
+  execution path.
+- Required the literal `SEND_FORGE_PROMPT_TO_OPENAI` confirmation token before every live invocation.
+- Limited each invocation to one delegated generation and configured discovery calls with zero SDK transport
+  retries.
+- Added a persistent request ledger enforcing at most three discovery calls, two correction calls, and five calls
+  total.
+- Added local replay of retained attempts through the production AXIOM supervisor before one correction call.
+- Added allowlisted trace and manifest capture, SHA-256 integrity checks, redaction checks, and ignored staging.
+- Corrected validation feedback headings to report the actual validation level, including physics failures.
+- Added configurable OpenAI SDK transport retries while preserving the existing default behavior.
+- Added offline tests for request limits, replay behavior, classification, preflight checks, telemetry, redaction,
+  trace integrity, bundle integrity, and error sanitization.
+
+### Evidence
+
+- Active branch: `build-week/openai`.
+- Pre-commit HEAD: `169e5bdbd5883945999adeb33969482580abcab8`.
+- Candidate registry lists P1 and P2 for C1 and P3 for CY5.
+- Live traces are quarantined under ignored `experiments/axiom/runs/_staging/`.
+- No live OpenAI API request was made during implementation or verification.
+- No API key or key-shaped value was written to the changed files.
+
+### Decisions
+
+- Live discovery remains a separate authorization gate; implementation or commit approval does not authorize an
+  API request.
+- Each discovery or correction request requires explicit user approval and the literal confirmation token.
+- Previous visible outputs are replayed locally and hash-verified; only one new generation may be delegated per
+  CLI invocation.
+- Constraints and engineering equations remain unchanged. The validation change only fixes the feedback-level
+  label used in retry messages.
+- Raw SDK response objects are discarded. Only allowlisted visible output and telemetry needed for auditable replay
+  may enter staging.
+
+### Files changed
+
+- `.gitignore`
+- `experiments/axiom/prompts/openai_build_week_candidates.json`
+- `experiments/axiom/runners/discover_openai_failures.py`
+- `forge/axiom/backends/backends.py`
+- `forge/engine/validation/schema_validator.py`
+- `tests/axiom/test_openai_backend.py`
+- `tests/axiom/test_openai_failure_discovery.py`
+- `tests/engine/validation/test_constraint_validation.py`
+- `docs/BUILD_WEEK_LOG.md`
+
+### Tests and checks
+
+- Focused harness, backend, and constraint tests: `59 passed`.
+- Full configured non-live suite: `1443 passed, 10 skipped, 18 deselected`.
+- Ruff: passed.
+- MyPy for the discovery runner: passed.
+- `git diff --check`: no whitespace errors; Windows line-ending notices only.
+- Changed-file API-key pattern scan: no matches.
+- CLI candidate listing smoke check: passed.
+
+### Risks or open questions
+
+- No authentic failure trace exists yet; Phase 2's evidence gate remains open.
+- Candidate prompts may return accepted, parse-invalid, or schema-invalid designs and consume the bounded request
+  budget without producing the preferred engineering failure.
+- The request ledger and trace staging are intended for sequential, user-approved local operation, not concurrent
+  execution.
+- The two existing FastAPI `on_event` deprecation warnings remain unrelated and non-blocking.
+- The unresolved global Git ignore permission warning remains non-blocking.
+
+### Next gate
+
+- Review and commit this bounded harness implementation.
+- Obtain separate explicit authorization before one candidate discovery request.
+- Do not begin the Phase 3 demonstration interface until an authentic Phase 2 failure-and-correction trace has been
+  captured, inspected, and approved.

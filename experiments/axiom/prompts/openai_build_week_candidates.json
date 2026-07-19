@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "requested_model": "gpt-5.6",
+  "candidates": [
+    {
+      "id": "P1",
+      "cell_type": "prismatic",
+      "target_constraints": ["C1"],
+      "prompt": "Design a compact 75 Ah NMC811 prismatic cell for an EV module. Use a high-loading cathode near 28 mg/cm2, a graphite-silicon anode, and an external thickness no greater than 26 mm. Prioritize usable energy and low inactive mass while maintaining manufacturability and safety."
+    },
+    {
+      "id": "P2",
+      "cell_type": "prismatic",
+      "target_constraints": ["C1"],
+      "prompt": "Design a 120 Ah LFP prismatic cell for stationary storage in a 30 mm-thick aluminum enclosure. Prioritize long cycle life, low cost, conservative manufacturing values, and minimal inactive mass."
+    },
+    {
+      "id": "P3",
+      "cell_type": "cylindrical",
+      "target_constraints": ["CY5"],
+      "prompt": "Design a custom 10 mm diameter, 45 mm long NMC cylindrical cell for an instrument. Use a 6 mm central mandrel to preserve an internal sensor channel, a mechanically robust steel can, traditional tabs, and the highest practical capacity while satisfying safety margins."
+    }
+  ]
+}
