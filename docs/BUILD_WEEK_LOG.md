@@ -426,3 +426,87 @@ Phase 0 documentation is approved for one bounded documentation commit.
 - Commit the Phase 0 documentation.
 - Then plan the Phase 1 OpenAI backend implementation.
 - Do not begin Phase 1 in this task.
+
+## 2026-07-19 - Phase 1 live OpenAI smoke test passed
+
+### Objective
+
+Verify, with one explicitly authorized live request, that the committed OpenAI backend can complete the existing
+FastAPI and AXIOM pipeline without changing the supervisor, validator, or engineering constraints.
+
+### Actions
+
+- Reconfirmed branch `build-week/openai`, HEAD `51717eaadc77911425c754f404642a56d5e8ff82`, and a clean working tree.
+- Inspected the existing `live` pytest marker, credential guards, FastAPI pipeline schema, exception mapping, and
+  supervisor attempt accounting.
+- Installed the declared optional SDK dependency `openai>=2.45.0,<3` at Windows user scope; resolved version
+  `2.46.0`.
+- Confirmed `OPENAI_API_KEY` was available from the Windows user environment without printing its value.
+- Obtained explicit approval to transmit the synthetic FORGE pipeline prompt and repository-derived AXIOM system
+  prompt, schema, and example to the OpenAI API.
+- Sent one in-process FastAPI `TestClient` request to `/api/v1/pipeline` with:
+  - backend `openai`;
+  - requested model `gpt-5.6`;
+  - `supervised=false`;
+  - `max_retries=1`;
+  - the synthetic prompt `Design a 100 Ah LFP prismatic battery cell for stationary energy storage. Return a
+    complete specification that follows the required schema.`
+- Suppressed runtime logging during the call and emitted only a redacted status summary.
+
+### Evidence
+
+- HTTP status: `200`.
+- Pipeline success envelope: returned.
+- Deterministic final validity: `true`.
+- Total generation attempts: `1`.
+- Failed constraint identifiers: none.
+- Redaction checks: passed for the secret value, authorization and bearer markers, raw SDK response fields, raw
+  YAML fields, and YAML-content fields.
+- Raw model output was not printed, written to disk, or retained as an artefact.
+- Exactly one live OpenAI API request was made.
+- A policy-approval rejection and a later PowerShell/Python quoting error both occurred before client execution and
+  made no API request.
+- The repository remained at HEAD `51717eaadc77911425c754f404642a56d5e8ff82` and was clean immediately after the
+  smoke request, before this documentation entry was appended.
+
+### Decisions
+
+- The committed OpenAI backend and FastAPI pipeline are live-compatible for the bounded accepted case tested.
+- An accepted smoke result is valid transport and integration evidence, but it is not the required authentic
+  engineering-failure demonstration trace.
+- This smoke result must not be represented as failure-discovery evidence or as verified replay because raw model
+  output was intentionally not retained.
+- Phase 2 remains gated on a separately reviewed discovery protocol and explicit authorization for each bounded set
+  of live requests.
+
+### Files changed
+
+- `docs/BUILD_WEEK_LOG.md`: this append-only evidence entry.
+- No source, configuration, dependency declaration, validator, supervisor, or engineering-equation file changed.
+- The SDK installation changed only the local Windows user Python environment.
+
+### Tests and checks
+
+- OpenAI SDK import and version check: `2.46.0`.
+- Live request path: in-process FastAPI `TestClient` to `/api/v1/pipeline`.
+- Backend request timeout: `120` seconds.
+- Backend output cap: `4096` tokens.
+- Single-attempt assertion: passed.
+- Response redaction checks: passed.
+- Post-call `git status --short`: no output before this log entry was appended.
+- No default non-live regression suite was rerun because no source code changed in this task.
+
+### Risks or open questions
+
+- The pipeline response does not expose the actual returned OpenAI model identifier or token usage, so this smoke
+  evidence records the requested model `gpt-5.6` but does not independently prove the resolved model snapshot.
+- No raw response was retained, so the accepted design cannot be independently replayed from this smoke run.
+- The smoke check was an explicitly authorized ad hoc protocol, not a newly committed `live` pytest test.
+- Authentic schema-valid engineering failure discovery has not started.
+- The unresolved global Git ignore permission warning remains non-blocking.
+
+### Next gate
+
+- Review and commit this Phase 1 live-smoke evidence as one bounded documentation change.
+- Then define the Phase 2 failure-discovery protocol, prompt candidates, retention policy, request budget, and
+  approval boundary before making any further live API request.
