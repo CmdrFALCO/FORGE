@@ -51,6 +51,7 @@ dev = [
 ]
 llm = [
     "anthropic",
+    "openai>=2.45.0,<3",
     "requests",
 ]
 docs = [
