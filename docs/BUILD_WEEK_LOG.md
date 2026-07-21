@@ -882,3 +882,41 @@ the Build Week extension without changing application behavior.
 - Review the five public packaging files plus this engineering-log entry.
 - After approval, stage and inspect exactly those six files before a bounded documentation commit.
 - Do not deploy, merge, record video, or begin submission entry in the same task.
+
+## 2026-07-21 - Build Week submission package completed
+
+### Objective
+
+Complete and publish the judge-facing FORGE AXIOM Guard submission package.
+
+### Completed
+
+- The OpenAI Build Week application was implemented, reviewed, committed, and pushed to `build-week/openai`.
+- Verified Replay and Live OpenAI modes were verified.
+- The canonical GPT-5.6 CY5 failure-and-correction trace remains the source of replay evidence.
+- The public README, installation instructions, provenance documentation, and MIT license were completed.
+- Submission screenshots were captured.
+- A narrated demonstration video under three minutes was completed and uploaded.
+- The Devpost project description, repository link, testing instructions, category, and supported-platform
+  information were prepared.
+- The required Codex `/feedback` Session ID was retrieved and entered.
+- The AXIOM documentation encoding defect was corrected.
+
+### Public submission state
+
+- Repository branch: `build-week/openai`
+- Verified Replay requires no API key or paid service.
+- Live OpenAI mode remains optional and requires the user's own `OPENAI_API_KEY`.
+- The pre-Build-Week baseline remains available at tag `build-week-baseline-2026-07-19`.
+- No engineering constraint was weakened to create the demonstration result.
+
+### Remaining limitations
+
+- Live generation is nondeterministic.
+- The canonical replay demonstrates one coupled engineering constraint, not complete battery qualification.
+- macOS is expected to work but was not independently verified.
+- Passing the declared constraints does not establish production readiness or complete physical correctness.
+
+### Final status
+
+The public Build Week branch and submission materials are complete.

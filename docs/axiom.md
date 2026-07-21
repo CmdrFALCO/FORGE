@@ -2,7 +2,8 @@
 
 AXIOM (`forge.axiom`) is a neuro-symbolic AI architecture that supervises LLM-generated engineering specifications using formal validation methods.
 
-*Detailed AXIOM documentation will be expanded from the project's internal design documents.*
+The detailed Build Week execution path and provenance are documented in the
+[OpenAI Build Week demonstration guide](openai-build-week.md).
 
 ## Components
 
