@@ -1,7 +1,7 @@
 ﻿"""
 Main LLM driver for cell design generation.
 
-Orchestrates: prompt building â†’ LLM generation â†’ parsing â†’ validation â†’ retry loop â†’ calculation
+Orchestrates: prompt building -> LLM generation -> parsing -> validation -> retry loop -> calculation
 
 Supports all cell types: prismatic, pouch, and cylindrical.
 """
@@ -46,8 +46,8 @@ def generate_cell_design(
                  e.g., "Design a 100Ah LFP prismatic cell for ESS"
                  or "Design a 10Ah NMC pouch cell for EV"
                  or "Design a 5Ah 21700 NMC cylindrical cell"
-        backend: LLM backend - "claude", "ollama", or an LLMBackend instance
-        api_key: API key for Claude (optional, uses env var if not provided)
+        backend: LLM backend - "openai", "claude", "ollama", or an LLMBackend instance
+        api_key: Optional backend API key for direct library use; API routes use environment-based credentials
         calculate: Whether to run the calculation after successful generation
         cell_type: Type of cell - "prismatic", "pouch", or "cylindrical" (default: "prismatic")
         **backend_kwargs: Additional backend configuration

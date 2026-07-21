@@ -38,6 +38,11 @@ flowchart LR
 Passing the declared validator set does not establish complete physical correctness, manufacturability, safety, or
 fitness for production.
 
+The submitted implementation is battery-cell-specific. AXIOM demonstrates a reusable supervision pattern:
+generation, deterministic validation, corrective feedback, bounded retry, and auditable acceptance. Applying that
+pattern to another engineering domain requires domain-specific schemas, prompts, constraints, validators, and
+conversion or downstream tooling where applicable.
+
 ## Quick Start
 
 ### Requirements

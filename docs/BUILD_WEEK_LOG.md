@@ -920,3 +920,49 @@ Complete and publish the judge-facing FORGE AXIOM Guard submission package.
 ### Final status
 
 The public Build Week branch and submission materials are complete.
+
+## 2026-07-21 - Submission-facing repository cleanup
+
+### Objective
+
+Remove misleading submission-facing dead ends while preserving production validation and application behavior.
+
+### Actions
+
+- Confirmed that `FormalValidator`, `ValidationStageResult`, and the AXIOM validator module's `ValidationReport`
+  were not referenced outside their defining file.
+- Replaced the AXIOM validator stub with a thin adapter over the existing
+  `forge.engine.validation.pipeline.validate_cell_definition()` production entry point.
+- Removed the unused AXIOM-specific result abstractions and re-exported the actual production `ValidationResult`.
+- Preserved the production result object directly, including validation errors, constraint evidence, and LLM
+  feedback, without wrapping or translation.
+- Added focused adapter tests using the canonical replay's parsed cylindrical definitions as existing fixtures.
+- Deleted `NP_FIX_TODO.md` because the documented N/P work was resolved and remains available in Git history.
+- Corrected the production supervisor docstring's corrupted flow text, backend list, and API-key description.
+- Clarified in the README and Build Week provenance guide that the submitted implementation is battery-cell-specific
+  while the supervision workflow is a reusable architectural pattern requiring new domain-specific implementation.
+
+### Behavior invariants
+
+- No validation rule, constraint implementation, equation, threshold, schema behavior, retry behavior, supervisor
+  control flow, API behavior, OpenAI integration behavior, GUI behavior, or package dependency changed.
+- No replay fixture, canonical model output, trace hash, or bundle hash changed.
+- No validation logic was duplicated; `forge.engine.validation` remains the sole production validation authority.
+- No live API call occurred.
+
+### Tests and checks
+
+- Focused adapter tests: `5 passed`.
+- Existing engine validation tests: `40 passed`.
+- AXIOM tests: `151 passed, 18 deselected`.
+- Full configured non-live suite: `1468 passed, 10 skipped, 18 deselected`.
+- Targeted Ruff and repository-wide Ruff: passed.
+- Targeted MyPy for the validator adapter and supervisor: passed with no issues in two source files.
+- Strict MkDocs build: passed.
+
+### Remaining warnings
+
+- The full suite reports the two existing FastAPI `on_event` deprecation warnings.
+- The strict documentation build reports the existing Material/MkDocs compatibility notice and unlisted-page
+  inventory.
+- The global Git ignore permission warning and Windows line-ending notices remain non-blocking.

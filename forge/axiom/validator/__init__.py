@@ -1,62 +1,35 @@
-﻿"""
-AXIOM Validator - Multi-stage formal validation orchestration.
+"""AXIOM-facing adapter for the production FORGE validation pipeline.
 
-Orchestrates the validation pipeline for LLM-generated cell configurations.
-Currently, validation logic lives in supervisor/driver.py calling
-forge.engine.validation.pipeline.validate_cell_definition() directly.
-This module will extract and extend that orchestration with:
-- Multi-stage validation (schema -> physics -> cross-field)
-- Validation result aggregation
-- Configurable validation profiles
+Deterministic validation is implemented in :mod:`forge.engine.validation`.
+AXIOM delegates to that production pipeline so engineering rules and evidence
+remain authoritative in one place rather than being duplicated here.
 """
 
-from dataclasses import dataclass, field
 from typing import Any
 
+from forge.engine.validation import ValidationResult
+from forge.engine.validation import pipeline as validation_pipeline
 
-@dataclass
-class ValidationStageResult:
-    """Result from a single validation stage."""
-
-    stage_name: str
-    passed: bool
-    errors: list[str] = field(default_factory=list)
-    warnings: list[str] = field(default_factory=list)
-
-
-@dataclass
-class ValidationReport:
-    """Aggregated result from all validation stages."""
-
-    stages: list[ValidationStageResult] = field(default_factory=list)
-
-    @property
-    def all_passed(self) -> bool:
-        return all(s.passed for s in self.stages)
-
-    @property
-    def all_errors(self) -> list[str]:
-        return [e for s in self.stages for e in s.errors]
+__all__ = ["FormalValidator", "ValidationResult"]
 
 
 class FormalValidator:
-    """
-    Multi-stage formal validator for LLM-generated cell configurations.
+    """Expose production cell-definition validation at the AXIOM boundary."""
 
-    Will orchestrate validation stages in sequence, collecting results
-    and producing a ValidationReport for the supervisor's retry logic.
-    """
+    def validate(
+        self,
+        cell_definition: dict[str, Any],
+        cell_type: str = "prismatic",
+        *,
+        strict: bool = True,
+    ) -> ValidationResult:
+        """Validate a cell definition with the production FORGE pipeline.
 
-    def validate(self, cell_definition: dict[str, Any], cell_type: str) -> ValidationReport:
-        """Run all validation stages on a cell definition.
-
-        Args:
-            cell_definition: Raw parsed cell parameters from LLM output.
-            cell_type: One of 'pouch', 'prismatic', 'cylindrical'.
-
-        Returns:
-            ValidationReport with per-stage results.
+        The returned object is the production ``ValidationResult``; constraint
+        evidence and feedback are not translated or wrapped.
         """
-        raise NotImplementedError(
-            "FormalValidator.validate() - planned for post-migration extraction from supervisor/driver.py"
+        return validation_pipeline.validate_cell_definition(
+            cell_definition,
+            strict=strict,
+            cell_type=cell_type,
         )
