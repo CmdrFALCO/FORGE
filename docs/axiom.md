@@ -1,6 +1,6 @@
-﻿# AXIOM - Automated eXpert for Industrial Output Management
+# AXIOM - Automated eXpert for Industrial Output Management
 
-AXIOM (orge.axiom) is a neuro-symbolic AI architecture that supervises LLM-generated engineering specifications using formal validation methods.
+AXIOM (`forge.axiom`) is a neuro-symbolic AI architecture that supervises LLM-generated engineering specifications using formal validation methods.
 
 *Detailed AXIOM documentation will be expanded from the project's internal design documents.*
 
@@ -9,4 +9,4 @@ AXIOM (orge.axiom) is a neuro-symbolic AI architecture that supervises LLM-gene
 - **Der Generator** - LLM prompt construction and YAML response parsing
 - **Der Validator** - Multi-stage schema + physics constraint verification
 - **Der Supervisor** - Orchestrates generate -> validate -> feedback -> retry loop
-- **Backends** - Claude API, Ollama (local), extensible backend interface
+- **Backends** - OpenAI Responses API, Claude API, Ollama (local), extensible backend interface
